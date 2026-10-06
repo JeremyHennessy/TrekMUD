@@ -1,0 +1,38 @@
+name: Validate proposed rules mechanics
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - rules/**
+      - scripts/trek_rng.py
+      - .github/workflows/validate-rules.yml
+  push:
+    branches:
+      - rules-v1-draft
+    paths:
+      - rules/**
+      - scripts/trek_rng.py
+      - .github/workflows/validate-rules.yml
+
+permissions:
+  contents: read
+
+jobs:
+  mechanics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile deterministic RNG
+        run: python -m py_compile scripts/trek_rng.py
+
+      - name: Run fixed RNG test vector
+        run: python scripts/trek_rng.py --self-test
