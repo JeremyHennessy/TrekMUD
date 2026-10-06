@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "revision": 0,
+  "shipId": "USS-MERIDIAN",
+  "nominalCrewComplement": 500,
+  "materializedCrew": [],
+  "backgroundPopulation": {
+    "count": 500,
+    "note": "Pre-campaign placeholder. Final complement and department distribution are set when the Meridian roster baseline is approved."
+  }
+}
