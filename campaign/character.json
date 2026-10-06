@@ -3,8 +3,8 @@
     "age": 30,
     "assignment": {
       "registry": "NCC-63542",
-      "shipId": "USS-MERIDIAN",
-      "shipName": "USS Meridian",
+      "shipId": "USS-ASTERIA",
+      "shipName": "USS Asteria",
       "startStardate": 49317.4,
       "startYear": 2372
     },
@@ -47,7 +47,7 @@
     "primaryShift": null,
     "primarySpecialty": null,
     "pronouns": "he/him",
-    "quartersId": "MER-D07-S12-0712C",
+    "quartersId": "AST-D07-S12-0712C",
     "rank": "Ensign",
     "secondarySpecialty": null,
     "skills": {
@@ -67,7 +67,7 @@
     },
     "species": "Human"
   },
-  "revision": 2,
+  "revision": 3,
   "schemaVersion": 1,
   "status": "CREATED_DISCOVERING"
 }

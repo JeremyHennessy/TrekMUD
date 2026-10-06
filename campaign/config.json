@@ -1,12 +1,13 @@
 {
   "baselines": {
     "crew": "4fd20fd79c493735199fd1c8513fd8b0560fca32",
+    "currentShip": "asteria-v1",
     "lore": "584e27b794c0a4c82d06d580621fd93c632fe312",
     "rules": "d0feb35647e2a9dc43aa19f8930f709a4fd61b5b",
     "stateEngine": "f96ccdee9dcbd096b42c187539efaf71fbbed914",
     "topology": "bf9b0f0b94e4853d471b178d6ad8fb0e50d625a9"
   },
-  "campaignName": "TrekMUD: USS Meridian",
+  "campaignName": "TrekMUD: USS Asteria",
   "characterCreationVersion": "1.1-organic",
   "era": {
     "futureCanonIsGMOnly": true,
@@ -30,18 +31,25 @@
   },
   "rulesVersion": "1.1",
   "schemaVersion": 1,
+  "shipRetcon": {
+    "effectiveRevision": 3,
+    "from": "USS Meridian / Akira-class",
+    "inUniverseEvent": false,
+    "reason": "Pre-play campaign baseline revision requested before Scene One.",
+    "to": "USS Asteria / Nebula-class"
+  },
   "spoilerSafety": {
     "commitHiddenGMState": false,
     "publicRepository": true
   },
   "start": {
-    "arrivalLocationId": "MER-D09-TR-02",
+    "arrivalLocationId": "AST-D09-TR-02",
     "location": "Starbase 375",
     "playerRank": "Ensign",
-    "quartersId": "MER-D07-S12-0712C",
+    "quartersId": "AST-D07-S12-0712C",
     "registry": "NCC-63542",
-    "ship": "USS Meridian",
-    "shipClass": "Akira-class",
+    "ship": "USS Asteria",
+    "shipClass": "Nebula-class",
     "stardate": 49317.4,
     "year": 2372
   },

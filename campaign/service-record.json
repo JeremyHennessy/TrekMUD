@@ -6,13 +6,13 @@
       "department": "Science",
       "id": "SR-00001",
       "rank": "Ensign",
-      "shipId": "USS-MERIDIAN",
+      "shipId": "USS-ASTERIA",
       "stardate": 49317.4,
-      "summary": "Reported aboard USS Meridian for initial assignment.",
+      "summary": "Reported aboard USS Asteria for initial assignment.",
       "type": "ASSIGNMENT",
       "year": 2372
     }
   ],
-  "revision": 2,
+  "revision": 3,
   "schemaVersion": 1
 }

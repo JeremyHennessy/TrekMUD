@@ -1,10 +1,10 @@
 {
   "backgroundPopulation": {
-    "count": 480,
-    "note": "Tier-3 background crew remain statistical until play materializes persistent identities."
+    "count": 729,
+    "note": "Tier-3 background crew excluding Jeremy and 20 materialized NPCs; identities materialize through play."
   },
-  "baselineCommit": "4fd20fd79c493735199fd1c8513fd8b0560fca32",
-  "baselineStatus": "APPROVED",
+  "baselineStatus": "APPROVED_RETCON",
+  "baselineVersion": "asteria-v1",
   "materializedCrew": [
     {
       "billet": "Commanding Officer",
@@ -168,7 +168,7 @@
       "id": "CREW-015",
       "name": "Rin Talis",
       "primaryShift": "BETA",
-      "quartersCandidate": "MER-D07-S12-0712A",
+      "quartersCandidate": "AST-D07-S12-0712A",
       "rank": "Ensign",
       "species": "Trill",
       "status": "ACTIVE",
@@ -180,7 +180,7 @@
       "id": "CREW-016",
       "name": "Adrian Bell",
       "primaryShift": "GAMMA",
-      "quartersCandidate": "MER-D07-S12-0712B",
+      "quartersCandidate": "AST-D07-S12-0712B",
       "rank": "Ensign",
       "species": "Human",
       "status": "ACTIVE",
@@ -192,7 +192,7 @@
       "id": "CREW-017",
       "name": "Sorel",
       "primaryShift": "ALPHA",
-      "quartersCandidate": "MER-D07-S12-0712D",
+      "quartersCandidate": "AST-D07-S12-0712D",
       "rank": "Ensign",
       "species": "Vulcan",
       "status": "ACTIVE",
@@ -232,8 +232,9 @@
       "tier": 2
     }
   ],
-  "nominalCrewComplement": 500,
-  "revision": 2,
+  "nominalCrewComplement": 750,
+  "playerIncludedInComplement": true,
+  "revision": 3,
   "schemaVersion": 1,
-  "shipId": "USS-MERIDIAN"
+  "shipId": "USS-ASTERIA"
 }

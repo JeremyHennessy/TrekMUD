@@ -1,0 +1,35 @@
+{
+  "checkpointId": "r00003",
+  "createdAt": "2026-10-06T20:13:03.448811+00:00",
+  "files": {
+    "campaign/CHRONICLE.md": "6ad27cc0fb18f325aa7200882c6df41990da2a0aff27b7d61df64cca9aa65a04",
+    "campaign/active-threads.json": "651cec8948dadea3ee92163ad35859e8864e819cdb0c89f27f96890cd67455d8",
+    "campaign/calendar.json": "d4d1c87e952cd0fe762a7ba54fcbb015b7bd82974710894c6014fa54b6c9f538",
+    "campaign/character.json": "654cba344842f580099c77fce8e1ea7837e7f3787e07f0254d40722da49a78c7",
+    "campaign/config.json": "5bf5b7a9bbdd9fd602635371f99f8f3e5e5e9a9e636b29efddbf72f47530fe0f",
+    "campaign/crew.json": "ce6ddcc4a71d60fdac024901352267c3265dda31db6ee3624411dc139e41e703",
+    "campaign/inventory.json": "60e49f11e70f0288412f1ef1d81cd516865c10a1b287f8e8bf0a9d0b0981e675",
+    "campaign/knowledge.json": "0797b6287b4d74524270bc08d95d80a0cbf5dc84a4e5438e3a78fb0411fa1c96",
+    "campaign/locations.json": "6ada0e63e594ceebeef0b78a333285314d173dfe7c2d6077f9cccb1c680bd65c",
+    "campaign/qualifications.json": "72b9cee4dce99bfd319b1e51e7775eaea63d9dd86105107936bb35e0b71e7847",
+    "campaign/relationships.json": "d9d3aac5bd3686196e2eccb6911109ae735adb204c401bc3ff0ef08999dc6103",
+    "campaign/rng.json": "d12dd405abe4e4b9c8ea12f8419866882e9dec88b0fe2fc921cdc7cce5d2cc63",
+    "campaign/service-record.json": "8ed86f49f593d18dfc02ba93696efb6ed3eb388771a5d5a89bd2d693b21974d5",
+    "campaign/ship.json": "bd9f41f540e4f9f0f7c589b206e8e07c930ac2bbe0978aeb18dd3cb12baea7eb",
+    "campaign/state.json": "c8879fce9a08df152384cd3ed878abfeea1479e5c88939ecaeec07523c834163"
+  },
+  "previousCheckpointId": "r00002",
+  "revision": 3,
+  "rulesVersion": "1.1",
+  "schemaVersion": 1,
+  "summary": "Pre-play baseline retcon to USS Asteria Nebula-class",
+  "validation": {
+    "locations": 200,
+    "materializedCrew": 20,
+    "revision": 3,
+    "rngCounter": 0,
+    "status": "READY_TO_START",
+    "threads": 1,
+    "valid": true
+  }
+}

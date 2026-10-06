@@ -1,20 +1,26 @@
 {
-  "revision": 2,
+  "revision": 3,
   "schemaVersion": 1,
   "ship": {
     "alertCondition": "normal",
-    "class": "Akira-class",
+    "class": "Nebula-class",
     "commandingOfficerId": "CREW-001",
-    "commissioned": 2371,
+    "commissioned": 2367,
     "damage": [],
     "executiveOfficerId": "CREW-002",
-    "id": "USS-MERIDIAN",
+    "id": "USS-ASTERIA",
     "location": "Starbase 375",
     "mission": null,
-    "name": "USS Meridian",
+    "name": "USS Asteria",
     "registry": "NCC-63542",
     "registrySource": "TREKMUD_ORIGINAL",
     "secondOfficerId": "CREW-003",
-    "systems": {}
+    "systems": {
+      "dorsalPod": {
+        "levels": 4,
+        "status": "nominal",
+        "type": "triangular sensor/science pod"
+      }
+    }
   }
 }
