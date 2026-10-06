@@ -74,15 +74,12 @@ TM.renderShip=()=>{
       '</div></section>'+
     '</div>';
   document.querySelectorAll("[data-open-map]").forEach(b=>b.onclick=()=>{
-    TM.S.view="map";TM.S.mapKey=b.dataset.openMap;TM.S.selectedLocation=null;
-    document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("active",x.dataset.view==="map"));
-    TM.render();
+    TM.S.mapKey=b.dataset.openMap;TM.S.selectedLocation=null;
+    if(location.hash==="#map")TM.setView("map"); else location.hash="map";
   });
   document.querySelectorAll("[data-route-id]").forEach(b=>b.onclick=()=>{
     TM.startRoute(b.dataset.routeId);
-    TM.S.view="map";
-    document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("active",x.dataset.view==="map"));
-    TM.render();
+    if(location.hash==="#map")TM.setView("map"); else location.hash="map";
   });
 };
 
