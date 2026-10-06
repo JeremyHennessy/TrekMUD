@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "baseline": "trekmud-rules",
+  "version": "1.1",
+  "status": "APPROVED",
+  "approvedDate": "2026-10-06",
+  "commit": "04e32dc3aaa01af3d2bf1828c39bd089e506ad71",
+  "supersedesForNewCharacters": "1.0",
+  "preservesHistoricalCheckpoint": "r00000",
+  "scope": "Organic Character Discovery only; all other v1.0 mechanics remain unchanged.",
+  "requiredPreSceneOneFields": [
+    "name",
+    "species",
+    "age",
+    "optional pronouns",
+    "homeworld/upbringing",
+    "Starfleet department"
+  ],
+  "unresolvedAtR00001": [
+    "attribute placement",
+    "three rank-1 Academy skill slots",
+    "department specialty",
+    "secondary specialty",
+    "interests",
+    "development areas",
+    "detailed background",
+    "individual traits",
+    "long-term career ambition"
+  ],
+  "discoveryPrinciples": [
+    "unresolved is not zero",
+    "mechanically necessary values lock before the roll",
+    "player retains authority over legal unresolved starting choices",
+    "locked discoveries persist and cannot be changed for optimization"
+  ]
+}

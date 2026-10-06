@@ -7,7 +7,7 @@ A baseline manifest does not mean the repository can never evolve. It means futu
 Approved baseline commits:
 
 - persistent campaign state engine v1 — `f96ccdee9dcbd096b42c187539efaf71fbbed914`
-- Rules v1.0 — `d0feb35647e2a9dc43aa19f8930f709a4fd61b5b`
+- Rules v1.0 — `d0feb35647e2a9dc43aa19f8930f709a4fd61b5b`\n- Rules v1.1 Organic Character Discovery — `04e32dc3aaa01af3d2bf1828c39bd089e506ad71`
 - USS Meridian topology v1.0 — `bf9b0f0b94e4853d471b178d6ad8fb0e50d625a9`
 
 - Star Trek structured lore baseline v1 — `584e27b794c0a4c82d06d580621fd93c632fe312`
