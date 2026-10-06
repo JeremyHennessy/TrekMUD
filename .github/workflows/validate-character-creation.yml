@@ -11,7 +11,9 @@ on:
       - campaign/CHARACTER_CREATION.md
       - campaign/character-template.json
       - scripts/create_character.py
+      - scripts/apply_character_discovery.py
       - tests/fixtures/character-engineering.json
+      - tests/fixtures/discovery-first.json
       - .github/workflows/validate-character-creation.yml
   pull_request:
     branches:
@@ -20,7 +22,9 @@ on:
       - campaign/CHARACTER_CREATION.md
       - campaign/character-template.json
       - scripts/create_character.py
+      - scripts/apply_character_discovery.py
       - tests/fixtures/character-engineering.json
+      - tests/fixtures/discovery-first.json
       - .github/workflows/validate-character-creation.yml
 
 permissions:
@@ -37,7 +41,7 @@ jobs:
           python-version: '3.12'
 
       - name: Compile character tooling
-        run: python -m py_compile scripts/create_character.py
+        run: python -m py_compile scripts/create_character.py scripts/apply_character_discovery.py
 
       - name: Validate selection schema
         run: python scripts/create_character.py --input tests/fixtures/character-engineering.json --validate-only
@@ -83,4 +87,42 @@ jobs:
           assert cp["previousCheckpointId"] == "r00000"
           assert cp["validation"]["valid"] is True
           print("organic revision-1 fixture checkpoint verified")
+          PY
+
+          python scripts/apply_character_discovery.py --root "$tmp" --input tests/fixtures/discovery-first.json
+          python scripts/create_checkpoint.py --root "$tmp" --summary "CI organic discovery fixture"
+          test -f "$tmp/campaign/checkpoints/r00002.json"
+          python scripts/validate_campaign.py --root "$tmp"
+          python - "$tmp/campaign/state.json" "$tmp/campaign/character.json" "$tmp/campaign/checkpoints/r00002.json" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          state = json.loads(Path(sys.argv[1]).read_text())
+          character = json.loads(Path(sys.argv[2]).read_text())["character"]
+          cp = json.loads(Path(sys.argv[3]).read_text())
+          discovery = character["discoveryState"]
+
+          assert state["revision"] == 2
+          assert state["rulesVersion"] == "1.1"
+          assert character["attributes"]["Perception"] == 2
+          assert sorted(discovery["attributePoolRemaining"]) == [1, 1, 1, 2]
+          assert character["skills"]["Engineering"] == 2
+          assert character["skills"]["Computers"] == 1
+          assert discovery["academyRank1SlotsRemaining"] == 2
+          assert character["primarySpecialty"] == {
+              "skill": "Engineering",
+              "name": "Power Distribution / EPS",
+          }
+          assert discovery["departmentSpecialtyAvailable"] is False
+          assert "Old Earth jazz" in discovery["personalInterests"]
+          assert any("Miranda-class" in fact for fact in discovery["backgroundFacts"])
+          assert len(discovery["locks"]) == 5
+
+          assert cp["checkpointId"] == "r00002"
+          assert cp["previousCheckpointId"] == "r00001"
+          assert cp["revision"] == 2
+          assert cp["rulesVersion"] == "1.1"
+          assert cp["validation"]["valid"] is True
+          print("organic discovery revision-2 fixture checkpoint verified")
           PY
