@@ -9,13 +9,20 @@ TM.unresolvedCount=o=>Object.values(o||{}).filter(v=>v==null).length;
 TM.deckLabel=x=>x?.deck!=null?"Deck "+x.deck+(x.section?" · Section "+x.section:""):(x?.section||"Ship location");
 TM.shortName=s=>String(s||"").replace("Central ","").replace("Junior Officer ","").replace(" — Deck "+TM.S.deck,"").slice(0,22);
 TM.showModal=html=>{TM.$("#modal-content").innerHTML=html;TM.$("#modal").showModal()};
+TM.setView=view=>{
+  if(!TM.titleMap[view])view="now";
+  TM.S.view=view;
+  document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("active",x.dataset.view===view));
+  TM.render();
+};
 TM.bind=()=>{
   document.querySelectorAll("#nav button").forEach(b=>b.onclick=()=>{
-    TM.S.view=b.dataset.view;
-    document.querySelectorAll("#nav button").forEach(x=>x.classList.toggle("active",x===b));
-    TM.render();
+    const view=b.dataset.view;
+    if(location.hash!=="#"+view)location.hash=view;
+    else TM.setView(view);
   });
   TM.$("#modal-close").onclick=()=>TM.$("#modal").close();
+  window.addEventListener("hashchange",()=>TM.setView(location.hash.replace(/^#/,"")||"now"));
 };
 TM.render=()=>{
   document.title="TrekMUD · "+TM.titleMap[TM.S.view];
@@ -36,7 +43,7 @@ TM.boot=async()=>{
     TM.S.deck=d.now.location?.deck||9;
     TM.S.mapKey=d.map?.currentKey||String(TM.S.deck);
     TM.bind();
-    TM.render();
+    TM.setView(location.hash.replace(/^#/,"")||"now");
   }catch(e){
     TM.$("#view").innerHTML='<article class="card"><h2>Console unavailable</h2><p class="mini">'+TM.esc(e.message)+'</p></article>';
   }
