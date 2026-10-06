@@ -1,0 +1,5141 @@
+{
+  "apiVersion": 2,
+  "collectionKey": "titles",
+  "count": 570,
+  "endpoint": "https://stapi.co/api/v2/rest/title/search",
+  "fetchedAt": "2026-10-06T02:58:14.937794+00:00",
+  "records": [
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "President of the United Federation of Planets",
+      "religiousTitle": false,
+      "uid": "TIMA0000000404"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chancellor of the Klingon High Council",
+      "religiousTitle": false,
+      "uid": "TIMA0000001276"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Commanding officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000001283"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Commander",
+      "religiousTitle": false,
+      "uid": "TIMA0000001294"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Lieutenant",
+      "religiousTitle": false,
+      "uid": "TIMA0000001719"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "General",
+      "religiousTitle": false,
+      "uid": "TIMA0000001723"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Brigadier",
+      "religiousTitle": false,
+      "uid": "TIMA0000001724"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Colonel",
+      "religiousTitle": false,
+      "uid": "TIMA0000001725"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Major",
+      "religiousTitle": false,
+      "uid": "TIMA0000001726"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Autarch",
+      "religiousTitle": false,
+      "uid": "TIMA0000001838"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Fleet admiral",
+      "religiousTitle": false,
+      "uid": "TIMA0000001960"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Lieutenant junior grade",
+      "religiousTitle": false,
+      "uid": "TIMA0000001971"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chancellor",
+      "religiousTitle": false,
+      "uid": "TIMA0000003383"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Ensign",
+      "religiousTitle": false,
+      "uid": "TIMA0000003802"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief medical officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000003807"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "First officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000003808"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Prefect",
+      "religiousTitle": false,
+      "uid": "TIMA0000003948"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief of security",
+      "religiousTitle": false,
+      "uid": "TIMA0000003956"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Fleet captain",
+      "religiousTitle": false,
+      "uid": "TIMA0000003987"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Praetor",
+      "religiousTitle": false,
+      "uid": "TIMA0000004699"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Grand Nagus",
+      "religiousTitle": false,
+      "uid": "TIMA0000004731"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Enlisted",
+      "religiousTitle": false,
+      "uid": "TIMA0000004743"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief",
+      "religiousTitle": false,
+      "uid": "TIMA0000004857"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Arbiter of Succession",
+      "religiousTitle": false,
+      "uid": "TIMA0000004975"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Constable",
+      "religiousTitle": false,
+      "uid": "TIMA0000005009"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Private",
+      "religiousTitle": false,
+      "uid": "TIMA0000005170"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Commodore",
+      "religiousTitle": false,
+      "uid": "TIMA0000005203"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Corporal",
+      "religiousTitle": false,
+      "uid": "TIMA0000005210"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Crewman",
+      "religiousTitle": false,
+      "uid": "TIMA0000005212"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Pri'Nam",
+      "religiousTitle": true,
+      "uid": "TIMA0000005587"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Inspector",
+      "religiousTitle": false,
+      "uid": "TIMA0000005780"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Ambassador",
+      "religiousTitle": false,
+      "uid": "TIMA0000005850"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Emissary of the Prophets",
+      "religiousTitle": true,
+      "uid": "TIMA0000006125"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Kai",
+      "religiousTitle": true,
+      "uid": "TIMA0000006127"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Vedek",
+      "religiousTitle": true,
+      "uid": "TIMA0000006129"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Prylar",
+      "religiousTitle": true,
+      "uid": "TIMA0000006141"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Ranjen",
+      "religiousTitle": true,
+      "uid": "TIMA0000006142"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Security officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000006152"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Yeoman",
+      "religiousTitle": false,
+      "uid": "TIMA0000006210"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Jal",
+      "religiousTitle": false,
+      "uid": "TIMA0000006227"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "DaiMon",
+      "religiousTitle": false,
+      "uid": "TIMA0000006319"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Marshal",
+      "religiousTitle": false,
+      "uid": "TIMA0000006339"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Cadet",
+      "religiousTitle": false,
+      "uid": "TIMA0000006372"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "First maje",
+      "religiousTitle": false,
+      "uid": "TIMA0000006539"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Counselor",
+      "religiousTitle": false,
+      "uid": "TIMA0000006564"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Morale officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000006572"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Operations officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000006741"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief science officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000006841"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Commander in chief",
+      "religiousTitle": false,
+      "uid": "TIMA0000007088"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Bekk",
+      "religiousTitle": false,
+      "uid": "TIMA0000007637"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Specialist",
+      "religiousTitle": false,
+      "uid": "TIMA0000007713"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Vice admiral",
+      "religiousTitle": false,
+      "uid": "TIMA0000008563"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Squire",
+      "religiousTitle": false,
+      "uid": "TIMA0000008726"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Klingon emperor",
+      "religiousTitle": false,
+      "uid": "TIMA0000008789"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Hetman",
+      "religiousTitle": false,
+      "uid": "TIMA0000008911"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Regent",
+      "religiousTitle": false,
+      "uid": "TIMA0000009039"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Intendant",
+      "religiousTitle": false,
+      "uid": "TIMA0000009086"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Dohlman",
+      "religiousTitle": false,
+      "uid": "TIMA0000009091"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief of operations",
+      "religiousTitle": false,
+      "uid": "TIMA0000009248"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Proconsul",
+      "religiousTitle": false,
+      "uid": "TIMA0000009347"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Dahar master",
+      "religiousTitle": false,
+      "uid": "TIMA0000010155"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Non-commissioned officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000010986"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Rear admiral",
+      "religiousTitle": false,
+      "uid": "TIMA0000011516"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Lieutenant colonel",
+      "religiousTitle": false,
+      "uid": "TIMA0000012090"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Uhlan",
+      "religiousTitle": false,
+      "uid": "TIMA0000012130"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Elected One",
+      "religiousTitle": false,
+      "uid": "TIMA0000012333"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief tactical officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000012335"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Subaltern",
+      "religiousTitle": false,
+      "uid": "TIMA0000012484"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Consul",
+      "religiousTitle": false,
+      "uid": "TIMA0000012768"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Helmsman",
+      "religiousTitle": false,
+      "uid": "TIMA0000013181"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chirurgeon",
+      "religiousTitle": false,
+      "uid": "TIMA0000013292"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Centurion",
+      "religiousTitle": false,
+      "uid": "TIMA0000013544"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Sublieutenant",
+      "religiousTitle": false,
+      "uid": "TIMA0000013545"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Sirah",
+      "religiousTitle": false,
+      "uid": "TIMA0000013556"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Prime minister",
+      "religiousTitle": false,
+      "uid": "TIMA0000013602"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Subahdar",
+      "religiousTitle": false,
+      "uid": "TIMA0000013654"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Ahdar",
+      "religiousTitle": false,
+      "uid": "TIMA0000013655"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Strategic operations officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000013717"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Regent of Palamar",
+      "religiousTitle": false,
+      "uid": "TIMA0000013753"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Liquidator",
+      "religiousTitle": false,
+      "uid": "TIMA0000013946"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Thot",
+      "religiousTitle": false,
+      "uid": "TIMA0000014743"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Judge Advocate General",
+      "religiousTitle": false,
+      "uid": "TIMA0000014796"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Second officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000015101"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Staff officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000015202"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Minister",
+      "religiousTitle": false,
+      "uid": "TIMA0000015298"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Senator",
+      "religiousTitle": false,
+      "uid": "TIMA0000015340"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Governor",
+      "religiousTitle": false,
+      "uid": "TIMA0000015826"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Technician",
+      "religiousTitle": false,
+      "uid": "TIMA0000015827"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Commissioner",
+      "religiousTitle": false,
+      "uid": "TIMA0000016198"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Second lieutenant",
+      "religiousTitle": false,
+      "uid": "TIMA0000016803"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "First lieutenant",
+      "religiousTitle": false,
+      "uid": "TIMA0000016804"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "High Teer",
+      "religiousTitle": false,
+      "uid": "TIMA0000016810"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Petty officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000017024"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "First sergeant",
+      "religiousTitle": false,
+      "uid": "TIMA0000017039"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Midshipman",
+      "religiousTitle": false,
+      "uid": "TIMA0000017072"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Major general",
+      "religiousTitle": false,
+      "uid": "TIMA0000017081"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Lieutenant general",
+      "religiousTitle": false,
+      "uid": "TIMA0000017083"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Chief petty officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000017109"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Flag officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000017185"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Healer",
+      "religiousTitle": false,
+      "uid": "TIMA0000017365"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Führer",
+      "religiousTitle": false,
+      "uid": "TIMA0000017588"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Groppler",
+      "religiousTitle": false,
+      "uid": "TIMA0000018166"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Vice-proconsul",
+      "religiousTitle": false,
+      "uid": "TIMA0000018651"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Navarch",
+      "religiousTitle": true,
+      "uid": "TIMA0000018910"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Deputy director",
+      "religiousTitle": false,
+      "uid": "TIMA0000019134"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Trainee",
+      "religiousTitle": false,
+      "uid": "TIMA0000019282"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Nestor",
+      "religiousTitle": false,
+      "uid": "TIMA0000019496"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Doctor",
+      "religiousTitle": false,
+      "uid": "TIMA0000020300"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Conservator",
+      "religiousTitle": false,
+      "uid": "TIMA0000021171"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Alpha Hirogen",
+      "religiousTitle": false,
+      "uid": "TIMA0000021194"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "President of Earth",
+      "religiousTitle": false,
+      "uid": "TIMA0000021371"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Professor",
+      "religiousTitle": false,
+      "uid": "TIMA0000021401"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Geologist",
+      "religiousTitle": false,
+      "uid": "TIMA0000021467"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Guardian",
+      "religiousTitle": false,
+      "uid": "TIMA0000021576"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "First Clerk",
+      "religiousTitle": false,
+      "uid": "TIMA0000021737"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Beta Hirogen",
+      "religiousTitle": false,
+      "uid": "TIMA0000021896"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chairman",
+      "religiousTitle": false,
+      "uid": "TIMA0000022052"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Liaison officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000022122"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "High Commissioner",
+      "religiousTitle": false,
+      "uid": "TIMA0000022565"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Lucasian Chair",
+      "religiousTitle": false,
+      "uid": "TIMA0000023280"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Commandant",
+      "religiousTitle": false,
+      "uid": "TIMA0000023458"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Assistant chief engineer",
+      "religiousTitle": false,
+      "uid": "TIMA0000023983"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Supreme commander",
+      "religiousTitle": false,
+      "uid": "TIMA0000024173"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Soh-chIm",
+      "religiousTitle": false,
+      "uid": "TIMA0000024561"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Exarch",
+      "religiousTitle": false,
+      "uid": "TIMA0000024936"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "High Sheriff of Nottingham",
+      "religiousTitle": false,
+      "uid": "TIMA0000025091"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Captain's personal guard",
+      "religiousTitle": false,
+      "uid": "TIMA0000025114"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Portal",
+      "religiousTitle": false,
+      "uid": "TIMA0000025305"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Overseer",
+      "religiousTitle": false,
+      "uid": "TIMA0000025324"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Emperor",
+      "religiousTitle": false,
+      "uid": "TIMA0000026286"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Honored Elder",
+      "religiousTitle": false,
+      "uid": "TIMA0000026293"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Captain's woman",
+      "religiousTitle": false,
+      "uid": "TIMA0000026431"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Queen of England",
+      "religiousTitle": false,
+      "uid": "TIMA0000027223"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Professor of Engineering",
+      "religiousTitle": false,
+      "uid": "TIMA0000027399"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Cha'DIch",
+      "religiousTitle": false,
+      "uid": "TIMA0000027749"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Queen",
+      "religiousTitle": false,
+      "uid": "TIMA0000027846"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Fakir",
+      "religiousTitle": true,
+      "uid": "TIMA0000028055"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief of staff",
+      "religiousTitle": false,
+      "uid": "TIMA0000028106"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief Archon",
+      "religiousTitle": false,
+      "uid": "TIMA0000028349"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Grand Proxy",
+      "religiousTitle": false,
+      "uid": "TIMA0000028708"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief of Starfleet Operations",
+      "religiousTitle": false,
+      "uid": "TIMA0000028803"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Convoy liaison officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000028956"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief of Starfleet Intelligence",
+      "religiousTitle": false,
+      "uid": "TIMA0000029357"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "King",
+      "religiousTitle": false,
+      "uid": "TIMA0000029604"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Vulcan master",
+      "religiousTitle": true,
+      "uid": "TIMA0000030376"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Third officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000030413"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Caesar",
+      "religiousTitle": false,
+      "uid": "TIMA0000031082"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "First Monarch",
+      "religiousTitle": false,
+      "uid": "TIMA0000031311"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Boss",
+      "religiousTitle": false,
+      "uid": "TIMA0000031815"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Deputy",
+      "religiousTitle": false,
+      "uid": "TIMA0000032090"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Acting ensign",
+      "religiousTitle": false,
+      "uid": "TIMA0000032394"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Prelate",
+      "religiousTitle": false,
+      "uid": "TIMA0000034018"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Commander, Starfleet",
+      "religiousTitle": false,
+      "uid": "TIMA0000034097"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Sovereign",
+      "religiousTitle": false,
+      "uid": "TIMA0000035171"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Master",
+      "religiousTitle": false,
+      "uid": "TIMA0000035693"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Lord",
+      "religiousTitle": false,
+      "uid": "TIMA0000036545"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "President of the United States",
+      "religiousTitle": false,
+      "uid": "TIMA0000036595"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Supreme Archon",
+      "religiousTitle": false,
+      "uid": "TIMA0000036740"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Viceroy",
+      "religiousTitle": false,
+      "uid": "TIMA0000036915"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Basai Master",
+      "religiousTitle": false,
+      "uid": "TIMA0000036922"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "First Citizen",
+      "religiousTitle": false,
+      "uid": "TIMA0000037156"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "First Appointee",
+      "religiousTitle": false,
+      "uid": "TIMA0000037361"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Tetrarch",
+      "religiousTitle": false,
+      "uid": "TIMA0000037475"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Mediator",
+      "religiousTitle": false,
+      "uid": "TIMA0000037513"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Peretor",
+      "religiousTitle": false,
+      "uid": "TIMA0000037546"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Number one",
+      "religiousTitle": false,
+      "uid": "TIMA0000038049"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Fleet liaison officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000039380"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Judge",
+      "religiousTitle": false,
+      "uid": "TIMA0000039420"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Sub-commander",
+      "religiousTitle": false,
+      "uid": "TIMA0000039986"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "First Electorine",
+      "religiousTitle": false,
+      "uid": "TIMA0000040931"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Tribal priestess",
+      "religiousTitle": true,
+      "uid": "TIMA0000041019"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Staff sergeant",
+      "religiousTitle": false,
+      "uid": "TIMA0000041255"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Sheriff",
+      "religiousTitle": false,
+      "uid": "TIMA0000041584"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Mister",
+      "religiousTitle": false,
+      "uid": "TIMA0000043230"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Gin'tak",
+      "religiousTitle": false,
+      "uid": "TIMA0000043511"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Protocol Master",
+      "religiousTitle": false,
+      "uid": "TIMA0000043517"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "TAC officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000044057"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Master sergeant",
+      "religiousTitle": false,
+      "uid": "TIMA0000045247"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief facilitator",
+      "religiousTitle": false,
+      "uid": "TIMA0000047229"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Captain's assistant",
+      "religiousTitle": false,
+      "uid": "TIMA0000047236"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Protector",
+      "religiousTitle": false,
+      "uid": "TIMA0000048148"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Intelligence officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000049202"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Admiral",
+      "religiousTitle": false,
+      "uid": "TIMA0000049219"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Academy Range Officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000049383"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "King of Leinster",
+      "religiousTitle": false,
+      "uid": "TIMA0000050908"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Fleet commander",
+      "religiousTitle": false,
+      "uid": "TIMA0000051029"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "District Sub-Nagus",
+      "religiousTitle": false,
+      "uid": "TIMA0000051062"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Preacher",
+      "religiousTitle": true,
+      "uid": "TIMA0000051592"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Eagle Scout",
+      "religiousTitle": false,
+      "uid": "TIMA0000052474"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Ranking officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000053979"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Investigator",
+      "religiousTitle": false,
+      "uid": "TIMA0000054185"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Supreme Prefect",
+      "religiousTitle": false,
+      "uid": "TIMA0000054465"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Minister of State",
+      "religiousTitle": false,
+      "uid": "TIMA0000054580"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Prime ossemite",
+      "religiousTitle": false,
+      "uid": "TIMA0000054592"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Salutatorian",
+      "religiousTitle": false,
+      "uid": "TIMA0000057208"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Valedictorian",
+      "religiousTitle": false,
+      "uid": "TIMA0000057209"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Dais bearer",
+      "religiousTitle": true,
+      "uid": "TIMA0000057400"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Field commission",
+      "religiousTitle": false,
+      "uid": "TIMA0000058726"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "High Tribune",
+      "religiousTitle": false,
+      "uid": "TIMA0000061112"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Highest of Kzin",
+      "religiousTitle": false,
+      "uid": "TIMA0000062000"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Undersecretary in Charge of Agricultural Affairs",
+      "religiousTitle": false,
+      "uid": "TIMA0000063905"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Excellency",
+      "religiousTitle": false,
+      "uid": "TIMA0000064046"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Imperial overseer",
+      "religiousTitle": false,
+      "uid": "TIMA0000064348"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Lieutenant commander",
+      "religiousTitle": false,
+      "uid": "TIMA0000064866"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Captain",
+      "religiousTitle": false,
+      "uid": "TIMA0000064875"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Acting captain",
+      "religiousTitle": false,
+      "uid": "TIMA0000065841"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Mendant",
+      "religiousTitle": false,
+      "uid": "TIMA0000066670"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Saint",
+      "religiousTitle": false,
+      "uid": "TIMA0000067418"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Councilor",
+      "religiousTitle": false,
+      "uid": "TIMA0000067583"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Recruit",
+      "religiousTitle": false,
+      "uid": "TIMA0000067777"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Captain of engineering",
+      "religiousTitle": false,
+      "uid": "TIMA0000067923"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Dictator",
+      "religiousTitle": false,
+      "uid": "TIMA0000068838"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Military governor",
+      "religiousTitle": false,
+      "uid": "TIMA0000069336"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "First One",
+      "religiousTitle": false,
+      "uid": "TIMA0000070290"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Second One",
+      "religiousTitle": false,
+      "uid": "TIMA0000070292"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Cardinal",
+      "religiousTitle": true,
+      "uid": "TIMA0000072046"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "First Prelate",
+      "religiousTitle": false,
+      "uid": "TIMA0000073199"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief Examiner",
+      "religiousTitle": false,
+      "uid": "TIMA0000073383"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Director",
+      "religiousTitle": false,
+      "uid": "TIMA0000075086"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Prince",
+      "religiousTitle": false,
+      "uid": "TIMA0000075780"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Mayor",
+      "religiousTitle": false,
+      "uid": "TIMA0000076477"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Airman",
+      "religiousTitle": false,
+      "uid": "TIMA0000077481"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Personnel officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000078035"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Command duty officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000080102"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Monk",
+      "religiousTitle": true,
+      "uid": "TIMA0000080394"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Assistant counsel",
+      "religiousTitle": false,
+      "uid": "TIMA0000081760"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Personnel director",
+      "religiousTitle": false,
+      "uid": "TIMA0000081960"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Oracle of K'Tal",
+      "religiousTitle": true,
+      "uid": "TIMA0000082165"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Bachelor of Science",
+      "religiousTitle": false,
+      "uid": "TIMA0000082353"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Master thrall",
+      "religiousTitle": false,
+      "uid": "TIMA0000082655"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Inspector general",
+      "religiousTitle": false,
+      "uid": "TIMA0000083270"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Eminence",
+      "religiousTitle": true,
+      "uid": "TIMA0000083957"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Tsar",
+      "religiousTitle": false,
+      "uid": "TIMA0000084416"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Space Hero",
+      "religiousTitle": false,
+      "uid": "TIMA0000084760"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Top Gun",
+      "religiousTitle": false,
+      "uid": "TIMA0000084764"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Junior officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000085587"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Priest",
+      "religiousTitle": true,
+      "uid": "TIMA0000085696"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief of Starfleet Security",
+      "religiousTitle": false,
+      "uid": "TIMA0000087465"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Countess",
+      "religiousTitle": false,
+      "uid": "TIMA0000088536"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "First Castellan",
+      "religiousTitle": false,
+      "uid": "TIMA0000089209"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Grandmaster",
+      "religiousTitle": false,
+      "uid": "TIMA0000089565"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Doctor of Medicine",
+      "religiousTitle": false,
+      "uid": "TIMA0000091413"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Deputy Führer",
+      "religiousTitle": false,
+      "uid": "TIMA0000093519"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Portmaster",
+      "religiousTitle": false,
+      "uid": "TIMA0000093527"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Warrant officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000093561"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Assistant Manager of Policy and Clientele",
+      "religiousTitle": false,
+      "uid": "TIMA0000094626"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Diagnostic and Repair Technician, Junior Grade",
+      "religiousTitle": false,
+      "uid": "TIMA0000094760"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Consort",
+      "religiousTitle": false,
+      "uid": "TIMA0000097326"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Subhadar",
+      "religiousTitle": false,
+      "uid": "TIMA0000097512"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Doctor of Philosophy",
+      "religiousTitle": false,
+      "uid": "TIMA0000102375"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Class 1 overseer",
+      "religiousTitle": false,
+      "uid": "TIMA0000102477"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Minister of security",
+      "religiousTitle": false,
+      "uid": "TIMA0000102604"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": true,
+      "name": "Senior officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000102961"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Supervisor",
+      "religiousTitle": false,
+      "uid": "TIMA0000105985"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Maintenance Engineer, First Class",
+      "religiousTitle": false,
+      "uid": "TIMA0000106589"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Retired",
+      "religiousTitle": false,
+      "uid": "TIMA0000110553"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "High advisor",
+      "religiousTitle": false,
+      "uid": "TIMA0000110671"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Master Surchid",
+      "religiousTitle": false,
+      "uid": "TIMA0000121456"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Prod",
+      "religiousTitle": false,
+      "uid": "TIMA0000126271"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Surgical Chancellor",
+      "religiousTitle": false,
+      "uid": "TIMA0000132276"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "First consul",
+      "religiousTitle": false,
+      "uid": "TIMA0000132870"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Team navigator",
+      "religiousTitle": false,
+      "uid": "TIMA0000134159"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Marshal of France",
+      "religiousTitle": false,
+      "uid": "TIMA0000136413"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Pyllora",
+      "religiousTitle": false,
+      "uid": "TIMA0000140718"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "CAPCOM",
+      "religiousTitle": false,
+      "uid": "TIMA0000142725"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Presider",
+      "religiousTitle": true,
+      "uid": "TIMA0000145876"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Detective",
+      "religiousTitle": false,
+      "uid": "TIMA0000147530"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Oracle at Delphi",
+      "religiousTitle": true,
+      "uid": "TIMA0000153391"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Lord of the Games",
+      "religiousTitle": false,
+      "uid": "TIMA0000153406"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Mess officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000159536"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Adjutant",
+      "religiousTitle": false,
+      "uid": "TIMA0000160851"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "ECLSS",
+      "religiousTitle": false,
+      "uid": "TIMA0000162306"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Liberator",
+      "religiousTitle": false,
+      "uid": "TIMA0000162558"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Archaeology and anthropology officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000162643"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Special envoy",
+      "religiousTitle": false,
+      "uid": "TIMA0000163139"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "TELMU",
+      "religiousTitle": false,
+      "uid": "TIMA0000165995"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "EECOM",
+      "religiousTitle": false,
+      "uid": "TIMA0000165996"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "PDRS",
+      "religiousTitle": false,
+      "uid": "TIMA0000165997"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "ADCO",
+      "religiousTitle": false,
+      "uid": "TIMA0000165998"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "MMACS",
+      "religiousTitle": false,
+      "uid": "TIMA0000165999"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "PAO",
+      "religiousTitle": false,
+      "uid": "TIMA0000166000"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "ODIN",
+      "religiousTitle": false,
+      "uid": "TIMA0000166001"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "EGIL",
+      "religiousTitle": false,
+      "uid": "TIMA0000166002"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "ACO",
+      "religiousTitle": false,
+      "uid": "TIMA0000166003"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "INCO",
+      "religiousTitle": false,
+      "uid": "TIMA0000166004"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "THOR",
+      "religiousTitle": false,
+      "uid": "TIMA0000166005"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "OSO",
+      "religiousTitle": false,
+      "uid": "TIMA0000166006"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "PHALCON",
+      "religiousTitle": false,
+      "uid": "TIMA0000166007"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "CATO",
+      "religiousTitle": false,
+      "uid": "TIMA0000166008"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Flight Surgeon",
+      "religiousTitle": false,
+      "uid": "TIMA0000166009"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Matron",
+      "religiousTitle": false,
+      "uid": "TIMA0000168059"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Flight director",
+      "religiousTitle": false,
+      "uid": "TIMA0000169196"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Design engineer",
+      "religiousTitle": false,
+      "uid": "TIMA0000171773"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Doctor of Theoretical Physics",
+      "religiousTitle": false,
+      "uid": "TIMA0000174434"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Professor of Theoretical Physics",
+      "religiousTitle": false,
+      "uid": "TIMA0000174436"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Bachelor of Arts",
+      "religiousTitle": false,
+      "uid": "TIMA0000174493"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Starfleet Design Consultant",
+      "religiousTitle": false,
+      "uid": "TIMA0000176943"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Feynman Chair",
+      "religiousTitle": false,
+      "uid": "TIMA0000176944"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Princess",
+      "religiousTitle": false,
+      "uid": "TIMA0000178685"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Theater Commander",
+      "religiousTitle": false,
+      "uid": "TIMA0000180329"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Quadrant commander",
+      "religiousTitle": false,
+      "uid": "TIMA0000180350"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Space Commander",
+      "religiousTitle": false,
+      "uid": "TIMA0000181441"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Commandante Cadets",
+      "religiousTitle": false,
+      "uid": "TIMA0000181535"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Director of Educational Services",
+      "religiousTitle": false,
+      "uid": "TIMA0000181537"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Supervisor of Curriculum",
+      "religiousTitle": false,
+      "uid": "TIMA0000181547"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chieftain",
+      "religiousTitle": false,
+      "uid": "TIMA0000182186"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Medicine man",
+      "religiousTitle": false,
+      "uid": "TIMA0000185460"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Ambassador-at-large",
+      "religiousTitle": false,
+      "uid": "TIMA0000187606"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Field commander",
+      "religiousTitle": false,
+      "uid": "TIMA0000189640"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief of Starfleet Personnel",
+      "religiousTitle": false,
+      "uid": "TIMA0000190337"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Minister",
+      "religiousTitle": true,
+      "uid": "TIMA0000191182"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Sister",
+      "religiousTitle": true,
+      "uid": "TIMA0000192808"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "APO",
+      "religiousTitle": false,
+      "uid": "TIMA0000193875"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "EVA",
+      "religiousTitle": false,
+      "uid": "TIMA0000193931"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "B'KR",
+      "religiousTitle": false,
+      "uid": "TIMA0000193956"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "AHNA",
+      "religiousTitle": false,
+      "uid": "TIMA0000193957"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "BFETT",
+      "religiousTitle": false,
+      "uid": "TIMA0000193958"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Kitchen Goddess",
+      "religiousTitle": false,
+      "uid": "TIMA0000193975"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "ORC",
+      "religiousTitle": false,
+      "uid": "TIMA0000193984"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "RSA",
+      "religiousTitle": false,
+      "uid": "TIMA0000193986"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "OP",
+      "religiousTitle": false,
+      "uid": "TIMA0000194003"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "DGA",
+      "religiousTitle": false,
+      "uid": "TIMA0000194155"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "OCL",
+      "religiousTitle": false,
+      "uid": "TIMA0000195006"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "NCV",
+      "religiousTitle": false,
+      "uid": "TIMA0000195011"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "RET",
+      "religiousTitle": false,
+      "uid": "TIMA0000195013"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "NTSC",
+      "religiousTitle": false,
+      "uid": "TIMA0000195014"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "BAS",
+      "religiousTitle": false,
+      "uid": "TIMA0000195015"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Deputy Chief of Starfleet Intelligence",
+      "religiousTitle": false,
+      "uid": "TIMA0000195091"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Lama",
+      "religiousTitle": true,
+      "uid": "TIMA0000195561"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "First councilman",
+      "religiousTitle": false,
+      "uid": "TIMA0000195949"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief processing engineer",
+      "religiousTitle": false,
+      "uid": "TIMA0000195983"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Father confessor",
+      "religiousTitle": true,
+      "uid": "TIMA0000197403"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Elder",
+      "religiousTitle": false,
+      "uid": "TIMA0000197535"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Maiden",
+      "religiousTitle": false,
+      "uid": "TIMA0000197592"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Knight",
+      "religiousTitle": false,
+      "uid": "TIMA0000198529"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Aide-de-camp",
+      "religiousTitle": false,
+      "uid": "TIMA0000198589"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief cosmetics officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000198641"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Administrator",
+      "religiousTitle": false,
+      "uid": "TIMA0000198772"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Flight officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000198863"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Doctorate",
+      "religiousTitle": false,
+      "uid": "TIMA0000198865"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Theologian",
+      "religiousTitle": true,
+      "uid": "TIMA0000198934"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Primehadar",
+      "religiousTitle": false,
+      "uid": "TIMA0000199307"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief scientist",
+      "religiousTitle": false,
+      "uid": "TIMA0000200103"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "High priestess",
+      "religiousTitle": true,
+      "uid": "TIMA0000200253"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Senior beautician",
+      "religiousTitle": false,
+      "uid": "TIMA0000202428"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Baron",
+      "religiousTitle": false,
+      "uid": "TIMA0000203342"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Heir apparent",
+      "religiousTitle": false,
+      "uid": "TIMA0000203345"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Duke",
+      "religiousTitle": false,
+      "uid": "TIMA0000203358"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Mistress",
+      "religiousTitle": false,
+      "uid": "TIMA0000203743"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Foreign minister",
+      "religiousTitle": false,
+      "uid": "TIMA0000204113"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief of surgery",
+      "religiousTitle": false,
+      "uid": "TIMA0000204527"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Head of state",
+      "religiousTitle": false,
+      "uid": "TIMA0000204792"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Viscount",
+      "religiousTitle": false,
+      "uid": "TIMA0000205131"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Level 2 specialist",
+      "religiousTitle": false,
+      "uid": "TIMA0000205767"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Tribune",
+      "religiousTitle": false,
+      "uid": "TIMA0000205924"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Engineer",
+      "religiousTitle": false,
+      "uid": "TIMA0000206119"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Sensor analyst",
+      "religiousTitle": false,
+      "uid": "TIMA0000206120"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Master of the Eyrie",
+      "religiousTitle": false,
+      "uid": "TIMA0000206564"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Nun",
+      "religiousTitle": true,
+      "uid": "TIMA0000206788"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Associate Chair of Robotics",
+      "religiousTitle": false,
+      "uid": "TIMA0000207395"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Interpreter of Laws",
+      "religiousTitle": false,
+      "uid": "TIMA0000207781"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Engineer's mate",
+      "religiousTitle": false,
+      "uid": "TIMA0000208012"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Inquisitor",
+      "religiousTitle": false,
+      "uid": "TIMA0000208063"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Assistant director",
+      "religiousTitle": false,
+      "uid": "TIMA0000208123"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Secretary",
+      "religiousTitle": false,
+      "uid": "TIMA0000208591"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Supervisor",
+      "religiousTitle": false,
+      "uid": "TIMA0000211314"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Head Female",
+      "religiousTitle": false,
+      "uid": "TIMA0000211409"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Prophet",
+      "religiousTitle": true,
+      "uid": "TIMA0000211807"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Administrative Commander",
+      "religiousTitle": false,
+      "uid": "TIMA0000211871"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Third hadar",
+      "religiousTitle": false,
+      "uid": "TIMA0000212083"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Safety officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000212485"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Honor student",
+      "religiousTitle": false,
+      "uid": "TIMA0000212857"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "FASFS",
+      "religiousTitle": false,
+      "uid": "TIMA0000212923"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "VES",
+      "religiousTitle": false,
+      "uid": "TIMA0000212931"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Master of Science",
+      "religiousTitle": false,
+      "uid": "TIMA0000213318"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Section chief",
+      "religiousTitle": false,
+      "uid": "TIMA0000213472"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Guardian",
+      "religiousTitle": true,
+      "uid": "TIMA0000213729"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Team leader",
+      "religiousTitle": false,
+      "uid": "TIMA0000214561"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Director of Investigations",
+      "religiousTitle": false,
+      "uid": "TIMA0000214892"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Vice President of the United Federation of Planets",
+      "religiousTitle": false,
+      "uid": "TIMA0000215413"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Tyrant",
+      "religiousTitle": false,
+      "uid": "TIMA0000216154"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Mahatma",
+      "religiousTitle": true,
+      "uid": "TIMA0000216484"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Archangel",
+      "religiousTitle": true,
+      "uid": "TIMA0000216553"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Tabran monk",
+      "religiousTitle": true,
+      "uid": "TIMA0000219849"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Deputy liaison officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000219879"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Black belt",
+      "religiousTitle": false,
+      "uid": "TIMA0000220558"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Junior grade",
+      "religiousTitle": false,
+      "uid": "TIMA0000220994"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Maestro",
+      "religiousTitle": false,
+      "uid": "TIMA0000221369"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Minister of Science",
+      "religiousTitle": false,
+      "uid": "TIMA0000221582"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Acting",
+      "religiousTitle": false,
+      "uid": "TIMA0000221679"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Secretary of Exploration",
+      "religiousTitle": false,
+      "uid": "TIMA0000221817"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Brother",
+      "religiousTitle": true,
+      "uid": "TIMA0000221973"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Assistant astrophysics officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000222243"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Impulse propulsion officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000222659"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Warp propulsion officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000222660"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Transporter systems officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000222661"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chronicle",
+      "religiousTitle": false,
+      "uid": "TIMA0000222778"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "President of the Court",
+      "religiousTitle": false,
+      "uid": "TIMA0000225065"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief of Medicine",
+      "religiousTitle": false,
+      "uid": "TIMA0000225141"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Disciple",
+      "religiousTitle": true,
+      "uid": "TIMA0000225309"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Master of Astronautics",
+      "religiousTitle": false,
+      "uid": "TIMA0000225498"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Dean of Astronautics",
+      "religiousTitle": false,
+      "uid": "TIMA0000225500"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Honorary",
+      "religiousTitle": false,
+      "uid": "TIMA0000225690"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Torchbearer",
+      "religiousTitle": true,
+      "uid": "TIMA0000226444"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Legate",
+      "religiousTitle": false,
+      "uid": "TIMA0000226606"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Gul",
+      "religiousTitle": false,
+      "uid": "TIMA0000226607"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Glinn",
+      "religiousTitle": false,
+      "uid": "TIMA0000226608"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Party secretary",
+      "religiousTitle": false,
+      "uid": "TIMA0000231156"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Adjunct",
+      "religiousTitle": false,
+      "uid": "TIMA0000232184"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Terran emperor",
+      "religiousTitle": false,
+      "uid": "TIMA0000232210"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Division head",
+      "religiousTitle": false,
+      "uid": "TIMA0000232317"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Overseer",
+      "religiousTitle": false,
+      "uid": "TIMA0000232797"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Mother of the Fatherland",
+      "religiousTitle": false,
+      "uid": "TIMA0000232816"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Dominus of Qo'noS",
+      "religiousTitle": false,
+      "uid": "TIMA0000232817"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Overlord of Vulcan",
+      "religiousTitle": false,
+      "uid": "TIMA0000232818"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Regina Andor",
+      "religiousTitle": false,
+      "uid": "TIMA0000232819"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Plebe",
+      "religiousTitle": false,
+      "uid": "TIMA0000235113"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Askara",
+      "religiousTitle": false,
+      "uid": "TIMA0000235763"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Senior chief specialist",
+      "religiousTitle": false,
+      "uid": "TIMA0000235939"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Deputy science officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000237038"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Assistant Federation Commissioner",
+      "religiousTitle": false,
+      "uid": "TIMA0000237206"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Vice-chairman",
+      "religiousTitle": false,
+      "uid": "TIMA0000237775"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief exobiology specialist",
+      "religiousTitle": false,
+      "uid": "TIMA0000237861"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Starship design specialist",
+      "religiousTitle": false,
+      "uid": "TIMA0000237862"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Liege",
+      "religiousTitle": false,
+      "uid": "TIMA0000237863"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Master of the universe",
+      "religiousTitle": false,
+      "uid": "TIMA0000237864"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Spaceman first class",
+      "religiousTitle": false,
+      "uid": "TIMA0000237866"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Abbot",
+      "religiousTitle": true,
+      "uid": "TIMA0000238125"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Sergeant",
+      "religiousTitle": false,
+      "uid": "TIMA0000238872"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Department head",
+      "religiousTitle": false,
+      "uid": "TIMA0000239865"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Manager",
+      "religiousTitle": false,
+      "uid": "TIMA0000239948"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Aristocrat",
+      "religiousTitle": false,
+      "uid": "TIMA0000240033"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Miss",
+      "religiousTitle": false,
+      "uid": "TIMA0000240321"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Director of Holographic Imaging and Programming",
+      "religiousTitle": false,
+      "uid": "TIMA0000240478"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Bachelor",
+      "religiousTitle": false,
+      "uid": "TIMA0000240655"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Director of Xenobiology",
+      "religiousTitle": false,
+      "uid": "TIMA0000241190"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Officer of the line",
+      "religiousTitle": false,
+      "uid": "TIMA0000242370"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Imperial Majesty",
+      "religiousTitle": false,
+      "uid": "TIMA0000242459"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Augustus",
+      "religiousTitle": false,
+      "uid": "TIMA0000242460"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Iaponius",
+      "religiousTitle": false,
+      "uid": "TIMA0000242461"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Centarius",
+      "religiousTitle": false,
+      "uid": "TIMA0000242462"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Command level officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000242565"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Acting first officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000242653"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "All-Mother",
+      "religiousTitle": true,
+      "uid": "TIMA0000242937"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "High Cleric",
+      "religiousTitle": true,
+      "uid": "TIMA0000244012"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Mentor",
+      "religiousTitle": false,
+      "uid": "TIMA0000244308"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Missus",
+      "religiousTitle": false,
+      "uid": "TIMA0000244309"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Madam",
+      "religiousTitle": false,
+      "uid": "TIMA0000244458"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Director of Research",
+      "religiousTitle": false,
+      "uid": "TIMA0000244499"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Crown prince",
+      "religiousTitle": false,
+      "uid": "TIMA0000246684"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Corpsman",
+      "religiousTitle": false,
+      "uid": "TIMA0000249578"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Boatswain",
+      "religiousTitle": false,
+      "uid": "TIMA0000249593"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Speaker",
+      "religiousTitle": false,
+      "uid": "TIMA0000249763"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Speaker of the holy words",
+      "religiousTitle": false,
+      "uid": "TIMA0000249764"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief conn officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000250697"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Wing commander",
+      "religiousTitle": false,
+      "uid": "TIMA0000252154"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chair of Robotics",
+      "religiousTitle": false,
+      "uid": "TIMA0000252872"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Executive director",
+      "religiousTitle": false,
+      "uid": "TIMA0000253116"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": true,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Officers candidate",
+      "religiousTitle": false,
+      "uid": "TIMA0000254740"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "God of war",
+      "religiousTitle": false,
+      "uid": "TIMA0000257110"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Senior",
+      "religiousTitle": false,
+      "uid": "TIMA0000259644"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Acting communications chief",
+      "religiousTitle": false,
+      "uid": "TIMA0000261291"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Imperium Magistrate",
+      "religiousTitle": false,
+      "uid": "TIMA0000262542"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Leader",
+      "religiousTitle": false,
+      "uid": "TIMA0000262567"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Peer",
+      "religiousTitle": false,
+      "uid": "TIMA0000263165"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "President",
+      "religiousTitle": false,
+      "uid": "TIMA0000263334"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Steward of the Sanctuary",
+      "religiousTitle": false,
+      "uid": "TIMA0000263641"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Orientation liaison",
+      "religiousTitle": false,
+      "uid": "TIMA0000263675"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Imperial Highness",
+      "religiousTitle": false,
+      "uid": "TIMA0000264061"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Highness",
+      "religiousTitle": false,
+      "uid": "TIMA0000264066"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Magnificence",
+      "religiousTitle": false,
+      "uid": "TIMA0000264067"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": true,
+      "name": "Majesty",
+      "religiousTitle": false,
+      "uid": "TIMA0000264092"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Gentleman",
+      "religiousTitle": false,
+      "uid": "TIMA0000266239"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Lance corporal",
+      "religiousTitle": false,
+      "uid": "TIMA0000266570"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Trajectory operations officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000267838"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Flight dynamics officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000267843"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "High Leader",
+      "religiousTitle": false,
+      "uid": "TIMA0000270362"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Sire",
+      "religiousTitle": false,
+      "uid": "TIMA0000272146"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Father figure",
+      "religiousTitle": false,
+      "uid": "TIMA0000273825"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Registered nurse",
+      "religiousTitle": false,
+      "uid": "TIMA0000275001"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "President of United Earth",
+      "religiousTitle": false,
+      "uid": "TIMA0000275320"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Melai'Zhi",
+      "religiousTitle": false,
+      "uid": "TIMA0000275386"
+    },
+    {
+      "educationTitle": true,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Provost",
+      "religiousTitle": false,
+      "uid": "TIMA0000275541"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Guest",
+      "religiousTitle": false,
+      "uid": "TIMA0000275555"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Captain",
+      "religiousTitle": false,
+      "uid": "TIMA0000277279"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chancellor of Starfleet Academy",
+      "religiousTitle": false,
+      "uid": "TIMA0000277785"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "President of the Confederation of Earth",
+      "religiousTitle": false,
+      "uid": "TIMA0000278122"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "First Servant",
+      "religiousTitle": true,
+      "uid": "TIMA0000281331"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Boot camp officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000282251"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Attending physician",
+      "religiousTitle": false,
+      "uid": "TIMA0000282262"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Soloist",
+      "religiousTitle": false,
+      "uid": "TIMA0000282280"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Ship's archaeologist",
+      "religiousTitle": false,
+      "uid": "TIMA0000282297"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Martinet",
+      "religiousTitle": false,
+      "uid": "TIMA0000282331"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Chief geologist",
+      "religiousTitle": false,
+      "uid": "TIMA0000282368"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Public nuisance",
+      "religiousTitle": false,
+      "uid": "TIMA0000282558"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Ship's fool",
+      "religiousTitle": false,
+      "uid": "TIMA0000282559"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Gatekeeper",
+      "religiousTitle": true,
+      "uid": "TIMA0000282565"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Guardian angel",
+      "religiousTitle": true,
+      "uid": "TIMA0000282605"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Underdog",
+      "religiousTitle": false,
+      "uid": "TIMA0000282606"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Surgical chancellor",
+      "religiousTitle": false,
+      "uid": "TIMA0000282622"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Paraplegic",
+      "religiousTitle": false,
+      "uid": "TIMA0000284501"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Celebrity",
+      "religiousTitle": false,
+      "uid": "TIMA0000284575"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Fiction expert",
+      "religiousTitle": false,
+      "uid": "TIMA0000284590"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Volcanic Lord",
+      "religiousTitle": false,
+      "uid": "TIMA0000285563"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Staff researcher",
+      "religiousTitle": false,
+      "uid": "TIMA0000286444"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Marketing director",
+      "religiousTitle": false,
+      "uid": "TIMA0000286445"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Temp",
+      "religiousTitle": false,
+      "uid": "TIMA0000286446"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Justice",
+      "religiousTitle": false,
+      "uid": "TIMA0000286462"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Deputy mission director",
+      "religiousTitle": false,
+      "uid": "TIMA0000286506"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Shill",
+      "religiousTitle": false,
+      "uid": "TIMA0000286625"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Southern belle",
+      "religiousTitle": false,
+      "uid": "TIMA0000286687"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Munitions expert",
+      "religiousTitle": false,
+      "uid": "TIMA0000286699"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Supply officer",
+      "religiousTitle": false,
+      "uid": "TIMA0000286708"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Senior supervisor",
+      "religiousTitle": false,
+      "uid": "TIMA0000286736"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Propulsion expert",
+      "religiousTitle": false,
+      "uid": "TIMA0000286738"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Maintenance technician",
+      "religiousTitle": false,
+      "uid": "TIMA0000286743"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Squadron leader",
+      "religiousTitle": false,
+      "uid": "TIMA0000286795"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": false,
+      "mirror": false,
+      "name": "Head of Starfleet Medical",
+      "religiousTitle": false,
+      "uid": "TIMA0000289716"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "General (Romulan)",
+      "religiousTitle": false,
+      "uid": "TIMA0000997500"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Admiral (Romulan)",
+      "religiousTitle": false,
+      "uid": "TIMA0000997501"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Commander (Romulan)",
+      "religiousTitle": false,
+      "uid": "TIMA0000997502"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Sub-commander (Romulan)",
+      "religiousTitle": false,
+      "uid": "TIMA0000997503"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Colonel (Romulan)",
+      "religiousTitle": false,
+      "uid": "TIMA0000997504"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Centurion (Romulan)",
+      "religiousTitle": false,
+      "uid": "TIMA0000997505"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Major (Romulan)",
+      "religiousTitle": false,
+      "uid": "TIMA0000997506"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Sublieutenant (Romulan)",
+      "religiousTitle": false,
+      "uid": "TIMA0000997507"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Uhlan (Romulan)",
+      "religiousTitle": false,
+      "uid": "TIMA0000997508"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Captain (Romulan)",
+      "religiousTitle": false,
+      "uid": "TIMA0000997509"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "General (MACO)",
+      "religiousTitle": false,
+      "uid": "TIMA0001798800"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Major (MACO)",
+      "religiousTitle": false,
+      "uid": "TIMA0001798801"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Sergeant (MACO)",
+      "religiousTitle": false,
+      "uid": "TIMA0001798802"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Corporal (MACO)",
+      "religiousTitle": false,
+      "uid": "TIMA0001798803"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Private (MACO)",
+      "religiousTitle": false,
+      "uid": "TIMA0001798804"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Fleet admiral (Klingon)",
+      "religiousTitle": false,
+      "uid": "TIMA0001878400"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "General (Klingon)",
+      "religiousTitle": false,
+      "uid": "TIMA0001878401"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Brigadier (Klingon)",
+      "religiousTitle": false,
+      "uid": "TIMA0001878402"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Colonel (Klingon)",
+      "religiousTitle": false,
+      "uid": "TIMA0001878403"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Captain (Klingon)",
+      "religiousTitle": false,
+      "uid": "TIMA0001878404"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Commander (Klingon)",
+      "religiousTitle": false,
+      "uid": "TIMA0001878405"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Lieutenant (Klingon)",
+      "religiousTitle": false,
+      "uid": "TIMA0001878406"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Sergeant (Klingon)",
+      "religiousTitle": false,
+      "uid": "TIMA0001878407"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Bekk (Klingon)",
+      "religiousTitle": false,
+      "uid": "TIMA0001878408"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Navarch (Bajoran)",
+      "religiousTitle": false,
+      "uid": "TIMA0001903600"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": true,
+      "name": "Fleet admiral (Starfleet, mirror)",
+      "religiousTitle": false,
+      "uid": "TIMA0001971300"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": true,
+      "name": "Admiral (Starfleet, mirror)",
+      "religiousTitle": false,
+      "uid": "TIMA0001971301"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": true,
+      "name": "Captain (Starfleet, mirror)",
+      "religiousTitle": false,
+      "uid": "TIMA0001971302"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": true,
+      "name": "Commander (Starfleet, mirror)",
+      "religiousTitle": false,
+      "uid": "TIMA0001971303"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": true,
+      "name": "Lieutenant commander (Starfleet, mirror)",
+      "religiousTitle": false,
+      "uid": "TIMA0001971304"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": true,
+      "name": "Lieutenant (Starfleet, mirror)",
+      "religiousTitle": false,
+      "uid": "TIMA0001971305"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": true,
+      "name": "Ensign (Starfleet, mirror)",
+      "religiousTitle": false,
+      "uid": "TIMA0001971306"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": true,
+      "name": "Chief (Starfleet, mirror)",
+      "religiousTitle": false,
+      "uid": "TIMA0001971307"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": true,
+      "name": "Crewman (Starfleet, mirror)",
+      "religiousTitle": false,
+      "uid": "TIMA0001971308"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Fleet commander (Vulcan)",
+      "religiousTitle": false,
+      "uid": "TIMA0002949900"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Captain (Vulcan)",
+      "religiousTitle": false,
+      "uid": "TIMA0002949901"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Sub-commander (Vulcan)",
+      "religiousTitle": false,
+      "uid": "TIMA0002949902"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Major (Vulcan)",
+      "religiousTitle": false,
+      "uid": "TIMA0002949903"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Subaltern (Vulcan)",
+      "religiousTitle": false,
+      "uid": "TIMA0002949904"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Sublieutenant (Vulcan)",
+      "religiousTitle": false,
+      "uid": "TIMA0002949905"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "First (Jem'Hadar)",
+      "religiousTitle": false,
+      "uid": "TIMA0005166600"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Second (Jem'Hadar)",
+      "religiousTitle": false,
+      "uid": "TIMA0005166601"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Third (Jem'Hadar)",
+      "religiousTitle": false,
+      "uid": "TIMA0005166602"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Fourth (Jem'Hadar)",
+      "religiousTitle": false,
+      "uid": "TIMA0005166603"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Fifth (Jem'Hadar)",
+      "religiousTitle": false,
+      "uid": "TIMA0005166604"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Sixth (Jem'Hadar)",
+      "religiousTitle": false,
+      "uid": "TIMA0005166605"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Seventh (Jem'Hadar)",
+      "religiousTitle": false,
+      "uid": "TIMA0005166606"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Honored elder (Jem'Hadar)",
+      "religiousTitle": false,
+      "uid": "TIMA0005166607"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "General (Andorian Imperial Guard)",
+      "religiousTitle": false,
+      "uid": "TIMA0007446300"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Captain (Andorian Imperial Guard)",
+      "religiousTitle": false,
+      "uid": "TIMA0007446301"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Commander (Andorian Imperial Guard)",
+      "religiousTitle": false,
+      "uid": "TIMA0007446302"
+    },
+    {
+      "educationTitle": false,
+      "fleetRank": false,
+      "militaryRank": true,
+      "mirror": false,
+      "name": "Lieutenant (Andorian Imperial Guard)",
+      "religiousTitle": false,
+      "uid": "TIMA0007446303"
+    }
+  ],
+  "resource": "title",
+  "source": "STAPI"
+}

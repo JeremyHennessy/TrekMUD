@@ -1,0 +1,501 @@
+{
+  "apiVersion": 1,
+  "collectionKey": "seasons",
+  "count": 49,
+  "endpoint": "https://stapi.co/api/v1/rest/season/search",
+  "fetchedAt": "2026-10-06T02:58:14.937794+00:00",
+  "records": [
+    {
+      "numberOfEpisodes": 16,
+      "seasonNumber": 1,
+      "series": {
+        "title": "Star Trek: The Animated Series",
+        "uid": "SEMA0000034504"
+      },
+      "title": "TAS Season 1",
+      "uid": "SAMA0000000767"
+    },
+    {
+      "numberOfEpisodes": 6,
+      "seasonNumber": 2,
+      "series": {
+        "title": "Star Trek: The Animated Series",
+        "uid": "SEMA0000034504"
+      },
+      "title": "TAS Season 2",
+      "uid": "SAMA0000000768"
+    },
+    {
+      "numberOfEpisodes": 25,
+      "seasonNumber": 1,
+      "series": {
+        "title": "Star Trek: The Next Generation",
+        "uid": "SEMA0000062876"
+      },
+      "title": "TNG Season 1",
+      "uid": "SAMA0000001633"
+    },
+    {
+      "numberOfEpisodes": 22,
+      "seasonNumber": 2,
+      "series": {
+        "title": "Star Trek: The Next Generation",
+        "uid": "SEMA0000062876"
+      },
+      "title": "TNG Season 2",
+      "uid": "SAMA0000001634"
+    },
+    {
+      "numberOfEpisodes": 26,
+      "seasonNumber": 3,
+      "series": {
+        "title": "Star Trek: The Next Generation",
+        "uid": "SEMA0000062876"
+      },
+      "title": "TNG Season 3",
+      "uid": "SAMA0000001635"
+    },
+    {
+      "numberOfEpisodes": 26,
+      "seasonNumber": 4,
+      "series": {
+        "title": "Star Trek: The Next Generation",
+        "uid": "SEMA0000062876"
+      },
+      "title": "TNG Season 4",
+      "uid": "SAMA0000001636"
+    },
+    {
+      "numberOfEpisodes": 26,
+      "seasonNumber": 5,
+      "series": {
+        "title": "Star Trek: The Next Generation",
+        "uid": "SEMA0000062876"
+      },
+      "title": "TNG Season 5",
+      "uid": "SAMA0000001637"
+    },
+    {
+      "numberOfEpisodes": 26,
+      "seasonNumber": 6,
+      "series": {
+        "title": "Star Trek: The Next Generation",
+        "uid": "SEMA0000062876"
+      },
+      "title": "TNG Season 6",
+      "uid": "SAMA0000001638"
+    },
+    {
+      "numberOfEpisodes": 25,
+      "seasonNumber": 7,
+      "series": {
+        "title": "Star Trek: The Next Generation",
+        "uid": "SEMA0000062876"
+      },
+      "title": "TNG Season 7",
+      "uid": "SAMA0000001639"
+    },
+    {
+      "numberOfEpisodes": 29,
+      "seasonNumber": 1,
+      "series": {
+        "title": "Star Trek: The Original Series",
+        "uid": "SEMA0000097474"
+      },
+      "title": "TOS Season 1",
+      "uid": "SAMA0000001732"
+    },
+    {
+      "numberOfEpisodes": 26,
+      "seasonNumber": 2,
+      "series": {
+        "title": "Star Trek: The Original Series",
+        "uid": "SEMA0000097474"
+      },
+      "title": "TOS Season 2",
+      "uid": "SAMA0000001733"
+    },
+    {
+      "numberOfEpisodes": 24,
+      "seasonNumber": 3,
+      "series": {
+        "title": "Star Trek: The Original Series",
+        "uid": "SEMA0000097474"
+      },
+      "title": "TOS Season 3",
+      "uid": "SAMA0000001734"
+    },
+    {
+      "numberOfEpisodes": 19,
+      "seasonNumber": 1,
+      "series": {
+        "title": "Star Trek: Deep Space Nine",
+        "uid": "SEMA0000073238"
+      },
+      "title": "DS9 Season 1",
+      "uid": "SAMA0000001735"
+    },
+    {
+      "numberOfEpisodes": 26,
+      "seasonNumber": 2,
+      "series": {
+        "title": "Star Trek: Deep Space Nine",
+        "uid": "SEMA0000073238"
+      },
+      "title": "DS9 Season 2",
+      "uid": "SAMA0000001736"
+    },
+    {
+      "numberOfEpisodes": 26,
+      "seasonNumber": 3,
+      "series": {
+        "title": "Star Trek: Deep Space Nine",
+        "uid": "SEMA0000073238"
+      },
+      "title": "DS9 Season 3",
+      "uid": "SAMA0000001737"
+    },
+    {
+      "numberOfEpisodes": 25,
+      "seasonNumber": 4,
+      "series": {
+        "title": "Star Trek: Deep Space Nine",
+        "uid": "SEMA0000073238"
+      },
+      "title": "DS9 Season 4",
+      "uid": "SAMA0000001738"
+    },
+    {
+      "numberOfEpisodes": 26,
+      "seasonNumber": 5,
+      "series": {
+        "title": "Star Trek: Deep Space Nine",
+        "uid": "SEMA0000073238"
+      },
+      "title": "DS9 Season 5",
+      "uid": "SAMA0000001739"
+    },
+    {
+      "numberOfEpisodes": 26,
+      "seasonNumber": 6,
+      "series": {
+        "title": "Star Trek: Deep Space Nine",
+        "uid": "SEMA0000073238"
+      },
+      "title": "DS9 Season 6",
+      "uid": "SAMA0000001740"
+    },
+    {
+      "numberOfEpisodes": 25,
+      "seasonNumber": 7,
+      "series": {
+        "title": "Star Trek: Deep Space Nine",
+        "uid": "SEMA0000073238"
+      },
+      "title": "DS9 Season 7",
+      "uid": "SAMA0000001741"
+    },
+    {
+      "numberOfEpisodes": 15,
+      "seasonNumber": 1,
+      "series": {
+        "title": "Star Trek: Voyager",
+        "uid": "SEMA0000000029"
+      },
+      "title": "VOY Season 1",
+      "uid": "SAMA0000001742"
+    },
+    {
+      "numberOfEpisodes": 26,
+      "seasonNumber": 2,
+      "series": {
+        "title": "Star Trek: Voyager",
+        "uid": "SEMA0000000029"
+      },
+      "title": "VOY Season 2",
+      "uid": "SAMA0000001743"
+    },
+    {
+      "numberOfEpisodes": 26,
+      "seasonNumber": 3,
+      "series": {
+        "title": "Star Trek: Voyager",
+        "uid": "SEMA0000000029"
+      },
+      "title": "VOY Season 3",
+      "uid": "SAMA0000001744"
+    },
+    {
+      "numberOfEpisodes": 26,
+      "seasonNumber": 4,
+      "series": {
+        "title": "Star Trek: Voyager",
+        "uid": "SEMA0000000029"
+      },
+      "title": "VOY Season 4",
+      "uid": "SAMA0000001745"
+    },
+    {
+      "numberOfEpisodes": 25,
+      "seasonNumber": 5,
+      "series": {
+        "title": "Star Trek: Voyager",
+        "uid": "SEMA0000000029"
+      },
+      "title": "VOY Season 5",
+      "uid": "SAMA0000001753"
+    },
+    {
+      "numberOfEpisodes": 26,
+      "seasonNumber": 6,
+      "series": {
+        "title": "Star Trek: Voyager",
+        "uid": "SEMA0000000029"
+      },
+      "title": "VOY Season 6",
+      "uid": "SAMA0000001754"
+    },
+    {
+      "numberOfEpisodes": 24,
+      "seasonNumber": 7,
+      "series": {
+        "title": "Star Trek: Voyager",
+        "uid": "SEMA0000000029"
+      },
+      "title": "VOY Season 7",
+      "uid": "SAMA0000001755"
+    },
+    {
+      "numberOfEpisodes": 25,
+      "seasonNumber": 1,
+      "series": {
+        "title": "Star Trek: Enterprise",
+        "uid": "SEMA0000103435"
+      },
+      "title": "ENT Season 1",
+      "uid": "SAMA0000001756"
+    },
+    {
+      "numberOfEpisodes": 26,
+      "seasonNumber": 2,
+      "series": {
+        "title": "Star Trek: Enterprise",
+        "uid": "SEMA0000103435"
+      },
+      "title": "ENT Season 2",
+      "uid": "SAMA0000001757"
+    },
+    {
+      "numberOfEpisodes": 24,
+      "seasonNumber": 3,
+      "series": {
+        "title": "Star Trek: Enterprise",
+        "uid": "SEMA0000103435"
+      },
+      "title": "ENT Season 3",
+      "uid": "SAMA0000001758"
+    },
+    {
+      "numberOfEpisodes": 22,
+      "seasonNumber": 4,
+      "series": {
+        "title": "Star Trek: Enterprise",
+        "uid": "SEMA0000103435"
+      },
+      "title": "ENT Season 4",
+      "uid": "SAMA0000003604"
+    },
+    {
+      "numberOfEpisodes": 15,
+      "seasonNumber": 1,
+      "series": {
+        "title": "Star Trek: Discovery",
+        "uid": "SEMA0000201665"
+      },
+      "title": "DIS Season 1",
+      "uid": "SAMA0000212566"
+    },
+    {
+      "numberOfEpisodes": 14,
+      "seasonNumber": 2,
+      "series": {
+        "title": "Star Trek: Discovery",
+        "uid": "SEMA0000201665"
+      },
+      "title": "DIS Season 2",
+      "uid": "SAMA0000229213"
+    },
+    {
+      "numberOfEpisodes": 13,
+      "seasonNumber": 3,
+      "series": {
+        "title": "Star Trek: Discovery",
+        "uid": "SEMA0000201665"
+      },
+      "title": "DIS Season 3",
+      "uid": "SAMA0000244009"
+    },
+    {
+      "numberOfEpisodes": 10,
+      "seasonNumber": 1,
+      "series": {
+        "title": "Star Trek: Picard",
+        "uid": "SEMA0000238047"
+      },
+      "title": "PIC Season 1",
+      "uid": "SAMA0000246418"
+    },
+    {
+      "numberOfEpisodes": 10,
+      "seasonNumber": 1,
+      "series": {
+        "title": "Star Trek: Lower Decks",
+        "uid": "SEMA0000240166"
+      },
+      "title": "LD Season 1",
+      "uid": "SAMA0000247983"
+    },
+    {
+      "numberOfEpisodes": 10,
+      "seasonNumber": 2,
+      "series": {
+        "title": "Star Trek: Picard",
+        "uid": "SEMA0000238047"
+      },
+      "title": "PIC Season 2",
+      "uid": "SAMA0000250097"
+    },
+    {
+      "numberOfEpisodes": 10,
+      "seasonNumber": 2,
+      "series": {
+        "title": "Star Trek: Lower Decks",
+        "uid": "SEMA0000240166"
+      },
+      "title": "LD Season 2",
+      "uid": "SAMA0000250142"
+    },
+    {
+      "numberOfEpisodes": 13,
+      "seasonNumber": 4,
+      "series": {
+        "title": "Star Trek: Discovery",
+        "uid": "SEMA0000201665"
+      },
+      "title": "DIS Season 4",
+      "uid": "SAMA0000254126"
+    },
+    {
+      "numberOfEpisodes": 10,
+      "seasonNumber": 1,
+      "series": {
+        "title": "Star Trek: Strange New Worlds",
+        "uid": "SEMA0000255370"
+      },
+      "title": "SNW Season 1",
+      "uid": "SAMA0000255378"
+    },
+    {
+      "numberOfEpisodes": 19,
+      "seasonNumber": 1,
+      "series": {
+        "title": "Star Trek: Prodigy",
+        "uid": "SEMA0000242790"
+      },
+      "title": "PRO Season 1",
+      "uid": "SAMA0000257714"
+    },
+    {
+      "numberOfEpisodes": null,
+      "seasonNumber": 2,
+      "series": {
+        "title": "Star Trek: Prodigy",
+        "uid": "SEMA0000242790"
+      },
+      "title": "PRO Season 2",
+      "uid": "SAMA0000257983"
+    },
+    {
+      "numberOfEpisodes": 10,
+      "seasonNumber": 3,
+      "series": {
+        "title": "Star Trek: Picard",
+        "uid": "SEMA0000238047"
+      },
+      "title": "PIC Season 3",
+      "uid": "SAMA0000261414"
+    },
+    {
+      "numberOfEpisodes": 10,
+      "seasonNumber": 3,
+      "series": {
+        "title": "Star Trek: Lower Decks",
+        "uid": "SEMA0000240166"
+      },
+      "title": "LD Season 3",
+      "uid": "SAMA0000267336"
+    },
+    {
+      "numberOfEpisodes": null,
+      "seasonNumber": 2,
+      "series": {
+        "title": "Star Trek: Strange New Worlds",
+        "uid": "SEMA0000255370"
+      },
+      "title": "SNW Season 2",
+      "uid": "SAMA0000276057"
+    },
+    {
+      "numberOfEpisodes": null,
+      "seasonNumber": 4,
+      "series": {
+        "title": "Star Trek: Lower Decks",
+        "uid": "SEMA0000240166"
+      },
+      "title": "LD Season 4",
+      "uid": "SAMA0000276060"
+    },
+    {
+      "numberOfEpisodes": null,
+      "seasonNumber": 5,
+      "series": {
+        "title": "Star Trek: Discovery",
+        "uid": "SEMA0000201665"
+      },
+      "title": "DIS Season 5",
+      "uid": "SAMA0000276062"
+    },
+    {
+      "numberOfEpisodes": null,
+      "seasonNumber": 3,
+      "series": {
+        "title": "Star Trek: Strange New Worlds",
+        "uid": "SEMA0000255370"
+      },
+      "title": "SNW Season 3",
+      "uid": "SAMA0000288746"
+    },
+    {
+      "numberOfEpisodes": null,
+      "seasonNumber": 5,
+      "series": {
+        "title": "Star Trek: Lower Decks",
+        "uid": "SEMA0000240166"
+      },
+      "title": "LD Season 5",
+      "uid": "SAMA0000288747"
+    },
+    {
+      "numberOfEpisodes": null,
+      "seasonNumber": 1,
+      "series": {
+        "title": "Star Trek: Starfleet Academy",
+        "uid": "SEMA0000288842"
+      },
+      "title": "SA Season 1",
+      "uid": "SAMA0000289184"
+    }
+  ],
+  "resource": "season",
+  "source": "STAPI"
+}

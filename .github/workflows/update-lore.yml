@@ -11,7 +11,7 @@ on:
       - .github/workflows/update-lore.yml
   push:
     branches:
-      - bootstrap-canon
+      - lore-ingest-v2
       - main
     paths:
       - scripts/scrape_stapi.py
@@ -28,7 +28,7 @@ concurrency:
 jobs:
   stapi:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
@@ -39,8 +39,11 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Compile lore ingester
+        run: python -m py_compile scripts/scrape_stapi.py
+
       - name: Scrape reusable STAPI catalogue
-        run: python scripts/scrape_stapi.py --output data/stapi
+        run: python scripts/scrape_stapi.py --output data/stapi --workers 4
 
       - name: Validate generated manifest
         run: |
@@ -48,20 +51,26 @@ jobs:
           import json
           from pathlib import Path
           m = json.loads(Path('data/stapi/manifest.json').read_text())
+          assert m['schemaVersion'] == 2, m['schemaVersion']
           assert m['totalRecords'] > 10000, m['totalRecords']
           for required in ['character','episode','location','series','spacecraft','species','technology']:
               assert required in m['resourcesFetched'], required
           assert not [f for f in m['failures'] if f.get('critical')], m['failures']
+          era = m['era']
+          assert era['status'] in {'ok','partial'}, era
+          assert era['episodeCount'] > 300, era
+          assert era['characterCount'] > 100, era
           print(json.dumps({
               'totalRecords': m['totalRecords'],
               'resources': len(m['resourcesFetched']),
-              'era': m['era']
+              'failures': m['failures'],
+              'era': era
           }, indent=2))
           PY
 
       - name: Commit generated lore snapshot
         run: |
-          if git diff --quiet -- data/stapi; then
+          if [ -z "$(git status --porcelain -- data/stapi)" ]; then
             echo "No generated lore changes."
             exit 0
           fi

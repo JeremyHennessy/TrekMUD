@@ -1,0 +1,287 @@
+{
+  "discoveredResourceVersions": {
+    "animal": 1,
+    "astronomicalObject": 2,
+    "book": 2,
+    "bookCollection": 1,
+    "bookSeries": 1,
+    "character": 1,
+    "comicCollection": 2,
+    "comicSeries": 1,
+    "comicStrip": 1,
+    "comics": 1,
+    "company": 2,
+    "conflict": 2,
+    "element": 2,
+    "episode": 1,
+    "food": 1,
+    "literature": 1,
+    "location": 2,
+    "magazine": 1,
+    "magazineSeries": 1,
+    "material": 1,
+    "medicalCondition": 1,
+    "movie": 1,
+    "occupation": 2,
+    "organization": 1,
+    "performer": 2,
+    "season": 1,
+    "series": 1,
+    "soundtrack": 1,
+    "spacecraft": 2,
+    "spacecraftClass": 3,
+    "species": 2,
+    "staff": 2,
+    "technology": 2,
+    "title": 2,
+    "tradingCard": 1,
+    "tradingCardDeck": 1,
+    "tradingCardSet": 1,
+    "videoGame": 1,
+    "videoRelease": 2,
+    "weapon": 2
+  },
+  "era": {
+    "characterCount": 1350,
+    "episodeCount": 349,
+    "hydrateFailures": [],
+    "status": "ok"
+  },
+  "excludedResources": [
+    "tradingCard",
+    "tradingCardDeck",
+    "tradingCardSet"
+  ],
+  "failures": [],
+  "fetchedAt": "2026-10-06T02:58:14.937794+00:00",
+  "licenseNote": "See lore/SOURCES.md; most STAPI-derived content is treated as CC BY-NC 4.0, with mixed upstream licensing.",
+  "resourcesFetched": {
+    "animal": {
+      "count": 563,
+      "pages": 6,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "astronomicalObject": {
+      "count": 2404,
+      "pages": 25,
+      "preferredVersion": 2,
+      "resolvedVersion": 2
+    },
+    "book": {
+      "count": 1494,
+      "pages": 15,
+      "preferredVersion": 2,
+      "resolvedVersion": 2
+    },
+    "bookCollection": {
+      "count": 63,
+      "pages": 1,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "bookSeries": {
+      "count": 91,
+      "pages": 1,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "character": {
+      "count": 7571,
+      "pages": 76,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "comicCollection": {
+      "count": 171,
+      "pages": 2,
+      "preferredVersion": 2,
+      "resolvedVersion": 1
+    },
+    "comicSeries": {
+      "count": 134,
+      "pages": 2,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "comicStrip": {
+      "count": 68,
+      "pages": 1,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "comics": {
+      "count": 985,
+      "pages": 10,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "company": {
+      "count": 615,
+      "pages": 7,
+      "preferredVersion": 2,
+      "resolvedVersion": 2
+    },
+    "conflict": {
+      "count": 170,
+      "pages": 2,
+      "preferredVersion": 2,
+      "resolvedVersion": 1
+    },
+    "element": {
+      "count": 144,
+      "pages": 2,
+      "preferredVersion": 2,
+      "resolvedVersion": 2
+    },
+    "episode": {
+      "count": 860,
+      "pages": 9,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "food": {
+      "count": 1170,
+      "pages": 12,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "literature": {
+      "count": 574,
+      "pages": 6,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "location": {
+      "count": 2502,
+      "pages": 26,
+      "preferredVersion": 2,
+      "resolvedVersion": 2
+    },
+    "magazine": {
+      "count": 555,
+      "pages": 6,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "magazineSeries": {
+      "count": 44,
+      "pages": 1,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "material": {
+      "count": 986,
+      "pages": 10,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "medicalCondition": {
+      "count": 518,
+      "pages": 6,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "movie": {
+      "count": 14,
+      "pages": 1,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "occupation": {
+      "count": 689,
+      "pages": 7,
+      "preferredVersion": 2,
+      "resolvedVersion": 2
+    },
+    "organization": {
+      "count": 578,
+      "pages": 6,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "performer": {
+      "count": 6822,
+      "pages": 69,
+      "preferredVersion": 2,
+      "resolvedVersion": 2
+    },
+    "season": {
+      "count": 49,
+      "pages": 1,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "series": {
+      "count": 12,
+      "pages": 1,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "soundtrack": {
+      "count": 79,
+      "pages": 1,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "spacecraft": {
+      "count": 1443,
+      "pages": 15,
+      "preferredVersion": 2,
+      "resolvedVersion": 2
+    },
+    "spacecraftClass": {
+      "count": 727,
+      "pages": 8,
+      "preferredVersion": 3,
+      "resolvedVersion": 2
+    },
+    "species": {
+      "count": 759,
+      "pages": 8,
+      "preferredVersion": 2,
+      "resolvedVersion": 2
+    },
+    "staff": {
+      "count": 3645,
+      "pages": 37,
+      "preferredVersion": 2,
+      "resolvedVersion": 2
+    },
+    "technology": {
+      "count": 3218,
+      "pages": 33,
+      "preferredVersion": 2,
+      "resolvedVersion": 2
+    },
+    "title": {
+      "count": 570,
+      "pages": 6,
+      "preferredVersion": 2,
+      "resolvedVersion": 2
+    },
+    "videoGame": {
+      "count": 74,
+      "pages": 1,
+      "preferredVersion": 1,
+      "resolvedVersion": 1
+    },
+    "videoRelease": {
+      "count": 546,
+      "pages": 6,
+      "preferredVersion": 2,
+      "resolvedVersion": 2
+    },
+    "weapon": {
+      "count": 481,
+      "pages": 5,
+      "preferredVersion": 2,
+      "resolvedVersion": 2
+    }
+  },
+  "schemaVersion": 2,
+  "source": "STAPI",
+  "sourceUrl": "https://stapi.co/",
+  "totalRecords": 41388,
+  "workerCount": 4
+}

@@ -1,0 +1,5078 @@
+{
+  "apiVersion": 1,
+  "collectionKey": "animals",
+  "count": 563,
+  "endpoint": "https://stapi.co/api/v1/rest/animal/search",
+  "fetchedAt": "2026-10-06T02:58:14.937794+00:00",
+  "records": [
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Aurelian",
+      "uid": "ANMA0000000111"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Cardassian vole",
+      "uid": "ANMA0000000522"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Riding hound",
+      "uid": "ANMA0000000523"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Kzinti",
+      "uid": "ANMA0000001831"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Xindi-Avian",
+      "uid": "ANMA0000002000"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Gagh",
+      "uid": "ANMA0000003672"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Altarian marsupial",
+      "uid": "ANMA0000004117"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Immunocytic gel worm",
+      "uid": "ANMA0000004122"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Osmotic eel",
+      "uid": "ANMA0000004130"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Targ",
+      "uid": "ANMA0000004230"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Xanthan marmot",
+      "uid": "ANMA0000004300"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tree scarab",
+      "uid": "ANMA0000004546"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Danaxian tapeworm",
+      "uid": "ANMA0000005103"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Dinosaur",
+      "uid": "ANMA0000005183"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Zabathu",
+      "uid": "ANMA0000005215"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Pyrithian bat",
+      "uid": "ANMA0000005602"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Snow beetle",
+      "uid": "ANMA0000005603"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sehlat",
+      "uid": "ANMA0000005721"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Andorian redbat",
+      "uid": "ANMA0000005771"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tribble",
+      "uid": "ANMA0000007158"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Flying parasite",
+      "uid": "ANMA0000007263"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Humpback whale",
+      "uid": "ANMA0000007547"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Ligorian mastodon",
+      "uid": "ANMA0000008620"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Aldebaran serpent",
+      "uid": "ANMA0000008622"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Vorian pterodactyl",
+      "uid": "ANMA0000008623"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Serpent of Xol",
+      "uid": "ANMA0000009505"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Palamarian sea urchin",
+      "uid": "ANMA0000009577"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Wentlian condor snake",
+      "uid": "ANMA0000009582"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "T'stayan",
+      "uid": "ANMA0000009819"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sark",
+      "uid": "ANMA0000009820"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Hara cat",
+      "uid": "ANMA0000009821"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Grishnar cat",
+      "uid": "ANMA0000009822"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Saber bear",
+      "uid": "ANMA0000009823"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Orion wing-slug",
+      "uid": "ANMA0000009861"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Space amoeba",
+      "uid": "ANMA0000009867"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Set'leth",
+      "uid": "ANMA0000009870"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Ceti eel",
+      "uid": "ANMA0000009964"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Jumbo Vulcan mollusk",
+      "uid": "ANMA0000009992"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Jumbo Romulan mollusk",
+      "uid": "ANMA0000009993"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Aldebaran shellmouth",
+      "uid": "ANMA0000010045"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Alvanian spine mite",
+      "uid": "ANMA0000010209"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Dog",
+      "uid": "ANMA0000010250"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Lyssarian Desert Larvae",
+      "uid": "ANMA0000010309"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bregit lung",
+      "uid": "ANMA0000010433"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Kos'Karii",
+      "uid": "ANMA0000010530"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Hanonian land eel",
+      "uid": "ANMA0000011234"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Le-matya",
+      "uid": "ANMA0000011686"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Photonic flea",
+      "uid": "ANMA0000011771"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Mellitus",
+      "uid": "ANMA0000012188"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Dragon",
+      "uid": "ANMA0000012261"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Neethian cradlefish",
+      "uid": "ANMA0000012471"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Norpin falcon",
+      "uid": "ANMA0000012895"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Humanoid bird",
+      "uid": "ANMA0000012913"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Anthropoid ape",
+      "uid": "ANMA0000012914"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Taspar",
+      "uid": "ANMA0000013235"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Lapling",
+      "uid": "ANMA0000013595"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Swarming moth",
+      "uid": "ANMA0000013643"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Glob fly",
+      "uid": "ANMA0000014541"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Palukoo",
+      "uid": "ANMA0000014823"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Markoffian sea lizard",
+      "uid": "ANMA0000015436"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Belzoidian flea",
+      "uid": "ANMA0000015437"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Ice-bore",
+      "uid": "ANMA0000015935"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Talarian hook spider",
+      "uid": "ANMA0000016521"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Eel-bird",
+      "uid": "ANMA0000016802"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Dalvin hissing beetle",
+      "uid": "ANMA0000017416"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Caldorian eel",
+      "uid": "ANMA0000017417"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Pterodactyl",
+      "uid": "ANMA0000017627"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Glommer",
+      "uid": "ANMA0000018131"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Vermicula",
+      "uid": "ANMA0000018247"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Mugato",
+      "uid": "ANMA0000019734"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sand bat",
+      "uid": "ANMA0000020115"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Velociraptor",
+      "uid": "ANMA0000020152"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Arboreal needle snake",
+      "uid": "ANMA0000020517"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Vakol fish",
+      "uid": "ANMA0000020597"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "German Shepherd",
+      "uid": "ANMA0000021804"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Arcturian dog bird",
+      "uid": "ANMA0000022561"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Hornbuck",
+      "uid": "ANMA0000023164"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Teirenian ant",
+      "uid": "ANMA0000023703"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Regalian fleaspider",
+      "uid": "ANMA0000024036"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Ophidian",
+      "uid": "ANMA0000024201"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Horse",
+      "uid": "ANMA0000024244"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Arachnid",
+      "uid": "ANMA0000025923"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Beagle",
+      "uid": "ANMA0000026290"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Great Dane",
+      "uid": "ANMA0000026291"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Lycosa tarantula",
+      "uid": "ANMA0000026477"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tiberian bat",
+      "uid": "ANMA0000026881"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Locust",
+      "uid": "ANMA0000027232"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Gorokian midwife toad",
+      "uid": "ANMA0000027257"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bajoran bat",
+      "uid": "ANMA0000027506"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Edosian suckerfish",
+      "uid": "ANMA0000027586"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Corvan gilvo",
+      "uid": "ANMA0000027667"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Fish",
+      "uid": "ANMA0000027683"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Eel",
+      "uid": "ANMA0000027695"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bat",
+      "uid": "ANMA0000027697"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Worm",
+      "uid": "ANMA0000027701"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Reptile",
+      "uid": "ANMA0000027721"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Snake",
+      "uid": "ANMA0000027722"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Turtle",
+      "uid": "ANMA0000027723"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Alligator",
+      "uid": "ANMA0000027729"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rhyl",
+      "uid": "ANMA0000027995"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Kolar beast",
+      "uid": "ANMA0000028248"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Carnivorous rastipod",
+      "uid": "ANMA0000028250"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Wanoni tracehound",
+      "uid": "ANMA0000028267"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Vicarian razorback",
+      "uid": "ANMA0000028268"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Zabu",
+      "uid": "ANMA0000028269"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Algorian mammoth",
+      "uid": "ANMA0000028270"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Alvanian cave sloth",
+      "uid": "ANMA0000028271"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Alverian dung beetle",
+      "uid": "ANMA0000028272"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Arbazan vulture",
+      "uid": "ANMA0000028273"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Plygorian mammoth",
+      "uid": "ANMA0000028275"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Mordian butterfly",
+      "uid": "ANMA0000028276"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Flitterbird",
+      "uid": "ANMA0000028278"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Denebian slime devil",
+      "uid": "ANMA0000028279"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Berserker cat",
+      "uid": "ANMA0000028280"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Catfish",
+      "uid": "ANMA0000028285"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sur-snake",
+      "uid": "ANMA0000028289"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Gettle",
+      "uid": "ANMA0000028290"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Wompat",
+      "uid": "ANMA0000028291"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Goose",
+      "uid": "ANMA0000028292"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Regulan bloodworm",
+      "uid": "ANMA0000028294"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Vulcan sandworm",
+      "uid": "ANMA0000028295"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Andorian bull",
+      "uid": "ANMA0000028556"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Skorr",
+      "uid": "ANMA0000028706"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Chimpanzee",
+      "uid": "ANMA0000028764"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Halo fish",
+      "uid": "ANMA0000028900"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Gossamer mouse",
+      "uid": "ANMA0000028903"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Calrissian chameleon",
+      "uid": "ANMA0000028995"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Lizard",
+      "uid": "ANMA0000029083"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Denebian whale",
+      "uid": "ANMA0000029507"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Denobulan lemur",
+      "uid": "ANMA0000029746"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Iguana",
+      "uid": "ANMA0000029793"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Fly",
+      "uid": "ANMA0000029896"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Lavafly",
+      "uid": "ANMA0000030335"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Takaran wildebeest",
+      "uid": "ANMA0000030548"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rafalian mouse",
+      "uid": "ANMA0000030550"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Chicken",
+      "uid": "ANMA0000030561"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Trellan crocodile",
+      "uid": "ANMA0000030563"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Torga",
+      "uid": "ANMA0000030569"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Chattel",
+      "uid": "ANMA0000030573"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Yar-bear",
+      "uid": "ANMA0000030574"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Pig",
+      "uid": "ANMA0000031065"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Deer",
+      "uid": "ANMA0000031310"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Shrimp",
+      "uid": "ANMA0000031365"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Spiny lobe-fish",
+      "uid": "ANMA0000031912"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Raven",
+      "uid": "ANMA0000031942"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tarkalean hawk",
+      "uid": "ANMA0000031950"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Reeta-hawk",
+      "uid": "ANMA0000031951"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Pyrithian moon hawk",
+      "uid": "ANMA0000031953"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Hawk",
+      "uid": "ANMA0000031955"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Gunji jackdaw",
+      "uid": "ANMA0000031960"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Talaxian Furfly",
+      "uid": "ANMA0000031964"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Spawn beetle",
+      "uid": "ANMA0000031971"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Garanian bolite",
+      "uid": "ANMA0000031992"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Duck",
+      "uid": "ANMA0000031999"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Digger",
+      "uid": "ANMA0000032059"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Wasp",
+      "uid": "ANMA0000032294"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Wolf",
+      "uid": "ANMA0000032300"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "'Owon",
+      "uid": "ANMA0000032315"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Eryops",
+      "uid": "ANMA0000032338"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Cave-rat",
+      "uid": "ANMA0000032367"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Nesset",
+      "uid": "ANMA0000032369"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Amphibian",
+      "uid": "ANMA0000032373"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Drayjin",
+      "uid": "ANMA0000032378"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Fire wolf",
+      "uid": "ANMA0000032380"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bore worm",
+      "uid": "ANMA0000032408"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Regellian blood worm",
+      "uid": "ANMA0000032412"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Gree-worm",
+      "uid": "ANMA0000032417"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Jackal",
+      "uid": "ANMA0000032663"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Flaked blood flea",
+      "uid": "ANMA0000032712"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Teneebian skunk",
+      "uid": "ANMA0000034731"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Aldebaran mud leech",
+      "uid": "ANMA0000034899"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rabbit",
+      "uid": "ANMA0000034906"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tarkalean condor",
+      "uid": "ANMA0000034938"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Swooper",
+      "uid": "ANMA0000035062"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rock beast",
+      "uid": "ANMA0000035071"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Fargan",
+      "uid": "ANMA0000035282"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Capellan power-cat",
+      "uid": "ANMA0000035342"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bajoran shrimp",
+      "uid": "ANMA0000035446"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Jackal mastiff",
+      "uid": "ANMA0000035541"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Klingon monster dog",
+      "uid": "ANMA0000035545"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Electric eel",
+      "uid": "ANMA0000035702"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Seagull",
+      "uid": "ANMA0000036227"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Torothan goat",
+      "uid": "ANMA0000036267"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Goat",
+      "uid": "ANMA0000036270"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Degebian mountain goat",
+      "uid": "ANMA0000036271"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Lingta",
+      "uid": "ANMA0000036921"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Risian bird",
+      "uid": "ANMA0000037173"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Circassian cat",
+      "uid": "ANMA0000037937"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Caitian",
+      "uid": "ANMA0000037963"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Butterfly",
+      "uid": "ANMA0000038383"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Arkarian horn fowl",
+      "uid": "ANMA0000039166"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Clam",
+      "uid": "ANMA0000039716"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rectyne monopod",
+      "uid": "ANMA0000040810"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Lynar",
+      "uid": "ANMA0000041287"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Buffalo",
+      "uid": "ANMA0000041331"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Passenger pigeon",
+      "uid": "ANMA0000041332"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bardakian pronghorn moose",
+      "uid": "ANMA0000041616"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sinoraptor",
+      "uid": "ANMA0000042138"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "White rhinoceros",
+      "uid": "ANMA0000042181"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Draco lizard",
+      "uid": "ANMA0000042182"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rectilian vulture",
+      "uid": "ANMA0000042248"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Serpent worm",
+      "uid": "ANMA0000042355"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Mouse",
+      "uid": "ANMA0000042923"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Orillian lung maggot",
+      "uid": "ANMA0000043012"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Nitrium parasite",
+      "uid": "ANMA0000043884"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Kryonian tiger",
+      "uid": "ANMA0000043923"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Samarian coral fish",
+      "uid": "ANMA0000043924"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Hippopotamus",
+      "uid": "ANMA0000044238"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Macaw",
+      "uid": "ANMA0000044245"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bottlenose dolphin",
+      "uid": "ANMA0000044260"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Killer whale",
+      "uid": "ANMA0000044261"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Cuvier's beaked whale",
+      "uid": "ANMA0000044263"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sperm whale",
+      "uid": "ANMA0000044264"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Bengal tiger",
+      "uid": "ANMA0000044424"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Chameleon",
+      "uid": "ANMA0000044430"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Wildebeest",
+      "uid": "ANMA0000044446"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rat",
+      "uid": "ANMA0000044450"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Draxxan cloud viper",
+      "uid": "ANMA0000044478"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Filian python",
+      "uid": "ANMA0000044479"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Fire snake",
+      "uid": "ANMA0000044480"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sun viper",
+      "uid": "ANMA0000044481"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Yridian yak",
+      "uid": "ANMA0000044586"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Barrowbug",
+      "uid": "ANMA0000044739"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Arctic spider",
+      "uid": "ANMA0000044740"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Vulcan marsupial",
+      "uid": "ANMA0000044741"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bluehorn",
+      "uid": "ANMA0000044742"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bulgallian sludge rat",
+      "uid": "ANMA0000044743"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Drathan puppy lig",
+      "uid": "ANMA0000044744"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Ghergher beast",
+      "uid": "ANMA0000044745"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Hupyrian beetle",
+      "uid": "ANMA0000044746"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Blackbird",
+      "uid": "ANMA0000044752"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Pycan space moth",
+      "uid": "ANMA0000044808"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Tarchee cat",
+      "uid": "ANMA0000044809"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Seltan carnosaur",
+      "uid": "ANMA0000044811"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Terellian pheasant",
+      "uid": "ANMA0000044833"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Klabnian eel",
+      "uid": "ANMA0000044835"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Krallinian eel",
+      "uid": "ANMA0000044836"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Targhee moonbeast",
+      "uid": "ANMA0000044837"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Tika cat",
+      "uid": "ANMA0000044838"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Trayken beast",
+      "uid": "ANMA0000044839"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Shib'a lizard",
+      "uid": "ANMA0000044840"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Kavarian tiger-bat",
+      "uid": "ANMA0000044842"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rakonian swamp rat",
+      "uid": "ANMA0000044843"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Stromatopod",
+      "uid": "ANMA0000044844"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Edosian slug",
+      "uid": "ANMA0000044846"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Melvaran mud flea",
+      "uid": "ANMA0000044847"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tarcassian razor beast",
+      "uid": "ANMA0000044848"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Volg",
+      "uid": "ANMA0000044849"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Screech rhino",
+      "uid": "ANMA0000044896"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rigellian hypnoid",
+      "uid": "ANMA0000044897"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Cuttlefish",
+      "uid": "ANMA0000044898"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Blue whale",
+      "uid": "ANMA0000044899"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Fox",
+      "uid": "ANMA0000044900"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Scorpion",
+      "uid": "ANMA0000044901"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Skunk",
+      "uid": "ANMA0000045411"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Calogan dog",
+      "uid": "ANMA0000045439"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Triceratops",
+      "uid": "ANMA0000045617"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tyrannosaurus rex",
+      "uid": "ANMA0000045619"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Stegosaurus",
+      "uid": "ANMA0000045621"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Kelaran wildebeest",
+      "uid": "ANMA0000047847"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Termite",
+      "uid": "ANMA0000048150"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Raccoon",
+      "uid": "ANMA0000049304"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Grint hound",
+      "uid": "ANMA0000049635"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Giant dry-worm",
+      "uid": "ANMA0000050767"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Crow",
+      "uid": "ANMA0000051211"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Primate",
+      "uid": "ANMA0000051343"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Mosquito",
+      "uid": "ANMA0000051633"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Loracus devil mite",
+      "uid": "ANMA0000051859"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Spitting termite",
+      "uid": "ANMA0000051860"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Bee",
+      "uid": "ANMA0000051908"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Fire ant",
+      "uid": "ANMA0000052515"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Tsetse fly",
+      "uid": "ANMA0000052516"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Gorilla",
+      "uid": "ANMA0000052806"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Quail",
+      "uid": "ANMA0000053355"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Moth",
+      "uid": "ANMA0000053465"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Circassian plague cat",
+      "uid": "ANMA0000053496"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Turkey",
+      "uid": "ANMA0000053720"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Maravel dragon",
+      "uid": "ANMA0000053900"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Canopus III dinosaur",
+      "uid": "ANMA0000053901"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bear",
+      "uid": "ANMA0000053914"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Salmon",
+      "uid": "ANMA0000055229"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Redfish",
+      "uid": "ANMA0000055230"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sparrow",
+      "uid": "ANMA0000055231"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Squid",
+      "uid": "ANMA0000055232"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Lobster",
+      "uid": "ANMA0000055400"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Terrelian seapod",
+      "uid": "ANMA0000056313"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Vayan horn fly",
+      "uid": "ANMA0000058796"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Risan sea turtle",
+      "uid": "ANMA0000059334"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Viper",
+      "uid": "ANMA0000059391"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rigellian ox",
+      "uid": "ANMA0000059721"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rottweiler",
+      "uid": "ANMA0000060047"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Doberman",
+      "uid": "ANMA0000060048"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Labrador Retriever",
+      "uid": "ANMA0000060049"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bloodhound",
+      "uid": "ANMA0000060050"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Interphasic organism",
+      "uid": "ANMA0000061771"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Vampire bat",
+      "uid": "ANMA0000063637"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Trout",
+      "uid": "ANMA0000063857"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Spitting cobra",
+      "uid": "ANMA0000063858"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sea bass",
+      "uid": "ANMA0000065102"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Slug",
+      "uid": "ANMA0000065258"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Razorcat",
+      "uid": "ANMA0000065299"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Humuhumunukunukuapua'a",
+      "uid": "ANMA0000065388"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Flea",
+      "uid": "ANMA0000065412"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Tiger",
+      "uid": "ANMA0000065855"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Leech",
+      "uid": "ANMA0000066566"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Kandipper",
+      "uid": "ANMA0000066798"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Loch Ness monster",
+      "uid": "ANMA0000066822"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tokay gecko",
+      "uid": "ANMA0000068254"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Cetacean",
+      "uid": "ANMA0000068545"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Raptor",
+      "uid": "ANMA0000068707"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Irish Setter",
+      "uid": "ANMA0000069906"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Pygmy marmoset",
+      "uid": "ANMA0000070045"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Zyznian church mouse",
+      "uid": "ANMA0000070743"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tube grub",
+      "uid": "ANMA0000072389"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tardeth",
+      "uid": "ANMA0000073197"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Cat",
+      "uid": "ANMA0000073259"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Halibut",
+      "uid": "ANMA0000075283"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Swordfish",
+      "uid": "ANMA0000075284"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Black bear",
+      "uid": "ANMA0000075387"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sloth",
+      "uid": "ANMA0000075389"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Pink dolphin",
+      "uid": "ANMA0000075390"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Joranian ostrich",
+      "uid": "ANMA0000075740"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Parrot",
+      "uid": "ANMA0000078336"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Saber-toothed tiger",
+      "uid": "ANMA0000079192"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Llama",
+      "uid": "ANMA0000079197"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Dunghill bird",
+      "uid": "ANMA0000079699"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Grakel",
+      "uid": "ANMA0000079711"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Kylerian goat",
+      "uid": "ANMA0000079801"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Morrok",
+      "uid": "ANMA0000079831"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "The Fire-Beast of Sullus",
+      "uid": "ANMA0000079832"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Elk",
+      "uid": "ANMA0000080261"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Subspace mesomorph",
+      "uid": "ANMA0000080755"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Cytraxian cricket",
+      "uid": "ANMA0000080758"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Pigeon",
+      "uid": "ANMA0000080768"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Beetle",
+      "uid": "ANMA0000080953"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Pus hog",
+      "uid": "ANMA0000081116"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Plethodon dunni",
+      "uid": "ANMA0000081157"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tarkanian field mouse",
+      "uid": "ANMA0000081944"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Coral",
+      "uid": "ANMA0000082169"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Luhvian quail",
+      "uid": "ANMA0000082695"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Hadrosaur",
+      "uid": "ANMA0000083378"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Dolphin",
+      "uid": "ANMA0000083400"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bloodworm",
+      "uid": "ANMA0000083578"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Canary",
+      "uid": "ANMA0000083765"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Loon",
+      "uid": "ANMA0000083768"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Chilean sea bass",
+      "uid": "ANMA0000083809"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Mahi-mahi",
+      "uid": "ANMA0000083815"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Scallop",
+      "uid": "ANMA0000083816"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Octopus",
+      "uid": "ANMA0000083819"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Dust mite",
+      "uid": "ANMA0000083820"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Ermine",
+      "uid": "ANMA0000083840"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Guinea pig",
+      "uid": "ANMA0000084074"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Baneriam hawk",
+      "uid": "ANMA0000086683"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Komodo dragon",
+      "uid": "ANMA0000087897"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Kudu",
+      "uid": "ANMA0000088479"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Embryonic lifeform",
+      "uid": "ANMA0000088545"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Great Horned Owl",
+      "uid": "ANMA0000089288"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Coyote",
+      "uid": "ANMA0000090962"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Ape",
+      "uid": "ANMA0000091965"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Jackrabbit",
+      "uid": "ANMA0000093042"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Oyster",
+      "uid": "ANMA0000093648"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Mollusk",
+      "uid": "ANMA0000093666"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Snail",
+      "uid": "ANMA0000093727"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rattlesnake",
+      "uid": "ANMA0000094884"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Krada",
+      "uid": "ANMA0000097536"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Vulture",
+      "uid": "ANMA0000099335"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Anaconda",
+      "uid": "ANMA0000101355"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Donkey",
+      "uid": "ANMA0000101495"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Peacock",
+      "uid": "ANMA0000101497"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Cockatoo",
+      "uid": "ANMA0000101498"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Ant",
+      "uid": "ANMA0000101527"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Camel",
+      "uid": "ANMA0000101625"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Polar bear",
+      "uid": "ANMA0000101626"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Gazelle",
+      "uid": "ANMA0000101916"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Ox",
+      "uid": "ANMA0000103395"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Grasshopper",
+      "uid": "ANMA0000103620"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Mellanoid slime worm",
+      "uid": "ANMA0000103839"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rodent",
+      "uid": "ANMA0000104068"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Packrat",
+      "uid": "ANMA0000108325"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Great Egret",
+      "uid": "ANMA0000109389"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Fox squirrel",
+      "uid": "ANMA0000109393"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Ground squirrel",
+      "uid": "ANMA0000109438"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Podiceps auritus",
+      "uid": "ANMA0000109674"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Coleonyx brevis",
+      "uid": "ANMA0000109675"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Lion",
+      "uid": "ANMA0000109676"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sheep",
+      "uid": "ANMA0000110058"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tuna",
+      "uid": "ANMA0000110062"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Lionfish",
+      "uid": "ANMA0000113030"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Jellyfish",
+      "uid": "ANMA0000115333"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Centaurian slug",
+      "uid": "ANMA0000115392"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Eagle",
+      "uid": "ANMA0000116671"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rhinoceros",
+      "uid": "ANMA0000117231"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Tomato bug",
+      "uid": "ANMA0000118134"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Betazoid cat",
+      "uid": "ANMA0000118804"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Drakoulias",
+      "uid": "ANMA0000119524"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Hengrauggi",
+      "uid": "ANMA0000119526"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Goldfish",
+      "uid": "ANMA0000120021"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Arabian horse",
+      "uid": "ANMA0000121552"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Elephant",
+      "uid": "ANMA0000126475"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Cattle",
+      "uid": "ANMA0000128727"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Genesis worm",
+      "uid": "ANMA0000154537"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Vermicular lifeform",
+      "uid": "ANMA0000155223"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": true,
+      "name": "Mountain lion",
+      "uid": "ANMA0000162815"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Finch",
+      "uid": "ANMA0000165880"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Starling",
+      "uid": "ANMA0000166268"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tadpole",
+      "uid": "ANMA0000168664"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Whale",
+      "uid": "ANMA0000180208"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Seal",
+      "uid": "ANMA0000180270"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sei whale",
+      "uid": "ANMA0000180807"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Fin whale",
+      "uid": "ANMA0000180808"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Gray whale",
+      "uid": "ANMA0000180809"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bowhead whale",
+      "uid": "ANMA0000180810"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Minke whale",
+      "uid": "ANMA0000180811"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Pygmy sperm whale",
+      "uid": "ANMA0000180813"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "False killer whale",
+      "uid": "ANMA0000180814"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sea otter",
+      "uid": "ANMA0000181060"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Shark",
+      "uid": "ANMA0000187055"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Pony",
+      "uid": "ANMA0000188059"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Apatosaurus",
+      "uid": "ANMA0000188107"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Cricket",
+      "uid": "ANMA0000190868"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Collie",
+      "uid": "ANMA0000191659"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Toad",
+      "uid": "ANMA0000197668"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Hedgehog",
+      "uid": "ANMA0000199033"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Garden snake",
+      "uid": "ANMA0000199202"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Ammonite",
+      "uid": "ANMA0000199334"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Cuckoo",
+      "uid": "ANMA0000200109"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Firefly",
+      "uid": "ANMA0000200180"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Crayfish",
+      "uid": "ANMA0000201645"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tick",
+      "uid": "ANMA0000203334"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Organic grenade",
+      "uid": "ANMA0000204068"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Techno-larva",
+      "uid": "ANMA0000204259"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Housefly",
+      "uid": "ANMA0000204296"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Hominid",
+      "uid": "ANMA0000204838"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Lemur",
+      "uid": "ANMA0000204840"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Roach",
+      "uid": "ANMA0000206600"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Corvidae",
+      "uid": "ANMA0000206790"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sciurus griseus",
+      "uid": "ANMA0000207058"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Ovis dalli",
+      "uid": "ANMA0000207060"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sebastes mustinus",
+      "uid": "ANMA0000207061"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Alopex lagopus",
+      "uid": "ANMA0000207062"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Ciona intestinal",
+      "uid": "ANMA0000207496"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Crisia occidental",
+      "uid": "ANMA0000207497"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Crustacean",
+      "uid": "ANMA0000209281"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Baird's beaked whale",
+      "uid": "ANMA0000211496"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Crab",
+      "uid": "ANMA0000211498"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Cervus elaphus",
+      "uid": "ANMA0000211499"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Nautilus",
+      "uid": "ANMA0000211501"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Ciona intestinalis",
+      "uid": "ANMA0000211502"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Armadillo",
+      "uid": "ANMA0000211503"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Kangaroo",
+      "uid": "ANMA0000211504"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Swan",
+      "uid": "ANMA0000212531"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Nimbosian horse",
+      "uid": "ANMA0000212799"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Frilled-neck lizard",
+      "uid": "ANMA0000213590"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Talchok",
+      "uid": "ANMA0000215707"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Loracadae",
+      "uid": "ANMA0000216988"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Monkey",
+      "uid": "ANMA0000221798"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Borogove",
+      "uid": "ANMA0000222207"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Wyandotte chicken",
+      "uid": "ANMA0000224300"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Berkshire pig",
+      "uid": "ANMA0000224301"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Wild boar",
+      "uid": "ANMA0000224707"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Species GS54",
+      "uid": "ANMA0000226865"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tardigrade",
+      "uid": "ANMA0000228142"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Buzzard",
+      "uid": "ANMA0000229045"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Gormagander",
+      "uid": "ANMA0000229650"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Unicorn",
+      "uid": "ANMA0000230354"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Caterpillar",
+      "uid": "ANMA0000231054"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Betelgeusian",
+      "uid": "ANMA0000231825"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Delphoidia cochrani",
+      "uid": "ANMA0000236832"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Delphoidia cochrani tempus",
+      "uid": "ANMA0000236833"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Delphoidia cochrani obliquidens",
+      "uid": "ANMA0000236835"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Delphoidia moroboshi",
+      "uid": "ANMA0000236837"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Delphoidia moroboshi lum",
+      "uid": "ANMA0000236841"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Oceosauroida mendo",
+      "uid": "ANMA0000236842"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Oceosauroida mendo shinobu",
+      "uid": "ANMA0000236843"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Oceosauroida mendo shutaro",
+      "uid": "ANMA0000236844"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Neopictis spinotap",
+      "uid": "ANMA0000236845"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Neopictis spinotap cochrani",
+      "uid": "ANMA0000236846"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Neopictis gourami",
+      "uid": "ANMA0000236847"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Vermacelli alfredo",
+      "uid": "ANMA0000236850"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Squaluformus vino",
+      "uid": "ANMA0000236853"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Squaluformus vino shiro",
+      "uid": "ANMA0000236854"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Oniboshi lum",
+      "uid": "ANMA0000236862"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Oniboshi lum ran",
+      "uid": "ANMA0000236863"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Oniobshi benten",
+      "uid": "ANMA0000236864"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Delphoidia",
+      "uid": "ANMA0000236865"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Neopictis",
+      "uid": "ANMA0000236866"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Oceosauroida",
+      "uid": "ANMA0000236867"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Squaluformus",
+      "uid": "ANMA0000236868"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Giraffe",
+      "uid": "ANMA0000237713"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Zebra",
+      "uid": "ANMA0000238048"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Toucan",
+      "uid": "ANMA0000238049"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Lap dog",
+      "uid": "ANMA0000238354"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Starfish",
+      "uid": "ANMA0000239371"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Space rabbit",
+      "uid": "ANMA0000239646"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Cyclops owl",
+      "uid": "ANMA0000240595"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Mink",
+      "uid": "ANMA0000240781"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Fowl",
+      "uid": "ANMA0000240950"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Lovebirds",
+      "uid": "ANMA0000243933"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Spider",
+      "uid": "ANMA0000246211"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Garden snail",
+      "uid": "ANMA0000250745"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bluebird",
+      "uid": "ANMA0000251392"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Spittlebug",
+      "uid": "ANMA0000251754"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bunnicorn",
+      "uid": "ANMA0000253273"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Seahorse",
+      "uid": "ANMA0000253425"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Vashti insect",
+      "uid": "ANMA0000253891"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Dove",
+      "uid": "ANMA0000254535"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Army ant",
+      "uid": "ANMA0000254549"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Water buffalo",
+      "uid": "ANMA0000254550"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tardigrade",
+      "uid": "ANMA0000258034"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Spider cow",
+      "uid": "ANMA0000258154"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Galardonian insect",
+      "uid": "ANMA0000258230"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Koala",
+      "uid": "ANMA0000259058"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Weasel",
+      "uid": "ANMA0000260048"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Alien horse",
+      "uid": "ANMA0000260398"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rectal insectoid",
+      "uid": "ANMA0000261016"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Trance worm",
+      "uid": "ANMA0000261266"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Woolly mammoth",
+      "uid": "ANMA0000261480"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bobcat",
+      "uid": "ANMA0000261887"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Albatross",
+      "uid": "ANMA0000262167"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sea locust",
+      "uid": "ANMA0000263461"
+    },
+    {
+      "avian": false,
+      "canine": true,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Pit bull",
+      "uid": "ANMA0000264014"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Altarian spider",
+      "uid": "ANMA0000264608"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Abalone",
+      "uid": "ANMA0000264633"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sorrowhawk",
+      "uid": "ANMA0000264785"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sardine",
+      "uid": "ANMA0000267824"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Bug",
+      "uid": "ANMA0000269632"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Florka",
+      "uid": "ANMA0000270261"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Salamander",
+      "uid": "ANMA0000271213"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Kerplickian louse",
+      "uid": "ANMA0000271248"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Frog",
+      "uid": "ANMA0000271824"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Centipede",
+      "uid": "ANMA0000272281"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Beluga whale",
+      "uid": "ANMA0000272912"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Kaminar sea frog",
+      "uid": "ANMA0000274629"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Valebeast",
+      "uid": "ANMA0000274647"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Malindian stomach worm",
+      "uid": "ANMA0000274814"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tuscadian pyrosome",
+      "uid": "ANMA0000274836"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Narisa beetle",
+      "uid": "ANMA0000274943"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Caracal",
+      "uid": "ANMA0000274945"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Gorathian sulfur slug",
+      "uid": "ANMA0000275381"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Tartan vole",
+      "uid": "ANMA0000275383"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Swamp cat",
+      "uid": "ANMA0000276677"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Brussel fly",
+      "uid": "ANMA0000276679"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Kowolian nightsprey",
+      "uid": "ANMA0000277721"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Jajtspat",
+      "uid": "ANMA0000277722"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Denobulan blood worm",
+      "uid": "ANMA0000277761"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": true,
+      "feline": false,
+      "name": "Polyphemus moth",
+      "uid": "ANMA0000277762"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Wakak",
+      "uid": "ANMA0000277786"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Opossum",
+      "uid": "ANMA0000281047"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Malamute",
+      "uid": "ANMA0000281178"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Slanikian oyster",
+      "uid": "ANMA0000281219"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Nivallan sea urchin",
+      "uid": "ANMA0000281220"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Rigelian tiger",
+      "uid": "ANMA0000281347"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Verugament",
+      "uid": "ANMA0000282441"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Corvarian sludge worm",
+      "uid": "ANMA0000282950"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Cave bug",
+      "uid": "ANMA0000283030"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Sky snake",
+      "uid": "ANMA0000283812"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Aquathawn",
+      "uid": "ANMA0000284511"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Wood leech",
+      "uid": "ANMA0000284952"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Vermin",
+      "uid": "ANMA0000286657"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Shrike",
+      "uid": "ANMA0000287781"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Haddock",
+      "uid": "ANMA0000288262"
+    },
+    {
+      "avian": true,
+      "canine": false,
+      "earthAnimal": true,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Woodpecker",
+      "uid": "ANMA0000289070"
+    },
+    {
+      "avian": false,
+      "canine": false,
+      "earthAnimal": false,
+      "earthInsect": false,
+      "feline": false,
+      "name": "Nepenthian red-winged banshee",
+      "uid": "ANMA0000289086"
+    }
+  ],
+  "resource": "animal",
+  "source": "STAPI"
+}
