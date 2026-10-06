@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "revision": 0,
   "status": "NOT_STARTED",
-  "rulesVersion": "draft-0.9",
+  "rulesVersion": "1.0",
   "checkpoint": {
     "lastCheckpointId": null,
     "validated": false
