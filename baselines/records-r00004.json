@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "baseline": "player-visible-career-records",
+  "version": "1.0",
+  "status": "APPROVED",
+  "approvedDate": "2026-10-06",
+  "mergedCommit": "6745828974a4b6f8382eab405d05fef62b02f01b",
+  "checkpointId": "r00004",
+  "revision": 4,
+  "ship": "USS Asteria",
+  "rulesVersion": "1.1",
+  "recordStreams": {
+    "dutyLogs": 0,
+    "scienceFindings": 0,
+    "missionRecords": 0,
+    "relationshipMilestones": 0,
+    "shipEvents": 0
+  },
+  "persistence": {
+    "component": "campaign/records.json",
+    "playerVisibleOnly": true,
+    "hiddenGMStateExcluded": true,
+    "appendOriented": true
+  },
+  "continuity": {
+    "shipTime": "12:17",
+    "stardate": 49317.4,
+    "playerLocation": "AST-D09-TR-02",
+    "rngCounter": 0,
+    "narrativeStarted": false
+  },
+  "purpose": "Initialize structured career/history streams before Scene One without inventing any events."
+}
