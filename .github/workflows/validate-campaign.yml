@@ -58,3 +58,23 @@ jobs:
             exit 1
           fi
           echo "validator correctly rejected corrupted crew totals"
+
+      - name: Prove checkpoint creation is coherent
+        run: |
+          tmp="$(mktemp -d)"
+          cp -R campaign "$tmp/campaign"
+          python scripts/create_checkpoint.py --root "$tmp" --summary "CI checkpoint fixture"
+          test -f "$tmp/campaign/checkpoints/r00000.json"
+          python scripts/validate_campaign.py --root "$tmp"
+          python - "$tmp/campaign/state.json" "$tmp/campaign/checkpoints/r00000.json" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          state = json.loads(Path(sys.argv[1]).read_text())
+          checkpoint = json.loads(Path(sys.argv[2]).read_text())
+          assert state["checkpoint"]["lastCheckpointId"] == "r00000"
+          assert state["checkpoint"]["validated"] is True
+          assert checkpoint["revision"] == 0
+          assert checkpoint["validation"]["valid"] is True
+          print("checkpoint fixture verified")
+          PY
