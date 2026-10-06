@@ -5,14 +5,16 @@
     "id": "USS-MERIDIAN",
     "name": "USS Meridian",
     "class": "Akira-class",
-    "registry": null,
-    "commissioned": null,
-    "commandingOfficerId": null,
-    "executiveOfficerId": null,
-    "location": null,
+    "registry": "NCC-63542",
+    "commissioned": 2371,
+    "commandingOfficerId": "CREW-001",
+    "executiveOfficerId": "CREW-002",
+    "location": "Starbase 375",
     "mission": null,
     "alertCondition": "normal",
     "damage": [],
-    "systems": {}
+    "systems": {},
+    "registrySource": "TREKMUD_ORIGINAL",
+    "secondOfficerId": "CREW-003"
   }
 }
