@@ -10,7 +10,10 @@
     "playerRank": "Ensign"
   },
   "era": {
-    "primarySeries": ["TNG", "DS9"],
+    "primarySeries": [
+      "TNG",
+      "DS9"
+    ],
     "primaryYearStart": 2364,
     "primaryYearEnd": 2375,
     "playerKnowledgeCutoffYear": 2372,
@@ -24,5 +27,6 @@
   "spoilerSafety": {
     "publicRepository": true,
     "commitHiddenGMState": false
-  }
+  },
+  "rulesVersion": "1.0"
 }
