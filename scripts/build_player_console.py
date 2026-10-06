@@ -43,6 +43,7 @@ def player_safe_snapshot(root: Path) -> dict[str, Any]:
     inventory = load_json(campaign / "inventory.json")
     qualifications = load_json(campaign / "qualifications.json")
     rng = load_json(campaign / "rng.json")
+    ship_specs = load_json(root / "world" / "asteria" / "SPECS.json")
 
     character = character_doc.get("character") or {}
     by_location = location_index(locations)
@@ -167,6 +168,14 @@ def player_safe_snapshot(root: Path) -> dict[str, Any]:
             "discoveryState": character.get("discoveryState", {}),
         },
         "ship": ship_doc.get("ship", {}),
+        "shipProfile": {
+            "lengthMeters": ((ship_specs.get("referenceFacts") or {}).get("lengthMeters") or {}).get("value"),
+            "maximumWarp": ((ship_specs.get("referenceFacts") or {}).get("maximumWarp") or {}).get("value"),
+            "deckCount": ((ship_specs.get("referenceFacts") or {}).get("deckCount") or {}).get("value"),
+            "missionPod": (ship_specs.get("trekMudSettingFill") or {}).get("missionPod"),
+            "missionProfile": (ship_specs.get("trekMudSettingFill") or {}).get("missionProfile"),
+            "podLevels": (ship_specs.get("trekMudSettingFill") or {}).get("podLevels"),
+        },
         "crew": {
             "materialized": safe_crew,
             "materializedCount": len(safe_crew),
@@ -208,7 +217,7 @@ def build(output: Path) -> dict[str, Any]:
     output.mkdir(parents=True, exist_ok=True)
     (output / "data").mkdir(parents=True, exist_ok=True)
 
-    for filename in ("index.html", "base.css", "components.css", "core.js", "views.js", "map.js"):
+    for filename in ("index.html", "base.css", "components.css", "core.js", "views.js", "map.js", "manifest.webmanifest"):
         src = UI_ROOT / filename
         if not src.exists():
             raise FileNotFoundError(f"missing UI asset: {src}")

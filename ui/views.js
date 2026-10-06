@@ -37,6 +37,53 @@ TM.renderNow=()=>{
     '</div>';
 };
 
+TM.renderShip=()=>{
+  const d=TM.S.data,ship=d.ship,p=d.shipProfile||{},crew=d.crew.materialized;
+  const person=id=>crew.find(x=>x.id===id);
+  const captain=person(ship.commandingOfficerId),xo=person(ship.executiveOfficerId),second=person(ship.secondOfficerId);
+  const pod=ship.systems?.dorsalPod||{};
+  const damage=(ship.damage||[]);
+  const commandCards=[captain,xo,second].filter(Boolean).map((x,i)=>
+    '<div class="command-person '+TM.deptClass(x.department)+'"><div class="crew-avatar">'+TM.esc(TM.initials(x.name))+'</div><div><span>'+(i===0?"COMMANDING OFFICER":i===1?"EXECUTIVE OFFICER":"SECOND OFFICER")+'</span><b>'+TM.esc(TM.rankShort(x.rank))+' '+TM.esc(x.name)+'</b><small>'+TM.esc(x.billet)+'</small></div></div>'
+  ).join("");
+  const metrics=[
+    ["LENGTH",p.lengthMeters?Number(p.lengthMeters).toFixed(2)+" m":"—"],
+    ["MAX WARP",p.maximumWarp?"Warp "+p.maximumWarp:"—"],
+    ["DECKS",p.deckCount||d.map.deckNumbers.length],
+    ["COMPLEMENT",d.crew.nominalComplement],
+    ["POD LEVELS",p.podLevels||d.map.podLevels.length],
+    ["MAPPED SPACES",d.map.locations.length]
+  ].map(([label,value])=>'<div class="ship-metric"><span>'+TM.esc(label)+'</span><b>'+TM.esc(value)+'</b></div>').join("");
+
+  TM.$("#view").innerHTML=
+    '<div class="ship-view">'+
+      '<section class="card ship-identity">'+
+        '<div class="section-number">01 · STARFLEET VESSEL</div>'+
+        '<div class="ship-hero-visual">'+TM.shipMark()+'</div>'+
+        '<div class="ship-identity-copy"><span class="ship-registry">'+TM.esc(ship.registry)+'</span><h2>'+TM.esc(ship.name)+'</h2><p>'+TM.esc(ship.class)+' · commissioned '+TM.esc(ship.commissioned)+'</p><div class="status-cluster"><span class="status-chip"><span>LOCATION</span><b>'+TM.esc(ship.location)+'</b></span><span class="status-chip"><span>ALERT</span><b>'+TM.esc(ship.alertCondition)+'</b></span></div></div>'+
+      '</section>'+
+      '<section class="card"><div class="section-number">02 · VESSEL PROFILE</div><div class="ship-metrics">'+metrics+'</div><p class="ship-mission-copy">'+TM.esc(p.missionProfile||"Multi-mission Starfleet vessel.")+'</p></section>'+
+      '<section class="card"><div class="section-number">03 · DORSAL MISSION POD</div><div class="pod-system"><span class="pod-glyph">△</span><div><h3>'+TM.esc(p.missionPod||pod.type||"Mission pod")+'</h3><p>'+TM.esc(String(pod.status||"configured").toUpperCase())+' · '+TM.esc(pod.levels||p.podLevels||4)+' levels</p></div></div><button class="console-action" data-open-map="P1">Open pod map</button></section>'+
+      '<section class="card"><div class="section-number">04 · COMMAND STAFF</div><div class="command-list">'+commandCards+'</div></section>'+
+      '<section class="card"><div class="section-number">05 · REPORTED CONDITION</div><div class="system-condition '+(damage.length?"warn":"good")+'"><span>'+(damage.length?"!":"✓")+'</span><div><b>'+(damage.length?TM.esc(damage.length+" damage reports"):"No reported damage")+'</b><small>Campaign state · checkpoint '+TM.esc(d.source.checkpointId)+'</small></div></div><div class="system-row"><span>Dorsal sensor pod</span><b>'+TM.esc(pod.status||"nominal")+'</b></div><div class="system-row"><span>Alert condition</span><b>'+TM.esc(ship.alertCondition)+'</b></div></section>'+
+      '<section class="card ship-destinations"><div class="section-number">06 · QUICK DESTINATIONS</div><div class="quick-destinations">'+
+        '<button data-route-id="AST-D07-S12-0712C"><span>QUARTERS</span><b>0712-C</b></button>'+
+        '<button data-route-id="AST-D04-SCI-OFFICE"><span>SCIENCE</span><b>Department Offices</b></button>'+
+        '<button data-route-id="AST-D06-SICKBAY"><span>MEDICAL</span><b>Main Sickbay</b></button>'+
+        '<button data-route-id="AST-D12-MESS"><span>CREW</span><b>Main Mess</b></button>'+
+      '</div></section>'+
+    '</div>';
+  document.querySelectorAll("[data-open-map]").forEach(b=>b.onclick=()=>{
+    TM.S.mapKey=b.dataset.openMap;TM.S.selectedLocation=null;
+    if(location.hash==="#map")TM.setView("map"); else location.hash="map";
+  });
+  document.querySelectorAll("[data-route-id]").forEach(b=>b.onclick=()=>{
+    TM.startRoute(b.dataset.routeId);
+    if(location.hash==="#map")TM.setView("map"); else location.hash="map";
+  });
+};
+
+
 TM.renderCharacter=()=>{
   const c=TM.S.data.character;
   const attrs=Object.entries(c.attributes).map(([k,v])=>'<div class="attr '+(v==null?"unresolved":"")+'"><span>'+TM.esc(k)+'</span><b>'+(v==null?"◇":TM.esc(v))+'</b></div>').join("");
