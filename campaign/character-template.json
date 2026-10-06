@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "name": "",
+  "species": "",
+  "age": null,
+  "pronouns": null,
+  "homeworld": "",
+  "primaryDepartment": "",
+  "primarySpecialty": "",
+  "secondarySpecialty": {
+    "skill": "",
+    "name": ""
+  },
+  "attributes": {
+    "Intellect": null,
+    "Perception": null,
+    "Presence": null,
+    "Resolve": null,
+    "Physical": null
+  },
+  "secondarySkill": "",
+  "academyCrossTraining": [
+    "",
+    ""
+  ],
+  "personalInterest": "",
+  "developmentArea": "",
+  "background": ""
+}
