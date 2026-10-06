@@ -42,3 +42,7 @@ Canonical geography remains `campaign/locations.json`. The visual layout is pres
 `.github/workflows/deploy-player-console.yml` automatically rebuilds and deploys the console after relevant validated `main` changes.
 
 The deploy job runs campaign, Asteria-baseline, and player-console validation before publishing.
+
+## Current deployment baseline
+
+The current console target is public checkpoint `r00003` on USS Asteria. A merge touching `ui/**`, `campaign/**`, or the Asteria console build files automatically validates and redeploys GitHub Pages.

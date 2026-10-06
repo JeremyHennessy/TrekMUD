@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "baseline": "uss-asteria-preplay-world",
+  "version": "1.0",
+  "status": "APPROVED",
+  "approvedDate": "2026-10-06",
+  "mergedCommit": "6dee5ba545530a900c3edf84b56300ebf8fb8958",
+  "checkpointId": "r00003",
+  "revision": 3,
+  "ship": {
+    "id": "USS-ASTERIA",
+    "name": "USS Asteria",
+    "registry": "NCC-63542",
+    "class": "Nebula-class",
+    "location": "Starbase 375"
+  },
+  "topology": {
+    "numberedDecks": 28,
+    "podLevels": [
+      "P1",
+      "P2",
+      "P3",
+      "P4"
+    ],
+    "locations": 200,
+    "edges": 206,
+    "openingArrival": "AST-D09-TR-02",
+    "playerQuarters": "AST-D07-S12-0712C"
+  },
+  "crew": {
+    "nominalComplement": 750,
+    "includesPlayer": true,
+    "materializedNPCs": 20,
+    "backgroundCrew": 729
+  },
+  "continuity": {
+    "shipTime": "12:17",
+    "stardate": 49317.4,
+    "rngCounter": 0,
+    "narrativeStarted": false
+  },
+  "supersedesLivePreplayBaseline": "USS Meridian / Akira-class",
+  "historicalBaselinePolicy": "Earlier Meridian baselines/checkpoints remain immutable historical evidence and are not deleted."
+}
