@@ -1,0 +1,44 @@
+name: Generate pre-character checkpoint r00000
+
+on:
+  push:
+    branches:
+      - checkpoint-r00000
+    paths:
+      - .github/workflows/bootstrap-r00000.yml
+
+permissions:
+  contents: write
+
+jobs:
+  checkpoint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: checkpoint-r00000
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate pre-character campaign
+        run: python scripts/validate_campaign.py
+
+      - name: Create r00000
+        run: python scripts/create_checkpoint.py --summary "Pre-character world baseline"
+
+      - name: Validate checkpointed state
+        run: |
+          test -f campaign/checkpoints/r00000.json
+          python scripts/validate_campaign.py
+
+      - name: Commit checkpoint
+        run: |
+          git config user.name "trekmud-checkpoint-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add campaign
+          git commit -m "checkpoint: r00000 pre-character world baseline [skip ci]"
+          git push origin HEAD:checkpoint-r00000
