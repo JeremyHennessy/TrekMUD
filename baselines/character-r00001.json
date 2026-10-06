@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "baseline": "player-character-r00001",
+  "checkpointId": "r00001",
+  "revision": 1,
+  "status": "APPROVED",
+  "approvedDate": "2026-10-06",
+  "mergedCommit": "8983b7b2515fe27b5e84b9f65395ea56a5089310",
+  "rulesVersion": "1.1",
+  "character": {
+    "id": "PC-001",
+    "name": "Jeremy Hennessy",
+    "species": "Human",
+    "age": 30,
+    "pronouns": "he/him",
+    "upbringing": "Federation starbase upbringing; exact station intentionally unresolved",
+    "department": "Science",
+    "billet": "Junior Science Officer"
+  },
+  "organicDiscovery": {
+    "attributesUnresolved": 5,
+    "attributePoolRemaining": [
+      2,
+      2,
+      1,
+      1,
+      1
+    ],
+    "academyRank1SlotsRemaining": 3,
+    "departmentSpecialtyUnresolved": true,
+    "secondarySpecialtyUnresolved": true,
+    "detailedBackgroundUnresolved": true
+  },
+  "opening": {
+    "ship": "USS Meridian",
+    "registry": "NCC-63542",
+    "locationId": "MER-D09-TR-02",
+    "shipTime": "12:17",
+    "stardate": 49317.4,
+    "quartersId": "MER-D07-S12-0712C"
+  },
+  "rngStatus": "UNINITIALIZED",
+  "narrativeStarted": false
+}
