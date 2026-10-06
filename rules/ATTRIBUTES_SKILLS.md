@@ -1,6 +1,6 @@
-# Attributes, skills, specialties and qualifications — proposed v1.0
+# Attributes, skills, specialties and qualifications — v1.0
 
-Status: **proposal**. This is not locked until explicitly approved.
+Status: **APPROVED BASELINE — 2026-10-06**.
 
 ## Attributes
 
@@ -79,7 +79,7 @@ A qualification may permit an action that would otherwise be inappropriate or un
 
 The player begins as a newly commissioned Starfleet Ensign, not an incompetent novice.
 
-Proposed creation baseline:
+Starting creation baseline:
 
 - Attributes: assign **2, 2, 1, 1, 1**
 - Primary department skill: rank **2**
