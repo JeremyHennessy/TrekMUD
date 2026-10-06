@@ -1,0 +1,2139 @@
+{
+  "schemaVersion": 1,
+  "status": "CANDIDATE",
+  "shipId": "USS-MERIDIAN",
+  "deckCount": 19,
+  "playerOpening": {
+    "arrivalLocationId": "MER-D09-TR-02",
+    "assignedQuartersId": "MER-D07-S12-0712C",
+    "assignedDeck": 7,
+    "assignedSection": "12"
+  },
+  "locations": [
+    {
+      "id": "MER-D01-BRIDGE",
+      "deck": 1,
+      "section": null,
+      "name": "Bridge",
+      "type": "bridge",
+      "department": "command",
+      "access": "restricted",
+      "source": "CANON_CONSTRAINED"
+    },
+    {
+      "id": "MER-D01-BRIEFING",
+      "deck": 1,
+      "section": null,
+      "name": "Main Briefing Room",
+      "type": "conference",
+      "department": "command",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D01-HUB-C",
+      "deck": 1,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 1",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D01-READY-ROOM",
+      "deck": 1,
+      "section": null,
+      "name": "Captain's Ready Room",
+      "type": "office",
+      "department": "command",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D01-TL-C",
+      "deck": 1,
+      "section": "C",
+      "name": "Central Turbolift — Deck 1",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D02-CMD-OFFICE",
+      "deck": 2,
+      "section": null,
+      "name": "Command Administration",
+      "type": "office",
+      "department": "command",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D02-HUB-C",
+      "deck": 2,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 2",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D02-OBS-LOUNGE",
+      "deck": 2,
+      "section": null,
+      "name": "Observation Lounge",
+      "type": "lounge",
+      "department": "command",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D02-SENIOR-QUARTERS",
+      "deck": 2,
+      "section": null,
+      "name": "Senior Officer Quarters",
+      "type": "quarters",
+      "department": "personnel",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D02-TL-C",
+      "deck": 2,
+      "section": "C",
+      "name": "Central Turbolift — Deck 2",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D02-XO-OFFICE",
+      "deck": 2,
+      "section": null,
+      "name": "Executive Officer's Office",
+      "type": "office",
+      "department": "command",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D03-ADMIN",
+      "deck": 3,
+      "section": null,
+      "name": "Personnel Administration",
+      "type": "office",
+      "department": "personnel",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D03-DIPLOMATIC-CONF",
+      "deck": 3,
+      "section": null,
+      "name": "Diplomatic Conference Room",
+      "type": "conference",
+      "department": "command",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D03-HUB-C",
+      "deck": 3,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 3",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D03-OFFICER-QUARTERS",
+      "deck": 3,
+      "section": null,
+      "name": "Officer Quarters Block",
+      "type": "quarters",
+      "department": "personnel",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D03-TL-C",
+      "deck": 3,
+      "section": "C",
+      "name": "Central Turbolift — Deck 3",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D03-VIP-SUITE",
+      "deck": 3,
+      "section": null,
+      "name": "VIP Guest Quarters",
+      "type": "quarters",
+      "department": "personnel",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D04-HUB-C",
+      "deck": 4,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 4",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D04-SCI-ASTRO",
+      "deck": 4,
+      "section": null,
+      "name": "Astrophysics Lab",
+      "type": "lab",
+      "department": "science",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D04-SCI-XENO",
+      "deck": 4,
+      "section": null,
+      "name": "Xenobiology Lab",
+      "type": "lab",
+      "department": "science",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D04-SENSOR-ANALYSIS",
+      "deck": 4,
+      "section": null,
+      "name": "Sensor Analysis Lab",
+      "type": "lab",
+      "department": "science",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D04-STELLAR-CART",
+      "deck": 4,
+      "section": null,
+      "name": "Stellar Cartography",
+      "type": "lab",
+      "department": "science",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D04-TL-C",
+      "deck": 4,
+      "section": "C",
+      "name": "Central Turbolift — Deck 4",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D05-COUNSELING",
+      "deck": 5,
+      "section": null,
+      "name": "Counseling Suite",
+      "type": "office",
+      "department": "counseling",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D05-HUB-C",
+      "deck": 5,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 5",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D05-ISOLATION",
+      "deck": 5,
+      "section": null,
+      "name": "Medical Isolation Room",
+      "type": "medical",
+      "department": "medical",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D05-MED-LAB",
+      "deck": 5,
+      "section": null,
+      "name": "Medical Laboratory",
+      "type": "lab",
+      "department": "medical",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D05-SICKBAY",
+      "deck": 5,
+      "section": null,
+      "name": "Main Sickbay",
+      "type": "medical",
+      "department": "medical",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D05-TL-C",
+      "deck": 5,
+      "section": "C",
+      "name": "Central Turbolift — Deck 5",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D06-GYM",
+      "deck": 6,
+      "section": null,
+      "name": "Gymnasium",
+      "type": "recreation",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D06-HOLO-1",
+      "deck": 6,
+      "section": null,
+      "name": "Holodeck 1",
+      "type": "holodeck",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D06-HOLO-2",
+      "deck": 6,
+      "section": null,
+      "name": "Holodeck 2",
+      "type": "holodeck",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D06-HUB-C",
+      "deck": 6,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 6",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D06-LOUNGE",
+      "deck": 6,
+      "section": null,
+      "name": "Main Crew Lounge",
+      "type": "lounge",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D06-MESS",
+      "deck": 6,
+      "section": null,
+      "name": "Crew Mess",
+      "type": "mess",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D06-TL-C",
+      "deck": 6,
+      "section": "C",
+      "name": "Central Turbolift — Deck 6",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D07-COR-12",
+      "deck": 7,
+      "section": "12",
+      "name": "Section 12 Corridor",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D07-HUB-C",
+      "deck": 7,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 7",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D07-JR-COMMONS",
+      "deck": 7,
+      "section": null,
+      "name": "Junior Officers' Commons",
+      "type": "lounge",
+      "department": "personnel",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D07-QUARTERS-BLOCK",
+      "deck": 7,
+      "section": null,
+      "name": "Junior Officer Quarters Block",
+      "type": "quarters",
+      "department": "personnel",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D07-REPL-ALCOVE",
+      "deck": 7,
+      "section": null,
+      "name": "Replicator Alcove",
+      "type": "service",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D07-S12-0712A",
+      "deck": 7,
+      "section": "12",
+      "name": "Junior Officer Quarters 0712-A",
+      "type": "quarters",
+      "department": "personnel",
+      "access": "assigned",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D07-S12-0712B",
+      "deck": 7,
+      "section": "12",
+      "name": "Junior Officer Quarters 0712-B",
+      "type": "quarters",
+      "department": "personnel",
+      "access": "assigned",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D07-S12-0712C",
+      "deck": 7,
+      "section": "12",
+      "name": "Junior Officer Quarters 0712-C",
+      "type": "quarters",
+      "department": "personnel",
+      "access": "assigned",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D07-S12-0712D",
+      "deck": 7,
+      "section": "12",
+      "name": "Junior Officer Quarters 0712-D",
+      "type": "quarters",
+      "department": "personnel",
+      "access": "assigned",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D07-TL-C",
+      "deck": 7,
+      "section": "C",
+      "name": "Central Turbolift — Deck 7",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D08-ARMORY",
+      "deck": 8,
+      "section": null,
+      "name": "Main Armory",
+      "type": "security",
+      "department": "security",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D08-BRIG",
+      "deck": 8,
+      "section": null,
+      "name": "Brig",
+      "type": "security",
+      "department": "security",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D08-EVIDENCE",
+      "deck": 8,
+      "section": null,
+      "name": "Evidence Locker",
+      "type": "security",
+      "department": "security",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D08-HUB-C",
+      "deck": 8,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 8",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D08-SEC-OFFICE",
+      "deck": 8,
+      "section": null,
+      "name": "Security Office",
+      "type": "office",
+      "department": "security",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D08-TL-C",
+      "deck": 8,
+      "section": "C",
+      "name": "Central Turbolift — Deck 8",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D08-TRAINING",
+      "deck": 8,
+      "section": null,
+      "name": "Security Training Room",
+      "type": "training",
+      "department": "security",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D09-COMP-CORE-UPPER",
+      "deck": 9,
+      "section": null,
+      "name": "Computer Core — Upper",
+      "type": "computer",
+      "department": "operations",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D09-HUB-C",
+      "deck": 9,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 9",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D09-OPS-SUPPORT",
+      "deck": 9,
+      "section": null,
+      "name": "Operations Support Center",
+      "type": "operations",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D09-TL-C",
+      "deck": 9,
+      "section": "C",
+      "name": "Central Turbolift — Deck 9",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D09-TR-01",
+      "deck": 9,
+      "section": null,
+      "name": "Transporter Room 1",
+      "type": "transporter",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D09-TR-02",
+      "deck": 9,
+      "section": null,
+      "name": "Transporter Room 2",
+      "type": "transporter",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D10-COMP-CORE-MID",
+      "deck": 10,
+      "section": null,
+      "name": "Computer Core — Mid",
+      "type": "computer",
+      "department": "operations",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D10-FLIGHT-CONTROL-FWD",
+      "deck": 10,
+      "section": null,
+      "name": "Forward Flight Control",
+      "type": "flight-control",
+      "department": "flight",
+      "access": "restricted",
+      "source": "CANON_CONSTRAINED"
+    },
+    {
+      "id": "MER-D10-HANGAR-FWD",
+      "deck": 10,
+      "section": null,
+      "name": "Forward Launch Bay",
+      "type": "hangar",
+      "department": "flight",
+      "access": "crew",
+      "source": "CANON_CONSTRAINED"
+    },
+    {
+      "id": "MER-D10-HUB-C",
+      "deck": 10,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 10",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D10-SHUTTLE-OPS",
+      "deck": 10,
+      "section": null,
+      "name": "Shuttle Operations Office",
+      "type": "office",
+      "department": "flight",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D10-TL-C",
+      "deck": 10,
+      "section": "C",
+      "name": "Central Turbolift — Deck 10",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D11-FLIGHT-CONTROL-AFT",
+      "deck": 11,
+      "section": null,
+      "name": "Aft Flight Control",
+      "type": "flight-control",
+      "department": "flight",
+      "access": "restricted",
+      "source": "CANON_CONSTRAINED"
+    },
+    {
+      "id": "MER-D11-FLIGHT-DECK",
+      "deck": 11,
+      "section": null,
+      "name": "Main Fly-Through Flight Deck",
+      "type": "hangar",
+      "department": "flight",
+      "access": "crew",
+      "source": "CANON_CONSTRAINED"
+    },
+    {
+      "id": "MER-D11-HANGAR-AFT",
+      "deck": 11,
+      "section": null,
+      "name": "Aft Landing Bay",
+      "type": "hangar",
+      "department": "flight",
+      "access": "crew",
+      "source": "CANON_CONSTRAINED"
+    },
+    {
+      "id": "MER-D11-HUB-C",
+      "deck": 11,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 11",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D11-SHUTTLE-STAGING",
+      "deck": 11,
+      "section": null,
+      "name": "Shuttle Staging Area",
+      "type": "hangar",
+      "department": "flight",
+      "access": "crew",
+      "source": "CANON_CONSTRAINED"
+    },
+    {
+      "id": "MER-D11-TL-C",
+      "deck": 11,
+      "section": "C",
+      "name": "Central Turbolift — Deck 11",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D12-CARGO-01",
+      "deck": 12,
+      "section": null,
+      "name": "Cargo Bay 1",
+      "type": "cargo",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D12-CARGO-TRANSPORTER",
+      "deck": 12,
+      "section": null,
+      "name": "Cargo Transporter",
+      "type": "transporter",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D12-HUB-C",
+      "deck": 12,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 12",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D12-SHUTTLE-MAINT",
+      "deck": 12,
+      "section": null,
+      "name": "Shuttle Maintenance",
+      "type": "engineering",
+      "department": "flight",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D12-TL-C",
+      "deck": 12,
+      "section": "C",
+      "name": "Central Turbolift — Deck 12",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D12-WORKBEE-BAY",
+      "deck": 12,
+      "section": null,
+      "name": "Workbee / Utility Craft Bay",
+      "type": "hangar",
+      "department": "flight",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D13-DAMAGE-CONTROL",
+      "deck": 13,
+      "section": null,
+      "name": "Damage Control Central",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D13-ENG-SUPPORT",
+      "deck": 13,
+      "section": null,
+      "name": "Engineering Support",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D13-FABRICATION",
+      "deck": 13,
+      "section": null,
+      "name": "Fabrication Shop",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D13-HUB-C",
+      "deck": 13,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 13",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D13-SPARES",
+      "deck": 13,
+      "section": null,
+      "name": "Engineering Spares Stores",
+      "type": "cargo",
+      "department": "engineering",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D13-TL-C",
+      "deck": 13,
+      "section": "C",
+      "name": "Central Turbolift — Deck 13",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D14-CHIEF-ENG-OFFICE",
+      "deck": 14,
+      "section": null,
+      "name": "Chief Engineer's Office",
+      "type": "office",
+      "department": "engineering",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D14-DIAGNOSTICS",
+      "deck": 14,
+      "section": null,
+      "name": "Engineering Diagnostics Lab",
+      "type": "lab",
+      "department": "engineering",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D14-HUB-C",
+      "deck": 14,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 14",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D14-MAIN-ENG-UPPER",
+      "deck": 14,
+      "section": null,
+      "name": "Main Engineering — Upper",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D14-TL-C",
+      "deck": 14,
+      "section": "C",
+      "name": "Central Turbolift — Deck 14",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D14-WARP-CORE-UPPER",
+      "deck": 14,
+      "section": null,
+      "name": "Warp Core — Upper",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D15-EPS-CONTROL",
+      "deck": 15,
+      "section": null,
+      "name": "EPS Control",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D15-HUB-C",
+      "deck": 15,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 15",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D15-MAIN-ENGINEERING",
+      "deck": 15,
+      "section": null,
+      "name": "Main Engineering",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D15-PLASMA-DISTRIBUTION",
+      "deck": 15,
+      "section": null,
+      "name": "Plasma Distribution Control",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D15-TL-C",
+      "deck": 15,
+      "section": "C",
+      "name": "Central Turbolift — Deck 15",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D15-WARP-CORE-MID",
+      "deck": 15,
+      "section": null,
+      "name": "Warp Core — Mid",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D16-AUX-CONTROL",
+      "deck": 16,
+      "section": null,
+      "name": "Auxiliary Control",
+      "type": "command",
+      "department": "operations",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D16-COMP-CORE-BACKUP",
+      "deck": 16,
+      "section": null,
+      "name": "Backup Computer Core",
+      "type": "computer",
+      "department": "operations",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D16-DEUTERIUM",
+      "deck": 16,
+      "section": null,
+      "name": "Deuterium Handling",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D16-HUB-C",
+      "deck": 16,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 16",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D16-TL-C",
+      "deck": 16,
+      "section": "C",
+      "name": "Central Turbolift — Deck 16",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D16-WARP-CORE-LOWER",
+      "deck": 16,
+      "section": null,
+      "name": "Warp Core — Lower",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D17-DEFLECTOR-CONTROL",
+      "deck": 17,
+      "section": null,
+      "name": "Deflector Control",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D17-HUB-C",
+      "deck": 17,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 17",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D17-SENSOR-MACH",
+      "deck": 17,
+      "section": null,
+      "name": "Sensor Machinery",
+      "type": "engineering",
+      "department": "science",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D17-TL-C",
+      "deck": 17,
+      "section": "C",
+      "name": "Central Turbolift — Deck 17",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D17-TORP-SUPPORT",
+      "deck": 17,
+      "section": null,
+      "name": "Torpedo Support",
+      "type": "tactical",
+      "department": "tactical",
+      "access": "restricted",
+      "source": "CANON_CONSTRAINED"
+    },
+    {
+      "id": "MER-D17-TRACTOR-CONTROL",
+      "deck": 17,
+      "section": null,
+      "name": "Tractor Beam Control",
+      "type": "operations",
+      "department": "operations",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D18-ENV-CONTROL",
+      "deck": 18,
+      "section": null,
+      "name": "Environmental Control",
+      "type": "engineering",
+      "department": "operations",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D18-HUB-C",
+      "deck": 18,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 18",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D18-SIF-CONTROL",
+      "deck": 18,
+      "section": null,
+      "name": "Structural Integrity Control",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D18-TL-C",
+      "deck": 18,
+      "section": "C",
+      "name": "Central Turbolift — Deck 18",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D18-WASTE-RECYCLING",
+      "deck": 18,
+      "section": null,
+      "name": "Waste Recycling",
+      "type": "engineering",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D18-WATER-RECOVERY",
+      "deck": 18,
+      "section": null,
+      "name": "Water Recovery",
+      "type": "engineering",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D19-ANTIMATTER",
+      "deck": 19,
+      "section": null,
+      "name": "Antimatter Containment",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D19-EMERGENCY-POWER",
+      "deck": 19,
+      "section": null,
+      "name": "Emergency Power Systems",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D19-HUB-C",
+      "deck": 19,
+      "section": "C",
+      "name": "Central Corridor Hub — Deck 19",
+      "type": "corridor",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D19-LOWER-SENSOR",
+      "deck": 19,
+      "section": null,
+      "name": "Lower Sensor Platform",
+      "type": "science",
+      "department": "science",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D19-MAINT-STORES",
+      "deck": 19,
+      "section": null,
+      "name": "Lower Maintenance Stores",
+      "type": "cargo",
+      "department": "engineering",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D19-TL-C",
+      "deck": 19,
+      "section": "C",
+      "name": "Central Turbolift — Deck 19",
+      "type": "turbolift",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-P1-HUB",
+      "deck": null,
+      "section": "P1",
+      "name": "Weapons Pod Level 1",
+      "type": "weapons-pod",
+      "department": "tactical",
+      "access": "restricted",
+      "source": "CANON_CONSTRAINED"
+    },
+    {
+      "id": "MER-P2-HUB",
+      "deck": null,
+      "section": "P2",
+      "name": "Weapons Pod Level 2",
+      "type": "weapons-pod",
+      "department": "tactical",
+      "access": "restricted",
+      "source": "CANON_CONSTRAINED"
+    },
+    {
+      "id": "MER-P3-HUB",
+      "deck": null,
+      "section": "P3",
+      "name": "Weapons Pod Level 3",
+      "type": "weapons-pod",
+      "department": "tactical",
+      "access": "restricted",
+      "source": "CANON_CONSTRAINED"
+    }
+  ],
+  "edges": [
+    {
+      "from": "MER-D01-HUB-C",
+      "to": "MER-D01-BRIDGE",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D01-HUB-C",
+      "to": "MER-D01-BRIEFING",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D01-HUB-C",
+      "to": "MER-D01-READY-ROOM",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D01-HUB-C",
+      "to": "MER-P1-HUB",
+      "type": "pod-lift",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D01-TL-C",
+      "to": "MER-D01-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D01-TL-C",
+      "to": "MER-D02-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D02-HUB-C",
+      "to": "MER-D02-CMD-OFFICE",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D02-HUB-C",
+      "to": "MER-D02-OBS-LOUNGE",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D02-HUB-C",
+      "to": "MER-D02-SENIOR-QUARTERS",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D02-HUB-C",
+      "to": "MER-D02-XO-OFFICE",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D02-TL-C",
+      "to": "MER-D02-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D02-TL-C",
+      "to": "MER-D03-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D03-HUB-C",
+      "to": "MER-D03-ADMIN",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D03-HUB-C",
+      "to": "MER-D03-DIPLOMATIC-CONF",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D03-HUB-C",
+      "to": "MER-D03-OFFICER-QUARTERS",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D03-HUB-C",
+      "to": "MER-D03-VIP-SUITE",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D03-TL-C",
+      "to": "MER-D03-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D03-TL-C",
+      "to": "MER-D04-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D04-HUB-C",
+      "to": "MER-D04-SCI-ASTRO",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D04-HUB-C",
+      "to": "MER-D04-SCI-XENO",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D04-HUB-C",
+      "to": "MER-D04-SENSOR-ANALYSIS",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D04-HUB-C",
+      "to": "MER-D04-STELLAR-CART",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D04-TL-C",
+      "to": "MER-D04-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D04-TL-C",
+      "to": "MER-D05-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D05-HUB-C",
+      "to": "MER-D05-COUNSELING",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D05-HUB-C",
+      "to": "MER-D05-ISOLATION",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D05-HUB-C",
+      "to": "MER-D05-MED-LAB",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D05-HUB-C",
+      "to": "MER-D05-SICKBAY",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D05-TL-C",
+      "to": "MER-D05-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D05-TL-C",
+      "to": "MER-D06-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D06-HUB-C",
+      "to": "MER-D06-GYM",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D06-HUB-C",
+      "to": "MER-D06-HOLO-1",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D06-HUB-C",
+      "to": "MER-D06-HOLO-2",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D06-HUB-C",
+      "to": "MER-D06-LOUNGE",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D06-HUB-C",
+      "to": "MER-D06-MESS",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D06-TL-C",
+      "to": "MER-D06-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D06-TL-C",
+      "to": "MER-D07-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D07-COR-12",
+      "to": "MER-D07-QUARTERS-BLOCK",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D07-COR-12",
+      "to": "MER-D07-S12-0712A",
+      "type": "door",
+      "bidirectional": true,
+      "access": "assigned"
+    },
+    {
+      "from": "MER-D07-COR-12",
+      "to": "MER-D07-S12-0712B",
+      "type": "door",
+      "bidirectional": true,
+      "access": "assigned"
+    },
+    {
+      "from": "MER-D07-COR-12",
+      "to": "MER-D07-S12-0712C",
+      "type": "door",
+      "bidirectional": true,
+      "access": "assigned"
+    },
+    {
+      "from": "MER-D07-COR-12",
+      "to": "MER-D07-S12-0712D",
+      "type": "door",
+      "bidirectional": true,
+      "access": "assigned"
+    },
+    {
+      "from": "MER-D07-HUB-C",
+      "to": "MER-D07-COR-12",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D07-HUB-C",
+      "to": "MER-D07-JR-COMMONS",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D07-HUB-C",
+      "to": "MER-D07-QUARTERS-BLOCK",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D07-HUB-C",
+      "to": "MER-D07-REPL-ALCOVE",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D07-TL-C",
+      "to": "MER-D07-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D07-TL-C",
+      "to": "MER-D08-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D08-HUB-C",
+      "to": "MER-D08-ARMORY",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D08-HUB-C",
+      "to": "MER-D08-BRIG",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D08-HUB-C",
+      "to": "MER-D08-EVIDENCE",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D08-HUB-C",
+      "to": "MER-D08-SEC-OFFICE",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D08-HUB-C",
+      "to": "MER-D08-TRAINING",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D08-TL-C",
+      "to": "MER-D08-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D08-TL-C",
+      "to": "MER-D09-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D09-HUB-C",
+      "to": "MER-D09-COMP-CORE-UPPER",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D09-HUB-C",
+      "to": "MER-D09-OPS-SUPPORT",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D09-HUB-C",
+      "to": "MER-D09-TR-01",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D09-HUB-C",
+      "to": "MER-D09-TR-02",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D09-TL-C",
+      "to": "MER-D09-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D09-TL-C",
+      "to": "MER-D10-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D10-HANGAR-FWD",
+      "to": "MER-D11-FLIGHT-DECK",
+      "type": "flight-deck",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D10-HUB-C",
+      "to": "MER-D10-COMP-CORE-MID",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D10-HUB-C",
+      "to": "MER-D10-FLIGHT-CONTROL-FWD",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D10-HUB-C",
+      "to": "MER-D10-HANGAR-FWD",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D10-HUB-C",
+      "to": "MER-D10-SHUTTLE-OPS",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D10-TL-C",
+      "to": "MER-D10-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D10-TL-C",
+      "to": "MER-D11-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D11-FLIGHT-DECK",
+      "to": "MER-D11-SHUTTLE-STAGING",
+      "type": "flight-deck",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D11-HANGAR-AFT",
+      "to": "MER-D12-SHUTTLE-MAINT",
+      "type": "maintenance-lift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D11-HUB-C",
+      "to": "MER-D11-FLIGHT-CONTROL-AFT",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D11-HUB-C",
+      "to": "MER-D11-FLIGHT-DECK",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D11-HUB-C",
+      "to": "MER-D11-HANGAR-AFT",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D11-HUB-C",
+      "to": "MER-D11-SHUTTLE-STAGING",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D11-SHUTTLE-STAGING",
+      "to": "MER-D11-HANGAR-AFT",
+      "type": "flight-deck",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D11-TL-C",
+      "to": "MER-D11-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D11-TL-C",
+      "to": "MER-D12-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D12-HUB-C",
+      "to": "MER-D12-CARGO-01",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D12-HUB-C",
+      "to": "MER-D12-CARGO-TRANSPORTER",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D12-HUB-C",
+      "to": "MER-D12-SHUTTLE-MAINT",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D12-HUB-C",
+      "to": "MER-D12-WORKBEE-BAY",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D12-TL-C",
+      "to": "MER-D12-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D12-TL-C",
+      "to": "MER-D13-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D13-HUB-C",
+      "to": "MER-D13-DAMAGE-CONTROL",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D13-HUB-C",
+      "to": "MER-D13-ENG-SUPPORT",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D13-HUB-C",
+      "to": "MER-D13-FABRICATION",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D13-HUB-C",
+      "to": "MER-D13-SPARES",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D13-TL-C",
+      "to": "MER-D13-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D13-TL-C",
+      "to": "MER-D14-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D14-HUB-C",
+      "to": "MER-D14-CHIEF-ENG-OFFICE",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D14-HUB-C",
+      "to": "MER-D14-DIAGNOSTICS",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D14-HUB-C",
+      "to": "MER-D14-MAIN-ENG-UPPER",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D14-HUB-C",
+      "to": "MER-D14-WARP-CORE-UPPER",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D14-MAIN-ENG-UPPER",
+      "to": "MER-D15-MAIN-ENGINEERING",
+      "type": "engineering-access",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D14-TL-C",
+      "to": "MER-D14-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D14-TL-C",
+      "to": "MER-D15-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D14-WARP-CORE-UPPER",
+      "to": "MER-D15-WARP-CORE-MID",
+      "type": "engineering-access",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D15-HUB-C",
+      "to": "MER-D15-EPS-CONTROL",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D15-HUB-C",
+      "to": "MER-D15-MAIN-ENGINEERING",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D15-HUB-C",
+      "to": "MER-D15-PLASMA-DISTRIBUTION",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D15-HUB-C",
+      "to": "MER-D15-WARP-CORE-MID",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D15-TL-C",
+      "to": "MER-D15-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D15-TL-C",
+      "to": "MER-D16-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D15-WARP-CORE-MID",
+      "to": "MER-D16-WARP-CORE-LOWER",
+      "type": "engineering-access",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D16-HUB-C",
+      "to": "MER-D16-AUX-CONTROL",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D16-HUB-C",
+      "to": "MER-D16-COMP-CORE-BACKUP",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D16-HUB-C",
+      "to": "MER-D16-DEUTERIUM",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D16-HUB-C",
+      "to": "MER-D16-WARP-CORE-LOWER",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D16-TL-C",
+      "to": "MER-D16-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D16-TL-C",
+      "to": "MER-D17-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D17-HUB-C",
+      "to": "MER-D17-DEFLECTOR-CONTROL",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D17-HUB-C",
+      "to": "MER-D17-SENSOR-MACH",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D17-HUB-C",
+      "to": "MER-D17-TORP-SUPPORT",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D17-HUB-C",
+      "to": "MER-D17-TRACTOR-CONTROL",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D17-TL-C",
+      "to": "MER-D17-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D17-TL-C",
+      "to": "MER-D18-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D18-HUB-C",
+      "to": "MER-D18-ENV-CONTROL",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D18-HUB-C",
+      "to": "MER-D18-SIF-CONTROL",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D18-HUB-C",
+      "to": "MER-D18-WASTE-RECYCLING",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D18-HUB-C",
+      "to": "MER-D18-WATER-RECOVERY",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D18-TL-C",
+      "to": "MER-D18-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D18-TL-C",
+      "to": "MER-D19-TL-C",
+      "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D19-HUB-C",
+      "to": "MER-D19-ANTIMATTER",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D19-HUB-C",
+      "to": "MER-D19-EMERGENCY-POWER",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D19-HUB-C",
+      "to": "MER-D19-LOWER-SENSOR",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D19-HUB-C",
+      "to": "MER-D19-MAINT-STORES",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D19-TL-C",
+      "to": "MER-D19-HUB-C",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-P1-HUB",
+      "to": "MER-P2-HUB",
+      "type": "pod-lift",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-P2-HUB",
+      "to": "MER-P3-HUB",
+      "type": "pod-lift",
+      "bidirectional": true,
+      "access": "restricted"
+    }
+  ]
+}
