@@ -1,6 +1,6 @@
-# Health, fatigue and lasting consequences — proposed v1.0
+# Health, fatigue and lasting consequences — v1.0
 
-Status: **proposal**.
+Status: **APPROVED BASELINE — 2026-10-06**.
 
 TrekMUD does not use hit points.
 
