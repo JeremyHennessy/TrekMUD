@@ -1,13 +1,15 @@
-# TrekMUD Core Rules — draft v0.9
+# TrekMUD Core Rules — proposed v1.0
 
-Status: **pre-campaign draft**. Nothing here is v1.0/locked until explicitly approved.
+Status: **UNAPPROVED PROPOSAL**.
+
+This branch is the candidate rules package for the campaign. Nothing becomes locked Rules v1.0 until Jeremy explicitly approves the package.
 
 ## Design principles
 
 1. **Career simulation, not XP grinding.** Rank and billet are separate.
 2. **Competence first.** Routine professional tasks succeed without rolls.
-3. **Uncertainty is mechanical.** Genuine uncertain actions use a lightweight 2d6 + attribute + skill + situational modifier check.
-4. **No dice fudging.** Random outcomes are reproducible from persisted RNG state once the campaign begins.
+3. **Uncertainty is mechanical.** Genuine uncertain actions use 2d6 + attribute + skill + relevant specialty + situational modifiers.
+4. **No dice fudging.** Consequential randomness comes from the auditable deterministic RNG.
 5. **Information is local.** The player knows what the character can plausibly know.
 6. **The ship is a living workplace.** Duty, friendships, rivalries, training, downtime and mundane routines matter alongside crises.
 7. **NPCs persist.** Important crew have careers, relationships and goals independent of the player.
@@ -15,21 +17,33 @@ Status: **pre-campaign draft**. Nothing here is v1.0/locked until explicitly app
 9. **Canon is a constraint, not a railroad.** Canon defines the wider setting. TrekMUD's ship and crew develop their own history.
 10. **State beats memory.** Repository state and committed checkpoints are authoritative when chats disagree.
 
-## Resolution ladder
+## Proposed v1.0 package
 
-Typical uncertain action:
+- `ATTRIBUTES_SKILLS.md` — attributes, broad skills, specialties, qualifications and starting-Ensign baseline
+- `RESOLUTION.md` — when to roll, targets, margins, assistance and extended work
+- `CONSEQUENCES.md` — injury, fatigue and professional consequences
+- `ADVANCEMENT.md` — skill evidence, promotion readiness, billets and transfers
+- `RELATIONSHIPS.md` — player-visible relationships and persistent NPC materialization
+- `RNG.md` — deterministic SHA-256 counter RNG and audit policy
+- `CAREER.md` — Starfleet rank/billet structure already established in draft v0.9
 
-`2d6 + attribute + skill + situational modifiers`
+## Resolution summary
 
-Outcomes are interpreted as:
+A trained professional with sufficient time, tools and information succeeds at routine work automatically.
 
-- exceptional success
-- success
-- success with complication/cost
-- failure
-- severe failure
+When uncertainty matters:
 
-Exact thresholds and attribute/skill ranges remain to be finalized before v1.0.
+`2d6 + Attribute + Skill + one relevant Specialty + situational modifiers`
+
+Targets:
+
+- 7 — pressured routine
+- 9 — professional challenge
+- 11 — difficult
+- 13 — severe
+- 15 — extraordinary
+
+A one-point miss may become success with a meaningful cost when that makes sense; it is not guaranteed.
 
 ## Persistence
 
@@ -44,4 +58,14 @@ A campaign checkpoint is required after:
 - significant possessions/equipment changes
 - session end
 
-Approved checkpoints are append-only history. Corrections create a new revision explaining the correction rather than silently rewriting the past.
+The player-visible state engine validates all revisioned component files as one snapshot. Checkpoints are content-hashed and immutable once committed.
+
+## Locking procedure
+
+When the rules are approved:
+
+1. record the exact approved commit SHA;
+2. change the package status from proposal to approved;
+3. set campaign `rulesVersion` to `1.0`;
+4. create a rules changelog entry;
+5. never alter v1.0 silently—future changes become explicit versioned revisions.
