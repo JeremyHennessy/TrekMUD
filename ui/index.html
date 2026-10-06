@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b12">
+<title>TrekMUD · USS Meridian</title>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="components.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="rail">
+    <div class="cap amber"></div>
+    <div class="brand"><small>TREKMUD</small><strong>MERIDIAN</strong></div>
+    <nav id="nav">
+      <button class="active" data-view="now">Right Now</button>
+      <button data-view="map">Ship Map</button>
+      <button data-view="character">Character</button>
+      <button data-view="crew">Crew</button>
+      <button data-view="threads">Threads</button>
+      <button data-view="timeline">Timeline</button>
+    </nav>
+    <div class="spacer"></div>
+    <div id="rail-meta" class="rail-meta"></div>
+    <div class="cap violet"></div>
+  </aside>
+  <main>
+    <header class="topbar">
+      <div><p id="eyebrow" class="eyebrow">USS MERIDIAN · NCC-63542</p><h1 id="title">Right Now</h1></div>
+      <div class="clock"><strong id="ship-time">--:--</strong><span id="stardate">STARDATE -----</span></div>
+    </header>
+    <section id="view"><div class="loading">Loading player-safe campaign state…</div></section>
+  </main>
+</div>
+<dialog id="modal"><button id="modal-close" aria-label="Close">×</button><div id="modal-content"></div></dialog>
+<script src="core.js" defer></script>
+<script src="views.js" defer></script>
+<script src="map.js" defer></script>
+</body>
+</html>

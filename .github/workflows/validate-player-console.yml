@@ -1,0 +1,59 @@
+name: Validate player console
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ui/**
+      - campaign/**
+      - scripts/build_player_console.py
+      - scripts/validate_player_console.py
+      - .github/workflows/validate-player-console.yml
+  push:
+    branches:
+      - player-console-v1
+      - main
+    paths:
+      - ui/**
+      - campaign/**
+      - scripts/build_player_console.py
+      - scripts/validate_player_console.py
+      - .github/workflows/validate-player-console.yml
+
+permissions:
+  contents: read
+
+jobs:
+  console:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile console tooling
+        run: python -m py_compile scripts/build_player_console.py scripts/validate_player_console.py
+
+      - name: Validate browser JavaScript
+        run: |
+          node --check ui/core.js
+          node --check ui/views.js
+          node --check ui/map.js
+
+      - name: Build and validate player-safe console
+        run: python scripts/validate_player_console.py --keep _site
+
+      - name: Inspect generated site
+        run: |
+          test -s _site/index.html
+          test -s _site/base.css
+          test -s _site/components.css
+          test -s _site/core.js
+          test -s _site/views.js
+          test -s _site/map.js
+          test -s _site/data/player-console.json

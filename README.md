@@ -1,79 +1,83 @@
 # TrekMUD
 
-A persistent, text-first Star Trek career/life RPG set aboard **USS Meridian, NCC-63542**, an Akira-class Starfleet vessel in 2372.
+A persistent, open-ended Star Trek career/life RPG aboard **USS Meridian, NCC-63542**, an Akira-class Starfleet vessel in 2372.
 
-TrekMUD is designed to play like an open tabletop campaign rather than a branching story: the player can attempt unplanned actions, pursue side threads, change career direction, build relationships, fail, improvise and create lasting consequences.
+Chat is the tabletop. Git is the continuity ledger. The Player Console is the visual PADD.
 
 ## Current campaign status
 
-**Pre-character checkpoint: `r00000`**
+**Checkpoint: `r00002` · Revision 2 · READY_TO_START**
 
-- Campaign status: **NOT_STARTED**
-- Historical pre-character checkpoint rules: **v1.0**\n- Approved character-creation/play rules after r00001: **v1.1 Organic Character Discovery**
-- In-universe year: **2372**
+- Player: **Ensign Jeremy Hennessy**
+- Species: Human · age 30 · he/him
+- Upbringing: Federation starbase; exact station intentionally unresolved
+- Department: **Science**
+- Billet: Junior Science Officer
+- Rules: **v1.1 Organic Character Discovery**
 - Stardate: **49317.4**
 - Ship time: **12:17**
 - Ship location: **Starbase 375**
-- Opening arrival: **Transporter Room 2**
-- Assigned quarters after character creation: **Deck 7, Section 12, 0712-C**
-- Player character: **not yet created**
+- Jeremy's location: **Transporter Room 2**
+- Assigned quarters: Deck 7, Section 12, 0712-C
 - USS Meridian map: **131 persistent locations / 138 connections**
-- Crew model: **500 total; 20 persistent starting identities; 480 background crew**
-- Structured lore baseline: **41,388 STAPI records**
+- Crew model: **500 total; 20 persistent identities; 480 background crew**
+- Lore baseline: **41,388 STAPI records**
 - TNG/DS9 era index: **349 full episodes / 1,350 linked characters**
+- Deterministic RNG: initialized, counter **0**
+- Narrative actions taken: **0**
 
-The next canonical campaign revision is organic character creation, which will produce **revision 1 / r00001** and upgrade the live campaign to Rules **v1.1**. Only identity, upbringing and department are required before that checkpoint; most of the character is discovered during play. No narrative action has occurred yet.
+The private companion repository `JeremyHennessy/TrekMUD-GM` is synchronized to `r00002` and contains the secret RNG seed plus future GM-only state. No hidden plot, mystery, relationship, or off-screen event state was prewritten at initialization.
 
-## Approved baselines
+## Player Console
 
-Exact approved commits are recorded in `baselines/`.
+`ui/` contains a read-only player-facing campaign console.
 
-Major baselines include:
+Views:
 
-- persistent campaign state engine v1
-- Rules v1.0
-- USS Meridian topology v1.0
-- structured lore v1.0
-- USS Meridian crew structure v1.0
-- pre-character checkpoint `r00000`
+- **Right Now** — location, time, ship state, obligations, active threads
+- **Ship Map** — interactive deck schematic generated from persistent location IDs
+- **Character** — organic attributes/skills and remaining discovery pools
+- **Crew** — searchable player-visible crew directory
+- **Threads** — known obligations, schedule, and open campaign threads
+- **Timeline** — persistent service and character-discovery history
 
-Approved history is never silently rewritten. Future work builds forward.
+The browser never reads `TrekMUD-GM`. `scripts/build_player_console.py` generates a compact player-safe JSON snapshot from public campaign files only, and `scripts/validate_player_console.py` rejects private-state markers or RNG commitment leakage.
+
+The console is prepared for GitHub Pages via `.github/workflows/deploy-player-console.yml`.
 
 ## Repository role
 
-This repository is the durable player-visible source of truth. Chat is the play interface; Git is the continuity ledger.
-
 ```
 baselines/     exact approved project/campaign baselines
-rules/         locked game mechanics and open-play rules
+rules/         versioned game mechanics and open-play rules
 campaign/      current player-visible state, chronicle and checkpoints
-world/         USS Meridian topology, crew structure and other setting state
+world/         USS Meridian topology and crew structure
 lore/          canon/source/provenance and 2372 knowledge policy
-data/stapi/    generated structured Star Trek reference snapshot
-scripts/       state, checkpoint, RNG, lore and character tooling
+data/stapi/    structured Star Trek reference snapshot
+ui/            player-facing campaign console
+scripts/       state, checkpoint, RNG, lore, character and UI tooling
 tests/         non-canonical validation fixtures
-gm-template/   schema/protocol only for future private GM storage
+gm-template/   protocol/template for private GM storage
 ```
 
 For cross-chat continuation, follow `campaign/RESUME_PROTOCOL.md`.
 
 ## Campaign principles
 
-- The player begins as a low-ranking **Starfleet Ensign**.
+- The player can attempt anything plausible in the fiction; there is no required plot path.
 - Rank and billet are separate.
-- Advancement follows demonstrated service, competence, conduct and opportunity rather than XP.
+- Advancement follows service, competence, conduct, qualifications and opportunity rather than XP.
 - Routine professional work normally succeeds without dice.
-- Consequential uncertainty uses the locked 2d6 Rules v1.0 system.
+- Consequential uncertainty uses the locked 2d6 system and auditable deterministic RNG.
 - NPCs and improvised world details persist once they matter.
-- Canon constrains the wider setting but does not railroad the player's local story.
+- Canon constrains the wider setting without railroading the player's local story.
 - Player knowledge is distinct from what exists in the lore database.
 - Real-world time passing does not advance campaign time.
+- Organic character values remain unresolved until play establishes them; unresolved never means zero.
 
-## Lore
+## Lore and attribution
 
-The first structured ingestion layer is [STAPI](https://stapi.co/).
-
-The verified baseline contains **41,388 reusable structured records** with zero ingestion failures. Trading-card resource families are intentionally excluded under the source/licensing policy.
+The primary structured ingestion layer is [STAPI](https://stapi.co/). The verified baseline contains **41,388 reusable structured records** with zero ingestion failures. Trading-card resource families are intentionally excluded.
 
 See:
 
@@ -84,23 +88,8 @@ See:
 
 TrekMUD stores structured facts, source references and original summaries. It does not mirror episode scripts, subtitles or copyrighted encyclopedia prose.
 
-## Character creation
+## Security boundary
 
-Character creation is implemented and validated in `scripts/create_character.py`.
+Public TrekMUD contains only player-visible state.
 
-The player initially chooses only name, species, age, optional pronouns, homeworld/upbringing and department. Attributes, Academy cross-training, specialties, interests and detailed background remain intentionally unresolved and lock organically through play. The tool creates the minimal revision-1 campaign state atomically and a validated `r00001` checkpoint is made before Scene One.
-
-See `campaign/CHARACTER_CREATION.md`.
-
-## Private GM-state requirement
-
-This repository is currently public.
-
-Do **not** commit hidden NPC motives, mystery answers, secret relationship state, future plot clocks or the deterministic RNG secret seed here.
-
-Before live narrative play begins, either:
-
-1. make TrekMUD private; or
-2. create a private companion store/repository such as `TrekMUD-GM`.
-
-The public campaign files remain the player-visible truth either way.
+Private material—including unrevealed NPC motives, mystery answers, secret relationship state, future plot clocks and the RNG seed—belongs only in the private `TrekMUD-GM` repository. Public/private revisions must remain synchronized before play continues.
