@@ -1,4 +1,6 @@
-# Starfleet Career Model — draft v0.9
+# Starfleet Career Model — v1.0
+
+Status: **APPROVED BASELINE — 2026-10-06**.
 
 ## Rank progression
 
