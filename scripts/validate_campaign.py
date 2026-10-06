@@ -229,10 +229,16 @@ def validate(root: Path) -> dict[str, Any]:
     require(isinstance(ship, dict), "campaign/ship.json must contain ship object")
     summary = state.get("ship")
     require(isinstance(summary, dict), "state.ship is required")
-    for key in ("id", "name", "class", "location", "mission", "alertCondition"):
+    for key in ("id", "name", "registry", "class", "location", "mission", "alertCondition"):
         require(summary.get(key) == ship.get(key), f"ship summary mismatch for {key}")
 
     ship_id = ship.get("id")
+    if character_id is not None:
+        payload = character.get("character") or {}
+        assignment = payload.get("assignment") or {}
+        require(assignment.get("shipId") == ship_id, "character assignment shipId mismatch")
+        require(assignment.get("shipName") == ship.get("name"), "character assignment shipName mismatch")
+        require(assignment.get("registry") == ship.get("registry"), "character assignment registry mismatch")
     require(crew.get("shipId") == ship_id, "crew.shipId mismatch")
     require(locations.get("shipId") == ship_id, "locations.shipId mismatch")
 
@@ -246,8 +252,10 @@ def validate(root: Path) -> dict[str, Any]:
     background_count = background.get("count")
     require(isinstance(background_count, int) and background_count >= 0,
             "backgroundPopulation.count must be non-negative")
-    require(background_count + len(materialized) == nominal,
-            "background count + materialized crew must equal nominal crew complement")
+    player_included = bool(crew.get("playerIncludedInComplement"))
+    player_count = 1 if player_included and character_id is not None else 0
+    require(background_count + len(materialized) + player_count == nominal,
+            "background + materialized crew + included player must equal nominal crew complement")
 
     location_rows = locations.get("locations")
     edge_rows = locations.get("edges")

@@ -8,17 +8,21 @@ on:
     paths:
       - ui/**
       - campaign/**
+      - world/asteria/**
       - scripts/build_player_console.py
+      - scripts/build_map_layout.py
       - scripts/validate_player_console.py
       - .github/workflows/validate-player-console.yml
   push:
     branches:
-      - player-console-v1
+      - nebula-asteria-retcon
       - main
     paths:
       - ui/**
       - campaign/**
+      - world/asteria/**
       - scripts/build_player_console.py
+      - scripts/build_map_layout.py
       - scripts/validate_player_console.py
       - .github/workflows/validate-player-console.yml
 
@@ -31,13 +35,12 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
       - name: Compile console tooling
-        run: python -m py_compile scripts/build_player_console.py scripts/validate_player_console.py
+        run: python -m py_compile scripts/build_map_layout.py scripts/build_player_console.py scripts/validate_player_console.py
 
       - name: Validate browser JavaScript
         run: |

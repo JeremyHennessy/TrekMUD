@@ -1,5 +1,5 @@
 window.TM={};
-TM.S={data:null,view:"now",deck:9,crewQuery:"",crewDept:"ALL"};
+TM.S={data:null,view:"now",deck:9,mapKey:null,selectedLocation:null,crewQuery:"",crewDept:"ALL"};
 TM.titleMap={now:"Right Now",map:"Ship Map",character:"Character",crew:"Crew",threads:"Threads",timeline:"Timeline"};
 TM.$=s=>document.querySelector(s);
 TM.esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -34,6 +34,7 @@ TM.boot=async()=>{
     TM.$("#eyebrow").textContent=d.ship.name.toUpperCase()+" · "+d.ship.registry;
     TM.$("#rail-meta").innerHTML="Checkpoint <b>"+TM.esc(d.source.checkpointId)+"</b><br>Revision "+TM.esc(d.source.campaignRevision)+"<br>Rules "+TM.esc(d.source.rulesVersion);
     TM.S.deck=d.now.location?.deck||9;
+    TM.S.mapKey=d.map?.currentKey||String(TM.S.deck);
     TM.bind();
     TM.render();
   }catch(e){
@@ -41,3 +42,7 @@ TM.boot=async()=>{
   }
 };
 document.addEventListener("DOMContentLoaded",TM.boot);
+
+TM.deptClass=d=>"dept-"+String(d||"shipwide").toLowerCase().replace(/[^a-z0-9]+/g,"-");
+TM.rankShort=r=>String(r||"").replace("Lieutenant Commander","Lt. Cmdr.").replace("Lieutenant junior grade","Lt. j.g.").replace("Lieutenant","Lt.").replace("Commander","Cmdr.").replace("Captain","Capt.");
+TM.shipMark=()=>'<svg class="ship-mark" viewBox="0 0 260 120" aria-hidden="true"><ellipse class="ship-main" cx="108" cy="48" rx="82" ry="34"/><path class="ship-cut" d="M88 65h40l30 17-28 10H92L64 82Z"/><path class="ship-nacelle" d="M49 68 14 103l58 3 25-29Zm118 9 25 29 54-3-32-35Z"/><path class="ship-pod" d="M104 14h34l20 16-37 14-38-14Z"/><path class="ship-pylon" d="M108 32h22v28h-22Z"/></svg>';

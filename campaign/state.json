@@ -3,7 +3,7 @@
     "TH-00001"
   ],
   "checkpoint": {
-    "lastCheckpointId": "r00002",
+    "lastCheckpointId": "r00003",
     "validated": true
   },
   "components": {
@@ -27,20 +27,20 @@
   },
   "player": {
     "characterId": "PC-001",
-    "locationId": "MER-D09-TR-02"
+    "locationId": "AST-D09-TR-02"
   },
-  "revision": 2,
+  "revision": 3,
   "rulesVersion": "1.1",
   "schemaVersion": 1,
   "ship": {
     "alertCondition": "normal",
-    "class": "Akira-class",
+    "class": "Nebula-class",
     "commandingOfficerId": "CREW-001",
     "executiveOfficerId": "CREW-002",
-    "id": "USS-MERIDIAN",
+    "id": "USS-ASTERIA",
     "location": "Starbase 375",
     "mission": null,
-    "name": "USS Meridian",
+    "name": "USS Asteria",
     "registry": "NCC-63542"
   },
   "status": "READY_TO_START"

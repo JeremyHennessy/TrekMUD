@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 2,
+  "status": "CANDIDATE_BASELINE_RETCON",
+  "shipId": "USS-ASTERIA",
+  "name": "USS Asteria",
+  "registry": "NCC-63542",
+  "registrySource": "TREKMUD_ORIGINAL",
+  "class": "Nebula-class",
+  "commissioned": 2367,
+  "referenceFacts": {
+    "lengthMeters": {
+      "value": 442.23,
+      "confidence": "OFFICIAL_REFERENCE",
+      "source": "https://www.startrek.com/news/inside-the-nebula-class-starship"
+    },
+    "maximumWarp": {
+      "value": 9.5,
+      "confidence": "OFFICIAL_REFERENCE",
+      "source": "https://www.startrek.com/news/inside-the-nebula-class-starship"
+    },
+    "modularDorsalPod": {
+      "value": true,
+      "confidence": "CANON_CONFIRMED",
+      "source": "https://www.startrek.com/news/inside-the-nebula-class-starship"
+    },
+    "crewComplement": {
+      "value": 750,
+      "confidence": "TECHNICAL_REFERENCE",
+      "source": "Star Trek: Deep Space Nine Technical Manual via Memory Alpha"
+    },
+    "deckCount": {
+      "value": 28,
+      "confidence": "TREKMUD_TECHNICAL_REFERENCE",
+      "source": "TrekMUD layout choice informed by secondary Nebula technical references"
+    }
+  },
+  "trekMudSettingFill": {
+    "missionPod": "Triangular long-range sensor/science pod",
+    "missionProfile": "deep-space science, exploration, strategic sensor support, diplomacy, transport and general multi-mission operations",
+    "numberedDecks": 28,
+    "podLevels": 4,
+    "exactInternalDeckAssignmentsOriginal": true
+  }
+}

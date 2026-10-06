@@ -30,3 +30,13 @@ Narrative Scene One remains unplayed until mechanics and character creation are 
 - RNG counter begins at 0.
 - No in-universe time passed and no narrative event occurred.
 
+## Pre-play ship baseline retcon — revision 3
+
+- Before Scene One, the assigned vessel baseline was revised from USS Meridian (Akira-class) to USS Asteria, NCC-63542 (Nebula-class).
+- This is a campaign-baseline correction, not an in-universe rename, refit, or transfer.
+- Transporter Room 2 remains the opening room on Deck 9.
+- Assigned quarters remain Deck 7, Section 12, cabin 0712-C.
+- The Asteria uses a 28-deck TrekMUD layout plus a four-level triangular sensor/science pod.
+- Nominal complement is 750 including Jeremy; 20 NPC identities remain materialized and 729 crew remain background.
+- Ship time remains 1217, Stardate 49317.4; RNG counter remains 0; no narrative action occurred.
+

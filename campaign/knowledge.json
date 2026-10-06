@@ -2,10 +2,10 @@
   "characterId": "PC-001",
   "facts": [
     {
-      "fact": "Assigned vessel is USS Meridian, NCC-63542, Akira-class.",
+      "fact": "Assigned vessel is USS Asteria, NCC-63542, Nebula-class.",
       "id": "KN-00001",
       "source": "STARFLEET_ASSIGNMENT",
-      "subject": "USS Meridian"
+      "subject": "USS Asteria"
     },
     {
       "fact": "Assigned quarters are Deck 7, Section 12, cabin 0712-C.",
@@ -26,6 +26,6 @@
       "subject": "Department"
     }
   ],
-  "revision": 2,
+  "revision": 3,
   "schemaVersion": 1
 }

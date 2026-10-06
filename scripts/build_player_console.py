@@ -4,12 +4,13 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+from build_map_layout import build_map_layout
 
 ROOT = Path(__file__).resolve().parents[1]
 UI_ROOT = ROOT / "ui"
@@ -21,37 +22,6 @@ def load_json(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise ValueError(f"{path} must contain a JSON object")
     return value
-
-
-def stable_point(location: dict[str, Any]) -> dict[str, float]:
-    """Assign deterministic visual coordinates without mutating world topology."""
-    loc_id = str(location["id"])
-    loc_type = str(location.get("type", "room"))
-    if loc_id.endswith("-HUB-C"):
-        return {"x": 50.0, "y": 50.0}
-    if loc_id.endswith("-TL-C"):
-        return {"x": 15.0, "y": 50.0}
-
-    digest = hashlib.sha256(loc_id.encode("utf-8")).digest()
-    # Keep peripheral rooms away from the central hub, but stable forever by ID.
-    zones = [
-        (25.0, 20.0), (50.0, 18.0), (75.0, 20.0),
-        (82.0, 42.0), (80.0, 68.0), (66.0, 82.0),
-        (42.0, 82.0), (20.0, 72.0), (18.0, 36.0),
-        (35.0, 32.0), (65.0, 34.0), (35.0, 66.0), (65.0, 66.0),
-    ]
-    base_x, base_y = zones[digest[0] % len(zones)]
-    jitter_x = ((digest[1] / 255.0) - 0.5) * 8.0
-    jitter_y = ((digest[2] / 255.0) - 0.5) * 8.0
-
-    # Flight-deck and airlock spaces are visually pushed toward ship edges.
-    if loc_type in {"hangar", "airlock", "flight-control"}:
-        base_x = 85.0 if digest[3] % 2 else 15.0
-
-    return {
-        "x": round(max(7.0, min(93.0, base_x + jitter_x)), 2),
-        "y": round(max(9.0, min(91.0, base_y + jitter_y)), 2),
-    }
 
 
 def location_index(locations_doc: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -79,9 +49,8 @@ def player_safe_snapshot(root: Path) -> dict[str, Any]:
     current_location_id = (state.get("player") or {}).get("locationId")
     current_location = by_location.get(current_location_id)
 
-    safe_locations = []
-    for row in locations.get("locations", []):
-        item = {
+    safe_locations = [
+        {
             "id": row.get("id"),
             "deck": row.get("deck"),
             "section": row.get("section"),
@@ -90,9 +59,9 @@ def player_safe_snapshot(root: Path) -> dict[str, Any]:
             "department": row.get("department"),
             "access": row.get("access"),
             "source": row.get("source"),
-            **stable_point(row),
         }
-        safe_locations.append(item)
+        for row in locations.get("locations", [])
+    ]
 
     edges = [
         {
@@ -203,6 +172,7 @@ def player_safe_snapshot(root: Path) -> dict[str, Any]:
             "materializedCount": len(safe_crew),
             "backgroundCount": (crew_doc.get("backgroundPopulation") or {}).get("count", 0),
             "nominalComplement": crew_doc.get("nominalCrewComplement"),
+            "playerIncludedInComplement": bool(crew_doc.get("playerIncludedInComplement")),
         },
         "relationships": relationships.get("relationships", []),
         "knowledge": knowledge.get("facts", []),
@@ -219,16 +189,7 @@ def player_safe_snapshot(root: Path) -> dict[str, Any]:
             "shipId": locations.get("shipId"),
             "locations": safe_locations,
             "edges": edges,
-            "deckNumbers": sorted({
-                int(row["deck"])
-                for row in safe_locations
-                if isinstance(row.get("deck"), int)
-            }),
-            "podLevels": sorted({
-                str(row.get("section"))
-                for row in safe_locations
-                if row.get("deck") is None and row.get("section")
-            }),
+            **build_map_layout(safe_locations, edges, current_location_id),
         },
         "rng": {
             "algorithm": rng.get("algorithm"),
