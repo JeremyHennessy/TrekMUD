@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "baseline": "uss-meridian-crew-structure",
+  "version": "1.0",
+  "status": "APPROVED",
+  "approvedDate": "2026-10-06",
+  "commit": "4fd20fd79c493735199fd1c8513fd8b0560fca32",
+  "nominalComplement": 500,
+  "initialMaterializedCrew": 20,
+  "initialBackgroundPopulation": 480,
+  "mutationPolicy": "Named crew identities persist. Tier-3 background personnel may be materialized through play but are never silently regenerated once established.",
+  "privacyPolicy": "Public baseline contains directory-level facts only; hidden motives, private feelings and plot state require private GM storage."
+}
