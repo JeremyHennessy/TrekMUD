@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "baseline": "star-trek-structured-lore",
+  "version": "1.0",
+  "status": "APPROVED",
+  "approvedDate": "2026-10-06",
+  "commit": "584e27b794c0a4c82d06d580621fd93c632fe312",
+  "source": "STAPI",
+  "totalRecords": 41388,
+  "tngDs9Episodes": 349,
+  "tngDs9Characters": 1350,
+  "ingestionFailures": 0,
+  "excludedResources": [
+    "tradingCard",
+    "tradingCardDeck",
+    "tradingCardSet"
+  ],
+  "mutationPolicy": "Refreshes require a new verified snapshot; the v1.0 baseline is not silently replaced."
+}
