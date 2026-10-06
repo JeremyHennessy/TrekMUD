@@ -151,9 +151,17 @@ def main() -> int:
     # console; keeping it out also prevents accidental coupling to GM storage.
     assert "publicCommitment" not in public_json
     assert payload["rng"]["counter"] == 0
+    assert payload["source"]["campaignRevision"] == 4
+    assert payload["source"]["checkpointId"] == "r00004"
+    assert payload["records"]["dutyLogs"] == []
+    assert payload["records"]["scienceFindings"] == []
+    assert payload["records"]["missionRecords"] == []
+    assert payload["records"]["relationshipMilestones"] == []
+    assert payload["records"]["shipEvents"] == []
 
     index_html = (output / "index.html").read_text(encoding="utf-8")
     assert 'data-view="ship"' in index_html
+    assert 'data-view="records"' in index_html
     assert "USS Asteria" in index_html
     assert 'rel="manifest"' in index_html
     manifest = json.loads((output / "manifest.webmanifest").read_text(encoding="utf-8"))
