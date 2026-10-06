@@ -1,0 +1,64 @@
+name: Update Trek lore catalogue
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - bootstrap-canon
+      - main
+    paths:
+      - scripts/scrape_stapi.py
+      - lore/SOURCES.md
+      - .github/workflows/update-lore.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: trek-lore-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  stapi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Scrape reusable STAPI catalogue
+        run: python scripts/scrape_stapi.py --output data/stapi
+
+      - name: Validate generated manifest
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          m = json.loads(Path('data/stapi/manifest.json').read_text())
+          assert m['totalRecords'] > 10000, m['totalRecords']
+          for required in ['character','episode','location','series','spacecraft','species','technology']:
+              assert required in m['resourcesFetched'], required
+          assert not [f for f in m['failures'] if f.get('critical')], m['failures']
+          print(json.dumps({
+              'totalRecords': m['totalRecords'],
+              'resources': len(m['resourcesFetched']),
+              'era': m['era']
+          }, indent=2))
+          PY
+
+      - name: Commit generated lore snapshot
+        run: |
+          if git diff --quiet -- data/stapi; then
+            echo "No generated lore changes."
+            exit 0
+          fi
+          git config user.name "trekmud-lore-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/stapi
+          git commit -m "data: refresh Star Trek lore catalogue [skip ci]"
+          git push
