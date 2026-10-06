@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "baseline": "trekmud-rules",
+  "version": "1.0",
+  "status": "APPROVED",
+  "approvedDate": "2026-10-06",
+  "commit": "d0feb35647e2a9dc43aa19f8930f709a4fd61b5b",
+  "approvalBasis": "User instructed the assistant to execute the proposed review-and-lock sequence on 2026-10-06.",
+  "lockedPrinciples": [
+    "open-ended non-railroad campaign play",
+    "career simulation without XP grinding",
+    "competence-first resolution",
+    "2d6 resolution with deterministic auditable randomness",
+    "persistent NPCs and consequences",
+    "rank and billet tracked separately",
+    "no automatic critical successes or fumbles",
+    "no repeated-roll fishing without changed circumstances",
+    "social checks do not erase NPC agency",
+    "repository state is authoritative across chats"
+  ]
+}

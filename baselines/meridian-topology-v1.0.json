@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "baseline": "uss-meridian-topology",
+  "version": "1.0",
+  "status": "APPROVED",
+  "approvedDate": "2026-10-06",
+  "commit": "bf9b0f0b94e4853d471b178d6ad8fb0e50d625a9",
+  "locationCount": 131,
+  "edgeCount": 138,
+  "numberedDecks": 19,
+  "lockedContinuity": {
+    "openingArrival": "MER-D09-TR-02",
+    "playerQuarters": "MER-D07-S12-0712C",
+    "playerQuartersDeck": 7,
+    "playerQuartersSection": "12"
+  },
+  "mutationPolicy": "Future rooms may be added when needed, but approved existing locations do not silently move or change identity."
+}

@@ -1,4 +1,4 @@
-name: Validate proposed rules mechanics
+name: Validate TrekMUD rules
 
 on:
   workflow_dispatch:
@@ -11,6 +11,7 @@ on:
       - .github/workflows/validate-rules.yml
   push:
     branches:
+      - main
       - rules-v1-draft
     paths:
       - rules/**
