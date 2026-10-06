@@ -1,9 +1,9 @@
 {
   "algorithm": "SHA256_COUNTER_V1",
   "counter": 0,
-  "note": "The secret seed must not be committed while the repository is public. Rules v1.0 will define initialization and audit/reveal behavior.",
-  "publicCommitment": null,
-  "revision": 1,
+  "note": "Secret seed is stored only in synchronized private TrekMUD-GM state. This public file contains only its SHA-256 commitment and consumed counter.",
+  "publicCommitment": "7fcb8273a412f1365dc155b28c48e96108335a0419768f11ec1fd13b08d3b513",
+  "revision": 2,
   "schemaVersion": 1,
-  "status": "UNINITIALIZED"
+  "status": "INITIALIZED"
 }

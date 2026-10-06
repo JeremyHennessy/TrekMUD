@@ -9,6 +9,7 @@ on:
       - campaign/**
       - scripts/validate_campaign.py
       - scripts/create_checkpoint.py
+      - scripts/initialize_rng_commitment.py
       - .github/workflows/validate-campaign.yml
   push:
     branches:
@@ -18,6 +19,7 @@ on:
       - campaign/**
       - scripts/validate_campaign.py
       - scripts/create_checkpoint.py
+      - scripts/initialize_rng_commitment.py
       - .github/workflows/validate-campaign.yml
 
 permissions:
@@ -35,7 +37,7 @@ jobs:
           python-version: '3.12'
 
       - name: Compile state tooling
-        run: python -m py_compile scripts/validate_campaign.py scripts/create_checkpoint.py
+        run: python -m py_compile scripts/validate_campaign.py scripts/create_checkpoint.py scripts/initialize_rng_commitment.py
 
       - name: Validate canonical candidate snapshot
         run: python scripts/validate_campaign.py

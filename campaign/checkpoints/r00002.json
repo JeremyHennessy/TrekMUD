@@ -1,0 +1,35 @@
+{
+  "checkpointId": "r00002",
+  "createdAt": "2026-10-06T19:31:48.331277+00:00",
+  "files": {
+    "campaign/CHRONICLE.md": "ce4eabfe133cb434ccff1ff71c1ca26e463e29472963435aff242798a2bb9ab1",
+    "campaign/active-threads.json": "ae20eae74a8dfc76bb3d964e98f0003a5cb0066388864b8c3caf5f3bad3e604f",
+    "campaign/calendar.json": "e9bb3b20b7c9c3faa19bd5b27c83ecd46a93dbcae8102e0fd60a45d73b0dc9f4",
+    "campaign/character.json": "6a1a3d4fc27595db6c1c10c873cffecffad67bb2d6be47c3f0be2fe8e53399fe",
+    "campaign/config.json": "e425e0882b2fc7d07d7ae3f8425c18243983ab8a23684853a682339cd608f81f",
+    "campaign/crew.json": "85018852a729c1e3624a84e5a0f1267a1bf05f017177327c68a8c5bff9e50e6f",
+    "campaign/inventory.json": "932f1fd68e30be6a0f568c1fb1f3ffd0dfb26b6c1265775a1661ed1c5a51a02c",
+    "campaign/knowledge.json": "52dd837b232bd0d125d535a62830e13190008f07878e324918bd32a1bf41a2fc",
+    "campaign/locations.json": "138fa9fb869c86155c0c840917efb980ba764644a60f49003b91c3c010ea9162",
+    "campaign/qualifications.json": "f57d984fc0640bc886c26dd57f623c3d47bf74f41c2ec6cbff531a691fceded6",
+    "campaign/relationships.json": "d2137592294ffd3c82cdd0cbf375eb14ae717ac4b13e7db479474113af787ff3",
+    "campaign/rng.json": "8627cf8e525258da26ad80b3f0020b74074a266231be85384d03010831be310e",
+    "campaign/service-record.json": "b5f0362403d9e69f349c98184cfb48b611237301f0ef897e63feb9d6b600f246",
+    "campaign/ship.json": "1e83b2316305f4098b2b8fed5bcfd1e1d6be1ad5bee7504e65780bebfe2993a2",
+    "campaign/state.json": "39f2b56ff6a2f2d26bd01e8477244aa8a614c686460dec606ab1fb769ce8ed18"
+  },
+  "previousCheckpointId": "r00001",
+  "revision": 2,
+  "rulesVersion": "1.1",
+  "schemaVersion": 1,
+  "summary": "Initialize deterministic RNG commitment",
+  "validation": {
+    "locations": 131,
+    "materializedCrew": 20,
+    "revision": 2,
+    "rngCounter": 0,
+    "status": "READY_TO_START",
+    "threads": 1,
+    "valid": true
+  }
+}
