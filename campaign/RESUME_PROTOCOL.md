@@ -16,7 +16,7 @@ Before narrating anything:
 4. Confirm the checkpoint revision matches `state.revision`.
 5. Read `campaign/config.json` and the component files listed in `state.components`.
 6. Read the relevant recent section of `campaign/CHRONICLE.md`.
-7. Read `rules/CORE_RULES.md` for the rules version named by state.
+7. Resolve the rules version named by state. For v1.0 use the locked v1.0 baseline; for v1.1 load v1.0 plus `rules/CHARACTER_DISCOVERY.md`. Never apply a later rules revision retroactively to an older checkpoint.
 8. Load only the crew, locations, relationships, knowledge and active threads needed for the current scene, expanding as required.
 9. If private GM storage exists, load the matching hidden-state revision separately. Never infer hidden state from player-visible files.
 10. Continue from the exact saved in-universe time and location unless the player explicitly requests a time skip.
