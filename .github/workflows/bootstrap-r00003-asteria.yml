@@ -1,0 +1,104 @@
+name: Bootstrap Asteria r00003
+
+on:
+  push:
+    branches:
+      - nebula-asteria-retcon
+    paths:
+      - scripts/apply_asteria_retcon.py
+      - .github/workflows/bootstrap-r00003-asteria.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bootstrap-asteria-r00003
+  cancel-in-progress: false
+
+jobs:
+  retcon:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: nebula-asteria-retcon
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile retcon tooling
+        run: python -m py_compile scripts/apply_asteria_retcon.py scripts/validate_asteria.py scripts/validate_asteria_crew.py scripts/validate_campaign.py scripts/create_checkpoint.py
+
+      - name: Validate Asteria baseline
+        run: |
+          python scripts/validate_asteria.py
+          python scripts/validate_asteria_crew.py
+
+      - name: Apply zero-time retcon and checkpoint
+        run: |
+          if [ -f campaign/checkpoints/r00003.json ]; then
+            echo "r00003 already exists"
+          else
+            python scripts/apply_asteria_retcon.py
+            python scripts/create_checkpoint.py --summary "Pre-play baseline retcon to USS Asteria Nebula-class"
+          fi
+
+      - name: Verify r00003
+        run: |
+          python scripts/validate_campaign.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          state=json.loads(Path("campaign/state.json").read_text())
+          ship=json.loads(Path("campaign/ship.json").read_text())["ship"]
+          crew=json.loads(Path("campaign/crew.json").read_text())
+          loc=json.loads(Path("campaign/locations.json").read_text())
+          char=json.loads(Path("campaign/character.json").read_text())["character"]
+          rng=json.loads(Path("campaign/rng.json").read_text())
+          cp=json.loads(Path("campaign/checkpoints/r00003.json").read_text())
+
+          assert state["revision"] == 3
+          assert state["checkpoint"]["lastCheckpointId"] == "r00003"
+          assert state["status"] == "READY_TO_START"
+          assert state["currentTime"]["shipTime"] == "12:17"
+          assert state["currentTime"]["stardate"] == 49317.4
+          assert state["player"]["locationId"] == "AST-D09-TR-02"
+
+          assert ship["id"] == "USS-ASTERIA"
+          assert ship["name"] == "USS Asteria"
+          assert ship["class"] == "Nebula-class"
+          assert ship["registry"] == "NCC-63542"
+          assert char["assignment"]["shipId"] == "USS-ASTERIA"
+          assert char["quartersId"] == "AST-D07-S12-0712C"
+
+          assert crew["nominalCrewComplement"] == 750
+          assert crew["playerIncludedInComplement"] is True
+          assert len(crew["materializedCrew"]) == 20
+          assert crew["backgroundPopulation"]["count"] == 729
+
+          assert len(loc["locations"]) == 200
+          assert len(loc["edges"]) == 206
+          assert rng["counter"] == 0
+
+          assert cp["checkpointId"] == "r00003"
+          assert cp["previousCheckpointId"] == "r00002"
+          assert cp["revision"] == 3
+          assert cp["validation"]["valid"] is True
+          print("Asteria r00003 verified")
+          PY
+
+      - name: Commit generated r00003
+        run: |
+          if git diff --quiet -- campaign && [ -z "$(git status --porcelain -- campaign)" ]; then
+            echo "No campaign changes."
+            exit 0
+          fi
+          git config user.name "trekmud-retcon-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add campaign
+          git commit -m "checkpoint: r00003 adopt USS Asteria Nebula-class [skip ci]"
+          git push origin HEAD:nebula-asteria-retcon
