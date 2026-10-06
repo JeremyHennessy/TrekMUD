@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "status": "CANDIDATE",
+  "shipId": "USS-MERIDIAN",
+  "nominalComplement": 500,
+  "shiftModel": {
+    "name": "three-shift rotation",
+    "shifts": [
+      {
+        "id": "ALPHA",
+        "label": "Alpha Shift",
+        "nominalPersonnel": 180
+      },
+      {
+        "id": "BETA",
+        "label": "Beta Shift",
+        "nominalPersonnel": 165
+      },
+      {
+        "id": "GAMMA",
+        "label": "Gamma Shift",
+        "nominalPersonnel": 155
+      }
+    ],
+    "note": "Primary duty assignment only. Emergencies, training, leave, watches and mission needs override normal rotation."
+  },
+  "departments": [
+    {
+      "id": "COMMAND",
+      "name": "Command",
+      "nominalPersonnel": 20
+    },
+    {
+      "id": "ENGINEERING",
+      "name": "Engineering",
+      "nominalPersonnel": 120
+    },
+    {
+      "id": "OPERATIONS",
+      "name": "Operations",
+      "nominalPersonnel": 85
+    },
+    {
+      "id": "SCIENCE",
+      "name": "Science",
+      "nominalPersonnel": 65
+    },
+    {
+      "id": "MEDICAL",
+      "name": "Medical",
+      "nominalPersonnel": 35
+    },
+    {
+      "id": "SECURITY",
+      "name": "Security",
+      "nominalPersonnel": 50
+    },
+    {
+      "id": "TACTICAL",
+      "name": "Tactical",
+      "nominalPersonnel": 35
+    },
+    {
+      "id": "FLIGHT",
+      "name": "Flight Control",
+      "nominalPersonnel": 45
+    },
+    {
+      "id": "COUNSELING",
+      "name": "Counseling",
+      "nominalPersonnel": 10
+    },
+    {
+      "id": "LOGISTICS",
+      "name": "Crew Services / Logistics",
+      "nominalPersonnel": 35
+    }
+  ],
+  "materializationPolicy": {
+    "tier1": "Core persistent NPCs: senior officers and people who become personally important. Full hidden characterization belongs in private GM state.",
+    "tier2": "Persistent named crew: stable public identity, rank, department, billet and service facts.",
+    "tier3": "Background population represented statistically until interaction makes a stable identity useful.",
+    "rule": "Once a background person is materialized, the identity is never silently regenerated."
+  },
+  "assignmentPolicy": {
+    "playerShift": "Determined during character creation / department onboarding rather than assumed in advance.",
+    "playerDepartment": "Determined by chosen specialty and billet.",
+    "promotionAndTransfer": "Do not rewrite nominal department totals silently; personnel changes are campaign events."
+  }
+}
