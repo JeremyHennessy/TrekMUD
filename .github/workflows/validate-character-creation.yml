@@ -60,6 +60,7 @@ jobs:
           assert state["player"]["locationId"] == "MER-D09-TR-02"
           assert cp["checkpointId"] == "r00001"
           assert cp["revision"] == 1
+          assert cp["previousCheckpointId"] == "r00000"
           assert cp["validation"]["valid"] is True
           print("revision-1 fixture checkpoint verified")
           PY
