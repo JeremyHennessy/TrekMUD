@@ -1,28 +1,60 @@
 # TrekMUD Player Console
 
-A read-only visual companion to the chat-based RPG.
+A read-only visual companion to the chat-based TrekMUD campaign.
+
+## Current experience
+
+The console is designed as Jeremy Hennessy's Starfleet PADD rather than a game-control panel.
+
+Views:
+
+- **Right Now** — current assignment, exact location, next obligation, Science context, known facts
+- **Ship** — Nebula-class vessel profile, command staff, mission pod, reported condition, quick destinations
+- **Ship Map** — 28-deck cutaway, P1-P4 sensor-pod levels, searchable compartments, access-aware routing
+- **Character** — organic attributes, skills, qualifications and still-unresolved discovery pools
+- **Crew** — searchable player-visible directory with department identity
+- **Threads** — known obligations and schedule
+- **Timeline** — persistent service/discovery history
 
 ## Architecture
 
-The console never fetches private GM state and never connects to `TrekMUD-GM`.
+The browser never connects to `TrekMUD-GM`.
 
 Build flow:
 
 1. `scripts/build_player_console.py` reads approved public campaign components.
-2. `scripts/build_map_layout.py` derives presentation-only Nebula-class deck/pod layouts from stable campaign location IDs.
+2. `scripts/build_map_layout.py` derives presentation-only Nebula-class deck/pod layouts from stable location IDs.
 3. The builder emits `_site/data/player-console.json`.
-4. The static browser app reads only that generated JSON.
+4. The static browser app reads only that generated player-safe snapshot.
 
 The UI uses vanilla HTML/CSS/JavaScript with no runtime framework or third-party CDN dependency.
 
-## Map
+## Map and routing
 
-The Asteria map has two coordinated layers:
+Canonical geography remains `campaign/locations.json`.
 
-- **ship cutaway** — all 28 numbered decks plus P1–P4 science-pod levels;
-- **selected plan** — compartment blocks, central circulation, access state, department coding, connections and Jeremy's current-location marker.
+The PADD presents that graph as:
 
-Canonical geography remains `campaign/locations.json`. The visual layout is presentation-only and never changes topology.
+- a clickable 28-deck ship cutaway;
+- four selectable dorsal sensor/science-pod levels;
+- compartment-block deck plans;
+- department and restricted-access coding;
+- a persistent YOU ARE HERE marker;
+- room search across the ship directory;
+- standard-access shortest-path guidance from Jeremy's current location;
+- quick routes to quarters, Science, Sickbay and the mess.
+
+Standard routing deliberately excludes restricted rooms and restricted graph edges. A restricted compartment can still appear in the directory but the ordinary PADD route planner will not claim Jeremy has access.
+
+Visual deck placement is presentation-only and never mutates campaign topology.
+
+## Mobile / standalone mode
+
+The console includes an app manifest plus Apple standalone metadata.
+
+On narrow screens the desktop rail becomes a bottom PADD navigation bar, with safe-area padding for modern iPhones.
+
+Browser URL hashes preserve the selected view so back/forward navigation works naturally.
 
 ## Validation
 
@@ -30,19 +62,20 @@ Canonical geography remains `campaign/locations.json`. The visual layout is pres
 
 - checkpoint/revision alignment;
 - USS Asteria / Nebula-class identity;
-- 200 locations / 206 connections / 28 decks / four pod levels;
+- official/reference ship profile values exposed to the PADD;
+- 200 locations / 206 connections / 28 decks / P1-P4;
 - 750-person complement including Jeremy;
-- 20 materialized NPC identities + 729 background crew;
+- 20 materialized NPCs + 729 background crew;
 - organic character values remain unresolved where appropriate;
+- standard-access paths exist to all quick-route destinations;
 - no private GM repository/file identifiers enter the browser artifact;
-- no RNG seed or public commitment enters the console.
+- no RNG seed or public commitment enters the console;
+- standalone web-app packaging is complete.
 
 ## GitHub Pages
 
-`.github/workflows/deploy-player-console.yml` automatically rebuilds and deploys the console after relevant validated `main` changes.
+`.github/workflows/deploy-player-console.yml` automatically validates and redeploys the console after relevant `main` changes.
 
-The deploy job runs campaign, Asteria-baseline, and player-console validation before publishing.
+The deployment job runs campaign, USS Asteria baseline, and player-console validation before publication.
 
-## Current deployment baseline
-
-The current console target is public checkpoint `r00003` on USS Asteria. A merge touching `ui/**`, `campaign/**`, or the Asteria console build files automatically validates and redeploys GitHub Pages.
+Current campaign target: **r00003 · revision 3 · USS Asteria · 1217 hours · RNG counter 0**.
