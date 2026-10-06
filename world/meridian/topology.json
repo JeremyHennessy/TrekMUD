@@ -111,6 +111,16 @@
       "source": "SETTING_FILL"
     },
     {
+      "id": "MER-D02-WARDROOM",
+      "deck": 2,
+      "section": "C",
+      "name": "Officers' Wardroom",
+      "type": "mess",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
       "id": "MER-D02-XO-OFFICE",
       "deck": 2,
       "section": null,
@@ -281,6 +291,16 @@
       "source": "SETTING_FILL"
     },
     {
+      "id": "MER-D05-MORGUE",
+      "deck": 5,
+      "section": "C",
+      "name": "Medical Morgue",
+      "type": "medical",
+      "department": "medical",
+      "access": "restricted",
+      "source": "SETTING_FILL"
+    },
+    {
       "id": "MER-D05-SICKBAY",
       "deck": 5,
       "section": null,
@@ -297,6 +317,16 @@
       "name": "Central Turbolift — Deck 5",
       "type": "turbolift",
       "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D06-CREW-SERVICES",
+      "deck": 6,
+      "section": "C",
+      "name": "Crew Services Office",
+      "type": "office",
+      "department": "personnel",
       "access": "crew",
       "source": "SETTING_FILL"
     },
@@ -356,6 +386,16 @@
       "section": null,
       "name": "Crew Mess",
       "type": "mess",
+      "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D06-QUIET-ROOM",
+      "deck": 6,
+      "section": "C",
+      "name": "Quiet Reading / Study Room",
+      "type": "recreation",
       "department": "shipwide",
       "access": "crew",
       "source": "SETTING_FILL"
@@ -507,6 +547,16 @@
       "name": "Central Corridor Hub — Deck 8",
       "type": "corridor",
       "department": "shipwide",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D08-MUSTER",
+      "deck": 8,
+      "section": "C",
+      "name": "Emergency Muster / Response Station",
+      "type": "safety",
+      "department": "security",
       "access": "crew",
       "source": "SETTING_FILL"
     },
@@ -721,6 +771,26 @@
       "source": "SETTING_FILL"
     },
     {
+      "id": "MER-D12-AIRLOCK-P",
+      "deck": 12,
+      "section": "P",
+      "name": "Port Docking Airlock",
+      "type": "airlock",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D12-AIRLOCK-S",
+      "deck": 12,
+      "section": "S",
+      "name": "Starboard Docking Airlock",
+      "type": "airlock",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
       "id": "MER-D12-CARGO-01",
       "deck": 12,
       "section": null,
@@ -736,6 +806,16 @@
       "section": null,
       "name": "Cargo Transporter",
       "type": "transporter",
+      "department": "operations",
+      "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D12-EVA-READY",
+      "deck": 12,
+      "section": "C",
+      "name": "EVA Ready Room",
+      "type": "equipment",
       "department": "operations",
       "access": "crew",
       "source": "SETTING_FILL"
@@ -818,6 +898,16 @@
       "type": "corridor",
       "department": "shipwide",
       "access": "crew",
+      "source": "SETTING_FILL"
+    },
+    {
+      "id": "MER-D13-INDUSTRIAL-REP",
+      "deck": 13,
+      "section": "C",
+      "name": "Industrial Replicator Bay",
+      "type": "engineering",
+      "department": "engineering",
+      "access": "restricted",
       "source": "SETTING_FILL"
     },
     {
@@ -1297,6 +1387,13 @@
     },
     {
       "from": "MER-D02-HUB-C",
+      "to": "MER-D02-WARDROOM",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D02-HUB-C",
       "to": "MER-D02-XO-OFFICE",
       "type": "corridor",
       "bidirectional": true,
@@ -1423,6 +1520,13 @@
     },
     {
       "from": "MER-D05-HUB-C",
+      "to": "MER-D05-MORGUE",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
+    },
+    {
+      "from": "MER-D05-HUB-C",
       "to": "MER-D05-SICKBAY",
       "type": "corridor",
       "bidirectional": true,
@@ -1439,6 +1543,13 @@
       "from": "MER-D05-TL-C",
       "to": "MER-D06-TL-C",
       "type": "turbolift",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D06-HUB-C",
+      "to": "MER-D06-CREW-SERVICES",
+      "type": "corridor",
       "bidirectional": true,
       "access": "crew"
     },
@@ -1473,6 +1584,13 @@
     {
       "from": "MER-D06-HUB-C",
       "to": "MER-D06-MESS",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D06-HUB-C",
+      "to": "MER-D06-QUIET-ROOM",
       "type": "corridor",
       "bidirectional": true,
       "access": "crew"
@@ -1588,6 +1706,13 @@
       "type": "corridor",
       "bidirectional": true,
       "access": "restricted"
+    },
+    {
+      "from": "MER-D08-HUB-C",
+      "to": "MER-D08-MUSTER",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
     },
     {
       "from": "MER-D08-HUB-C",
@@ -1772,6 +1897,20 @@
       "access": "crew"
     },
     {
+      "from": "MER-D12-EVA-READY",
+      "to": "MER-D12-AIRLOCK-P",
+      "type": "airlock-access",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D12-EVA-READY",
+      "to": "MER-D12-AIRLOCK-S",
+      "type": "airlock-access",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
       "from": "MER-D12-HUB-C",
       "to": "MER-D12-CARGO-01",
       "type": "corridor",
@@ -1781,6 +1920,13 @@
     {
       "from": "MER-D12-HUB-C",
       "to": "MER-D12-CARGO-TRANSPORTER",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "crew"
+    },
+    {
+      "from": "MER-D12-HUB-C",
+      "to": "MER-D12-EVA-READY",
       "type": "corridor",
       "bidirectional": true,
       "access": "crew"
@@ -1833,6 +1979,13 @@
       "type": "corridor",
       "bidirectional": true,
       "access": "crew"
+    },
+    {
+      "from": "MER-D13-HUB-C",
+      "to": "MER-D13-INDUSTRIAL-REP",
+      "type": "corridor",
+      "bidirectional": true,
+      "access": "restricted"
     },
     {
       "from": "MER-D13-HUB-C",
