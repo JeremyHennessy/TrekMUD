@@ -1,0 +1,126 @@
+name: Validate career records
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - campaign/records.json
+      - campaign/RECORDS.md
+      - campaign/state.json
+      - scripts/apply_player_records.py
+      - scripts/initialize_career_records.py
+      - scripts/validate_campaign.py
+      - scripts/build_player_console.py
+      - ui/**
+      - tests/fixtures/player-records-demo.json
+      - .github/workflows/validate-career-records.yml
+  push:
+    branches:
+      - career-records-v1
+      - main
+    paths:
+      - campaign/records.json
+      - campaign/RECORDS.md
+      - campaign/state.json
+      - scripts/apply_player_records.py
+      - scripts/initialize_career_records.py
+      - scripts/validate_campaign.py
+      - scripts/build_player_console.py
+      - ui/**
+      - tests/fixtures/player-records-demo.json
+      - .github/workflows/validate-career-records.yml
+
+permissions:
+  contents: read
+
+jobs:
+  records:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile record tooling
+        run: python -m py_compile scripts/validate_campaign.py scripts/create_checkpoint.py scripts/initialize_career_records.py scripts/apply_player_records.py scripts/build_player_console.py
+
+      - name: Validate canonical empty record baseline
+        run: |
+          python scripts/validate_campaign.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          state=json.loads(Path("campaign/state.json").read_text())
+          records=json.loads(Path("campaign/records.json").read_text())
+          assert state["revision"] == 4
+          assert state["checkpoint"]["lastCheckpointId"] == "r00004"
+          assert sum(len(records[key]) for key in (
+              "dutyLogs","scienceFindings","missionRecords",
+              "relationshipMilestones","shipEvents"
+          )) == 0
+          print("canonical empty records baseline verified")
+          PY
+
+      - name: Prove all five record streams through disposable r00005
+        run: |
+          tmp="$(mktemp -d)"
+          cp -R campaign "$tmp/campaign"
+          python scripts/apply_player_records.py --root "$tmp" --input tests/fixtures/player-records-demo.json
+          python scripts/create_checkpoint.py --root "$tmp" --summary "CI structured player records fixture"
+          python scripts/validate_campaign.py --root "$tmp"
+
+          python - "$tmp" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          root=Path(sys.argv[1])
+          state=json.loads((root/"campaign/state.json").read_text())
+          records=json.loads((root/"campaign/records.json").read_text())
+          cp=json.loads((root/"campaign/checkpoints/r00005.json").read_text())
+
+          assert state["revision"] == 5
+          assert state["checkpoint"]["lastCheckpointId"] == "r00005"
+          assert len(records["dutyLogs"]) == 1
+          assert len(records["scienceFindings"]) == 1
+          assert len(records["missionRecords"]) == 1
+          assert len(records["relationshipMilestones"]) == 1
+          assert len(records["shipEvents"]) == 1
+          assert records["relationshipMilestones"][0]["targetId"] == "CREW-005"
+          assert records["shipEvents"][0]["shipId"] == "USS-ASTERIA"
+          assert cp["checkpointId"] == "r00005"
+          assert cp["previousCheckpointId"] == "r00004"
+          assert cp["validation"]["records"] == 5
+          assert cp["validation"]["valid"] is True
+          print("all five record streams verified through r00005")
+          PY
+
+      - name: Prove records render into player-safe PADD timeline
+        run: |
+          tmp="$(mktemp -d)"
+          cp -R campaign "$tmp/campaign"
+          python scripts/apply_player_records.py --root "$tmp" --input tests/fixtures/player-records-demo.json
+          python - "$tmp" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          root=Path(sys.argv[1])
+          sys.path.insert(0, "scripts")
+          from build_player_console import player_safe_snapshot
+
+          payload=player_safe_snapshot(root)
+          assert len(payload["records"]["dutyLogs"]) == 1
+          assert len(payload["records"]["scienceFindings"]) == 1
+          assert len(payload["records"]["missionRecords"]) == 1
+          assert len(payload["records"]["relationshipMilestones"]) == 1
+          assert len(payload["records"]["shipEvents"]) == 1
+
+          kinds={row["kind"] for row in payload["timeline"]}
+          assert {"duty","science","mission","relationship","ship"}.issubset(kinds)
+          print("record streams render into player-safe timeline")
+          PY
