@@ -11,6 +11,24 @@ from typing import Any
 
 DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 
+ORGANIC_ATTRIBUTES = {"Intellect", "Perception", "Presence", "Resolve", "Physical"}
+ORGANIC_SKILLS = {
+    "Command",
+    "Conn / Flight Control",
+    "Engineering",
+    "Operations",
+    "Computers",
+    "Science",
+    "Medicine",
+    "Counseling",
+    "Security",
+    "Tactical",
+    "Investigation",
+    "Diplomacy / Protocol",
+    "Survival / Fieldcraft",
+}
+ORGANIC_STARTING_ATTRIBUTE_POOL = [1, 1, 1, 2, 2]
+
 
 class ValidationError(RuntimeError):
     pass
@@ -114,6 +132,71 @@ def validate(root: Path) -> dict[str, Any]:
         ):
             require(doc.get("characterId") == character_id, f"{label} characterId mismatch")
 
+        if payload.get("creationMode") == "ORGANIC_DISCOVERY_V1_1":
+            require(state.get("rulesVersion") == "1.1",
+                    "organic character state requires Rules v1.1")
+            require(character.get("status") == "CREATED_DISCOVERING",
+                    "organic character requires character.status=CREATED_DISCOVERING")
+
+            attributes = payload.get("attributes")
+            require(isinstance(attributes, dict), "organic character attributes must be an object")
+            require(set(attributes) == ORGANIC_ATTRIBUTES,
+                    "organic character attributes do not match Rules v1.1")
+            assigned_attributes = []
+            unresolved_attributes = 0
+            for name, value in attributes.items():
+                require(value is None or value in {1, 2},
+                        f"organic attribute {name} must be null, 1, or 2")
+                if value is None:
+                    unresolved_attributes += 1
+                else:
+                    assigned_attributes.append(value)
+
+            discovery = payload.get("discoveryState")
+            require(isinstance(discovery, dict), "organic character discoveryState is required")
+            pool = discovery.get("attributePoolRemaining")
+            require(isinstance(pool, list), "attributePoolRemaining must be a list")
+            require(all(value in {1, 2} for value in pool),
+                    "attributePoolRemaining may contain only 1 or 2")
+            require(sorted(assigned_attributes + pool) == ORGANIC_STARTING_ATTRIBUTE_POOL,
+                    "assigned attributes + remaining pool must equal starting 2,2,1,1,1")
+            require(len(pool) == unresolved_attributes,
+                    "attributePoolRemaining size must equal unresolved attribute count")
+
+            skills = payload.get("skills")
+            require(isinstance(skills, dict), "organic character skills must be an object")
+            require(set(skills) == ORGANIC_SKILLS,
+                    "organic character skills do not match Rules v1.1")
+            require(all(value is None or value in {0, 1, 2} for value in skills.values()),
+                    "organic skill values must be null, 0, 1, or 2")
+            rank2 = [name for name, value in skills.items() if value == 2]
+            require(len(rank2) == 1,
+                    "organic starting character must have exactly one rank-2 department skill")
+
+            rank1_count = sum(value == 1 for value in skills.values())
+            training_remaining = discovery.get("academyRank1SlotsRemaining")
+            require(isinstance(training_remaining, int) and 0 <= training_remaining <= 3,
+                    "academyRank1SlotsRemaining must be 0-3")
+            require(rank1_count + training_remaining == 3,
+                    "rank-1 skills + remaining Academy slots must total 3")
+
+            primary_specialty = payload.get("primarySpecialty")
+            secondary_specialty = payload.get("secondarySpecialty")
+            department_available = discovery.get("departmentSpecialtyAvailable")
+            secondary_available = discovery.get("secondarySpecialtyAvailable")
+            require(isinstance(department_available, bool),
+                    "departmentSpecialtyAvailable must be boolean")
+            require(isinstance(secondary_available, bool),
+                    "secondarySpecialtyAvailable must be boolean")
+            require((primary_specialty is None) == department_available,
+                    "primary specialty availability must match whether it is unresolved")
+            require((secondary_specialty is None) == secondary_available,
+                    "secondary specialty availability must match whether it is unresolved")
+
+            for key in ("backgroundFacts", "personalInterests", "developmentAreas", "traits", "locks"):
+                require(isinstance(discovery.get(key), list),
+                        f"discoveryState.{key} must be a list")
+
     require(calendar.get("current") == state.get("currentTime"),
             "calendar.current must exactly match state.currentTime")
 
@@ -184,6 +267,8 @@ def validate(root: Path) -> dict[str, Any]:
         require(rng.get("status") == "UNINITIALIZED", "pre-campaign RNG must remain UNINITIALIZED")
 
     config = load_json(root, "campaign/config.json")
+    require(config.get("rulesVersion") == state.get("rulesVersion"),
+            "campaign config rulesVersion must match state rulesVersion")
     start = config.get("start") or {}
     require(start.get("ship") == ship.get("name"), "config start ship mismatch")
     require(start.get("shipClass") == ship.get("class"), "config ship class mismatch")
