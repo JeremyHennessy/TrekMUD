@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "baseline": "persistent-campaign-state-engine",
+  "version": "1.0",
+  "status": "APPROVED",
+  "approvedDate": "2026-10-06",
+  "commit": "f96ccdee9dcbd096b42c187539efaf71fbbed914",
+  "guarantees": [
+    "Campaign state is split into validated coherent component files.",
+    "Cross-file IDs and references are validated.",
+    "Corrupted state is rejected.",
+    "Checkpoint creation is content-hashed and immutable once committed.",
+    "Narrative state remained NOT_STARTED when this baseline was approved."
+  ]
+}
