@@ -172,6 +172,7 @@ def player_safe_snapshot(root: Path) -> dict[str, Any]:
             "materializedCount": len(safe_crew),
             "backgroundCount": (crew_doc.get("backgroundPopulation") or {}).get("count", 0),
             "nominalComplement": crew_doc.get("nominalCrewComplement"),
+            "playerIncludedInComplement": bool(crew_doc.get("playerIncludedInComplement")),
         },
         "relationships": relationships.get("relationships", []),
         "knowledge": knowledge.get("facts", []),
