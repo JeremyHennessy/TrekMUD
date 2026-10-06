@@ -2,19 +2,42 @@
   "schemaVersion": 1,
   "revision": 0,
   "status": "NOT_STARTED",
-  "character": null,
+  "rulesVersion": "draft-0.9",
+  "checkpoint": {
+    "lastCheckpointId": null,
+    "lastCheckpointCommit": null,
+    "validated": false
+  },
+  "components": {
+    "character": "campaign/character.json",
+    "serviceRecord": "campaign/service-record.json",
+    "qualifications": "campaign/qualifications.json",
+    "inventory": "campaign/inventory.json",
+    "crew": "campaign/crew.json",
+    "relationships": "campaign/relationships.json",
+    "knowledge": "campaign/knowledge.json",
+    "activeThreads": "campaign/active-threads.json",
+    "calendar": "campaign/calendar.json",
+    "ship": "campaign/ship.json",
+    "locations": "campaign/locations.json",
+    "rng": "campaign/rng.json"
+  },
   "currentTime": {
     "year": 2372,
     "stardate": 49317.4,
     "shipTime": "12:17"
   },
+  "player": {
+    "characterId": null,
+    "locationId": null
+  },
   "ship": {
+    "id": "USS-MERIDIAN",
     "name": "USS Meridian",
     "class": "Akira-class",
     "location": null,
     "mission": null,
     "alertCondition": "normal"
   },
-  "activeThreads": [],
-  "lastCheckpointCommit": null
+  "activeThreadIds": []
 }
