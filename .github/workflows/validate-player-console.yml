@@ -15,7 +15,7 @@ on:
       - .github/workflows/validate-player-console.yml
   push:
     branches:
-      - player-console-v3
+      - career-records-v1
       - main
     paths:
       - ui/**
