@@ -339,9 +339,13 @@ def apply_character(root: Path, selection: dict[str, Any]) -> dict[str, Any]:
     docs["rng"]["counter"] = 0
     docs["rng"]["publicCommitment"] = None
 
+    previous_checkpoint_id = (state.get("checkpoint") or {}).get("lastCheckpointId")
     state["revision"] = revision
     state["status"] = "READY_TO_START"
-    state["checkpoint"] = {"lastCheckpointId": None, "validated": False}
+    state["checkpoint"] = {
+        "lastCheckpointId": previous_checkpoint_id,
+        "validated": False,
+    }
     state["player"] = {
         "characterId": character_id,
         "locationId": "MER-D09-TR-02",
