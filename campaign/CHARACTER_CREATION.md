@@ -21,7 +21,7 @@ The player chooses:
 11. **Two Academy cross-training skills**
 12. **One personal interest**
 13. **One development area** — a real weakness, blind spot or area the officer wants to improve
-14. **Short background**
+14. **Explicit species/background traits** (optional; only traits that are actually relevant to this individual)\n15. **Short background**
 
 Personality is not locked into an alignment or archetype. It can emerge through play.
 
