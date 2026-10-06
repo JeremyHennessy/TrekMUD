@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "campaignName": "TrekMUD: USS Meridian",
+  "status": "pre_character_creation",
+  "start": {
+    "year": 2372,
+    "stardate": 49317.4,
+    "ship": "USS Meridian",
+    "shipClass": "Akira-class",
+    "playerRank": "Ensign"
+  },
+  "era": {
+    "primarySeries": ["TNG", "DS9"],
+    "primaryYearStart": 2364,
+    "primaryYearEnd": 2375,
+    "playerKnowledgeCutoffYear": 2372,
+    "futureCanonIsGMOnly": true
+  },
+  "persistence": {
+    "repositoryIsAuthoritative": true,
+    "approvedCheckpointsAreImmutable": true,
+    "appendOnlyChronicle": true
+  },
+  "spoilerSafety": {
+    "publicRepository": true,
+    "commitHiddenGMState": false
+  }
+}
