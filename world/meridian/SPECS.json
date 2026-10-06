@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "status": "CANDIDATE",
+  "shipId": "USS-MERIDIAN",
+  "class": "Akira-class",
+  "referenceFacts": {
+    "lengthMeters": {
+      "value": 464.43,
+      "confidence": "OFFICIAL_REFERENCE",
+      "source": "https://www.startrek.com/news/deep-cut-ds9-25th-anniversary-ships"
+    },
+    "crewComplement": {
+      "value": 500,
+      "confidence": "OFFICIAL_REFERENCE",
+      "source": "https://www.startrek.com/news/deep-cut-ds9-25th-anniversary-ships"
+    },
+    "maximumWarp": {
+      "value": 9.8,
+      "confidence": "OFFICIAL_REFERENCE",
+      "source": "https://www.startrek.com/news/deep-cut-ds9-25th-anniversary-ships"
+    },
+    "flightArrangement": {
+      "value": "forward launch bay, aft landing bay, fly-through hangar",
+      "confidence": "OFFICIAL_REFERENCE",
+      "source": "https://www.startrek.com/news/deep-cut-ds9-25th-anniversary-ships"
+    },
+    "deckCount": {
+      "value": 19,
+      "confidence": "TECHNICAL_REFERENCE",
+      "source": "Star Trek: Deep Space Nine Technical Manual via StarBase 118 reference index"
+    }
+  },
+  "trekMudSettingFill": {
+    "missionPackage": "frontier multi-mission response, patrol, science support, diplomatic transport and shuttle-heavy operations",
+    "weaponsPodLevels": 3,
+    "internalDeckAssignmentsOriginal": true
+  }
+}
