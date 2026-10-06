@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Create TrekMUD's player character and revision-1 opening snapshot.
+"""Create TrekMUD's organic revision-1 opening snapshot.
 
-The tool only operates on the untouched pre-character campaign state:
-revision 0, status NOT_STARTED, no existing character.
+Rules v1.1 requires only identity + department up front. Mechanical traits that
+are not yet known remain explicitly unresolved and are discovered through play.
 """
 
 from __future__ import annotations
@@ -16,8 +16,8 @@ from validate_campaign import validate
 
 DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 
-ATTRIBUTES = {"Intellect", "Perception", "Presence", "Resolve", "Physical"}
-SKILLS = {
+ATTRIBUTES = ("Intellect", "Perception", "Presence", "Resolve", "Physical")
+SKILLS = (
     "Command",
     "Conn / Flight Control",
     "Engineering",
@@ -31,7 +31,7 @@ SKILLS = {
     "Investigation",
     "Diplomacy / Protocol",
     "Survival / Fieldcraft",
-}
+)
 DEPARTMENTS = {
     "Engineering": ("ENGINEERING", "Engineering", "Junior Engineering Officer"),
     "Operations": ("OPERATIONS", "Operations", "Junior Operations Officer"),
@@ -86,11 +86,6 @@ def validate_selection(selection: dict[str, Any]) -> dict[str, Any]:
     species = nonempty(selection.get("species"), "species")
     homeworld = nonempty(selection.get("homeworld"), "homeworld")
     primary_department = nonempty(selection.get("primaryDepartment"), "primaryDepartment")
-    primary_specialty = nonempty(selection.get("primarySpecialty"), "primarySpecialty")
-    secondary_skill = nonempty(selection.get("secondarySkill"), "secondarySkill")
-    personal_interest = nonempty(selection.get("personalInterest"), "personalInterest")
-    development_area = nonempty(selection.get("developmentArea"), "developmentArea")
-    background = nonempty(selection.get("background"), "background")
 
     require(primary_department in DEPARTMENTS, f"unsupported starting department: {primary_department}")
     department_id, primary_skill, billet = DEPARTMENTS[primary_department]
@@ -99,42 +94,27 @@ def validate_selection(selection: dict[str, Any]) -> dict[str, Any]:
     require(isinstance(age, int) and age > 0, "age must be a positive integer")
 
     pronouns = selection.get("pronouns")
-    require(pronouns is None or (isinstance(pronouns, str) and pronouns.strip()), "pronouns must be null or non-empty text")
+    require(
+        pronouns is None or (isinstance(pronouns, str) and pronouns.strip()),
+        "pronouns must be null or non-empty text",
+    )
 
-    attributes = selection.get("attributes")
-    require(isinstance(attributes, dict), "attributes must be an object")
-    require(set(attributes) == ATTRIBUTES, f"attributes must be exactly {sorted(ATTRIBUTES)}")
-    require(all(isinstance(v, int) and 0 <= v <= 3 for v in attributes.values()), "attribute values must be integers 0-3")
-    require(sorted(attributes.values()) == [1, 1, 1, 2, 2], "starting attributes must be exactly 2,2,1,1,1")
-
-    require(secondary_skill in SKILLS, f"unknown secondarySkill: {secondary_skill}")
-    require(secondary_skill != primary_skill, "secondarySkill must differ from the primary department skill")
-
-    cross = selection.get("academyCrossTraining")
-    require(isinstance(cross, list) and len(cross) == 2, "academyCrossTraining must contain exactly two skills")
-    require(all(isinstance(x, str) and x in SKILLS for x in cross), "academyCrossTraining contains an unknown skill")
-    require(len(set(cross)) == 2, "academyCrossTraining skills must be distinct")
-    require(primary_skill not in cross, "cross-training must differ from the primary department skill")
-    require(secondary_skill not in cross, "cross-training must differ from the secondary skill")
-
-    secondary_specialty = selection.get("secondarySpecialty")
-    require(isinstance(secondary_specialty, dict), "secondarySpecialty must be an object")
-    sec_spec_skill = nonempty(secondary_specialty.get("skill"), "secondarySpecialty.skill")
-    sec_spec_name = nonempty(secondary_specialty.get("name"), "secondarySpecialty.name")
-    require(sec_spec_skill in SKILLS, f"unknown secondary specialty skill: {sec_spec_skill}")
-    trained_skills = {primary_skill, secondary_skill, *cross}
-    require(sec_spec_skill in trained_skills, "secondary specialty must belong to a starting trained/proficient skill")
-
-    traits = selection.get("traits", [])
-    require(isinstance(traits, list), "traits must be a list")
-    require(all(isinstance(x, str) and x.strip() for x in traits), "traits must contain only non-empty text")
-    require(len(traits) == len(set(x.strip() for x in traits)), "traits must be unique")
-
-    skills = {skill: 0 for skill in sorted(SKILLS)}
-    skills[primary_skill] = 2
-    skills[secondary_skill] = 1
-    for skill in cross:
-        skills[skill] = 1
+    allowed = {
+        "schemaVersion",
+        "characterCreationVersion",
+        "name",
+        "species",
+        "age",
+        "pronouns",
+        "homeworld",
+        "primaryDepartment",
+    }
+    unexpected = sorted(set(selection) - allowed)
+    require(
+        not unexpected,
+        "organic character creation accepts only identity + department; "
+        f"move later details into play instead of pre-locking them: {unexpected}",
+    )
 
     return {
         "name": name,
@@ -146,16 +126,6 @@ def validate_selection(selection: dict[str, Any]) -> dict[str, Any]:
         "departmentId": department_id,
         "primarySkill": primary_skill,
         "billet": billet,
-        "primarySpecialty": primary_specialty,
-        "secondarySpecialty": {"skill": sec_spec_skill, "name": sec_spec_name},
-        "attributes": attributes,
-        "skills": skills,
-        "secondarySkill": secondary_skill,
-        "academyCrossTraining": cross,
-        "personalInterest": personal_interest,
-        "developmentArea": development_area,
-        "traits": [x.strip() for x in traits],
-        "background": background,
     }
 
 
@@ -171,13 +141,14 @@ def apply_character(root: Path, selection: dict[str, Any]) -> dict[str, Any]:
     state = load_json(state_path)
     require(state.get("revision") == 0, "character creation requires campaign revision 0")
     require(state.get("status") == "NOT_STARTED", "character creation requires NOT_STARTED campaign")
-    require(state.get("rulesVersion") == "1.0", "character creation requires Rules v1.0")
+    require(state.get("rulesVersion") == "1.0", "r00000 must remain the Rules v1.0 historical checkpoint")
+    require(
+        (state.get("checkpoint") or {}).get("lastCheckpointId") == "r00000",
+        "organic character creation requires validated r00000 as its parent",
+    )
 
     components = state["components"]
-    docs = {
-        key: load_json(root / rel)
-        for key, rel in components.items()
-    }
+    docs = {key: load_json(root / rel) for key, rel in components.items()}
     require(docs["character"].get("status") == "UNCREATED", "character already exists")
     require(docs["character"].get("character") is None, "character payload already exists")
 
@@ -193,8 +164,13 @@ def apply_character(root: Path, selection: dict[str, Any]) -> dict[str, Any]:
     for doc in docs.values():
         increment_revision(doc, revision)
 
+    attributes = {name: None for name in ATTRIBUTES}
+    skills: dict[str, int | None] = {name: None for name in SKILLS}
+    skills[normalized["primarySkill"]] = 2
+
     character = {
         "id": character_id,
+        "creationMode": "ORGANIC_DISCOVERY_V1_1",
         "name": normalized["name"],
         "species": normalized["species"],
         "age": normalized["age"],
@@ -205,18 +181,21 @@ def apply_character(root: Path, selection: dict[str, Any]) -> dict[str, Any]:
         "departmentId": normalized["departmentId"],
         "billet": normalized["billet"],
         "primaryShift": None,
-        "attributes": normalized["attributes"],
-        "skills": normalized["skills"],
-        "primarySpecialty": {
-            "skill": normalized["primarySkill"],
-            "name": normalized["primarySpecialty"],
+        "attributes": attributes,
+        "skills": skills,
+        "primarySpecialty": None,
+        "secondarySpecialty": None,
+        "discoveryState": {
+            "attributePoolRemaining": [2, 2, 1, 1, 1],
+            "academyRank1SlotsRemaining": 3,
+            "departmentSpecialtyAvailable": True,
+            "secondarySpecialtyAvailable": True,
+            "backgroundFacts": [],
+            "personalInterests": [],
+            "developmentAreas": [],
+            "traits": [],
+            "locks": [],
         },
-        "secondarySpecialty": normalized["secondarySpecialty"],
-        "academyCrossTraining": normalized["academyCrossTraining"],
-        "traits": normalized["traits"],
-        "personalInterest": normalized["personalInterest"],
-        "developmentArea": normalized["developmentArea"],
-        "background": normalized["background"],
         "health": {
             "injuryState": "Healthy",
             "conditions": [],
@@ -231,7 +210,7 @@ def apply_character(root: Path, selection: dict[str, Any]) -> dict[str, Any]:
             "startStardate": 49317.4,
         },
     }
-    docs["character"]["status"] = "CREATED"
+    docs["character"]["status"] = "CREATED_DISCOVERING"
     docs["character"]["character"] = character
 
     docs["serviceRecord"]["characterId"] = character_id
@@ -334,13 +313,14 @@ def apply_character(root: Path, selection: dict[str, Any]) -> dict[str, Any]:
         },
     ]
 
-    # World components persist unchanged apart from revision.
+    # Live RNG initialization still waits for private GM storage.
     docs["rng"]["status"] = "UNINITIALIZED"
     docs["rng"]["counter"] = 0
     docs["rng"]["publicCommitment"] = None
 
     previous_checkpoint_id = (state.get("checkpoint") or {}).get("lastCheckpointId")
     state["revision"] = revision
+    state["rulesVersion"] = "1.1"
     state["status"] = "READY_TO_START"
     state["checkpoint"] = {
         "lastCheckpointId": previous_checkpoint_id,
@@ -355,17 +335,19 @@ def apply_character(root: Path, selection: dict[str, Any]) -> dict[str, Any]:
     config_path = root / "campaign" / "config.json"
     config = load_json(config_path)
     config["status"] = "ready_to_start"
+    config["rulesVersion"] = "1.1"
+    config["characterCreationVersion"] = "1.1-organic"
 
     chronicle_path = root / "campaign" / "CHRONICLE.md"
     chronicle = chronicle_path.read_text(encoding="utf-8").rstrip()
     chronicle += (
         "\n\n## Character creation — revision 1\n\n"
-        f"- {normalized['name']} created as a {normalized['species']} Starfleet Ensign.\n"
+        f"- {normalized['name']} established as a {normalized['species']} Starfleet Ensign.\n"
+        f"- Homeworld/upbringing: {normalized['homeworld']}.\n"
         f"- Department: {normalized['primaryDepartment']}.\n"
         f"- Billet: {normalized['billet']}.\n"
-        f"- Primary specialty: {normalized['primarySpecialty']}.\n"
-        f"- Secondary specialty: {normalized['secondarySpecialty']['name']} "
-        f"({normalized['secondarySpecialty']['skill']}).\n"
+        "- Rules upgraded from historical r00000 v1.0 to Rules v1.1 Organic Character Discovery.\n"
+        "- Attributes, Academy cross-training, specialties, interests and detailed background remain intentionally unresolved.\n"
         "- Opening position remains Transporter Room 2 at 1217 hours; no narrative action has occurred.\n"
     )
 
@@ -380,11 +362,15 @@ def apply_character(root: Path, selection: dict[str, Any]) -> dict[str, Any]:
     return {
         "valid": True,
         "revision": 1,
+        "rulesVersion": "1.1",
         "status": state["status"],
         "characterId": character_id,
         "name": normalized["name"],
         "department": normalized["primaryDepartment"],
         "billet": normalized["billet"],
+        "unresolvedAttributes": 5,
+        "academyRank1SlotsRemaining": 3,
+        "specialtySlotsRemaining": 2,
         "locationId": "MER-D09-TR-02",
         "quartersId": "MER-D07-S12-0712C",
     }
