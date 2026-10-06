@@ -80,3 +80,7 @@ Browser URL hashes preserve the selected view so back/forward navigation works n
 The deployment job runs campaign, USS Asteria baseline, and player-console validation before publication.
 
 Current campaign target: **r00004 · revision 4 · USS Asteria · 1217 hours · RNG counter 0**. The five Records streams are initialized and intentionally empty before Scene One.
+
+## Deployment checkpoint
+
+Deployment checkpoint: `r00004` / revision 4. The Records PADD is initialized with five empty streams; future validated campaign records will populate it automatically.
