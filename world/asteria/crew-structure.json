@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 2,
+  "status": "CANDIDATE_BASELINE_RETCON",
+  "shipId": "USS-ASTERIA",
+  "nominalComplement": 750,
+  "complementIncludesPlayer": true,
+  "shiftModel": {
+    "name": "three-shift rotation",
+    "shifts": [
+      {
+        "id": "ALPHA",
+        "label": "Alpha Shift",
+        "nominalPersonnel": 270
+      },
+      {
+        "id": "BETA",
+        "label": "Beta Shift",
+        "nominalPersonnel": 245
+      },
+      {
+        "id": "GAMMA",
+        "label": "Gamma Shift",
+        "nominalPersonnel": 235
+      }
+    ],
+    "note": "Structural staffing target including the player. Jeremy's actual shift remains unresolved until assigned in play."
+  },
+  "departments": [
+    {
+      "id": "COMMAND",
+      "name": "Command",
+      "nominalPersonnel": 25
+    },
+    {
+      "id": "ENGINEERING",
+      "name": "Engineering",
+      "nominalPersonnel": 165
+    },
+    {
+      "id": "OPERATIONS",
+      "name": "Operations",
+      "nominalPersonnel": 120
+    },
+    {
+      "id": "SCIENCE",
+      "name": "Science",
+      "nominalPersonnel": 130
+    },
+    {
+      "id": "MEDICAL",
+      "name": "Medical",
+      "nominalPersonnel": 50
+    },
+    {
+      "id": "SECURITY",
+      "name": "Security",
+      "nominalPersonnel": 75
+    },
+    {
+      "id": "TACTICAL",
+      "name": "Tactical",
+      "nominalPersonnel": 45
+    },
+    {
+      "id": "FLIGHT",
+      "name": "Flight Control",
+      "nominalPersonnel": 55
+    },
+    {
+      "id": "COUNSELING",
+      "name": "Counseling",
+      "nominalPersonnel": 15
+    },
+    {
+      "id": "LOGISTICS",
+      "name": "Crew Services / Logistics",
+      "nominalPersonnel": 70
+    }
+  ],
+  "materializationPolicy": {
+    "tier1": "Core persistent NPCs with full public identity and private GM state as needed.",
+    "tier2": "Persistent named crew with stable rank, department, billet, shift and service facts.",
+    "tier3": "Background population represented statistically until interaction makes a stable identity useful.",
+    "rule": "Once materialized, an NPC identity is never silently regenerated."
+  },
+  "playerAccounting": {
+    "playerId": "PC-001",
+    "playerDepartment": "SCIENCE",
+    "playerBillet": "Junior Science Officer",
+    "includedInNominalComplement": true,
+    "shift": "UNRESOLVED"
+  }
+}
