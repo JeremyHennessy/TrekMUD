@@ -1,23 +1,39 @@
 TM.renderNow=()=>{
   const d=TM.S.data,c=d.character,n=d.now,loc=n.location||{};
-  const events=d.calendar.events.slice(0,3).map(e=>'<div class="item"><strong><span class="time">'+TM.esc(e.shipTime)+'</span>'+TM.esc(e.title)+'</strong><small>'+TM.esc(e.status)+'</small></div>').join("")||TM.empty();
-  const threads=d.threads.map(t=>'<div class="item"><strong>'+TM.esc(t.title)+'</strong><small>'+TM.esc(t.summary)+'</small></div>').join("")||TM.empty();
+  const events=d.calendar.events.slice(0,3);
+  const next=events[0];
+  const eventHtml=events.map(e=>'<div class="item"><strong><span class="time">'+TM.esc(e.shipTime)+'</span>'+TM.esc(e.title)+'</strong><small>'+TM.esc(e.status)+' · Stardate '+TM.esc(e.stardate)+'</small></div>').join("")||TM.empty();
+  const threadHtml=d.threads.map(t=>'<div class="item"><strong>'+TM.esc(t.title)+'</strong><small>'+TM.esc(t.summary)+'</small></div>').join("")||TM.empty();
   const knowledge=d.knowledge.map(k=>'<div class="item"><strong>'+TM.esc(k.subject)+'</strong><small>'+TM.esc(k.fact)+'</small></div>').join("")||TM.empty();
-  const inventory=d.inventory.map(i=>'<div class="item"><strong>'+TM.esc(i.name)+'</strong><small>'+TM.esc(i.category)+'</small></div>').join("")||TM.empty();
+  const scienceCrew=d.crew.materialized.filter(p=>p.department==="SCIENCE").slice(0,4);
+  const scienceHtml=scienceCrew.map(p=>'<div class="item"><strong>'+TM.esc(TM.rankShort(p.rank))+' '+TM.esc(p.name)+'</strong><small>'+TM.esc(p.billet)+' · '+TM.esc(p.primaryShift)+' shift</small></div>').join("")||TM.empty();
+
   TM.$("#view").innerHTML=
     '<div class="hero">'+
-      '<article class="card hero-main"><div class="hero-rank">'+TM.esc(c.rank)+' · '+TM.esc(c.department)+'</div><div class="hero-name">'+TM.esc(c.name)+'</div><div class="hero-role">'+TM.esc(c.billet)+'</div><div class="hero-location">'+TM.esc(loc.name||n.locationId)+'<small>'+TM.deckLabel(loc)+' · '+TM.esc(d.ship.name)+' at '+TM.esc(n.shipLocation)+'</small></div></article>'+
-      '<article class="card"><h3>Ship status</h3><div class="status-line"><span class="label">Alert</span><span class="pill good">'+TM.esc(n.alertCondition)+'</span></div><div class="status-line"><span class="label">Checkpoint</span><span class="value">'+TM.esc(d.source.checkpointId)+'</span></div><div class="status-line"><span class="label">RNG</span><span class="value">'+TM.esc(d.rng.status)+' · '+TM.esc(d.rng.counter)+'</span></div><div class="status-line"><span class="label">Health</span><span class="value">'+TM.esc(c.health.injuryState)+' · fatigue '+TM.esc(c.health.fatigue)+'</span></div></article>'+
+      '<article class="card hero-main '+TM.deptClass(c.department)+'">'+TM.shipMark()+
+        '<div class="section-number">01 · CURRENT ASSIGNMENT</div>'+
+        '<div class="hero-rank">'+TM.esc(c.rank)+' · '+TM.esc(c.department)+' DIVISION</div>'+
+        '<div class="hero-name">'+TM.esc(c.name)+'</div>'+
+        '<div class="hero-role">'+TM.esc(c.billet)+'</div>'+
+        '<div class="status-cluster"><span class="status-chip"><span>SHIP</span><b>'+TM.esc(d.ship.registry)+'</b></span><span class="status-chip"><span>STATUS</span><b>'+TM.esc(n.campaignStatus)+'</b></span><span class="status-chip"><span>CHECKPOINT</span><b>'+TM.esc(d.source.checkpointId)+'</b></span></div>'+
+        '<div class="hero-location">'+TM.esc(loc.name||n.locationId)+'<small>'+TM.deckLabel(loc)+' · '+TM.esc(d.ship.name)+' · '+TM.esc(n.shipLocation)+'</small></div>'+
+      '</article>'+
+      '<article class="card"><div class="section-number">02 · NEXT ON PADD</div><h3>Known schedule</h3>'+
+        '<div class="metric">'+TM.esc(next?.shipTime||"—")+'</div>'+
+        '<p style="margin:.25rem 0 1.25rem;font-weight:700">'+TM.esc(next?.title||"No scheduled item")+'</p>'+
+        '<div class="status-line"><span class="label">Alert condition</span><span class="pill good">'+TM.esc(n.alertCondition)+'</span></div>'+
+        '<div class="status-line"><span class="label">Health</span><span class="value">'+TM.esc(c.health.injuryState)+'</span></div>'+
+        '<div class="status-line"><span class="label">RNG counter</span><span class="value">'+TM.esc(d.rng.counter)+'</span></div>'+
+      '</article>'+
     '</div>'+
-    '<div class="grid four">'+
-      TM.card("Next obligations",'<div class="list">'+events+'</div>')+
-      TM.card("Active threads",'<div class="list">'+threads+'</div>')+
-      TM.card("Known crew",'<div class="metric">'+TM.esc(d.crew.materializedCount)+'</div><p class="mini">'+TM.esc(d.crew.backgroundCount)+' additional crew remain background until they matter in play.</p>')+
-      TM.card("Organic character",'<div class="metric">'+TM.unresolvedCount(c.attributes)+'</div><p class="mini">attributes unresolved · '+TM.esc(c.discoveryState.academyRank1SlotsRemaining)+' Academy training slots remain</p>',"discovery")+
+    '<div class="grid three">'+
+      TM.card("Active thread",'<div class="section-number">03 · OPEN</div><div class="list">'+threadHtml+'</div>')+
+      TM.card("Science department",'<div class="section-number">04 · PEOPLE</div><div class="list">'+scienceHtml+'</div>')+
+      TM.card("Organic character",'<div class="section-number">05 · DISCOVERY</div><div class="metric">'+TM.unresolvedCount(c.attributes)+'</div><p class="mini">attributes still open · '+TM.esc(c.discoveryState.academyRank1SlotsRemaining)+' Academy skill slots · 2 specialty slots</p>',"discovery")+
     '</div>'+
     '<div class="grid two" style="margin-top:18px">'+
-      TM.card("What Jeremy knows",'<div class="list">'+knowledge+'</div>')+
-      TM.card("Personal issue",'<div class="list">'+inventory+'</div>')+
+      TM.card("What Jeremy knows",'<div class="section-number">06 · KNOWLEDGE</div><div class="list">'+knowledge+'</div>')+
+      TM.card("Today's schedule",'<div class="section-number">07 · CALENDAR</div><div class="list">'+eventHtml+'</div>')+
     '</div>';
 };
 
@@ -44,7 +60,19 @@ TM.renderCrew=()=>{
   const d=TM.S.data;
   const deps=["ALL",...new Set(d.crew.materialized.map(x=>x.department).sort())];
   const list=d.crew.materialized.filter(p=>(TM.S.crewDept==="ALL"||p.department===TM.S.crewDept)&&(!TM.S.crewQuery||[p.name,p.rank,p.billet,p.species,p.department].join(" ").toLowerCase().includes(TM.S.crewQuery.toLowerCase())));
-  TM.$("#view").innerHTML='<div class="toolbar"><input id="crew-search" placeholder="Search crew…" value="'+TM.esc(TM.S.crewQuery)+'"><select id="crew-dept">'+deps.map(x=>'<option '+(x===TM.S.crewDept?"selected":"")+'>'+TM.esc(x)+'</option>').join("")+'</select><span class="pill">'+list.length+' shown</span></div><div class="crew-grid">'+list.map(p=>'<article class="crew-card" data-id="'+TM.esc(p.id)+'"><div class="crew-rank">'+TM.esc(p.rank)+' · '+TM.esc(p.department)+'</div><div class="crew-name">'+TM.esc(p.name)+'</div><div class="crew-meta">'+TM.esc(p.species)+'<br>'+TM.esc(p.billet)+'<br>'+TM.esc(p.primaryShift)+' shift</div></article>').join("")+'</div>';
+  const cards=list.map(p=>{
+    const initials=p.name.split(/\s+/).map(x=>x[0]).join("").slice(0,2).toUpperCase();
+    return '<article class="crew-card '+TM.deptClass(p.department)+'" data-id="'+TM.esc(p.id)+'">'+
+      '<div class="crew-avatar">'+TM.esc(initials)+'</div>'+
+      '<div class="crew-rank">'+TM.esc(TM.rankShort(p.rank))+' · '+TM.esc(p.department)+'</div>'+
+      '<div class="crew-name">'+TM.esc(p.name)+'</div>'+
+      '<div class="crew-meta">'+TM.esc(p.species)+'<br>'+TM.esc(p.billet)+'<br>'+TM.esc(p.primaryShift)+' shift</div>'+
+    '</article>';
+  }).join("");
+  TM.$("#view").innerHTML=
+    '<div class="toolbar"><input id="crew-search" placeholder="Search name, rank, billet, species…" value="'+TM.esc(TM.S.crewQuery)+'"><select id="crew-dept">'+deps.map(x=>'<option '+(x===TM.S.crewDept?"selected":"")+'>'+TM.esc(x)+'</option>').join("")+'</select><span class="pill">'+list.length+' of '+d.crew.materializedCount+' known</span></div>'+
+    '<div class="crew-grid">'+cards+'</div>'+
+    '<p class="mini" style="margin-top:14px">'+TM.esc(d.crew.backgroundCount)+' additional crew remain intentionally unmaterialized until they matter in play.</p>';
   TM.$("#crew-search").oninput=e=>{TM.S.crewQuery=e.target.value;TM.renderCrew()};
   TM.$("#crew-dept").onchange=e=>{TM.S.crewDept=e.target.value;TM.renderCrew()};
   document.querySelectorAll(".crew-card").forEach(x=>x.onclick=()=>TM.showCrew(x.dataset.id));
