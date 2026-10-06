@@ -1,0 +1,485 @@
+{
+  "apiVersion": 1,
+  "collectionKey": "soundtracks",
+  "count": 79,
+  "endpoint": "https://stapi.co/api/v1/rest/soundtrack/search",
+  "fetchedAt": "2026-10-06T02:58:14.937794+00:00",
+  "records": [
+    {
+      "length": 4399,
+      "releaseDate": "1996-12-11",
+      "title": "Star Trek: First Contact",
+      "uid": "SOMA0000065242"
+    },
+    {
+      "length": 2545,
+      "releaseDate": "1989-06-27",
+      "title": "Star Trek V: The Final Frontier",
+      "uid": "SOMA0000065247"
+    },
+    {
+      "length": 2911,
+      "releaseDate": "2002-11-26",
+      "title": "Star Trek Nemesis",
+      "uid": "SOMA0000065252"
+    },
+    {
+      "length": 3952,
+      "releaseDate": "1998-12-08",
+      "title": "Star Trek: Insurrection",
+      "uid": "SOMA0000065793"
+    },
+    {
+      "length": 2690,
+      "releaseDate": null,
+      "title": "Star Trek II: The Wrath of Khan",
+      "uid": "SOMA0000065802"
+    },
+    {
+      "length": 3624,
+      "releaseDate": "1994-12-07",
+      "title": "Star Trek Generations",
+      "uid": "SOMA0000065804"
+    },
+    {
+      "length": 2716,
+      "releaseDate": "1991-12-10",
+      "title": "Star Trek VI: The Undiscovered Country",
+      "uid": "SOMA0000065808"
+    },
+    {
+      "length": 2258,
+      "releaseDate": null,
+      "title": "Star Trek: The Motion Picture",
+      "uid": "SOMA0000067209"
+    },
+    {
+      "length": 2258,
+      "releaseDate": "1991-01-21",
+      "title": "Star Trek III: The Search for Spock",
+      "uid": "SOMA0000067236"
+    },
+    {
+      "length": 2169,
+      "releaseDate": "1986-10-25",
+      "title": "Star Trek IV: The Voyage Home",
+      "uid": "SOMA0000067237"
+    },
+    {
+      "length": 2539,
+      "releaseDate": "2009-05-05",
+      "title": "Star Trek",
+      "uid": "SOMA0000112380"
+    },
+    {
+      "length": 4326,
+      "releaseDate": null,
+      "title": "Star Trek - The Astral Symphony",
+      "uid": "SOMA0000114946"
+    },
+    {
+      "length": 4528,
+      "releaseDate": null,
+      "title": "Star Trek II: The Wrath of Khan",
+      "uid": "SOMA0000121212"
+    },
+    {
+      "length": 7003,
+      "releaseDate": null,
+      "title": "Star Trek III: The Search for Spock",
+      "uid": "SOMA0000135099"
+    },
+    {
+      "length": 5928,
+      "releaseDate": null,
+      "title": "Star Trek: The Deluxe Edition",
+      "uid": "SOMA0000135387"
+    },
+    {
+      "length": 7911,
+      "releaseDate": "2010-11-30",
+      "title": "Star Trek V: The Final Frontier",
+      "uid": "SOMA0000152564"
+    },
+    {
+      "length": 14155,
+      "releaseDate": "2011-07-20",
+      "title": "Star Trek: The Next Generation Collection, Volume One",
+      "uid": "SOMA0000152568"
+    },
+    {
+      "length": 59564,
+      "releaseDate": null,
+      "title": "Star Trek: The Next Generation - The Ron Jones Project",
+      "uid": "SOMA0000152570"
+    },
+    {
+      "length": null,
+      "releaseDate": null,
+      "title": "The Sound of Star Trek",
+      "uid": "SOMA0000156706"
+    },
+    {
+      "length": 4364,
+      "releaseDate": null,
+      "title": "Star Trek IV: The Voyage Home",
+      "uid": "SOMA0000157260"
+    },
+    {
+      "length": 6751,
+      "releaseDate": "2012-02-28",
+      "title": "Star Trek VI: The Undiscovered Country",
+      "uid": "SOMA0000159834"
+    },
+    {
+      "length": 4753,
+      "releaseDate": "2012-04-02",
+      "title": "Star Trek: First Contact",
+      "uid": "SOMA0000160942"
+    },
+    {
+      "length": 13273,
+      "releaseDate": "2012-06-05",
+      "title": "Star Trek: The Motion Picture",
+      "uid": "SOMA0000162309"
+    },
+    {
+      "length": 62297,
+      "releaseDate": "2012-12-04",
+      "title": "Star Trek: The Original Series Soundtrack Collection",
+      "uid": "SOMA0000168938"
+    },
+    {
+      "length": 8510,
+      "releaseDate": "2012-10-29",
+      "title": "Star Trek Generations",
+      "uid": "SOMA0000168939"
+    },
+    {
+      "length": 18587,
+      "releaseDate": "2013-02-12",
+      "title": "Star Trek: Deep Space Nine Collection",
+      "uid": "SOMA0000172249"
+    },
+    {
+      "length": 2837,
+      "releaseDate": "2013-05-21",
+      "title": "Star Trek Into Darkness",
+      "uid": "SOMA0000173487"
+    },
+    {
+      "length": 3312,
+      "releaseDate": "2013-05-20",
+      "title": "The Best of Both Worlds",
+      "uid": "SOMA0000174282"
+    },
+    {
+      "length": null,
+      "releaseDate": null,
+      "title": "Star Trek - Music Box",
+      "uid": "SOMA0000174726"
+    },
+    {
+      "length": 4742,
+      "releaseDate": "2013-08-06",
+      "title": "Star Trek: Insurrection",
+      "uid": "SOMA0000177410"
+    },
+    {
+      "length": 6921,
+      "releaseDate": "2013-12-09",
+      "title": "Star Trek Nemesis",
+      "uid": "SOMA0000183047"
+    },
+    {
+      "length": 4244,
+      "releaseDate": "2014-02-26",
+      "title": "Encounter at Farpoint/The Arsenal of Freedom",
+      "uid": "SOMA0000185593"
+    },
+    {
+      "length": 2181,
+      "releaseDate": null,
+      "title": "Star Trek: The Next Generation, Volume One",
+      "uid": "SOMA0000185594"
+    },
+    {
+      "length": 2814,
+      "releaseDate": null,
+      "title": "Star Trek: The Next Generation, Volume Two",
+      "uid": "SOMA0000185595"
+    },
+    {
+      "length": 7756,
+      "releaseDate": null,
+      "title": "Star Trek: The Next Generation - Collector's Set",
+      "uid": "SOMA0000185596"
+    },
+    {
+      "length": 2761,
+      "releaseDate": null,
+      "title": "Star Trek: The Next Generation, Volume Three",
+      "uid": "SOMA0000185597"
+    },
+    {
+      "length": 2901,
+      "releaseDate": null,
+      "title": "Star Trek: The Next Generation, Volume Four",
+      "uid": "SOMA0000185598"
+    },
+    {
+      "length": 3143,
+      "releaseDate": "1993-06-29",
+      "title": "Emissary",
+      "uid": "SOMA0000186078"
+    },
+    {
+      "length": 473,
+      "releaseDate": null,
+      "title": "Theme from Star Trek: Deep Space Nine",
+      "uid": "SOMA0000186079"
+    },
+    {
+      "length": 3822,
+      "releaseDate": null,
+      "title": "The Best of Star Trek, Volume One",
+      "uid": "SOMA0000186082"
+    },
+    {
+      "length": 3812,
+      "releaseDate": null,
+      "title": "The Best of Star Trek, Volume Two",
+      "uid": "SOMA0000186083"
+    },
+    {
+      "length": 2774,
+      "releaseDate": null,
+      "title": "Caretaker",
+      "uid": "SOMA0000188090"
+    },
+    {
+      "length": 624,
+      "releaseDate": null,
+      "title": "Star Trek: Voyager - Main Title",
+      "uid": "SOMA0000188091"
+    },
+    {
+      "length": 2970,
+      "releaseDate": "2002-05-14",
+      "title": "Broken Bow",
+      "uid": "SOMA0000188092"
+    },
+    {
+      "length": 1215,
+      "releaseDate": null,
+      "title": "Star Trek Generations - Make It So",
+      "uid": "SOMA0000188098"
+    },
+    {
+      "length": 7743,
+      "releaseDate": "1999-01-26",
+      "title": "Star Trek: The Motion Picture - 20th Anniversary Collector's Edition",
+      "uid": "SOMA0000188099"
+    },
+    {
+      "length": 9789,
+      "releaseDate": "2011-09-23",
+      "title": "Star Trek - First Contact & Insurrection Original Soundtracks",
+      "uid": "SOMA0000188113"
+    },
+    {
+      "length": 2608,
+      "releaseDate": null,
+      "title": "Star Trek - Original Television Soundtrack, Volume One",
+      "uid": "SOMA0000188114"
+    },
+    {
+      "length": 2570,
+      "releaseDate": "1995-03-20",
+      "title": "Star Trek - Symphonic Suites, Volume One",
+      "uid": "SOMA0000188116"
+    },
+    {
+      "length": 2749,
+      "releaseDate": null,
+      "title": "Star Trek - Symphonic Suites, Volume Two",
+      "uid": "SOMA0000188118"
+    },
+    {
+      "length": 2478,
+      "releaseDate": "1990-10-25",
+      "title": "Star Trek - Newly Recorded Music, Volume One",
+      "uid": "SOMA0000188121"
+    },
+    {
+      "length": 2512,
+      "releaseDate": "1990-10-25",
+      "title": "Star Trek - Newly Recorded Music, Volume Two",
+      "uid": "SOMA0000188122"
+    },
+    {
+      "length": 3143,
+      "releaseDate": null,
+      "title": "Star Trek - Original Television Soundtrack, Volume Two",
+      "uid": "SOMA0000188123"
+    },
+    {
+      "length": 2803,
+      "releaseDate": null,
+      "title": "Star Trek - Original Television Soundtrack, Volume Three",
+      "uid": "SOMA0000188124"
+    },
+    {
+      "length": 7123,
+      "releaseDate": "2014-07-28",
+      "title": "Star Trek Into Darkness: The Deluxe Edition",
+      "uid": "SOMA0000190401"
+    },
+    {
+      "length": 17498,
+      "releaseDate": "2014-12-02",
+      "title": "Star Trek: Enterprise Collection",
+      "uid": "SOMA0000192760"
+    },
+    {
+      "length": 13721,
+      "releaseDate": "2016-01-12",
+      "title": "Star Trek: The Next Generation Collection, Volume Two",
+      "uid": "SOMA0000204067"
+    },
+    {
+      "length": 3659,
+      "releaseDate": "2016-07-29",
+      "title": "Star Trek Beyond",
+      "uid": "SOMA0000206550"
+    },
+    {
+      "length": 6208,
+      "releaseDate": null,
+      "title": "Star Trek: The Ultimate Voyage",
+      "uid": "SOMA0000207155"
+    },
+    {
+      "length": 19010,
+      "releaseDate": "2016-11-29",
+      "title": "Star Trek: 50th Anniversary Collection",
+      "uid": "SOMA0000216769"
+    },
+    {
+      "length": 7518,
+      "releaseDate": "2016-12-12",
+      "title": "Star Trek Beyond: The Deluxe Edition",
+      "uid": "SOMA0000217524"
+    },
+    {
+      "length": 18553,
+      "releaseDate": "2017-02-28",
+      "title": "Star Trek: Voyager Collection",
+      "uid": "SOMA0000219730"
+    },
+    {
+      "length": 4191,
+      "releaseDate": "2009-08-11",
+      "title": "The Music of Star Trek",
+      "uid": "SOMA0000220086"
+    },
+    {
+      "length": 18553,
+      "releaseDate": "2017-03-14",
+      "title": "Star Trek: The Motion Picture",
+      "uid": "SOMA0000220562"
+    },
+    {
+      "length": 3166,
+      "releaseDate": "2017-12-15",
+      "title": "Star Trek: Discovery - Season 1, Chapter 1",
+      "uid": "SOMA0000231117"
+    },
+    {
+      "length": 18102,
+      "releaseDate": "2016-09-30",
+      "title": "Star Trek: Enterprise Collection, Volume Two",
+      "uid": "SOMA0000231207"
+    },
+    {
+      "length": 18485,
+      "releaseDate": "2018-01-09",
+      "title": "Star Trek: Deep Space Nine Collection, Volume Two",
+      "uid": "SOMA0000231855"
+    },
+    {
+      "length": 3204,
+      "releaseDate": "2018-04-06",
+      "title": "Star Trek: Discovery - Season 1, Chapter 2",
+      "uid": "SOMA0000234817"
+    },
+    {
+      "length": 4441,
+      "releaseDate": "2018-08-17",
+      "title": "Star Trek: Discovery - Season 1, Chapters 1 & 2",
+      "uid": "SOMA0000237799"
+    },
+    {
+      "length": 5096,
+      "releaseDate": "2018-09-14",
+      "title": "Star Trek Nemesis",
+      "uid": "SOMA0000239164"
+    },
+    {
+      "length": null,
+      "releaseDate": "2019-08-14",
+      "title": "What We Left Behind",
+      "uid": "SOMA0000249310"
+    },
+    {
+      "length": 4043,
+      "releaseDate": "2020-02-07",
+      "title": "Star Trek: Picard - Season 1, Chapter 1",
+      "uid": "SOMA0000251869"
+    },
+    {
+      "length": 5955,
+      "releaseDate": "2019-07-19",
+      "title": "Star Trek: Discovery - Season 2",
+      "uid": "SOMA0000251872"
+    },
+    {
+      "length": 9393,
+      "releaseDate": "2020-04-03",
+      "title": "Star Trek: Picard - Season 1",
+      "uid": "SOMA0000254493"
+    },
+    {
+      "length": 18274,
+      "releaseDate": "2019-12-03",
+      "title": "Star Trek: Voyager Collection, Volume Two",
+      "uid": "SOMA0000273672"
+    },
+    {
+      "length": 5055,
+      "releaseDate": "2022-04-29",
+      "title": "Star Trek: Picard - Season 2",
+      "uid": "SOMA0000282774"
+    },
+    {
+      "length": 2556,
+      "releaseDate": null,
+      "title": "Star Trek: Operation Enterprise",
+      "uid": "SOMA0000286879"
+    },
+    {
+      "length": 5197,
+      "releaseDate": "2022-04-05",
+      "title": "Star Trek: The Motion Picture - The Director's Edition",
+      "uid": "SOMA0000286911"
+    },
+    {
+      "length": null,
+      "releaseDate": "2021-10-08",
+      "title": "Star Trek: Lower Decks - Volume 1",
+      "uid": "SOMA0000286941"
+    }
+  ],
+  "resource": "soundtrack",
+  "source": "STAPI"
+}

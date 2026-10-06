@@ -1,0 +1,407 @@
+{
+  "apiVersion": 1,
+  "collectionKey": "magazineSeries",
+  "count": 44,
+  "endpoint": "https://stapi.co/api/v1/rest/magazineSeries/search",
+  "fetchedAt": "2026-10-06T02:58:14.937794+00:00",
+  "records": [
+    {
+      "numberOfIssues": 240,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1995,
+      "publishedYearTo": null,
+      "title": "Star Trek Magazine",
+      "uid": "MSMA0000001853"
+    },
+    {
+      "numberOfIssues": 52,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1999,
+      "publishedYearTo": 2003,
+      "title": "Star Trek: The Magazine",
+      "uid": "MSMA0000006226"
+    },
+    {
+      "numberOfIssues": 56,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1995,
+      "publishedYearTo": 2005,
+      "title": "Star Trek: Communicator",
+      "uid": "MSMA0000012747"
+    },
+    {
+      "numberOfIssues": 374,
+      "publishedMonthFrom": 8,
+      "publishedMonthTo": 4,
+      "publishedYearFrom": 1976,
+      "publishedYearTo": 2009,
+      "title": "Starlog",
+      "uid": "MSMA0000035911"
+    },
+    {
+      "numberOfIssues": 16,
+      "publishedMonthFrom": 11,
+      "publishedMonthTo": 2,
+      "publishedYearFrom": 1984,
+      "publishedYearTo": 1988,
+      "title": "Stardate",
+      "uid": "MSMA0000050036"
+    },
+    {
+      "numberOfIssues": 70,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 2004,
+      "publishedYearTo": 2009,
+      "title": "Star Trek: The Collector's Edition",
+      "uid": "MSMA0000050328"
+    },
+    {
+      "numberOfIssues": 99,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1979,
+      "publishedYearTo": 1994,
+      "title": "Star Trek: The Official Fan Club Magazine",
+      "uid": "MSMA0000065509"
+    },
+    {
+      "numberOfIssues": 25,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1993,
+      "publishedYearTo": 1998,
+      "title": "The Official Star Trek: Deep Space Nine Magazine",
+      "uid": "MSMA0000068533"
+    },
+    {
+      "numberOfIssues": 30,
+      "publishedMonthFrom": 12,
+      "publishedMonthTo": 11,
+      "publishedYearFrom": 1987,
+      "publishedYearTo": 1994,
+      "title": "The Official Star Trek: The Next Generation Magazine",
+      "uid": "MSMA0000068535"
+    },
+    {
+      "numberOfIssues": 35,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1969,
+      "publishedYearTo": 1979,
+      "title": "T-Negative",
+      "uid": "MSMA0000073014"
+    },
+    {
+      "numberOfIssues": 96,
+      "publishedMonthFrom": 5,
+      "publishedMonthTo": 12,
+      "publishedYearFrom": 1991,
+      "publishedYearTo": 1995,
+      "title": "Star Trek: The Next Generation - The Official Poster Magazine",
+      "uid": "MSMA0000093453"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1990,
+      "publishedYearTo": 1992,
+      "title": "Star Trek: The Next Generation Magazine",
+      "uid": "MSMA0000093789"
+    },
+    {
+      "numberOfIssues": 15,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1996,
+      "publishedYearTo": 1997,
+      "title": "Star Trek: Deep Space Nine - The Official Poster Magazine",
+      "uid": "MSMA0000093831"
+    },
+    {
+      "numberOfIssues": 19,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1995,
+      "publishedYearTo": 1998,
+      "title": "The Official Star Trek: Voyager Magazine",
+      "uid": "MSMA0000094522"
+    },
+    {
+      "numberOfIssues": 18,
+      "publishedMonthFrom": 9,
+      "publishedMonthTo": 9,
+      "publishedYearFrom": 1976,
+      "publishedYearTo": 1976,
+      "title": "Star Trek Giant Poster Book",
+      "uid": "MSMA0000095450"
+    },
+    {
+      "numberOfIssues": 13,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1993,
+      "publishedYearTo": 1997,
+      "title": "Star Trek: The Official Fan Club of the UK Magazine",
+      "uid": "MSMA0000096559"
+    },
+    {
+      "numberOfIssues": 5,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1999,
+      "publishedYearTo": 2003,
+      "title": "Comlink",
+      "uid": "MSMA0000100493"
+    },
+    {
+      "numberOfIssues": 28,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 2007,
+      "publishedYearTo": 2008,
+      "title": "Star Trek: The Original Series - The Collector's Edition",
+      "uid": "MSMA0000102791"
+    },
+    {
+      "numberOfIssues": 26,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1992,
+      "publishedYearTo": null,
+      "title": "Final Frontier",
+      "uid": "MSMA0000109885"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": null,
+      "publishedYearTo": null,
+      "title": "Wired",
+      "uid": "MSMA0000114258"
+    },
+    {
+      "numberOfIssues": 3,
+      "publishedMonthFrom": 5,
+      "publishedMonthTo": 7,
+      "publishedYearFrom": 2009,
+      "publishedYearTo": 2009,
+      "title": "Star Trek Comic",
+      "uid": "MSMA0000115706"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": null,
+      "publishedYearTo": null,
+      "title": "Film Score Monthly",
+      "uid": "MSMA0000124714"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": 3,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1980,
+      "publishedYearTo": null,
+      "title": "Cinefex",
+      "uid": "MSMA0000125020"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": 11,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1920,
+      "publishedYearTo": null,
+      "title": "American Cinematographer",
+      "uid": "MSMA0000125522"
+    },
+    {
+      "numberOfIssues": 198,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1970,
+      "publishedYearTo": 2006,
+      "title": "Cinefantastique",
+      "uid": "MSMA0000127213"
+    },
+    {
+      "numberOfIssues": 46,
+      "publishedMonthFrom": 4,
+      "publishedMonthTo": 10,
+      "publishedYearFrom": 1978,
+      "publishedYearTo": 1985,
+      "title": "Fantastic Films",
+      "uid": "MSMA0000127564"
+    },
+    {
+      "numberOfIssues": 855,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1997,
+      "publishedYearTo": 2008,
+      "title": "Star Trek Fact Files",
+      "uid": "MSMA0000140943"
+    },
+    {
+      "numberOfIssues": 55,
+      "publishedMonthFrom": 1,
+      "publishedMonthTo": 3,
+      "publishedYearFrom": 1994,
+      "publishedYearTo": 2000,
+      "title": "Sci-Fi & Fantasy Models",
+      "uid": "MSMA0000155331"
+    },
+    {
+      "numberOfIssues": 7,
+      "publishedMonthFrom": 6,
+      "publishedMonthTo": 8,
+      "publishedYearFrom": 2011,
+      "publishedYearTo": 2011,
+      "title": "The Official Star Trek The Next Generation: Build the USS Enterprise NCC-1701-D",
+      "uid": "MSMA0000159280"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1972,
+      "publishedYearTo": 1987,
+      "title": "The Electric Company Magazine",
+      "uid": "MSMA0000162040"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": 8,
+      "publishedMonthTo": 6,
+      "publishedYearFrom": 2013,
+      "publishedYearTo": 2022,
+      "title": "Star Trek: The Official Starships Collection",
+      "uid": "MSMA0000162862"
+    },
+    {
+      "numberOfIssues": 30,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1968,
+      "publishedYearTo": 1979,
+      "title": "Inside Star Trek",
+      "uid": "MSMA0000166985"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1989,
+      "publishedYearTo": 2008,
+      "title": "TV Zone",
+      "uid": "MSMA0000185175"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1995,
+      "publishedYearTo": 1995,
+      "title": "Star Trek Generations - The Official Poster Magazine",
+      "uid": "MSMA0000195248"
+    },
+    {
+      "numberOfIssues": 20,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1999,
+      "publishedYearTo": 2003,
+      "title": "Star Trek Explorer",
+      "uid": "MSMA0000198433"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": 9,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 2014,
+      "publishedYearTo": null,
+      "title": "The Official CBS Watch! Collector's Edition",
+      "uid": "MSMA0000203169"
+    },
+    {
+      "numberOfIssues": 36,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1976,
+      "publishedYearTo": 1988,
+      "title": "Enterprise Incidents",
+      "uid": "MSMA0000211953"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": 6,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1995,
+      "publishedYearTo": null,
+      "title": "SFX",
+      "uid": "MSMA0000218181"
+    },
+    {
+      "numberOfIssues": 20,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 2015,
+      "publishedYearTo": null,
+      "title": "Prosthetics",
+      "uid": "MSMA0000218353"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": 7,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1989,
+      "publishedYearTo": null,
+      "title": "Empire",
+      "uid": "MSMA0000220068"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": null,
+      "publishedYearTo": null,
+      "title": "Starburst",
+      "uid": "MSMA0000220918"
+    },
+    {
+      "numberOfIssues": 20,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 2020,
+      "publishedYearTo": 2021,
+      "title": "Star Trek Online Starships Collection",
+      "uid": "MSMA0000253807"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 1985,
+      "publishedYearTo": 1988,
+      "title": "Files Magazine",
+      "uid": "MSMA0000255996"
+    },
+    {
+      "numberOfIssues": null,
+      "publishedMonthFrom": null,
+      "publishedMonthTo": null,
+      "publishedYearFrom": 2021,
+      "publishedYearTo": null,
+      "title": "Star Trek Explorer",
+      "uid": "MSMA0000281581"
+    }
+  ],
+  "resource": "magazineSeries",
+  "source": "STAPI"
+}

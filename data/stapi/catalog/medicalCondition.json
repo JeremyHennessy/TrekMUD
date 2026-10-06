@@ -1,0 +1,2601 @@
+{
+  "apiVersion": 1,
+  "collectionKey": "medicalConditions",
+  "count": 518,
+  "endpoint": "https://stapi.co/api/v1/rest/medicalCondition/search",
+  "fetchedAt": "2026-10-06T02:58:14.937794+00:00",
+  "records": [
+    {
+      "name": "Dorek Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000001154"
+    },
+    {
+      "name": "Polywater intoxication",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000004343"
+    },
+    {
+      "name": "Interspatial parasite",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000004578"
+    },
+    {
+      "name": "Xenopolycythemia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000004725"
+    },
+    {
+      "name": "Anaprolean Fever",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000004847"
+    },
+    {
+      "name": "Anchilles fever",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000005482"
+    },
+    {
+      "name": "Andronesian encephalitis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000005483"
+    },
+    {
+      "name": "Bendii Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000005489"
+    },
+    {
+      "name": "Iverson's Disease",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000005493"
+    },
+    {
+      "name": "Plasma plague",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000005495"
+    },
+    {
+      "name": "Vegan choriomeningitis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000005496"
+    },
+    {
+      "name": "Transporter phobia",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000006278"
+    },
+    {
+      "name": "Metremia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000006410"
+    },
+    {
+      "name": "Levodian flu",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000006656"
+    },
+    {
+      "name": "Replicative fading",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000007177"
+    },
+    {
+      "name": "Acute radiation syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000007187"
+    },
+    {
+      "name": "Virus",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000007369"
+    },
+    {
+      "name": "Cramp",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000007741"
+    },
+    {
+      "name": "Life prolongation project",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000007878"
+    },
+    {
+      "name": "Neurolytic pathogen",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000008377"
+    },
+    {
+      "name": "Morphogenic virus",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000008508"
+    },
+    {
+      "name": "Temporal psychosis",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000008723"
+    },
+    {
+      "name": "Tuvan Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000008776"
+    },
+    {
+      "name": "Transporter psychosis",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000008998"
+    },
+    {
+      "name": "Holo-addiction",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000009155"
+    },
+    {
+      "name": "Mutagenic retrovirus",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000009522"
+    },
+    {
+      "name": "Terellian Death Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000010162"
+    },
+    {
+      "name": "Symbalene blood burn",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000010163"
+    },
+    {
+      "name": "Xenophobia",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000010345"
+    },
+    {
+      "name": "Clarke's Disease",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000010762"
+    },
+    {
+      "name": "Pa'nar Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000010902"
+    },
+    {
+      "name": "Telurian plague",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000010979"
+    },
+    {
+      "name": "Rigelian fever",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000011079"
+    },
+    {
+      "name": "Ankaran flu",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000011167"
+    },
+    {
+      "name": "Teplan blight",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000011325"
+    },
+    {
+      "name": "Hallucination",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000011398"
+    },
+    {
+      "name": "Multiphasic prion",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000011511"
+    },
+    {
+      "name": "Hypochondria",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000011512"
+    },
+    {
+      "name": "Rudellian plague",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000012226"
+    },
+    {
+      "name": "Pneumonia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000012250"
+    },
+    {
+      "name": "Common cold",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000012276"
+    },
+    {
+      "name": "Kamaraazite flu",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000012457"
+    },
+    {
+      "name": "Synthococcus novae",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000012537"
+    },
+    {
+      "name": "Anterograde amnesia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000012567"
+    },
+    {
+      "name": "Gorch",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000012981"
+    },
+    {
+      "name": "Mass hysteria",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000013037"
+    },
+    {
+      "name": "Harvester",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000013558"
+    },
+    {
+      "name": "Orkett's disease",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000013576"
+    },
+    {
+      "name": "Terrellian plague",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000014045"
+    },
+    {
+      "name": "Arethian flu",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000014628"
+    },
+    {
+      "name": "Mind control",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000014681"
+    },
+    {
+      "name": "Sakuro's Disease",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000016201"
+    },
+    {
+      "name": "Nitrogen narcosis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000016659"
+    },
+    {
+      "name": "Yarim Fel Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000017451"
+    },
+    {
+      "name": "Phase-pulse infection",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000017499"
+    },
+    {
+      "name": "Zanthi fever",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000017606"
+    },
+    {
+      "name": "Freighter blight",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000017812"
+    },
+    {
+      "name": "Klingon augment virus",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000018104"
+    },
+    {
+      "name": "Mutagenic virus",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000018108"
+    },
+    {
+      "name": "Orb shadow",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000018564"
+    },
+    {
+      "name": "Déjà vu",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000018948"
+    },
+    {
+      "name": "Shalaft's Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000019275"
+    },
+    {
+      "name": "Rigelian Kassaba fever",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000019950"
+    },
+    {
+      "name": "Saurian virus",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000020549"
+    },
+    {
+      "name": "Forrester-Trent syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000020805"
+    },
+    {
+      "name": "Hypoxia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000021132"
+    },
+    {
+      "name": "Claustrophobia",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000021288"
+    },
+    {
+      "name": "Space sickness",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000021404"
+    },
+    {
+      "name": "Betazoid phase",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000022374"
+    },
+    {
+      "name": "Choriocytosis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000024236"
+    },
+    {
+      "name": "Iresine Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000024515"
+    },
+    {
+      "name": "Taggart's Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000024795"
+    },
+    {
+      "name": "Schizophrenia",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000024871"
+    },
+    {
+      "name": "Cholera",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000024874"
+    },
+    {
+      "name": "Irumodic Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000024969"
+    },
+    {
+      "name": "Thelusian flu",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000027599"
+    },
+    {
+      "name": "Urodelan flu",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000029077"
+    },
+    {
+      "name": "Kalla-Nohra Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000031598"
+    },
+    {
+      "name": "Parinisti measles",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000031984"
+    },
+    {
+      "name": "Nehret",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000032418"
+    },
+    {
+      "name": "Persecution complex",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000032871"
+    },
+    {
+      "name": "Epicondylitis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000033946"
+    },
+    {
+      "name": "Progeria",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000034769"
+    },
+    {
+      "name": "Heart attack",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000035756"
+    },
+    {
+      "name": "Rop'ngor",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000035806"
+    },
+    {
+      "name": "Tahiti Syndrome",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000037132"
+    },
+    {
+      "name": "Pottrik Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000038293"
+    },
+    {
+      "name": "Anaphylactic shock",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000038434"
+    },
+    {
+      "name": "Dermal dysplasia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000038435"
+    },
+    {
+      "name": "Polycythemia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000038438"
+    },
+    {
+      "name": "Altarian encephalitis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000038439"
+    },
+    {
+      "name": "Correllium fever",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000038442"
+    },
+    {
+      "name": "Darnay's disease",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000038443"
+    },
+    {
+      "name": "Enantiodromia",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000038444"
+    },
+    {
+      "name": "Larosian virus",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000038445"
+    },
+    {
+      "name": "Phyrox plague",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000038449"
+    },
+    {
+      "name": "Celerity-induced accelerated somatic mutation rate",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000038450"
+    },
+    {
+      "name": "Coleibric hemorrhage",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000038484"
+    },
+    {
+      "name": "Neural metaphasic shock",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000038485"
+    },
+    {
+      "name": "T-cell anomaly",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000038486"
+    },
+    {
+      "name": "Hemocythemia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000041059"
+    },
+    {
+      "name": "Plague",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000041109"
+    },
+    {
+      "name": "Rugalan fever",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000041578"
+    },
+    {
+      "name": "Orillian lung maggot",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000043012"
+    },
+    {
+      "name": "Aphasia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000045273"
+    },
+    {
+      "name": "Holo-transference dementia syndrome",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000045320"
+    },
+    {
+      "name": "Genetic degeneration",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000046195"
+    },
+    {
+      "name": "Headache",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000046532"
+    },
+    {
+      "name": "Bends",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000046937"
+    },
+    {
+      "name": "Traumatic Stress Syndrome",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000047513"
+    },
+    {
+      "name": "Tarellian plague",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000048079"
+    },
+    {
+      "name": "Coma",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000049207"
+    },
+    {
+      "name": "Sharat Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000050343"
+    },
+    {
+      "name": "Ba'ltmasor Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000050530"
+    },
+    {
+      "name": "Dizziness",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000051112"
+    },
+    {
+      "name": "Tanzian flu",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000051469"
+    },
+    {
+      "name": "Burn",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000051517"
+    },
+    {
+      "name": "Stockholm syndrome",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000053912"
+    },
+    {
+      "name": "Fever",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000054081"
+    },
+    {
+      "name": "Insomnia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000054104"
+    },
+    {
+      "name": "Tarkalean flu",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000054154"
+    },
+    {
+      "name": "Amnesia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000054231"
+    },
+    {
+      "name": "Dramia II plague",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000054324"
+    },
+    {
+      "name": "Rushton infection",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000054750"
+    },
+    {
+      "name": "Allergy",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000054824"
+    },
+    {
+      "name": "Cartalian fever",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000055986"
+    },
+    {
+      "name": "Somatophysical failure",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000056028"
+    },
+    {
+      "name": "Dysphoria Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000058985"
+    },
+    {
+      "name": "Muscle spasm",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000060075"
+    },
+    {
+      "name": "Phage",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000061511"
+    },
+    {
+      "name": "Cancer",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000061534"
+    },
+    {
+      "name": "Post-neural shock syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000061732"
+    },
+    {
+      "name": "Bipolar personality disorder",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000062081"
+    },
+    {
+      "name": "Rogath blight",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000064238"
+    },
+    {
+      "name": "Blight",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000064239"
+    },
+    {
+      "name": "Albright-Salzman syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000065170"
+    },
+    {
+      "name": "Deafness",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000065442"
+    },
+    {
+      "name": "Blindness",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000065566"
+    },
+    {
+      "name": "Transporter burn",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000065587"
+    },
+    {
+      "name": "Acute cellular breakdown",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000065634"
+    },
+    {
+      "name": "Dyspnea",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000067090"
+    },
+    {
+      "name": "Typhoid",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000067610"
+    },
+    {
+      "name": "Agoraphobia",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000069922"
+    },
+    {
+      "name": "Pathogen",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000070013"
+    },
+    {
+      "name": "Cavity",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000070041"
+    },
+    {
+      "name": "Brain hemorrhage",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000071511"
+    },
+    {
+      "name": "Croup",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000072659"
+    },
+    {
+      "name": "Bubonic plague",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000072716"
+    },
+    {
+      "name": "Mute",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000073088"
+    },
+    {
+      "name": "Mendakan pox",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000073482"
+    },
+    {
+      "name": "Hyper-acceleration",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000075614"
+    },
+    {
+      "name": "Rudellian brain fever",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000076821"
+    },
+    {
+      "name": "Concussion",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000076903"
+    },
+    {
+      "name": "Cardiac arrest",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000079324"
+    },
+    {
+      "name": "T'lokan schism",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000079935"
+    },
+    {
+      "name": "Rigor mortis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000080737"
+    },
+    {
+      "name": "K'oh-nar",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000080823"
+    },
+    {
+      "name": "Multiple personality disorder",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000081042"
+    },
+    {
+      "name": "Coup-contrecoup pattern",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000081090"
+    },
+    {
+      "name": "Carbon dioxide poisoning",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000081644"
+    },
+    {
+      "name": "Isolation sickness",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000081671"
+    },
+    {
+      "name": "Neuroleptic shock",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000081787"
+    },
+    {
+      "name": "Toluncan ague",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000081915"
+    },
+    {
+      "name": "Post-traumatic stress disorder",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000081938"
+    },
+    {
+      "name": "Psoriasis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000082160"
+    },
+    {
+      "name": "Viremia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000082555"
+    },
+    {
+      "name": "Dysplasia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000082556"
+    },
+    {
+      "name": "Necrobiosis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000082557"
+    },
+    {
+      "name": "Chromovirus",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000082562"
+    },
+    {
+      "name": "Osteal extravasation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000082568"
+    },
+    {
+      "name": "Thymic sclerosis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000083769"
+    },
+    {
+      "name": "Temporal narcosis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000084408"
+    },
+    {
+      "name": "AIDS",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000084457"
+    },
+    {
+      "name": "Influenza",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000086931"
+    },
+    {
+      "name": "Aquaphobia",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000088472"
+    },
+    {
+      "name": "Ornaran plague",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000088689"
+    },
+    {
+      "name": "Albino",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000091328"
+    },
+    {
+      "name": "Epidural hematoma",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000091790"
+    },
+    {
+      "name": "Nervous breakdown",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000092772"
+    },
+    {
+      "name": "Cytotoxic shock",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000093300"
+    },
+    {
+      "name": "Arthritis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000093605"
+    },
+    {
+      "name": "Transporter shock",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000093725"
+    },
+    {
+      "name": "Tumor",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000094396"
+    },
+    {
+      "name": "Obsession",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000095268"
+    },
+    {
+      "name": "Tone deafness",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000096620"
+    },
+    {
+      "name": "Subdural hematoma",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000096818"
+    },
+    {
+      "name": "Physio-emotive disorder",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000097118"
+    },
+    {
+      "name": "Exhaustion",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000097954"
+    },
+    {
+      "name": "Nihiliphobia",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000100035"
+    },
+    {
+      "name": "Dehydration",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000102117"
+    },
+    {
+      "name": "Sensory tremens",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000102504"
+    },
+    {
+      "name": "Cardiomyopathy",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000103458"
+    },
+    {
+      "name": "Multi-infarct dementia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000105025"
+    },
+    {
+      "name": "Hemophilia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000105647"
+    },
+    {
+      "name": "Hives",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000107154"
+    },
+    {
+      "name": "Space happy",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000107931"
+    },
+    {
+      "name": "Powder burn",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000108481"
+    },
+    {
+      "name": "Nausea",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000110172"
+    },
+    {
+      "name": "Hair loss",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000110181"
+    },
+    {
+      "name": "Lacunar amnesia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000110258"
+    },
+    {
+      "name": "Heat exhaustion",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000111576"
+    },
+    {
+      "name": "Tri-lobe regression complex",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000113412"
+    },
+    {
+      "name": "Polar-affective disorder",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000113413"
+    },
+    {
+      "name": "Measles",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000114113"
+    },
+    {
+      "name": "Aviophobia",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000115288"
+    },
+    {
+      "name": "Andorian shingles",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000115405"
+    },
+    {
+      "name": "False labor",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000115896"
+    },
+    {
+      "name": "Frostbite",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000117033"
+    },
+    {
+      "name": "Hypothermia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000117034"
+    },
+    {
+      "name": "Fainting",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000118072"
+    },
+    {
+      "name": "Psychosis",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000118894"
+    },
+    {
+      "name": "Shock",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000118989"
+    },
+    {
+      "name": "Photosensitivity",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000120294"
+    },
+    {
+      "name": "Barclay's Protomorphosis Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000120671"
+    },
+    {
+      "name": "Neural shock",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000120916"
+    },
+    {
+      "name": "Motion sickness",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000121106"
+    },
+    {
+      "name": "Numbness",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000122298"
+    },
+    {
+      "name": "Botanical plague",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000125118"
+    },
+    {
+      "name": "Intoxication",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000125145"
+    },
+    {
+      "name": "Heart flutter",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000126179"
+    },
+    {
+      "name": "Lungworm",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000126510"
+    },
+    {
+      "name": "Aortic rupture",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000127310"
+    },
+    {
+      "name": "Psychological disorder",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000130821"
+    },
+    {
+      "name": "Catalepsy",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000131196"
+    },
+    {
+      "name": "Hypnagogic regression",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000131228"
+    },
+    {
+      "name": "Malnutrition",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000131907"
+    },
+    {
+      "name": "Cranial trauma",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000132715"
+    },
+    {
+      "name": "Hypoglycemia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000134613"
+    },
+    {
+      "name": "Insanity",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000136061"
+    },
+    {
+      "name": "Pimple",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000136258"
+    },
+    {
+      "name": "Plak tow",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000136794"
+    },
+    {
+      "name": "Lymphatic virus",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000137410"
+    },
+    {
+      "name": "Temporal reversion",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000140103"
+    },
+    {
+      "name": "Atherosclerosis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000140469"
+    },
+    {
+      "name": "Flashback",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000140993"
+    },
+    {
+      "name": "Senility",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000141694"
+    },
+    {
+      "name": "Biotemporal flux",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000142309"
+    },
+    {
+      "name": "Arteriosclerosis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000142334"
+    },
+    {
+      "name": "Collective unconsciousness",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000142601"
+    },
+    {
+      "name": "Panic attack",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000142633"
+    },
+    {
+      "name": "Oligemic shock",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000146414"
+    },
+    {
+      "name": "Rash",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000152892"
+    },
+    {
+      "name": "Heart failure",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000155235"
+    },
+    {
+      "name": "Mutagenic pathogen",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000162172"
+    },
+    {
+      "name": "Spaceborne pathogen",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000162227"
+    },
+    {
+      "name": "Absorption",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000162645"
+    },
+    {
+      "name": "Edema",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000162767"
+    },
+    {
+      "name": "Anhedonic",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000162830"
+    },
+    {
+      "name": "Diarrhea",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000162871"
+    },
+    {
+      "name": "Ventricular fibrillation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000162927"
+    },
+    {
+      "name": "Compound fracture",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000163114"
+    },
+    {
+      "name": "Gastroenteritis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000163122"
+    },
+    {
+      "name": "Malaria",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000163218"
+    },
+    {
+      "name": "Myocardial enzyme balance",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000163283"
+    },
+    {
+      "name": "Metabilation occlusion",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000163285"
+    },
+    {
+      "name": "Heterocyclic declination",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000163286"
+    },
+    {
+      "name": "Eosinophilia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000163570"
+    },
+    {
+      "name": "Catatonia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000163573"
+    },
+    {
+      "name": "Narcissism",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000163703"
+    },
+    {
+      "name": "Sleepwalking",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000164243"
+    },
+    {
+      "name": "Osteonecrosis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000164479"
+    },
+    {
+      "name": "Siamese twins",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000164595"
+    },
+    {
+      "name": "Sociopath",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000164839"
+    },
+    {
+      "name": "Psychopath",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000164840"
+    },
+    {
+      "name": "Hypertension",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000166267"
+    },
+    {
+      "name": "Emphysema",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000166645"
+    },
+    {
+      "name": "Embolism",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000166646"
+    },
+    {
+      "name": "Palpitation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000167243"
+    },
+    {
+      "name": "Dementia puglistica",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000168827"
+    },
+    {
+      "name": "Bunion",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000178281"
+    },
+    {
+      "name": "Vasoconstriction",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000178518"
+    },
+    {
+      "name": "Vasodilation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000178639"
+    },
+    {
+      "name": "Sebaceous cyst",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000179528"
+    },
+    {
+      "name": "Stroke",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000179560"
+    },
+    {
+      "name": "Hypertensive shock",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000179608"
+    },
+    {
+      "name": "Congestion of the lungs",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000182094"
+    },
+    {
+      "name": "Paranoia",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000182257"
+    },
+    {
+      "name": "Asphyxiation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000182507"
+    },
+    {
+      "name": "Vascular congestion",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000182916"
+    },
+    {
+      "name": "Psychic bond",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000186094"
+    },
+    {
+      "name": "Dementia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000186485"
+    },
+    {
+      "name": "Megalomania",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000186488"
+    },
+    {
+      "name": "Snoring",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000187159"
+    },
+    {
+      "name": "Aneurysm",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000188067"
+    },
+    {
+      "name": "Hernia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000188069"
+    },
+    {
+      "name": "Rejection",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000188517"
+    },
+    {
+      "name": "Depression",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000189239"
+    },
+    {
+      "name": "Hutzel infection",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000190366"
+    },
+    {
+      "name": "Legato infection",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000190367"
+    },
+    {
+      "name": "Neurolytic shock",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000194699"
+    },
+    {
+      "name": "Fatigue",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000196923"
+    },
+    {
+      "name": "Drug addiction",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000196939"
+    },
+    {
+      "name": "Withdrawal",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000196946"
+    },
+    {
+      "name": "Acute functional dyspepsia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197118"
+    },
+    {
+      "name": "Laceration",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197263"
+    },
+    {
+      "name": "Joint dislocation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197303"
+    },
+    {
+      "name": "Exposure",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197338"
+    },
+    {
+      "name": "Abrasion",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197355"
+    },
+    {
+      "name": "Vision loss",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197368"
+    },
+    {
+      "name": "Hiccup",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197397"
+    },
+    {
+      "name": "Scar",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197439"
+    },
+    {
+      "name": "Stab wound",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197530"
+    },
+    {
+      "name": "Seizure",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197581"
+    },
+    {
+      "name": "Secondary infection",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197665"
+    },
+    {
+      "name": "Respiratory failure",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197677"
+    },
+    {
+      "name": "Ingrown toenail",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197681"
+    },
+    {
+      "name": "Bruise",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197748"
+    },
+    {
+      "name": "Blackout",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197790"
+    },
+    {
+      "name": "Drowning",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197796"
+    },
+    {
+      "name": "Morning sickness",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197805"
+    },
+    {
+      "name": "Decapitation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197892"
+    },
+    {
+      "name": "Hangover",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197893"
+    },
+    {
+      "name": "Hairball",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197954"
+    },
+    {
+      "name": "Vomiting",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000197956"
+    },
+    {
+      "name": "Paralysis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000198038"
+    },
+    {
+      "name": "Sprain",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000198071"
+    },
+    {
+      "name": "Splinter",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000198187"
+    },
+    {
+      "name": "Boil",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000198189"
+    },
+    {
+      "name": "Psychosomatic response",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000198418"
+    },
+    {
+      "name": "Nosebleed",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000198419"
+    },
+    {
+      "name": "Chronic traumatic encephalopathy",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000198592"
+    },
+    {
+      "name": "Hyperventilation",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000198603"
+    },
+    {
+      "name": "Hangnail",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000198704"
+    },
+    {
+      "name": "Dyslexia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000198861"
+    },
+    {
+      "name": "Cough",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000198931"
+    },
+    {
+      "name": "Burp",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000198932"
+    },
+    {
+      "name": "Sleep disorder",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000199035"
+    },
+    {
+      "name": "Disability",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000199038"
+    },
+    {
+      "name": "Bad breath",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000199049"
+    },
+    {
+      "name": "Itch",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000199053"
+    },
+    {
+      "name": "Body odor",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000199271"
+    },
+    {
+      "name": "Adrenal stress",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000199497"
+    },
+    {
+      "name": "Stutter",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000199567"
+    },
+    {
+      "name": "Cellular disruption",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000200105"
+    },
+    {
+      "name": "Psychosomatic illness",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000200106"
+    },
+    {
+      "name": "Separated shoulder",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000201112"
+    },
+    {
+      "name": "Bite mark",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000201189"
+    },
+    {
+      "name": "Suntan",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000201190"
+    },
+    {
+      "name": "Mole",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000201968"
+    },
+    {
+      "name": "Infertility",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000202449"
+    },
+    {
+      "name": "Lesion",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000202456"
+    },
+    {
+      "name": "Shuttle lag",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000202804"
+    },
+    {
+      "name": "Necrosis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000203002"
+    },
+    {
+      "name": "Hyperthermic induction",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000203553"
+    },
+    {
+      "name": "Limp",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000204122"
+    },
+    {
+      "name": "Delusion",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000204154"
+    },
+    {
+      "name": "Delirium",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000204499"
+    },
+    {
+      "name": "Stress",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000204595"
+    },
+    {
+      "name": "Martyr complex",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000204626"
+    },
+    {
+      "name": "Hairline fracture",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000204846"
+    },
+    {
+      "name": "Biochemical stasis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000204871"
+    },
+    {
+      "name": "Runny nose",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000204978"
+    },
+    {
+      "name": "Fugue",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000205178"
+    },
+    {
+      "name": "Stillborn",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000205236"
+    },
+    {
+      "name": "Writer's block",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000205323"
+    },
+    {
+      "name": "Stage fright",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000205334"
+    },
+    {
+      "name": "Chafing",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000205452"
+    },
+    {
+      "name": "Blood clot",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000205845"
+    },
+    {
+      "name": "Gastrointestinal distress",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000206387"
+    },
+    {
+      "name": "Inflammation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000206390"
+    },
+    {
+      "name": "Pinched nerve",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000206560"
+    },
+    {
+      "name": "Puncture",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000207221"
+    },
+    {
+      "name": "Homesickness",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000207648"
+    },
+    {
+      "name": "Internal bleeding",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000208156"
+    },
+    {
+      "name": "Birth defect",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000208637"
+    },
+    {
+      "name": "Atrophy",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000209078"
+    },
+    {
+      "name": "Infection",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000209294"
+    },
+    {
+      "name": "Space madness",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000212203"
+    },
+    {
+      "name": "Intestinal bug",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000212503"
+    },
+    {
+      "name": "Strain",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000212645"
+    },
+    {
+      "name": "Dwarf",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000213080"
+    },
+    {
+      "name": "Vitamin deficiency",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000213179"
+    },
+    {
+      "name": "Neural depletion",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000213190"
+    },
+    {
+      "name": "Anemia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000213476"
+    },
+    {
+      "name": "Fracture",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000214024"
+    },
+    {
+      "name": "Thermal fracture",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000216172"
+    },
+    {
+      "name": "Scratchy throat",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000217209"
+    },
+    {
+      "name": "Organ failure",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000217750"
+    },
+    {
+      "name": "Cellular collapse",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000217751"
+    },
+    {
+      "name": "Neurological disorder",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000218054"
+    },
+    {
+      "name": "Oversleeping",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000218340"
+    },
+    {
+      "name": "Smoke inhalation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000218819"
+    },
+    {
+      "name": "Retardation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000219463"
+    },
+    {
+      "name": "Incurable disease",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000219529"
+    },
+    {
+      "name": "Terminal illness",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000219806"
+    },
+    {
+      "name": "Cellular ennui",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000220996"
+    },
+    {
+      "name": "Cardiac depolarization",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000221056"
+    },
+    {
+      "name": "Cellular toxicity",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000221481"
+    },
+    {
+      "name": "Synaptic failure",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000221609"
+    },
+    {
+      "name": "Gas pain",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000221906"
+    },
+    {
+      "name": "Cyanosis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000221974"
+    },
+    {
+      "name": "Pallor",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000222159"
+    },
+    {
+      "name": "Perfectionist",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000223435"
+    },
+    {
+      "name": "Memory fragmentation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000223485"
+    },
+    {
+      "name": "Myopia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000224006"
+    },
+    {
+      "name": "Wrinkle",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000224289"
+    },
+    {
+      "name": "Double vision",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000224627"
+    },
+    {
+      "name": "Childhood disease",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000224673"
+    },
+    {
+      "name": "Wound",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000225513"
+    },
+    {
+      "name": "Finger mark",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000225795"
+    },
+    {
+      "name": "Cognitive disorder",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000226558"
+    },
+    {
+      "name": "Deformity",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000230002"
+    },
+    {
+      "name": "Respiratory arrest",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000230345"
+    },
+    {
+      "name": "Scalding",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000230726"
+    },
+    {
+      "name": "Addiction",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000230908"
+    },
+    {
+      "name": "Special needs",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000232583"
+    },
+    {
+      "name": "Crestian flu",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000233636"
+    },
+    {
+      "name": "Anxiety",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000233997"
+    },
+    {
+      "name": "Pulmonary embolism",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000236199"
+    },
+    {
+      "name": "Brain damage",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000236234"
+    },
+    {
+      "name": "Scurvy",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000236803"
+    },
+    {
+      "name": "Mange",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000236855"
+    },
+    {
+      "name": "Emotional transference",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000237043"
+    },
+    {
+      "name": "Teeth grinding",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000237301"
+    },
+    {
+      "name": "Arterial disruption",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000237304"
+    },
+    {
+      "name": "Arterial aging",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000237310"
+    },
+    {
+      "name": "Arterial rupture",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000237311"
+    },
+    {
+      "name": "Arterial damage",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000237312"
+    },
+    {
+      "name": "Midlife crisis",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000237601"
+    },
+    {
+      "name": "Identity crisis",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000237602"
+    },
+    {
+      "name": "Behavioral disorder",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000237872"
+    },
+    {
+      "name": "Pathological condition",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000237877"
+    },
+    {
+      "name": "Thought process disorder",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000238120"
+    },
+    {
+      "name": "Blood disorder",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000238121"
+    },
+    {
+      "name": "Genetic disorder",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000238123"
+    },
+    {
+      "name": "Syndrome",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000238126"
+    },
+    {
+      "name": "Percussive injury",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000238466"
+    },
+    {
+      "name": "Deficiency",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000238471"
+    },
+    {
+      "name": "Decalcification",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000238585"
+    },
+    {
+      "name": "Vascular disorder",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000238709"
+    },
+    {
+      "name": "Antisocial",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000238891"
+    },
+    {
+      "name": "Tension headache",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000238994"
+    },
+    {
+      "name": "Microbial infection",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000239019"
+    },
+    {
+      "name": "Trance",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000239163"
+    },
+    {
+      "name": "Insecurity",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000239398"
+    },
+    {
+      "name": "Wanderlust",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000240580"
+    },
+    {
+      "name": "Pulse burn",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000240689"
+    },
+    {
+      "name": "External injury",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000240881"
+    },
+    {
+      "name": "Vahar'ai",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000241255"
+    },
+    {
+      "name": "Helical trauma",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000241788"
+    },
+    {
+      "name": "Genetic unspooling",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000242438"
+    },
+    {
+      "name": "Asthma",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000242509"
+    },
+    {
+      "name": "Fall injury",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000243112"
+    },
+    {
+      "name": "Side effect",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000243195"
+    },
+    {
+      "name": "Plasma burn",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000243483"
+    },
+    {
+      "name": "Phaser burn",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000243484"
+    },
+    {
+      "name": "L'tak Terai",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000244074"
+    },
+    {
+      "name": "Callus",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000245986"
+    },
+    {
+      "name": "Sting",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000246060"
+    },
+    {
+      "name": "Gasping",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000246757"
+    },
+    {
+      "name": "Transference",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000247937"
+    },
+    {
+      "name": "Mood swing",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000248113"
+    },
+    {
+      "name": "Welt",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000248615"
+    },
+    {
+      "name": "Perceptual dysfunction",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000251067"
+    },
+    {
+      "name": "Genetic bonding",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000251488"
+    },
+    {
+      "name": "Critical condition",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000252657"
+    },
+    {
+      "name": "Tetanus",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000252874"
+    },
+    {
+      "name": "Andorian flu",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000252899"
+    },
+    {
+      "name": "Superiority complex",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000252928"
+    },
+    {
+      "name": "Inferiority complex",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000253002"
+    },
+    {
+      "name": "Complex",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000253004"
+    },
+    {
+      "name": "Mendaxic neurosclerosis",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000253303"
+    },
+    {
+      "name": "Post-traumatic dysphoria",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000253733"
+    },
+    {
+      "name": "Confusion",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000257331"
+    },
+    {
+      "name": "Rage virus",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000258140"
+    },
+    {
+      "name": "Dilithium burn",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000258684"
+    },
+    {
+      "name": "Reverse aging",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000260032"
+    },
+    {
+      "name": "Existential crisis",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000262374"
+    },
+    {
+      "name": "Post-traumatic growth",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000262450"
+    },
+    {
+      "name": "Clinical death",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000262817"
+    },
+    {
+      "name": "Messianic complex",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000263138"
+    },
+    {
+      "name": "Night terror",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000264196"
+    },
+    {
+      "name": "Disorientation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000265686"
+    },
+    {
+      "name": "Mental state",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000265687"
+    },
+    {
+      "name": "Internal injury",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000265833"
+    },
+    {
+      "name": "Traumatic shock",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000267415"
+    },
+    {
+      "name": "Healing",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000267632"
+    },
+    {
+      "name": "Blurred vision",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000269553"
+    },
+    {
+      "name": "Synthetic memory degradation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000270310"
+    },
+    {
+      "name": "Cognitive change",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000270359"
+    },
+    {
+      "name": "Olfactory differences",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000270360"
+    },
+    {
+      "name": "Hormonal overdrive",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000270361"
+    },
+    {
+      "name": "Ice cream headache",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000271410"
+    },
+    {
+      "name": "Acid reflux",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000271415"
+    },
+    {
+      "name": "Full molecular engorgement",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000271923"
+    },
+    {
+      "name": "Hay fever",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000272395"
+    },
+    {
+      "name": "Hot flash",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000272604"
+    },
+    {
+      "name": "Menstrual cramps",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000272606"
+    },
+    {
+      "name": "Mutilation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000273976"
+    },
+    {
+      "name": "Sterility",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000275197"
+    },
+    {
+      "name": "Symptom",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000275198"
+    },
+    {
+      "name": "Infestation",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000275269"
+    },
+    {
+      "name": "Incubation cycle",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000277368"
+    },
+    {
+      "name": "Alien-induced temporary insanity",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000277998"
+    },
+    {
+      "name": "Af-Kelt",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000278765"
+    },
+    {
+      "name": "Time sickness",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000278766"
+    },
+    {
+      "name": "Light virus",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000280757"
+    },
+    {
+      "name": "Cygnokemia",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000281342"
+    },
+    {
+      "name": "Bellyache",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000281686"
+    },
+    {
+      "name": "Somnolence",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000282340"
+    },
+    {
+      "name": "Megalomaniac",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000282346"
+    },
+    {
+      "name": "Chauvinism",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000282363"
+    },
+    {
+      "name": "Functional amnesia",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000282365"
+    },
+    {
+      "name": "Hysterical amnesia",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000282366"
+    },
+    {
+      "name": "Chronic condition",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000282692"
+    },
+    {
+      "name": "Color blindness",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000282787"
+    },
+    {
+      "name": "Temper",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000284058"
+    },
+    {
+      "name": "Space legs",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000284563"
+    },
+    {
+      "name": "Boo-boo",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000284605"
+    },
+    {
+      "name": "Craving",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000284654"
+    },
+    {
+      "name": "Spinal injury",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000285129"
+    },
+    {
+      "name": "Mind swap",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000286179"
+    },
+    {
+      "name": "Tropical bug",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000286571"
+    },
+    {
+      "name": "Pulmonary collapse",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000286596"
+    },
+    {
+      "name": "Bleeder",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000286749"
+    },
+    {
+      "name": "Galarian fever",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000287806"
+    },
+    {
+      "name": "Survivor guilt",
+      "psychologicalCondition": true,
+      "uid": "MEMA0000288270"
+    },
+    {
+      "name": "Blunt force trauma",
+      "psychologicalCondition": false,
+      "uid": "MEMA0000289890"
+    }
+  ],
+  "resource": "medicalCondition",
+  "source": "STAPI"
+}

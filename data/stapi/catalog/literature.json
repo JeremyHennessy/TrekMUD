@@ -1,0 +1,5751 @@
+{
+  "apiVersion": 1,
+  "collectionKey": "literature",
+  "count": 574,
+  "endpoint": "https://stapi.co/api/v1/rest/literature/search",
+  "fetchedAt": "2026-10-06T02:58:14.937794+00:00",
+  "records": [
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Rules of Acquisition",
+      "uid": "LIMA0000000027"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Ode to Spot",
+      "uid": "LIMA0000001311"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Starship mission status",
+      "uid": "LIMA0000001690"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Charge of the Light Brigade",
+      "uid": "LIMA0000001970"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Moby Dick",
+      "uid": "LIMA0000002810"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Nightingale Woman",
+      "uid": "LIMA0000004493"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Aeneid",
+      "uid": "LIMA0000005730"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The War of the Worlds",
+      "uid": "LIMA0000006383"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Book of the Kosst Amojan",
+      "uid": "LIMA0000006657"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Something for Breakfast",
+      "uid": "LIMA0000007454"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Frame of Mind",
+      "uid": "LIMA0000007455"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "How to Advance Your Career Through Marriage",
+      "uid": "LIMA0000007465"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "A Tale of Two Cities",
+      "uid": "LIMA0000008537"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Hamlet",
+      "uid": "LIMA0000008564"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Meditations on a Crimson Shadow",
+      "uid": "LIMA0000008592"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Never Ending Sacrifice",
+      "uid": "LIMA0000008593"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Story of the Promise",
+      "uid": "LIMA0000008811"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Beowulf",
+      "uid": "LIMA0000008900"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Dream of the Fire",
+      "uid": "LIMA0000009798"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Rules of Acquisition: Revised for the Modern Ferengi",
+      "uid": "LIMA0000010052"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Crew evaluation",
+      "uid": "LIMA0000010807"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Arrival roster",
+      "uid": "LIMA0000011087"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Kir'Shara",
+      "uid": "LIMA0000011421"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Chicago Mobs of the Twenties",
+      "uid": "LIMA0000011493"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Down the River Light",
+      "uid": "LIMA0000011528"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Personnel file",
+      "uid": "LIMA0000011743"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Eldaxon's Collected Folklore",
+      "uid": "LIMA0000011752"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "HMS Pinafore",
+      "uid": "LIMA0000011820"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Pirates of Penzance",
+      "uid": "LIMA0000011832"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Falor's Journey",
+      "uid": "LIMA0000012031"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Les Misérables",
+      "uid": "LIMA0000012200"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Robin Hood",
+      "uid": "LIMA0000012950"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Robin's Laws",
+      "uid": "LIMA0000014953"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Sherlock Holmes",
+      "uid": "LIMA0000016030"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Starfleet Cybernetics Journal",
+      "uid": "LIMA0000016233"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Manitoba Journal of Interplanetary Psychology",
+      "uid": "LIMA0000016763"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Gutenberg Bible",
+      "uid": "LIMA0000016814"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Twenty Thousand Leagues Under the Sea",
+      "uid": "LIMA0000016887"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Tricorder operations manual",
+      "uid": "LIMA0000017045"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Schematic",
+      "uid": "LIMA0000017466"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Fall of Kang",
+      "uid": "LIMA0000019298"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Vulcan Love Slave",
+      "uid": "LIMA0000019342"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Dictates of Poetics",
+      "uid": "LIMA0000019536"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Bajoran prophecy",
+      "uid": "LIMA0000019572"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Comparative Alien Physiology",
+      "uid": "LIMA0000020544"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Gray's Anatomy",
+      "uid": "LIMA0000020551"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Dante's Inferno",
+      "uid": "LIMA0000021112"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Kiss Me Deadly",
+      "uid": "LIMA0000021375"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Amazing Detective Stories",
+      "uid": "LIMA0000021379"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Cosmos A to Z",
+      "uid": "LIMA0000021556"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Anslem",
+      "uid": "LIMA0000022181"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Incredible Tales of Scientific Wonder",
+      "uid": "LIMA0000023190"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Frankenstein",
+      "uid": "LIMA0000023653"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Deep Space Nine",
+      "uid": "LIMA0000023709"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Galaxy",
+      "uid": "LIMA0000023717"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Casualty report",
+      "uid": "LIMA0000024261"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Ulysses",
+      "uid": "LIMA0000025211"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Henry V",
+      "uid": "LIMA0000025503"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Picard family album",
+      "uid": "LIMA0000025590"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Linear Models of Viral Propagation",
+      "uid": "LIMA0000025625"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Photons Be Free",
+      "uid": "LIMA0000025706"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Broht & Forrester",
+      "uid": "LIMA0000025746"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Please, Take Me With You",
+      "uid": "LIMA0000026443"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Native Son",
+      "uid": "LIMA0000026445"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Star Dispatch",
+      "uid": "LIMA0000026810"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Cyrano de Bergerac",
+      "uid": "LIMA0000026953"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Police record",
+      "uid": "LIMA0000027115"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Hotel Royale",
+      "uid": "LIMA0000027514"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Puppet Masters",
+      "uid": "LIMA0000029643"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Oo-mox for Fun and Profit",
+      "uid": "LIMA0000030020"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Kitara's Song",
+      "uid": "LIMA0000030219"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Gaudaal's Lament",
+      "uid": "LIMA0000030220"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Song of the Sages",
+      "uid": "LIMA0000031133"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "San Francisco Herald",
+      "uid": "LIMA0000031183"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Paq'batlh",
+      "uid": "LIMA0000031881"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Alice's Adventures in Wonderland",
+      "uid": "LIMA0000031894"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Julius Caesar",
+      "uid": "LIMA0000031972"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "The Tempest",
+      "uid": "LIMA0000032280"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Amsterdam News",
+      "uid": "LIMA0000033357"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Teachings of Surak",
+      "uid": "LIMA0000033822"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Three Musketeers",
+      "uid": "LIMA0000033939"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Beyond the Galactic Edge, Humanity's Quest for Infinity",
+      "uid": "LIMA0000033971"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "A Cave Beyond Logic: Vulcan Perspectives on Platonic Thought",
+      "uid": "LIMA0000035465"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Sleeping Beauty",
+      "uid": "LIMA0000035760"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Cinderella",
+      "uid": "LIMA0000035840"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Call of the Prophets",
+      "uid": "LIMA0000035931"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Starfleet Medical Journal",
+      "uid": "LIMA0000035963"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "A Christmas Carol",
+      "uid": "LIMA0000036154"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "The Merchant of Venice",
+      "uid": "LIMA0000036512"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Boy Who Cried Wolf",
+      "uid": "LIMA0000036639"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Superman",
+      "uid": "LIMA0000037688"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "King Lear",
+      "uid": "LIMA0000037830"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Paradise Regained",
+      "uid": "LIMA0000037839"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Paradise Lost",
+      "uid": "LIMA0000037840"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "The Globe Illustrated Shakespeare: The Complete Works",
+      "uid": "LIMA0000039544"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Zefram Cochrane's commencement address",
+      "uid": "LIMA0000039865"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Gallian",
+      "uid": "LIMA0000040417"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Elite",
+      "uid": "LIMA0000040419"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Kama Sutra",
+      "uid": "LIMA0000040468"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Duty roster",
+      "uid": "LIMA0000041286"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Macbeth",
+      "uid": "LIMA0000042407"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Othello",
+      "uid": "LIMA0000042984"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Starfleet Handbook on Personal Relationships",
+      "uid": "LIMA0000043077"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "La Vita Nuova",
+      "uid": "LIMA0000043422"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Ethics, Sophistry and the Alternate Universe",
+      "uid": "LIMA0000044453"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Gulliver's Travels",
+      "uid": "LIMA0000044892"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Gorilla Hunters",
+      "uid": "LIMA0000044893"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "A Pictorial History of the American Indian",
+      "uid": "LIMA0000044894"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Strange Case of Doctor Jekyll and Mister Hyde",
+      "uid": "LIMA0000044895"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Technology Future",
+      "uid": "LIMA0000044914"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Economic Weekly",
+      "uid": "LIMA0000044915"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "B-Movie Poster Art",
+      "uid": "LIMA0000044917"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Faerie Magick",
+      "uid": "LIMA0000044919"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Faerie Queene",
+      "uid": "LIMA0000044921"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Old",
+      "uid": "LIMA0000044923"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The New",
+      "uid": "LIMA0000044926"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Shakespeare's sonnets",
+      "uid": "LIMA0000044941"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Cold Moon Over Blackwater",
+      "uid": "LIMA0000045290"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Finding and Winning your Perfect Mate",
+      "uid": "LIMA0000045942"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Lawmin Galactopedia",
+      "uid": "LIMA0000046003"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Whitaker's Almanack",
+      "uid": "LIMA0000046436"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Hunchback of Notre Dame",
+      "uid": "LIMA0000046539"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Emory Erickson: Father of the Transporter",
+      "uid": "LIMA0000046802"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Oedipus Rex",
+      "uid": "LIMA0000046828"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Song of the Wandering Aengus",
+      "uid": "LIMA0000046905"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "A Midsummer Night's Dream",
+      "uid": "LIMA0000046973"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "A Connecticut Yankee in King Arthur's Court",
+      "uid": "LIMA0000046974"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "I, the Jury",
+      "uid": "LIMA0000048942"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Stone Publications",
+      "uid": "LIMA0000049088"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "After action report",
+      "uid": "LIMA0000049193"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Report",
+      "uid": "LIMA0000049196"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Material subsistence report",
+      "uid": "LIMA0000049272"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Termination report",
+      "uid": "LIMA0000049376"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Ethics",
+      "uid": "LIMA0000049847"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Esquire",
+      "uid": "LIMA0000050223"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Life",
+      "uid": "LIMA0000050224"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Time",
+      "uid": "LIMA0000050225"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Humpty Dumpty",
+      "uid": "LIMA0000050356"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Ops report",
+      "uid": "LIMA0000050924"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Crime scene report",
+      "uid": "LIMA0000050926"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Battle report",
+      "uid": "LIMA0000051201"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Planetary survey report",
+      "uid": "LIMA0000051202"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Criminal activity report",
+      "uid": "LIMA0000051316"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Navigational report",
+      "uid": "LIMA0000051538"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Temporal violation",
+      "uid": "LIMA0000051806"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Handbook of Exobiology",
+      "uid": "LIMA0000051856"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Status report",
+      "uid": "LIMA0000051937"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Damage report",
+      "uid": "LIMA0000052342"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Crew manifest",
+      "uid": "LIMA0000052517"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Evaluation report",
+      "uid": "LIMA0000052519"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Tyger",
+      "uid": "LIMA0000053013"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Raven",
+      "uid": "LIMA0000053015"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Clash on the Fire Plains",
+      "uid": "LIMA0000054224"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Wizard of Oz",
+      "uid": "LIMA0000054246"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Nicholas Nickleby",
+      "uid": "LIMA0000054332"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Wait",
+      "uid": "LIMA0000054337"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "I Have No Voice And I Must Shout",
+      "uid": "LIMA0000054354"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Quantity of the Monster",
+      "uid": "LIMA0000054355"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Hazardous Images",
+      "uid": "LIMA0000054356"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Federation and Empire",
+      "uid": "LIMA0000054357"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "1001: First Odyssey",
+      "uid": "LIMA0000054358"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Me, Android",
+      "uid": "LIMA0000054359"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Pledge of Allegiance",
+      "uid": "LIMA0000055385"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Morning Observer",
+      "uid": "LIMA0000055403"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Romeo and Juliet",
+      "uid": "LIMA0000055448"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Richard II",
+      "uid": "LIMA0000056155"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Henry IV, Part II",
+      "uid": "LIMA0000056168"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Henry VI, Part II",
+      "uid": "LIMA0000056337"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Sea-Fever",
+      "uid": "LIMA0000056448"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "As You Like It",
+      "uid": "LIMA0000056462"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Intelligence report",
+      "uid": "LIMA0000056905"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Tactical report",
+      "uid": "LIMA0000056959"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Situation report",
+      "uid": "LIMA0000059498"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Surveillance report",
+      "uid": "LIMA0000059499"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Book of the People",
+      "uid": "LIMA0000060679"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Night Before Christmas",
+      "uid": "LIMA0000061437"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Valley of Fear",
+      "uid": "LIMA0000062229"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Romulan Star Empire",
+      "uid": "LIMA0000062428"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Chicago Gangs",
+      "uid": "LIMA0000063212"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Rosetta Stone",
+      "uid": "LIMA0000063843"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Journal of Starfleet Technology",
+      "uid": "LIMA0000064166"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Daystrom Institute Proceedings",
+      "uid": "LIMA0000064167"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Journal of Subspace Research",
+      "uid": "LIMA0000064168"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Journal of the Institute for Unauthorized Experiments",
+      "uid": "LIMA0000064169"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Scientific Tasmanian",
+      "uid": "LIMA0000064170"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Assault on Planet 10",
+      "uid": "LIMA0000064412"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "This Island Mars",
+      "uid": "LIMA0000064413"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Lucifer's Chainsaw",
+      "uid": "LIMA0000064414"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "From the Moon to the Earth",
+      "uid": "LIMA0000064415"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Venusian Chronicles",
+      "uid": "LIMA0000064416"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "San Francisco Register",
+      "uid": "LIMA0000064491"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Loner in a Lonely World",
+      "uid": "LIMA0000064578"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "A Wrinkle in Space",
+      "uid": "LIMA0000064580"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Third Foundation",
+      "uid": "LIMA0000064650"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "A Most Fortunate Accident",
+      "uid": "LIMA0000064651"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Dad's Revenge",
+      "uid": "LIMA0000064652"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Solar Odyssey",
+      "uid": "LIMA0000064653"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Far Beyond the Stars",
+      "uid": "LIMA0000064655"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Questor",
+      "uid": "LIMA0000065024"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Collected Stories",
+      "uid": "LIMA0000065266"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Okrand's Unabridged Klingon Dictionary",
+      "uid": "LIMA0000065594"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "A Concise History of the Klingon Empire",
+      "uid": "LIMA0000065595"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Cage",
+      "uid": "LIMA0000065884"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Journey to Babel",
+      "uid": "LIMA0000065885"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Corbomite Maneuver",
+      "uid": "LIMA0000065886"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Introduction to Klingon Grammer",
+      "uid": "LIMA0000066072"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Spoken Languages of the Klingon Empire",
+      "uid": "LIMA0000066073"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Bible (Omega IV)",
+      "uid": "LIMA0000067294"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Commodore Hornblower",
+      "uid": "LIMA0000068006"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Eleventh Tome of Klavek",
+      "uid": "LIMA0000069478"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Look",
+      "uid": "LIMA0000069733"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "San Francisco Sun",
+      "uid": "LIMA0000069737"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Vedek's Song",
+      "uid": "LIMA0000070778"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Wall Street Journal",
+      "uid": "LIMA0000071005"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Whales Weep Not!",
+      "uid": "LIMA0000072138"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Past Prologue",
+      "uid": "LIMA0000072805"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "A History of Rome",
+      "uid": "LIMA0000072937"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Locksley Hall",
+      "uid": "LIMA0000074757"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Hey! Hey! Little Ship!",
+      "uid": "LIMA0000075139"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Interstellar phenomena forecast",
+      "uid": "LIMA0000076145"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "SK",
+      "uid": "LIMA0000076329"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Starship Deploy Status",
+      "uid": "LIMA0000077068"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Table of Comets",
+      "uid": "LIMA0000077128"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Progress report",
+      "uid": "LIMA0000077462"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Forbes",
+      "uid": "LIMA0000077859"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Time Machine",
+      "uid": "LIMA0000077926"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "PC World",
+      "uid": "LIMA0000078795"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Women Warriors at the River of Blood",
+      "uid": "LIMA0000080202"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Crew personnel report",
+      "uid": "LIMA0000081827"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Medical report",
+      "uid": "LIMA0000081829"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Autopsy report",
+      "uid": "LIMA0000081833"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Conn report",
+      "uid": "LIMA0000081835"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Crew performance report",
+      "uid": "LIMA0000081912"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Away team report",
+      "uid": "LIMA0000081914"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Engineering report",
+      "uid": "LIMA0000081918"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Book of Tsunkatse",
+      "uid": "LIMA0000081955"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Alice Through the Looking Glass",
+      "uid": "LIMA0000083150"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Creation Lithographs",
+      "uid": "LIMA0000083384"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Dogs Themselves",
+      "uid": "LIMA0000083395"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Injury report",
+      "uid": "LIMA0000083791"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Henry IV, Part I",
+      "uid": "LIMA0000084003"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Selected Works of Jirex",
+      "uid": "LIMA0000084827"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Selected Poems of Langston Hughes",
+      "uid": "LIMA0000085291"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The New York Globe",
+      "uid": "LIMA0000085294"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "I, Q: An Insider's View of the Continuum",
+      "uid": "LIMA0000086961"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "My Corner of the Continuum",
+      "uid": "LIMA0000087800"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Visceral writing",
+      "uid": "LIMA0000090422"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Metamorphosis",
+      "uid": "LIMA0000092347"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Where No Man Has Gone Before",
+      "uid": "LIMA0000092352"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Space Mutant",
+      "uid": "LIMA0000092436"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Strange Martian",
+      "uid": "LIMA0000092437"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Voyage into the Atom",
+      "uid": "LIMA0000092438"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Personnel report",
+      "uid": "LIMA0000092994"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Obituary",
+      "uid": "LIMA0000093176"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Court Martial",
+      "uid": "LIMA0000096757"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Psychological profile",
+      "uid": "LIMA0000097131"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Assimilation profile",
+      "uid": "LIMA0000097380"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Love Amid the Stars: A Romantic Bestiary",
+      "uid": "LIMA0000099019"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Little Mermaid",
+      "uid": "LIMA0000102898"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Darkstorm",
+      "uid": "LIMA0000105746"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Bad Day at Red Rock",
+      "uid": "LIMA0000107034"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "First Contact",
+      "uid": "LIMA0000107036"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Legends of the Ferengi",
+      "uid": "LIMA0000107037"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Space Mongoose",
+      "uid": "LIMA0000107039"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Trials and Tribble-ations",
+      "uid": "LIMA0000107041"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "OMNI",
+      "uid": "LIMA0000109776"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Astounding Science Fiction",
+      "uid": "LIMA0000109789"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Mother Goose",
+      "uid": "LIMA0000114278"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Cooking with Neelix, a Culinary Tour of the Delta Quadrant",
+      "uid": "LIMA0000116964"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Working World",
+      "uid": "LIMA0000119539"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Webster's 24th Century Dictionary",
+      "uid": "LIMA0000120216"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Advanced Technology Warfare",
+      "uid": "LIMA0000120563"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Psychiatric profile",
+      "uid": "LIMA0000123437"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Formal reprimand",
+      "uid": "LIMA0000127741"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "What Are Little Boys Made Of?",
+      "uid": "LIMA0000130502"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Ode to Psyche",
+      "uid": "LIMA0000132422"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Kahless and Lukara",
+      "uid": "LIMA0000132721"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Weapon signature",
+      "uid": "LIMA0000135155"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Promotion list",
+      "uid": "LIMA0000135801"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Fuel consumption report",
+      "uid": "LIMA0000136089"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Physio-cultural report",
+      "uid": "LIMA0000136515"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Captains Courageous",
+      "uid": "LIMA0000136605"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Geological lab report",
+      "uid": "LIMA0000140549"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Encephalographic profile",
+      "uid": "LIMA0000140903"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Attack on Planet Eminiar Seven",
+      "uid": "LIMA0000154013"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Cargo manifest",
+      "uid": "LIMA0000162779"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Colony register",
+      "uid": "LIMA0000163242"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Requisition report",
+      "uid": "LIMA0000165523"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Security report",
+      "uid": "LIMA0000165810"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Monster at the End of This Book",
+      "uid": "LIMA0000165908"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Curtains for the Editor",
+      "uid": "LIMA0000165913"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "By the Light of My Father's Smile",
+      "uid": "LIMA0000165934"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Best Medicine",
+      "uid": "LIMA0000165936"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "When I Think of Bobby",
+      "uid": "LIMA0000165938"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "San Francisco Globe",
+      "uid": "LIMA0000166665"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "McCall's",
+      "uid": "LIMA0000166666"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Star Light, Star Bright",
+      "uid": "LIMA0000166687"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The New York Times",
+      "uid": "LIMA0000166751"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "A.M.A. Journal",
+      "uid": "LIMA0000166791"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Library of Charles & Serena Wilson",
+      "uid": "LIMA0000166801"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Henry VI, Part III",
+      "uid": "LIMA0000168977"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Richard III",
+      "uid": "LIMA0000168979"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "All's Well That Ends Well",
+      "uid": "LIMA0000168986"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Twelfth Night, or What You Will",
+      "uid": "LIMA0000168987"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Timon of Athens",
+      "uid": "LIMA0000168988"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Measure for Measure",
+      "uid": "LIMA0000170865"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "True Story",
+      "uid": "LIMA0000171569"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Abrahamian Physics Review",
+      "uid": "LIMA0000178008"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Proceedings of Stern Institute for Astrophysics",
+      "uid": "LIMA0000178009"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Havana Institute Review",
+      "uid": "LIMA0000178011"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Miller Particle Journal",
+      "uid": "LIMA0000178016"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Koothrappali Astrophysics Review",
+      "uid": "LIMA0000178017"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Proceedings of Grunsfeld Institute for Astrophysics",
+      "uid": "LIMA0000178018"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Subspace Physics Today",
+      "uid": "LIMA0000178021"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Journal of Daystrom Institute",
+      "uid": "LIMA0000178022"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Proceedings of Ares Flight Institute",
+      "uid": "LIMA0000178023"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Daystrom Institute Journal",
+      "uid": "LIMA0000178026"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Subspace Physics Review",
+      "uid": "LIMA0000178027"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Yorkshire Institute Review",
+      "uid": "LIMA0000178028"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Journal of the Cochrane Institute",
+      "uid": "LIMA0000178030"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Garza Physics Digest",
+      "uid": "LIMA0000178031"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Cochrane Institute Journal",
+      "uid": "LIMA0000178036"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Journal of Zavolta Laboratories",
+      "uid": "LIMA0000178037"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Journal of Felker Institute",
+      "uid": "LIMA0000178040"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Proceedings of Paul Institute of Mars",
+      "uid": "LIMA0000178042"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Van Citters Physics Review",
+      "uid": "LIMA0000178044"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Subspace Particle Journal",
+      "uid": "LIMA0000178045"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Proceedings of Weiss Institute for Theoretical Physics",
+      "uid": "LIMA0000178046"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Journal of Subspace Technology",
+      "uid": "LIMA0000178048"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Journal of Banzai Institute for Advanced Studies",
+      "uid": "LIMA0000178050"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Barredos Physics Review",
+      "uid": "LIMA0000178052"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Lay Physics Review",
+      "uid": "LIMA0000178053"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Fontana Institute Review",
+      "uid": "LIMA0000178054"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Weather report",
+      "uid": "LIMA0000180477"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Much Ado About Nothing",
+      "uid": "LIMA0000180823"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Carpool",
+      "uid": "LIMA0000180879"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Hollywood",
+      "uid": "LIMA0000180880"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "A Place Called Freedom",
+      "uid": "LIMA0000180890"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Driving Force",
+      "uid": "LIMA0000180891"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Chapel of Saint-Christophe",
+      "uid": "LIMA0000180909"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Body",
+      "uid": "LIMA0000180910"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Gangland",
+      "uid": "LIMA0000180913"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Princess",
+      "uid": "LIMA0000180915"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Las Vegas Register",
+      "uid": "LIMA0000180985"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Galactic zoological catalog",
+      "uid": "LIMA0000182516"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Homeric Hymns",
+      "uid": "LIMA0000185510"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Arrest report",
+      "uid": "LIMA0000187878"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Operating Protocol - Subspace Field Generators",
+      "uid": "LIMA0000190370"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Operating Protocol - Subspace Harmonic Monitors",
+      "uid": "LIMA0000190371"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Operating Protocol - Flow Sensors",
+      "uid": "LIMA0000190372"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Construction Logs - Field Stress Compensators",
+      "uid": "LIMA0000190373"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Emergency Field Quench Procedures",
+      "uid": "LIMA0000190374"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Plan Transitional Field Stress Factors",
+      "uid": "LIMA0000190375"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Field Maintenance Power Requirements",
+      "uid": "LIMA0000190376"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Secondary Harmonic Safety Requirements",
+      "uid": "LIMA0000190377"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Operating Protocol - Primary Field Coils",
+      "uid": "LIMA0000190378"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Operating Protocol - Secondary Field Coils",
+      "uid": "LIMA0000190389"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Subspace Design Logs - Theoretical Propulsion",
+      "uid": "LIMA0000190390"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Gravimetric Power Limits (Theoretical)",
+      "uid": "LIMA0000190392"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Emergency Plasma Vent Procedures",
+      "uid": "LIMA0000190393"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Teratogenic Coolant Safety Protocol",
+      "uid": "LIMA0000190395"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Synthetic Grav Field Interaction Considerations",
+      "uid": "LIMA0000190397"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "In Bed We Cry",
+      "uid": "LIMA0000190442"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Silver Chalice",
+      "uid": "LIMA0000190444"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Physiology of Taste",
+      "uid": "LIMA0000190692"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Vogue",
+      "uid": "LIMA0000193906"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Close-Up",
+      "uid": "LIMA0000194975"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Fall of the House of Usher",
+      "uid": "LIMA0000195010"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Totem and Taboo",
+      "uid": "LIMA0000195101"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Three Contributions to the Theory of Sex",
+      "uid": "LIMA0000195103"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Interpretation of Dreams",
+      "uid": "LIMA0000195104"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Problem of Anxiety",
+      "uid": "LIMA0000195105"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Technique of Analytical Psychotherapy",
+      "uid": "LIMA0000195109"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Medical View of Psychoanalysis",
+      "uid": "LIMA0000195111"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Neurotic Personality of Our Time",
+      "uid": "LIMA0000195119"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Practical Aspects of Psychoanalysis",
+      "uid": "LIMA0000195122"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "History of Medical Psychology",
+      "uid": "LIMA0000195123"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Psychopathia Sexualis",
+      "uid": "LIMA0000195124"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Legal Medicine and Toxicology",
+      "uid": "LIMA0000195126"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Hucklesby Institute Journal",
+      "uid": "LIMA0000196921"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Journal of Scotti Technologies",
+      "uid": "LIMA0000196926"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Fatal Revenge",
+      "uid": "LIMA0000197306"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Yellow Pages",
+      "uid": "LIMA0000197335"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Apartment Guide",
+      "uid": "LIMA0000197663"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Broadcasting",
+      "uid": "LIMA0000197682"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Accident report",
+      "uid": "LIMA0000197793"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Resumé",
+      "uid": "LIMA0000198473"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Dossier",
+      "uid": "LIMA0000198637"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Tactical review",
+      "uid": "LIMA0000199207"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "The Annotated Shakespeare",
+      "uid": "LIMA0000199317"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Cardassian operational guidelines",
+      "uid": "LIMA0000199348"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "A Cadet's Guide to Sector 001 Earth",
+      "uid": "LIMA0000199536"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Active duty list",
+      "uid": "LIMA0000200396"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Bible",
+      "uid": "LIMA0000200910"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Lab status report",
+      "uid": "LIMA0000200924"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Shipping order",
+      "uid": "LIMA0000202624"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Balance sheet",
+      "uid": "LIMA0000202625"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Hills Most Green, Hearts Unseen",
+      "uid": "LIMA0000203239"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Tombstone Epitaph",
+      "uid": "LIMA0000204177"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Fuel useage",
+      "uid": "LIMA0000204476"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Power utilization curve",
+      "uid": "LIMA0000204529"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Letter of recommendation",
+      "uid": "LIMA0000204928"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Letter of resignation",
+      "uid": "LIMA0000204931"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Human Freedom",
+      "uid": "LIMA0000205819"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Starfleet yearbook",
+      "uid": "LIMA0000205902"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Memorandum",
+      "uid": "LIMA0000205910"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Maintenance request form",
+      "uid": "LIMA0000205958"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Requisition record",
+      "uid": "LIMA0000206092"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Rumpelstiltskin",
+      "uid": "LIMA0000206536"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Childcraft",
+      "uid": "LIMA0000207066"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Noble House",
+      "uid": "LIMA0000207084"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Substance analysis report",
+      "uid": "LIMA0000207398"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Guidebook",
+      "uid": "LIMA0000207495"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Medical journal",
+      "uid": "LIMA0000208082"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Drayan scrolls",
+      "uid": "LIMA0000209254"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "A Survey on Cygnian Respiratory Diseases",
+      "uid": "LIMA0000211619"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Doomsday book",
+      "uid": "LIMA0000211714"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Higher Order Warp Field Propulsion Applications",
+      "uid": "LIMA0000212022"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Subspace Processing Modes in Warp Propulsion Applications",
+      "uid": "LIMA0000212025"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Scan analysis",
+      "uid": "LIMA0000212292"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Vehicle status",
+      "uid": "LIMA0000212299"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Systems operations",
+      "uid": "LIMA0000212308"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Starship Mission Assignments",
+      "uid": "LIMA0000212454"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Omega one",
+      "uid": "LIMA0000212613"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "EM base-emitting frequency",
+      "uid": "LIMA0000212661"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Journal of Tezber Institute",
+      "uid": "LIMA0000212704"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Pressure Variances in IRC Tank Storage",
+      "uid": "LIMA0000213237"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Klingon sacred texts",
+      "uid": "LIMA0000213731"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Starfleet ship recognition protocol",
+      "uid": "LIMA0000213904"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Saturn Rings",
+      "uid": "LIMA0000214605"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Manual on Penal Colony procedures",
+      "uid": "LIMA0000215005"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": true,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Sacred Texts",
+      "uid": "LIMA0000215110"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Bay-Prod D-Nine",
+      "uid": "LIMA0000215117"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Devaluation of Capital Income",
+      "uid": "LIMA0000215134"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Tactical course projection",
+      "uid": "LIMA0000215565"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Preparatory report",
+      "uid": "LIMA0000216486"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Lab report",
+      "uid": "LIMA0000217002"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "It Came From Outer Space",
+      "uid": "LIMA0000218885"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Radiation report",
+      "uid": "LIMA0000219233"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Destination order",
+      "uid": "LIMA0000220244"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Shipping code",
+      "uid": "LIMA0000220758"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Medical book",
+      "uid": "LIMA0000221488"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Bulletin",
+      "uid": "LIMA0000221830"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Away Mission of B'Elanna Torres",
+      "uid": "LIMA0000222666"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Chronicle",
+      "uid": "LIMA0000222779"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Inventory",
+      "uid": "LIMA0000224358"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Mary Had a Little Lamb",
+      "uid": "LIMA0000225668"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Waiting list",
+      "uid": "LIMA0000230673"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The New Yorker",
+      "uid": "LIMA0000230677"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Newsweek",
+      "uid": "LIMA0000230678"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Gourmet",
+      "uid": "LIMA0000230680"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Day of Separation",
+      "uid": "LIMA0000230773"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Wonders and Workers",
+      "uid": "LIMA0000230948"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Love's Labour's Lost",
+      "uid": "LIMA0000231069"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "King John",
+      "uid": "LIMA0000231379"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Beyond the Rim of the Starlight",
+      "uid": "LIMA0000232067"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Daily News",
+      "uid": "LIMA0000232069"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Honeymoon on Andoris",
+      "uid": "LIMA0000232073"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Atomic Adventure",
+      "uid": "LIMA0000232085"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Lectroid Attack!",
+      "uid": "LIMA0000232086"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Space Voyager",
+      "uid": "LIMA0000232087"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Operation Crossroads",
+      "uid": "LIMA0000232249"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Instruction and maintenance manual",
+      "uid": "LIMA0000237172"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Spacecraft identification file",
+      "uid": "LIMA0000238091"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Time sheet",
+      "uid": "LIMA0000239033"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Intermediate Experimentation Report Project on Life Prolongation",
+      "uid": "LIMA0000239059"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Talos IV",
+      "uid": "LIMA0000239098"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Sector Two report",
+      "uid": "LIMA0000239444"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Bioscanners report",
+      "uid": "LIMA0000239452"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Catalogue number",
+      "uid": "LIMA0000239643"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Scouting report",
+      "uid": "LIMA0000240175"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Rescue of B'Elanna Torres",
+      "uid": "LIMA0000240366"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Excerpt",
+      "uid": "LIMA0000241256"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Stellar imaging file",
+      "uid": "LIMA0000242126"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The girl who made the stars",
+      "uid": "LIMA0000242638"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Yearbook",
+      "uid": "LIMA0000242808"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Dead Sea Scrolls",
+      "uid": "LIMA0000243296"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "First Folio",
+      "uid": "LIMA0000243301"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Pharmacopoeia",
+      "uid": "LIMA0000244776"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Bibliotheca Corviniana",
+      "uid": "LIMA0000245030"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Memoirs of Frederick Perthes, or, Literary, religious, and political life in Germany, from 1789 to 1843",
+      "uid": "LIMA0000245124"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Docking procedure checklist",
+      "uid": "LIMA0000245292"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Transit report",
+      "uid": "LIMA0000245773"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Identification record",
+      "uid": "LIMA0000246223"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Maintenance record",
+      "uid": "LIMA0000246322"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Twelve Months That Changed the World",
+      "uid": "LIMA0000247645"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Alfred A. Knopf",
+      "uid": "LIMA0000247646"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "First Doctrines of Logic",
+      "uid": "LIMA0000247732"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Character sketch",
+      "uid": "LIMA0000248095"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Case history",
+      "uid": "LIMA0000248114"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Wholesaler",
+      "uid": "LIMA0000248236"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Mission profile",
+      "uid": "LIMA0000248266"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Topographical overlay",
+      "uid": "LIMA0000248468"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Maintenance schedule",
+      "uid": "LIMA0000248599"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Biology report",
+      "uid": "LIMA0000249224"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Specimen survey",
+      "uid": "LIMA0000249226"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Weird Planet Displaced in Time",
+      "uid": "LIMA0000250157"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Henry VI, Part I",
+      "uid": "LIMA0000251583"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": true,
+      "technicalManual": false,
+      "title": "Henry VIII",
+      "uid": "LIMA0000251585"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Complete Robot",
+      "uid": "LIMA0000251636"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Tragic Sense of Life",
+      "uid": "LIMA0000251921"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Building a New Millennium",
+      "uid": "LIMA0000251998"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Andrée Putman",
+      "uid": "LIMA0000252000"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Mallet-Stevens",
+      "uid": "LIMA0000252002"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Rafael Moneo",
+      "uid": "LIMA0000252004"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": true,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Journal of Theoretical Cybernetics",
+      "uid": "LIMA0000252233"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Festschrift",
+      "uid": "LIMA0000252243"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Historical report",
+      "uid": "LIMA0000252636"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Cristal Fêlé",
+      "uid": "LIMA0000253134"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "History of Cartography",
+      "uid": "LIMA0000253343"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "An Atlas of Fantasy",
+      "uid": "LIMA0000253440"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Earth Then and Now",
+      "uid": "LIMA0000253442"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Cartographia",
+      "uid": "LIMA0000253443"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Stranger",
+      "uid": "LIMA0000253577"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Rebel",
+      "uid": "LIMA0000253578"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Concept of Dread",
+      "uid": "LIMA0000253579"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Death in the Afternoon",
+      "uid": "LIMA0000253581"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Fear and Trembling",
+      "uid": "LIMA0000253582"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Sickness Unto Death",
+      "uid": "LIMA0000253583"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Surak and Existentialism",
+      "uid": "LIMA0000253588"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Casebook on Existentialism",
+      "uid": "LIMA0000253692"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Andes",
+      "uid": "LIMA0000253769"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Early Jazz",
+      "uid": "LIMA0000253770"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Where the Sidewalk Ends",
+      "uid": "LIMA0000253771"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Betazoid",
+      "uid": "LIMA0000253776"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Readiness report",
+      "uid": "LIMA0000253787"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Alaska",
+      "uid": "LIMA0000254722"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Battle readiness report",
+      "uid": "LIMA0000254895"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Torah",
+      "uid": "LIMA0000254928"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Metaphasic shielding report",
+      "uid": "LIMA0000255269"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Frogs",
+      "uid": "LIMA0000256118"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Preliminary lab survey",
+      "uid": "LIMA0000257059"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Navigation report",
+      "uid": "LIMA0000261482"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Beta-4895-Omega",
+      "uid": "LIMA0000264148"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "CTP Training Manual",
+      "uid": "LIMA0000264827"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Almanac",
+      "uid": "LIMA0000266226"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Brochure",
+      "uid": "LIMA0000268397"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Three Little Pigs",
+      "uid": "LIMA0000271868"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Scroll",
+      "uid": "LIMA0000273054"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Prophecy of the Final Days",
+      "uid": "LIMA0000273839"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Jane Eyre",
+      "uid": "LIMA0000275628"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Many and the One",
+      "uid": "LIMA0000277554"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Allure",
+      "uid": "LIMA0000278356"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Los Angeles Times",
+      "uid": "LIMA0000278725"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Featured News",
+      "uid": "LIMA0000279222"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Illiad",
+      "uid": "LIMA0000279842"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Odyssey",
+      "uid": "LIMA0000279844"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Princess and the Pea",
+      "uid": "LIMA0000280730"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Tropic of Cancer",
+      "uid": "LIMA0000281491"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Fear of Flying",
+      "uid": "LIMA0000281492"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Argonauts",
+      "uid": "LIMA0000281493"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Kingdom of Elysian",
+      "uid": "LIMA0000281582"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": true,
+      "title": "Blueprint",
+      "uid": "LIMA0000282059"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Employee performance report",
+      "uid": "LIMA0000282231"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Application",
+      "uid": "LIMA0000282249"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Emory Erickson: A Memoir",
+      "uid": "LIMA0000282554"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Along Came a Spider",
+      "uid": "LIMA0000282672"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "A Perfect Wife and Mother",
+      "uid": "LIMA0000282673"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Annie",
+      "uid": "LIMA0000282674"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Janova",
+      "uid": "LIMA0000282675"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Targets of Opportunity",
+      "uid": "LIMA0000282678"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Slopes",
+      "uid": "LIMA0000282679"
+    },
+    {
+      "earthlyOrigin": true,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "The Traveler",
+      "uid": "LIMA0000282681"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Agenda",
+      "uid": "LIMA0000282870"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Starfleet Recruitment Manual 17.01",
+      "uid": "LIMA0000283472"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Tracking report",
+      "uid": "LIMA0000284566"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Atmosphere report",
+      "uid": "LIMA0000284601"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Botanical library",
+      "uid": "LIMA0000286576"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Weapons report",
+      "uid": "LIMA0000286737"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Ferengi Book of Etiquette",
+      "uid": "LIMA0000286744"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Text",
+      "uid": "LIMA0000287076"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": false,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Manuscript",
+      "uid": "LIMA0000287077"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "War damage report",
+      "uid": "LIMA0000288245"
+    },
+    {
+      "earthlyOrigin": false,
+      "religiousLiterature": false,
+      "report": true,
+      "scientificLiterature": false,
+      "shakespeareanWork": false,
+      "technicalManual": false,
+      "title": "Officer review",
+      "uid": "LIMA0000289540"
+    }
+  ],
+  "resource": "literature",
+  "source": "STAPI"
+}
