@@ -40,7 +40,7 @@ Revision 0 is the validated pre-character state preserved as checkpoint `r00000`
 
 The first played scene may only begin after:
 
-- rules v1.0 is approved;
+- Rules v1.1 Organic Character Discovery is approved;
 - character creation is complete;
 - a valid revision 1 checkpoint is committed.
 

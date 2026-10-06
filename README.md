@@ -9,7 +9,7 @@ TrekMUD is designed to play like an open tabletop campaign rather than a branchi
 **Pre-character checkpoint: `r00000`**
 
 - Campaign status: **NOT_STARTED**
-- Rules: **v1.0**
+- Historical pre-character checkpoint rules: **v1.0**\n- Approved character-creation/play rules after r00001: **v1.1 Organic Character Discovery**
 - In-universe year: **2372**
 - Stardate: **49317.4**
 - Ship time: **12:17**
@@ -22,7 +22,7 @@ TrekMUD is designed to play like an open tabletop campaign rather than a branchi
 - Structured lore baseline: **41,388 STAPI records**
 - TNG/DS9 era index: **349 full episodes / 1,350 linked characters**
 
-The next canonical campaign revision is character creation, which will produce **revision 1 / r00001**. No narrative action has occurred yet.
+The next canonical campaign revision is organic character creation, which will produce **revision 1 / r00001** and upgrade the live campaign to Rules **v1.1**. Only identity, upbringing and department are required before that checkpoint; most of the character is discovered during play. No narrative action has occurred yet.
 
 ## Approved baselines
 
@@ -88,7 +88,7 @@ TrekMUD stores structured facts, source references and original summaries. It do
 
 Character creation is implemented and validated in `scripts/create_character.py`.
 
-The player chooses identity, species, department, specialties, attributes and background. The tool then creates all revision-1 campaign state atomically and a validated `r00001` checkpoint is made before Scene One.
+The player initially chooses only name, species, age, optional pronouns, homeworld/upbringing and department. Attributes, Academy cross-training, specialties, interests and detailed background remain intentionally unresolved and lock organically through play. The tool creates the minimal revision-1 campaign state atomically and a validated `r00001` checkpoint is made before Scene One.
 
 See `campaign/CHARACTER_CREATION.md`.
 

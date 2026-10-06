@@ -1,5 +1,26 @@
 # TrekMUD Rules Changelog
 
+## v1.1 — 2026-10-06
+
+Status: **APPROVED REVISION**
+
+Organic Character Discovery.
+
+Changes from v1.0:
+
+- only name, species, age, optional pronouns, homeworld/upbringing and department are required before Scene One;
+- the attribute budget remains 2,2,1,1,1 but begins unresolved;
+- the department skill remains rank 2 immediately;
+- three rank-1 Academy training slots begin unresolved;
+- department and secondary specialty slots begin unresolved;
+- hobbies, development areas, traits and background become persistent facts when play establishes them;
+- unresolved mechanical values are never silently treated as zero;
+- a mechanically necessary discovery locks before the roll and cannot be changed because of the outcome;
+- the GM may propose a discovery from established portrayal but cannot secretly assign it.
+
+Rules v1.0 remains the immutable historical baseline for pre-character checkpoint r00000. Revision 1 / r00001 upgrades the live campaign to v1.1.
+
+
 ## v1.0 — 2026-10-06
 
 Status: **APPROVED BASELINE**

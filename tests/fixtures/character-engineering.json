@@ -1,30 +1,10 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
+  "characterCreationVersion": "1.1-organic",
   "name": "Avery Cole",
   "species": "Human",
   "age": 24,
   "pronouns": "they/them",
   "homeworld": "Earth",
-  "primaryDepartment": "Engineering",
-  "primarySpecialty": "Warp Propulsion",
-  "secondarySpecialty": {
-    "skill": "Computers",
-    "name": "Starship Computer Systems"
-  },
-  "attributes": {
-    "Intellect": 2,
-    "Perception": 2,
-    "Presence": 1,
-    "Resolve": 1,
-    "Physical": 1
-  },
-  "secondarySkill": "Computers",
-  "academyCrossTraining": [
-    "Operations",
-    "Science"
-  ],
-  "personalInterest": "Classical guitar",
-  "developmentArea": "Public speaking under senior-officer scrutiny",
-  "traits": [],
-  "background": "Starfleet Academy engineering graduate used only as a CI fixture; not a campaign character."
+  "primaryDepartment": "Engineering"
 }

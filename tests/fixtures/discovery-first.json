@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "events": [
+    {
+      "type": "attribute",
+      "attribute": "Perception",
+      "value": 2,
+      "source": "PLAYER_DECLARATION",
+      "note": "The player established that the Ensign is unusually observant before the first relevant check."
+    },
+    {
+      "type": "skill",
+      "skill": "Computers",
+      "rank": 1,
+      "source": "CANON_BACKGROUND",
+      "note": "Academy training in starship computer systems was established in play."
+    },
+    {
+      "type": "department-specialty",
+      "name": "Power Distribution / EPS",
+      "source": "REPEATED_PORTRAYAL",
+      "note": "Repeated engineering choices established a preference for power systems."
+    },
+    {
+      "type": "interest",
+      "text": "Old Earth jazz",
+      "source": "PLAYER_DECLARATION",
+      "note": "Established during an off-duty conversation."
+    },
+    {
+      "type": "background-fact",
+      "text": "Completed an Academy field placement aboard a Miranda-class training vessel.",
+      "source": "PLAYER_DECLARATION",
+      "note": "Established when asked about Academy field experience."
+    }
+  ]
+}
