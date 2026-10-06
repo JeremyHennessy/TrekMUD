@@ -1,6 +1,6 @@
-# Deterministic random system — proposed v1.0
+# Deterministic random system — v1.0
 
-Status: **proposal**.
+Status: **APPROVED BASELINE — 2026-10-06**.
 
 The purpose of TrekMUD's RNG is not to expose future outcomes. It is to make consequential random results reproducible and auditable after the fact.
 
