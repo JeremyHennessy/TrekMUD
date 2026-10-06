@@ -13,4 +13,4 @@ Approved baseline commits:
 - Star Trek structured lore baseline v1 — `584e27b794c0a4c82d06d580621fd93c632fe312`
 - USS Meridian crew structure v1.0 — `4fd20fd79c493735199fd1c8513fd8b0560fca32`
 
-The initial campaign checkpoint is recorded separately once character creation is complete.
+- Pre-character campaign checkpoint r00000 — `bd101d37897c208c8b4654461eb96ffc59cc8bcd`\n\nCharacter creation will produce revision 1 / r00001 without rewriting r00000.

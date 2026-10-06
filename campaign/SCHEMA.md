@@ -1,6 +1,6 @@
-# TrekMUD campaign state schema — draft v0.1
+# TrekMUD campaign state schema — v1.0
 
-This directory is the durable player-visible state of the campaign.
+Status: **APPROVED BASELINE**\n\nThis directory is the durable player-visible state of the campaign.
 
 ## Authority and atomicity
 
@@ -36,7 +36,7 @@ If validation fails, the previous committed checkpoint remains authoritative.
 
 ## Revisions
 
-Revision 0 is the pre-campaign state.
+Revision 0 is the validated pre-character state preserved as checkpoint `r00000`.
 
 The first played scene may only begin after:
 

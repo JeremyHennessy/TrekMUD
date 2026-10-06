@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "baseline": "pre-character-campaign-checkpoint",
+  "checkpointId": "r00000",
+  "revision": 0,
+  "status": "APPROVED",
+  "mergedCommit": "bd101d37897c208c8b4654461eb96ffc59cc8bcd",
+  "rulesVersion": "1.0",
+  "campaignStatus": "NOT_STARTED",
+  "year": 2372,
+  "stardate": 49317.4,
+  "shipTime": "12:17",
+  "ship": {
+    "name": "USS Meridian",
+    "registry": "NCC-63542",
+    "class": "Akira-class",
+    "location": "Starbase 375"
+  },
+  "locations": 131,
+  "materializedCrew": 20,
+  "backgroundCrew": 480,
+  "playerCharacter": null,
+  "rngStatus": "UNINITIALIZED",
+  "recoveryRule": "This merged checkpoint is authoritative until a later validated campaign revision is committed."
+}
