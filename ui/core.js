@@ -1,5 +1,5 @@
 window.TM={};
-TM.S={data:null,view:"now",deck:9,crewQuery:"",crewDept:"ALL"};
+TM.S={data:null,view:"now",deck:9,selectedLocation:null,crewQuery:"",crewDept:"ALL"};
 TM.titleMap={now:"Right Now",map:"Ship Map",character:"Character",crew:"Crew",threads:"Threads",timeline:"Timeline"};
 TM.$=s=>document.querySelector(s);
 TM.esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -41,3 +41,7 @@ TM.boot=async()=>{
   }
 };
 document.addEventListener("DOMContentLoaded",TM.boot);
+
+TM.deptClass=d=>"dept-"+String(d||"shipwide").toLowerCase().replace(/[^a-z0-9]+/g,"-");
+TM.rankShort=r=>String(r||"").replace("Lieutenant Commander","Lt. Cmdr.").replace("Lieutenant junior grade","Lt. j.g.").replace("Lieutenant","Lt.").replace("Commander","Cmdr.").replace("Captain","Capt.");
+TM.shipMark=()=>'<svg class="ship-mark" viewBox="0 0 240 110" aria-hidden="true"><path class="ship-main" d="M120 7C74 7 35 23 25 45l18 11-9 28 36 8 20-19h60l20 19 36-8-9-28 18-11C205 23 166 7 120 7Z"/><path class="ship-cut" d="M75 48h90l-16 18H91Z"/><path class="ship-nacelle" d="M40 62l-24 27 38 8 22-25Zm160 0 24 27-38 8-22-25Z"/></svg>';
