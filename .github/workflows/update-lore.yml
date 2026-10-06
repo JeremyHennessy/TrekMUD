@@ -61,7 +61,7 @@ jobs:
 
       - name: Commit generated lore snapshot
         run: |
-          if git diff --quiet -- data/stapi; then
+          if [ -z "$(git status --porcelain -- data/stapi)" ]; then
             echo "No generated lore changes."
             exit 0
           fi
