@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
+      - main
       - character-creation-v1
     paths:
       - campaign/CHARACTER_CREATION.md
