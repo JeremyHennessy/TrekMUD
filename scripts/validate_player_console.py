@@ -67,10 +67,10 @@ def main() -> int:
     assert payload["now"]["shipTime"] == state["currentTime"]["shipTime"]
     assert payload["now"]["stardate"] == state["currentTime"]["stardate"]
     assert payload["crew"]["materializedCount"] == 20
-    assert payload["crew"]["nominalComplement"] == 500
-    assert len(payload["map"]["locations"]) == 131
-    assert len(payload["map"]["edges"]) == 138
-    assert len(payload["map"]["deckNumbers"]) == 19
+    assert payload["crew"]["nominalComplement"] == 750
+    assert len(payload["map"]["locations"]) == 200
+    assert len(payload["map"]["edges"]) == 206
+    assert len(payload["map"]["deckNumbers"]) == 28\n    assert payload["map"]["podLevels"] == ["P1", "P2", "P3", "P4"]\n    assert payload["map"]["currentKey"] == "9"\n    assert payload["map"]["shipSilhouette"] == "nebula"\n    assert set(payload["map"]["deckPlans"]) == {str(i) for i in range(1, 29)}\n    assert set(payload["map"]["podPlans"]) == {"P1", "P2", "P3", "P4"}
 
     # Organic character state must remain visibly unresolved instead of being
     # silently converted to zeroes by the presentation layer.
@@ -95,7 +95,7 @@ def main() -> int:
         "campaignRevision": payload["source"]["campaignRevision"],
         "locations": len(payload["map"]["locations"]),
         "edges": len(payload["map"]["edges"]),
-        "crew": payload["crew"]["materializedCount"],
+        "crew": payload["crew"]["materializedCount"],\n        "nominalComplement": payload["crew"]["nominalComplement"],
         "output": str(output),
     }, indent=2))
     return 0
