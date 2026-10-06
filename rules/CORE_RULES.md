@@ -6,19 +6,21 @@ This branch is the candidate rules package for the campaign. Nothing becomes loc
 
 ## Design principles
 
-1. **Career simulation, not XP grinding.** Rank and billet are separate.
-2. **Competence first.** Routine professional tasks succeed without rolls.
-3. **Uncertainty is mechanical.** Genuine uncertain actions use 2d6 + attribute + skill + relevant specialty + situational modifiers.
-4. **No dice fudging.** Consequential randomness comes from the auditable deterministic RNG.
-5. **Information is local.** The player knows what the character can plausibly know.
-6. **The ship is a living workplace.** Duty, friendships, rivalries, training, downtime and mundane routines matter alongside crises.
-7. **NPCs persist.** Important crew have careers, relationships and goals independent of the player.
-8. **Consequences persist.** Commendations, failures, injuries, disciplinary events and reputation affect later opportunities.
-9. **Canon is a constraint, not a railroad.** Canon defines the wider setting. TrekMUD's ship and crew develop their own history.
-10. **State beats memory.** Repository state and committed checkpoints are authoritative when chats disagree.
+1. **Open campaign, not railroad.** The GM prepares situations and consequences, not a required sequence of player choices.
+2. **Career simulation, not XP grinding.** Rank and billet are separate.
+3. **Competence first.** Routine professional tasks succeed without rolls.
+4. **Uncertainty is mechanical.** Genuine uncertain actions use 2d6 + attribute + skill + relevant specialty + situational modifiers.
+5. **No dice fudging.** Consequential randomness comes from the auditable deterministic RNG.
+6. **Information is local.** The player knows what the character can plausibly know.
+7. **The ship is a living workplace.** Duty, friendships, rivalries, training, downtime and mundane routines matter alongside crises.
+8. **NPCs persist.** Important crew have careers, relationships and goals independent of the player.
+9. **Consequences persist.** Commendations, failures, injuries, disciplinary events and reputation affect later opportunities.
+10. **Canon is a constraint, not a railroad.** Canon defines the wider setting. TrekMUD's ship and crew develop their own history.
+11. **State beats memory.** Repository state and committed checkpoints are authoritative when chats disagree.
 
 ## Proposed v1.0 package
 
+- `OPEN_PLAY.md` — free-form action, non-railroad GMing, improvisation and persistent setting fill
 - `ATTRIBUTES_SKILLS.md` — attributes, broad skills, specialties, qualifications and starting-Ensign baseline
 - `RESOLUTION.md` — when to roll, targets, margins, assistance and extended work
 - `CONSEQUENCES.md` — injury, fatigue and professional consequences
