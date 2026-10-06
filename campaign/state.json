@@ -3,7 +3,7 @@
     "TH-00001"
   ],
   "checkpoint": {
-    "lastCheckpointId": "r00003",
+    "lastCheckpointId": "r00004",
     "validated": true
   },
   "components": {
@@ -15,6 +15,7 @@
     "knowledge": "campaign/knowledge.json",
     "locations": "campaign/locations.json",
     "qualifications": "campaign/qualifications.json",
+    "records": "campaign/records.json",
     "relationships": "campaign/relationships.json",
     "rng": "campaign/rng.json",
     "serviceRecord": "campaign/service-record.json",
@@ -29,7 +30,7 @@
     "characterId": "PC-001",
     "locationId": "AST-D09-TR-02"
   },
-  "revision": 3,
+  "revision": 4,
   "rulesVersion": "1.1",
   "schemaVersion": 1,
   "ship": {

@@ -1,0 +1,37 @@
+{
+  "checkpointId": "r00004",
+  "createdAt": "2026-10-06T23:26:02.106182+00:00",
+  "files": {
+    "campaign/CHRONICLE.md": "965d90bce0a8266d20c1d649c3a7637f958256023ce9a1dcf681bc499cbb4234",
+    "campaign/active-threads.json": "bdb2c90ee05da29e9779b3134a6c7c2451a8f7d1b9a5d6fc85532a6e7a15955f",
+    "campaign/calendar.json": "c66e608b5d518fc549cbf2726b59e43315eeeb9c5c8ed8615dfcdda1fff8d3df",
+    "campaign/character.json": "bde82366997848d91bd0a5e2bf09c6b481b344813122ef0b71a39488421b5750",
+    "campaign/config.json": "24320dede2d9fc48c79b45baa0e3f9bbc35ff44bf0b1094ed4d9bd5f69d4f425",
+    "campaign/crew.json": "4cef560a9e098c7feb8b4bc336b7193d59bd1ff6eb08d13208f6870469f4029e",
+    "campaign/inventory.json": "94fac245cf3670ce97d109e619589bc4c5836c504829240d2b306dd6d7a5d0d3",
+    "campaign/knowledge.json": "1c9df20195ad6182ba6d33a480043a39df9417104be5ec285bad3d55a3fdd36e",
+    "campaign/locations.json": "ec9662727c85f2140695f61732a80ab1d3f1053412b9c91edbd73ac8e035d958",
+    "campaign/qualifications.json": "db681cef730ce9160e25fb10f8d087fd8ad7cb8309503f6e3ef5559e84842516",
+    "campaign/records.json": "78319f50c354aac604482c6e8171416be39b11cfe4dc8e38287fb8ea54a89a71",
+    "campaign/relationships.json": "3f54835f803480d6fd22495e2cc426d06e53781956e0f70fb58020a91611d45f",
+    "campaign/rng.json": "cbbeec3a91598679347b0e29e9ca4d0d33e8acb580984e986505c8c8f21754a5",
+    "campaign/service-record.json": "d68297f2917d220721430e5652996a5ccf0f7ecde12cdc7aea65e85d8d310e76",
+    "campaign/ship.json": "2c1f31d2eaa19578f8ea40a36e87468d9fd5e688dd74be67b4e73a6c4c60cbfa",
+    "campaign/state.json": "c8a6a50eb673fadefd63efb48ee8a82dd1f0dfddbf02d8de756d0dc3f9c2ec94"
+  },
+  "previousCheckpointId": "r00003",
+  "revision": 4,
+  "rulesVersion": "1.1",
+  "schemaVersion": 1,
+  "summary": "Initialize structured player-visible career records",
+  "validation": {
+    "locations": 200,
+    "materializedCrew": 20,
+    "records": 0,
+    "revision": 4,
+    "rngCounter": 0,
+    "status": "READY_TO_START",
+    "threads": 1,
+    "valid": true
+  }
+}

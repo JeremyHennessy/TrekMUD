@@ -40,3 +40,9 @@ Narrative Scene One remains unplayed until mechanics and character creation are 
 - Nominal complement is 750 including Jeremy; 20 NPC identities remain materialized and 729 crew remain background.
 - Ship time remains 1217, Stardate 49317.4; RNG counter remains 0; no narrative action occurred.
 
+## Player-visible records infrastructure — revision 4
+
+- Added structured Duty Log, Science Findings, Mission Records, Relationship Milestones, and Ship Events streams.
+- All streams begin empty because Scene One has not started.
+- This is an infrastructure-only revision: ship time, stardate, player location, character state, and RNG counter are unchanged.
+
