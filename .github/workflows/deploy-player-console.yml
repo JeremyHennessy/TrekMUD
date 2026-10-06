@@ -2,6 +2,17 @@ name: Deploy TrekMUD player console
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ui/**
+      - campaign/**
+      - world/asteria/**
+      - scripts/build_player_console.py
+      - scripts/build_map_layout.py
+      - scripts/validate_player_console.py
+      - .github/workflows/deploy-player-console.yml
 
 permissions:
   contents: read
@@ -18,10 +29,17 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
+      - name: Validate canonical campaign state
+        run: python scripts/validate_campaign.py
+
+      - name: Validate USS Asteria baseline
+        run: |
+          python scripts/validate_asteria.py
+          python scripts/validate_asteria_crew.py
 
       - name: Build player-safe console
         run: python scripts/validate_player_console.py --keep _site
