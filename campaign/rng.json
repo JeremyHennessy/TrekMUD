@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "revision": 0,
+  "status": "UNINITIALIZED",
+  "algorithm": "SHA256_COUNTER_V1",
+  "publicCommitment": null,
+  "counter": 0,
+  "note": "The secret seed must not be committed while the repository is public. Rules v1.0 will define initialization and audit/reveal behavior."
+}
