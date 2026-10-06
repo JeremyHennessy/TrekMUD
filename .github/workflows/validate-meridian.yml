@@ -11,6 +11,7 @@ on:
       - .github/workflows/validate-meridian.yml
   push:
     branches:
+      - main
       - meridian-topology-v1
     paths:
       - world/meridian/**
