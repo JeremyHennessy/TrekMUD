@@ -130,9 +130,9 @@ Before live play uses those systems, store them in a private repository/store sy
 
 ## Current handoff point
 
-At validated checkpoint `r00003`:
+At validated checkpoint `r00004`:
 
-- campaign revision: 3
+- campaign revision: 4
 - status: `READY_TO_START`
 - rules: v1.1 Organic Character Discovery
 - year: 2372
@@ -146,7 +146,10 @@ At validated checkpoint `r00003`:
 - ship map: 200 locations / 206 connections / 28 numbered decks / P1–P4 science pod
 - complement: 750 including Jeremy
 - RNG: initialized, counter 0
+- player-visible Records component: initialized with 5 empty streams
 - narrative actions: none
 - private GM state: must match r00003 before Scene One
+
+Revision 4 is an infrastructure-only extension of r00003: no time, location, RNG, character, or narrative state changed.
 
 The earlier Meridian/Akira files are historical pre-play baselines only. Never resume live play from them unless explicitly restoring an older checkpoint.
