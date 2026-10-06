@@ -1,0 +1,10 @@
+{
+  "name": "TrekMUD · USS Asteria Player Console",
+  "short_name": "Asteria PADD",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#080b12",
+  "theme_color": "#080b12",
+  "description": "Player-facing PADD for the TrekMUD USS Asteria campaign."
+}
