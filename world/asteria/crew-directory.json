@@ -171,7 +171,7 @@
       "billet": "Junior Science Officer",
       "primaryShift": "BETA",
       "status": "ACTIVE",
-      "quartersCandidate": "MER-D07-S12-0712A"
+      "quartersCandidate": "AST-D07-S12-0712A"
     },
     {
       "id": "CREW-016",
@@ -183,7 +183,7 @@
       "billet": "Junior Engineering Officer",
       "primaryShift": "GAMMA",
       "status": "ACTIVE",
-      "quartersCandidate": "MER-D07-S12-0712B"
+      "quartersCandidate": "AST-D07-S12-0712B"
     },
     {
       "id": "CREW-017",
@@ -195,7 +195,7 @@
       "billet": "Junior Operations Officer",
       "primaryShift": "ALPHA",
       "status": "ACTIVE",
-      "quartersCandidate": "MER-D07-S12-0712D"
+      "quartersCandidate": "AST-D07-S12-0712D"
     },
     {
       "id": "CREW-018",
