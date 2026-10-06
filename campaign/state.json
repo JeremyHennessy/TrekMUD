@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "revision": 0,
+  "status": "NOT_STARTED",
+  "character": null,
+  "currentTime": {
+    "year": 2372,
+    "stardate": 49317.4,
+    "shipTime": "12:17"
+  },
+  "ship": {
+    "name": "USS Meridian",
+    "class": "Akira-class",
+    "location": null,
+    "mission": null,
+    "alertCondition": "normal"
+  },
+  "activeThreads": [],
+  "lastCheckpointCommit": null
+}
