@@ -129,17 +129,23 @@ Before live play uses those systems, store them in a private repository/store sy
 
 ## Current handoff point
 
-At pre-character checkpoint `r00000`:
+At validated checkpoint `r00003`:
 
-- campaign revision: 0
-- status: `NOT_STARTED`
-- rules: v1.0
+- campaign revision: 3
+- status: `READY_TO_START`
+- rules: v1.1 Organic Character Discovery
 - year: 2372
 - stardate: 49317.4
 - ship time: 12:17
-- ship: USS Meridian, NCC-63542, Akira-class
+- ship: USS Asteria, NCC-63542, Nebula-class
 - ship location: Starbase 375
-- opening arrival: Transporter Room 2 (`MER-D09-TR-02`)
-- assigned quarters after character creation: `MER-D07-S12-0712C`
-- player character: not yet created
-- RNG: uninitialized
+- player: Ensign Jeremy Hennessy, Human, 30, Science
+- player location: Transporter Room 2 (`AST-D09-TR-02`)
+- assigned quarters: `AST-D07-S12-0712C`
+- ship map: 200 locations / 206 connections / 28 numbered decks / P1–P4 science pod
+- complement: 750 including Jeremy
+- RNG: initialized, counter 0
+- narrative actions: none
+- private GM state: must match r00003 before Scene One
+
+The earlier Meridian/Akira files are historical pre-play baselines only. Never resume live play from them unless explicitly restoring an older checkpoint.
