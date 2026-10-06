@@ -247,7 +247,7 @@ def build(output: Path) -> dict[str, Any]:
     output.mkdir(parents=True, exist_ok=True)
     (output / "data").mkdir(parents=True, exist_ok=True)
 
-    for filename in ("index.html", "styles.css", "app.js"):
+    for filename in ("index.html", "base.css", "components.css", "core.js", "views.js", "map.js"):
         src = UI_ROOT / filename
         if not src.exists():
             raise FileNotFoundError(f"missing UI asset: {src}")
