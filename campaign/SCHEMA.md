@@ -1,6 +1,8 @@
 # TrekMUD campaign state schema — v1.0
 
-Status: **APPROVED BASELINE**\n\nThis directory is the durable player-visible state of the campaign.
+Status: **APPROVED BASELINE**
+
+This directory is the durable player-visible state of the campaign.
 
 ## Authority and atomicity
 
@@ -32,6 +34,7 @@ If validation fails, the previous committed checkpoint remains authoritative.
 - `ship.json` — current player-visible state of USS Meridian
 - `locations.json` — authoritative ship/location topology visible to the campaign
 - `rng.json` — deterministic RNG metadata; secret seed is not stored while the repository is public
+- `records.json` — structured player-visible Duty, Science, Mission, Relationship, and Ship Event history
 - `checkpoints/` — immutable checkpoint manifests
 
 ## Revisions
@@ -46,6 +49,8 @@ The first played scene may only begin after:
 
 Revision numbers are monotonically increasing integers. Never reuse a revision number.
 
+Revision 4 introduces the empty structured player-visible records component. It is an infrastructure-only checkpoint: no time, location, RNG, or narrative state changes.
+
 ## IDs
 
 IDs are stable and never repurposed.
@@ -59,7 +64,12 @@ Suggested prefixes:
 - `TH-` active thread
 - `QUAL-` qualification
 - `ITEM-` item
-- `MER-` USS Meridian locations
+- `AST-` USS Asteria locations
+- `DUTY-` duty log entry
+- `SCI-` science finding
+- `MIS-` mission record
+- `RELM-` relationship milestone
+- `SHIPLOG-` ship event
 
 ## NPC materialization tiers
 

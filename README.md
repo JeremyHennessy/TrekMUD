@@ -6,7 +6,7 @@ Chat is the tabletop. Git is the continuity ledger. The Player Console is the vi
 
 ## Current campaign status
 
-**Checkpoint: `r00003` · Revision 3 · READY_TO_START**
+**Checkpoint: `r00004` · Revision 4 · READY_TO_START**
 
 - Player: **Ensign Jeremy Hennessy**
 - Species: Human · age 30 · he/him
@@ -25,6 +25,7 @@ Chat is the tabletop. Git is the continuity ledger. The Player Console is the vi
 - Lore baseline: **41,388 STAPI records**
 - TNG/DS9 era index: **349 full episodes / 1,350 linked characters**
 - Deterministic RNG: initialized, counter **0**
+- Player-visible career record streams: **5 initialized / 0 entries**
 - Narrative actions taken: **0**
 
 The move from USS Meridian / Akira-class to USS Asteria / Nebula-class is an approved **pre-play baseline correction**, not an in-universe rename, refit, or transfer.
@@ -42,7 +43,8 @@ Views:
 - **Character** — organic attributes/skills and remaining discovery pools
 - **Crew** — searchable player-visible crew directory with department identity
 - **Threads** — known obligations, schedule, and open campaign threads
-- **Timeline** — persistent service and character-discovery history
+- **Records** — Duty, Science, Mission, Relationship, and Ship Event history
+- **Timeline** — combined service, discovery, and record history
 
 The browser never reads `TrekMUD-GM`. `scripts/build_player_console.py` emits player-safe state only, while `scripts/validate_player_console.py` rejects private-state markers or RNG commitment leakage.
 

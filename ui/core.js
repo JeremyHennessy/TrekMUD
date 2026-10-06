@@ -1,6 +1,6 @@
 window.TM={};
-TM.S={data:null,view:"now",deck:9,mapKey:null,selectedLocation:null,mapSearch:"",routeTarget:null,routePath:[],crewQuery:"",crewDept:"ALL"};
-TM.titleMap={now:"Right Now",ship:"Ship",map:"Ship Map",character:"Character",crew:"Crew",threads:"Threads",timeline:"Timeline"};
+TM.S={data:null,view:"now",deck:9,mapKey:null,selectedLocation:null,mapSearch:"",routeTarget:null,routePath:[],crewQuery:"",crewDept:"ALL",recordFilter:"all"};
+TM.titleMap={now:"Right Now",ship:"Ship",map:"Ship Map",character:"Character",crew:"Crew",threads:"Threads",records:"Records",timeline:"Timeline"};
 TM.$=s=>document.querySelector(s);
 TM.esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 TM.empty=(msg="Nothing established here yet.")=>'<div class="empty">'+TM.esc(msg)+'</div>';
@@ -27,7 +27,7 @@ TM.bind=()=>{
 TM.render=()=>{
   document.title="TrekMUD · "+TM.titleMap[TM.S.view];
   TM.$("#title").textContent=TM.titleMap[TM.S.view];
-  const fn={now:TM.renderNow,ship:TM.renderShip,map:TM.renderMap,character:TM.renderCharacter,crew:TM.renderCrew,threads:TM.renderThreads,timeline:TM.renderTimeline}[TM.S.view]||TM.renderNow;
+  const fn={now:TM.renderNow,ship:TM.renderShip,map:TM.renderMap,character:TM.renderCharacter,crew:TM.renderCrew,threads:TM.renderThreads,records:TM.renderRecords,timeline:TM.renderTimeline}[TM.S.view]||TM.renderNow;
   fn();
 };
 TM.boot=async()=>{

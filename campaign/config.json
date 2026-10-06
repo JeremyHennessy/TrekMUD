@@ -24,6 +24,7 @@
     "approvedCheckpointsAreImmutable": true,
     "repositoryIsAuthoritative": true
   },
+  "recordStreamsVersion": 1,
   "rng": {
     "algorithm": "SHA256_COUNTER_V1",
     "privateStore": "JeremyHennessy/TrekMUD-GM",

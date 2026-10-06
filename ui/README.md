@@ -14,7 +14,8 @@ Views:
 - **Character** — organic attributes, skills, qualifications and still-unresolved discovery pools
 - **Crew** — searchable player-visible directory with department identity
 - **Threads** — known obligations and schedule
-- **Timeline** — persistent service/discovery history
+- **Records** — five structured player-visible history streams with filters and counts
+- **Timeline** — combined service/discovery/record history
 
 ## Architecture
 
@@ -78,4 +79,4 @@ Browser URL hashes preserve the selected view so back/forward navigation works n
 
 The deployment job runs campaign, USS Asteria baseline, and player-console validation before publication.
 
-Current campaign target: **r00003 · revision 3 · USS Asteria · 1217 hours · RNG counter 0**.
+Current campaign target: **r00004 · revision 4 · USS Asteria · 1217 hours · RNG counter 0**. The five Records streams are initialized and intentionally empty before Scene One.

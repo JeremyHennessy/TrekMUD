@@ -43,6 +43,14 @@ def player_safe_snapshot(root: Path) -> dict[str, Any]:
     inventory = load_json(campaign / "inventory.json")
     qualifications = load_json(campaign / "qualifications.json")
     rng = load_json(campaign / "rng.json")
+    records_path = campaign / "records.json"
+    records = load_json(records_path) if records_path.exists() else {
+        "dutyLogs": [],
+        "scienceFindings": [],
+        "missionRecords": [],
+        "relationshipMilestones": [],
+        "shipEvents": [],
+    }
     ship_specs = load_json(root / "world" / "asteria" / "SPECS.json")
 
     character = character_doc.get("character") or {}
@@ -115,6 +123,24 @@ def player_safe_snapshot(root: Path) -> dict[str, Any]:
             "title": "Character discovery",
             "summary": lock.get("note") or json.dumps(lock.get("value"), ensure_ascii=False),
         })
+
+    record_streams = (
+        ("duty", records.get("dutyLogs", [])),
+        ("science", records.get("scienceFindings", [])),
+        ("mission", records.get("missionRecords", [])),
+        ("relationship", records.get("relationshipMilestones", [])),
+        ("ship", records.get("shipEvents", [])),
+    )
+    for kind, rows in record_streams:
+        for row in rows:
+            timeline.append({
+                "kind": kind,
+                "id": row.get("id"),
+                "year": row.get("year"),
+                "stardate": row.get("stardate", row.get("startStardate")),
+                "title": row.get("title"),
+                "summary": row.get("summary"),
+            })
     timeline.sort(key=lambda row: (
         row.get("year") if isinstance(row.get("year"), int) else 9999,
         row.get("stardate") if isinstance(row.get("stardate"), (int, float)) else 999999.0,
@@ -191,6 +217,13 @@ def player_safe_snapshot(root: Path) -> dict[str, Any]:
             "events": next_events,
         },
         "serviceRecord": service.get("events", []),
+        "records": {
+            "dutyLogs": records.get("dutyLogs", []),
+            "scienceFindings": records.get("scienceFindings", []),
+            "missionRecords": records.get("missionRecords", []),
+            "relationshipMilestones": records.get("relationshipMilestones", []),
+            "shipEvents": records.get("shipEvents", []),
+        },
         "timeline": timeline,
         "inventory": inventory.get("items", []),
         "qualifications": qualifications.get("records", []),

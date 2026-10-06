@@ -17,7 +17,7 @@ Before narrating anything:
 5. Read `campaign/config.json` and the component files listed in `state.components`.
 6. Read the relevant recent section of `campaign/CHRONICLE.md`.
 7. Resolve the rules version named by state. For v1.0 use the locked v1.0 baseline; for v1.1 load v1.0 plus `rules/CHARACTER_DISCOVERY.md`. Never apply a later rules revision retroactively to an older checkpoint.
-8. Load only the crew, locations, relationships, knowledge and active threads needed for the current scene, expanding as required.
+8. Load only the crew, locations, relationships, knowledge, active threads, and player-visible records needed for the current scene, expanding as required.
 9. If private GM storage exists, load the matching hidden-state revision separately. Never infer hidden state from player-visible files.
 10. Continue from the exact saved in-universe time and location unless the player explicitly requests a time skip.
 
@@ -46,6 +46,7 @@ Confirm internally:
 - active duty/calendar obligations;
 - relevant injuries/fatigue;
 - relevant known relationships;
+- relevant duty/science/mission/relationship/ship records;
 - active threads;
 - what the player character actually knows.
 
@@ -129,9 +130,9 @@ Before live play uses those systems, store them in a private repository/store sy
 
 ## Current handoff point
 
-At validated checkpoint `r00003`:
+At validated checkpoint `r00004`:
 
-- campaign revision: 3
+- campaign revision: 4
 - status: `READY_TO_START`
 - rules: v1.1 Organic Character Discovery
 - year: 2372
@@ -145,7 +146,10 @@ At validated checkpoint `r00003`:
 - ship map: 200 locations / 206 connections / 28 numbered decks / P1–P4 science pod
 - complement: 750 including Jeremy
 - RNG: initialized, counter 0
+- player-visible Records component: initialized with 5 empty streams
 - narrative actions: none
 - private GM state: must match r00003 before Scene One
+
+Revision 4 is an infrastructure-only extension of r00003: no time, location, RNG, character, or narrative state changed.
 
 The earlier Meridian/Akira files are historical pre-play baselines only. Never resume live play from them unless explicitly restoring an older checkpoint.

@@ -75,12 +75,16 @@ def validate(root: Path) -> dict[str, Any]:
     components = state.get("components")
     require(isinstance(components, dict) and components, "state.components is required")
 
-    required_components = {
+    base_components = {
         "character", "serviceRecord", "qualifications", "inventory",
         "crew", "relationships", "knowledge", "activeThreads",
         "calendar", "ship", "locations", "rng",
     }
-    require(set(components) == required_components, "state.components does not match the required component set")
+    required_components = set(base_components)
+    if revision >= 4:
+        required_components.add("records")
+    require(set(components) == required_components,
+            "state.components does not match the required component set for this revision")
 
     loaded: dict[str, dict[str, Any]] = {}
     for name, relative_path in components.items():
@@ -104,6 +108,7 @@ def validate(root: Path) -> dict[str, Any]:
     ship_doc = loaded["ship"]
     locations = loaded["locations"]
     rng = loaded["rng"]
+    records = loaded.get("records")
 
     player = state.get("player")
     require(isinstance(player, dict), "state.player is required")
@@ -119,17 +124,23 @@ def validate(root: Path) -> dict[str, Any]:
         require(inventory.get("characterId") is None, "inventory characterId must be null before character creation")
         require(relationships.get("characterId") is None, "relationships characterId must be null before character creation")
         require(knowledge.get("characterId") is None, "knowledge characterId must be null before character creation")
+        if records is not None:
+            require(records.get("characterId") is None,
+                    "records characterId must be null before character creation")
     else:
         payload = character.get("character")
         require(isinstance(payload, dict), "created character requires character payload")
         require(payload.get("id") == character_id, "character payload id must equal state.player.characterId")
-        for label, doc in (
+        character_docs = [
             ("service record", service),
             ("qualifications", quals),
             ("inventory", inventory),
             ("relationships", relationships),
             ("knowledge", knowledge),
-        ):
+        ]
+        if records is not None:
+            character_docs.append(("records", records))
+        for label, doc in character_docs:
             require(doc.get("characterId") == character_id, f"{label} characterId mismatch")
 
         if payload.get("creationMode") == "ORGANIC_DISCOVERY_V1_1":
@@ -274,10 +285,41 @@ def validate(root: Path) -> dict[str, Any]:
     unique_ids(service.get("events", []), "id", "service events")
     unique_ids(quals.get("records", []), "id", "qualifications")
     unique_ids(inventory.get("items", []), "id", "inventory items")
-    unique_ids(relationships.get("relationships", []), "id", "relationships")
+    relationship_ids = unique_ids(relationships.get("relationships", []), "id", "relationships")
     unique_ids(knowledge.get("facts", []), "id", "knowledge facts")
     thread_ids = unique_ids(threads.get("threads", []), "id", "threads")
     unique_ids(calendar.get("events", []), "id", "calendar events")
+
+    record_count = 0
+    if records is not None:
+        require(records.get("schemaVersion") == 1, "records schemaVersion must be 1")
+        streams = {
+            "dutyLogs": ("DUTY-", "duty logs"),
+            "scienceFindings": ("SCI-", "science findings"),
+            "missionRecords": ("MIS-", "mission records"),
+            "relationshipMilestones": ("RELM-", "relationship milestones"),
+            "shipEvents": ("SHIPLOG-", "ship events"),
+        }
+        for key, (prefix, label) in streams.items():
+            rows = records.get(key)
+            require(isinstance(rows, list), f"records.{key} must be a list")
+            ids = unique_ids(rows, "id", label)
+            require(all(value.startswith(prefix) for value in ids),
+                    f"{label} IDs must start with {prefix}")
+            record_count += len(rows)
+
+        for row in records.get("relationshipMilestones", []):
+            target = row.get("targetId")
+            require(target in crew_ids,
+                    f"relationship milestone {row.get('id')} has unresolved targetId: {target}")
+            relationship_id = row.get("relationshipId")
+            require(relationship_id is None or relationship_id in relationship_ids,
+                    f"relationship milestone {row.get('id')} has unresolved relationshipId")
+
+        for row in records.get("shipEvents", []):
+            event_ship = row.get("shipId")
+            require(event_ship is None or event_ship == ship_id,
+                    f"ship event {row.get('id')} shipId mismatch")
 
     active_ids = state.get("activeThreadIds")
     require(isinstance(active_ids, list), "state.activeThreadIds must be a list")
@@ -314,6 +356,7 @@ def validate(root: Path) -> dict[str, Any]:
         "locations": len(location_ids),
         "threads": len(thread_ids),
         "rngCounter": counter,
+        "records": record_count,
     }
 
 

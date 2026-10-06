@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "events": [
+    {
+      "type": "duty",
+      "title": "CI duty log fixture",
+      "summary": "Non-canonical fixture proving structured duty history can be appended.",
+      "status": "COMPLETE",
+      "locationId": "AST-D04-SCI-OFFICE"
+    },
+    {
+      "type": "science",
+      "title": "CI science finding fixture",
+      "summary": "Non-canonical fixture proving science findings persist separately from generic knowledge.",
+      "domain": "Subspace Physics",
+      "status": "HYPOTHESIS",
+      "confidence": "PROVISIONAL",
+      "locationId": "AST-D05-SCI-PHYS"
+    },
+    {
+      "type": "mission",
+      "title": "CI mission record fixture",
+      "summary": "Non-canonical fixture proving mission history can persist without becoming a quest system.",
+      "role": "Junior Science Officer",
+      "status": "COMPLETE",
+      "outcome": "Fixture only"
+    },
+    {
+      "type": "relationship",
+      "title": "CI relationship milestone fixture",
+      "summary": "Non-canonical fixture proving player-visible relationship history can name a persistent NPC.",
+      "targetId": "CREW-005",
+      "tone": "PROFESSIONAL"
+    },
+    {
+      "type": "ship",
+      "title": "CI ship event fixture",
+      "summary": "Non-canonical fixture proving visible ship-system events can be recorded.",
+      "system": "Long-range sensors",
+      "severity": "INFO",
+      "status": "RESOLVED"
+    }
+  ]
+}
