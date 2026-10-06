@@ -13,6 +13,7 @@ on:
       - .github/workflows/validate-crew.yml
   push:
     branches:
+      - main
       - meridian-crew-v1
     paths:
       - world/meridian/crew-structure.json
