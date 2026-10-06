@@ -7,7 +7,11 @@
     "stardate": 49317.4,
     "ship": "USS Meridian",
     "shipClass": "Akira-class",
-    "playerRank": "Ensign"
+    "playerRank": "Ensign",
+    "registry": "NCC-63542",
+    "location": "Starbase 375",
+    "arrivalLocationId": "MER-D09-TR-02",
+    "quartersId": "MER-D07-S12-0712C"
   },
   "era": {
     "primarySeries": [
@@ -28,5 +32,12 @@
     "publicRepository": true,
     "commitHiddenGMState": false
   },
-  "rulesVersion": "1.0"
+  "rulesVersion": "1.0",
+  "baselines": {
+    "stateEngine": "f96ccdee9dcbd096b42c187539efaf71fbbed914",
+    "rules": "d0feb35647e2a9dc43aa19f8930f709a4fd61b5b",
+    "topology": "bf9b0f0b94e4853d471b178d6ad8fb0e50d625a9",
+    "lore": "584e27b794c0a4c82d06d580621fd93c632fe312",
+    "crew": "4fd20fd79c493735199fd1c8513fd8b0560fca32"
+  }
 }
