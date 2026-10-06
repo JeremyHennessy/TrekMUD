@@ -52,6 +52,7 @@ lore/          canon/source/provenance and 2372 knowledge policy
 data/stapi/    generated structured Star Trek reference snapshot
 scripts/       state, checkpoint, RNG, lore and character tooling
 tests/         non-canonical validation fixtures
+gm-template/   schema/protocol only for future private GM storage
 ```
 
 For cross-chat continuation, follow `campaign/RESUME_PROTOCOL.md`.
