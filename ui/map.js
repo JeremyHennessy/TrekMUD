@@ -266,7 +266,7 @@ TM.renderMap=()=>{
   const rs=TM.$("[data-route-selected]");if(rs)rs.onclick=()=>{TM.startRoute(TM.S.selectedLocation);TM.renderMap()};
   const rc=TM.$("[data-route-clear]");if(rc)rc.onclick=()=>{TM.clearRoute();TM.renderMap()};
   const show=TM.$("[data-route-show]");if(show)show.onclick=()=>{const x=TM.locationById(TM.S.routeTarget);if(x){TM.S.mapKey=TM.locationKey(x);TM.S.selectedLocation=x.id;TM.renderMap()}};
-  const search=TM.$("#map-search");if(search)search.oninput=e=>{TM.S.mapSearch=e.target.value;TM.renderMap()};
+  const search=TM.$("#map-search");if(search)search.oninput=e=>{const value=e.target.value;TM.S.mapSearch=value;TM.renderMap();const next=TM.$("#map-search");if(next){next.focus();next.setSelectionRange(value.length,value.length)}};
   const prev=TM.$("[data-deck-prev]"),next=TM.$("[data-deck-next]");
   if(prev)prev.onclick=()=>{TM.S.deck=Math.max(1,Number(plan.key)-1);TM.S.mapKey=String(TM.S.deck);TM.S.selectedLocation=null;TM.renderMap()};
   if(next)next.onclick=()=>{TM.S.deck=Math.min(28,Number(plan.key)+1);TM.S.mapKey=String(TM.S.deck);TM.S.selectedLocation=null;TM.renderMap()};
