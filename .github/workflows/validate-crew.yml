@@ -1,0 +1,40 @@
+name: Validate USS Meridian crew model
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - world/meridian/crew-structure.json
+      - world/meridian/crew-directory.json
+      - world/meridian/CREW_MODEL.md
+      - scripts/validate_crew.py
+      - .github/workflows/validate-crew.yml
+  push:
+    branches:
+      - main
+      - meridian-crew-v1
+    paths:
+      - world/meridian/crew-structure.json
+      - world/meridian/crew-directory.json
+      - world/meridian/CREW_MODEL.md
+      - scripts/validate_crew.py
+      - .github/workflows/validate-crew.yml
+
+permissions:
+  contents: read
+
+jobs:
+  crew:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile crew validator
+        run: python -m py_compile scripts/validate_crew.py
+      - name: Validate candidate crew model
+        run: python scripts/validate_crew.py
