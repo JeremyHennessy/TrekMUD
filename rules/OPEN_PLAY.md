@@ -1,6 +1,6 @@
-# Open campaign play — proposed v1.0
+# Open campaign play — v1.0
 
-Status: **UNAPPROVED PROPOSAL**.
+Status: **APPROVED BASELINE — 2026-10-06**.
 
 TrekMUD is an open-ended role-playing campaign, not a branching story with a hidden correct path.
 
