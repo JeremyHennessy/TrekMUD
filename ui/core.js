@@ -1,5 +1,5 @@
 window.TM={};
-TM.S={data:null,view:"now",deck:9,selectedLocation:null,crewQuery:"",crewDept:"ALL"};
+TM.S={data:null,view:"now",deck:9,mapKey:null,selectedLocation:null,crewQuery:"",crewDept:"ALL"};
 TM.titleMap={now:"Right Now",map:"Ship Map",character:"Character",crew:"Crew",threads:"Threads",timeline:"Timeline"};
 TM.$=s=>document.querySelector(s);
 TM.esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -34,6 +34,7 @@ TM.boot=async()=>{
     TM.$("#eyebrow").textContent=d.ship.name.toUpperCase()+" · "+d.ship.registry;
     TM.$("#rail-meta").innerHTML="Checkpoint <b>"+TM.esc(d.source.checkpointId)+"</b><br>Revision "+TM.esc(d.source.campaignRevision)+"<br>Rules "+TM.esc(d.source.rulesVersion);
     TM.S.deck=d.now.location?.deck||9;
+    TM.S.mapKey=d.map?.currentKey||String(TM.S.deck);
     TM.bind();
     TM.render();
   }catch(e){
