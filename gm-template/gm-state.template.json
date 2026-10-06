@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "status": "TEMPLATE_ONLY_DO_NOT_USE_AS_LIVE_STATE",
+  "publicState": {
+    "campaignRevision": 0,
+    "checkpointId": "r00000",
+    "repositoryCommit": "REPLACE_WITH_MATCHING_PUBLIC_COMMIT"
+  },
+  "rng": {
+    "algorithm": "SHA256_COUNTER_V1",
+    "secretSeedHex": "PRIVATE_32_BYTE_SEED_GOES_HERE",
+    "publicCommitment": "SHA256_OF_PRIVATE_SEED_GOES_HERE",
+    "counter": 0
+  },
+  "npcPrivateState": {},
+  "relationshipPrivateState": [],
+  "mysteries": [],
+  "plotClocks": [],
+  "offscreenEvents": [],
+  "futureEvents": [],
+  "gmNotes": []
+}
