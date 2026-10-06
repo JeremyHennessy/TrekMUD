@@ -1,0 +1,35 @@
+{
+  "checkpointId": "r00001",
+  "createdAt": "2026-10-06T18:13:42.142917+00:00",
+  "files": {
+    "campaign/CHRONICLE.md": "aad89c0ec872c9a76f87cc26648b682f65cf23b1b2c44bbc95bf6fcaffee4480",
+    "campaign/active-threads.json": "7cbf69fa8c90b51033498cacf4e526d02ea100bb0cda9fc79d3f3cbc9d81f309",
+    "campaign/calendar.json": "0f249fb5a2bf3a633275541747d8a54d50bf8d7ffe4fd508d6bb1c31f25fd2ca",
+    "campaign/character.json": "328a1791e0da2fd0b497c07642bb7f5c287345e05144e890acbf213d312d3c27",
+    "campaign/config.json": "46f40ce58eac9f6b8594ad1e75ec47977d88455de434f769576b76fbf7d0e5c7",
+    "campaign/crew.json": "e704c1207087784df51992230b72acefa5fa53c978f52c984a64e33b66f65459",
+    "campaign/inventory.json": "6974b66412d58c2cedf4e0a14172c5f31ea8769460cfa9536b037f895681b722",
+    "campaign/knowledge.json": "208e60010aee03181607bb4f0274ec595c2cddbe533732d7c9af2ccde5c81543",
+    "campaign/locations.json": "fa35075eb397096027d155087ef78b58b7c6d314cf86e1fc6b03ddc633d3d631",
+    "campaign/qualifications.json": "8b25e39e9deb913e9495a483aadf94d54ac8b054dd4b7917974e14ac0507bd60",
+    "campaign/relationships.json": "23668281722d5b35570d4bcd8b9e40e73dcfd9682f87d6ba9aa8a35ee3838113",
+    "campaign/rng.json": "704fc0e7dd2e92eb5b46f45f66c32196c83843687f78490e45bb4a4ac7902801",
+    "campaign/service-record.json": "8bd41ddd41c18a96c3f40368cd06a6f784b24fd3066fc12dbcb89afcd0b7b060",
+    "campaign/ship.json": "5cb5c8b8d3a13637569aa05ff4fd8a1b75e83bafe6e68416ad9e8d4951688bb8",
+    "campaign/state.json": "64ccf3a27827259ea82bdc7988490d56f1eaf62630ce386fc28e3c9de4e562ae"
+  },
+  "previousCheckpointId": "r00000",
+  "revision": 1,
+  "rulesVersion": "1.1",
+  "schemaVersion": 1,
+  "summary": "Jeremy Hennessy organic character creation",
+  "validation": {
+    "locations": 131,
+    "materializedCrew": 20,
+    "revision": 1,
+    "rngCounter": 0,
+    "status": "READY_TO_START",
+    "threads": 1,
+    "valid": true
+  }
+}

@@ -1,10 +1,27 @@
 {
-  "schemaVersion": 1,
-  "revision": 0,
   "current": {
-    "year": 2372,
+    "shipTime": "12:17",
     "stardate": 49317.4,
-    "shipTime": "12:17"
+    "year": 2372
   },
-  "events": []
+  "events": [
+    {
+      "id": "CAL-00001",
+      "shipTime": "14:00",
+      "stardate": 49317.4,
+      "status": "SCHEDULED",
+      "title": "Ship orientation",
+      "year": 2372
+    },
+    {
+      "id": "CAL-00002",
+      "shipTime": "15:30",
+      "stardate": 49317.4,
+      "status": "SCHEDULED",
+      "title": "Report to department head",
+      "year": 2372
+    }
+  ],
+  "revision": 1,
+  "schemaVersion": 1
 }

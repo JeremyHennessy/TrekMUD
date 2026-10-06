@@ -1,20 +1,20 @@
 {
+  "revision": 1,
   "schemaVersion": 1,
-  "revision": 0,
   "ship": {
-    "id": "USS-MERIDIAN",
-    "name": "USS Meridian",
+    "alertCondition": "normal",
     "class": "Akira-class",
-    "registry": "NCC-63542",
-    "commissioned": 2371,
     "commandingOfficerId": "CREW-001",
+    "commissioned": 2371,
+    "damage": [],
     "executiveOfficerId": "CREW-002",
+    "id": "USS-MERIDIAN",
     "location": "Starbase 375",
     "mission": null,
-    "alertCondition": "normal",
-    "damage": [],
-    "systems": {},
+    "name": "USS Meridian",
+    "registry": "NCC-63542",
     "registrySource": "TREKMUD_ORIGINAL",
-    "secondOfficerId": "CREW-003"
+    "secondOfficerId": "CREW-003",
+    "systems": {}
   }
 }
