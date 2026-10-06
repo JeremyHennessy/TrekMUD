@@ -23,6 +23,11 @@
     "approvedCheckpointsAreImmutable": true,
     "repositoryIsAuthoritative": true
   },
+  "rng": {
+    "algorithm": "SHA256_COUNTER_V1",
+    "privateStore": "JeremyHennessy/TrekMUD-GM",
+    "publicCommitment": "7fcb8273a412f1365dc155b28c48e96108335a0419768f11ec1fd13b08d3b513"
+  },
   "rulesVersion": "1.1",
   "schemaVersion": 1,
   "spoilerSafety": {

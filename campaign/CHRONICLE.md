@@ -23,3 +23,10 @@ Narrative Scene One remains unplayed until mechanics and character creation are 
 - Attributes, Academy cross-training, specialties, interests and detailed background remain intentionally unresolved.
 - Opening position remains Transporter Room 2 at 1217 hours; no narrative action has occurred.
 
+## RNG initialization — revision 2
+
+- Deterministic SHA256_COUNTER_V1 randomness initialized.
+- Only the public SHA-256 seed commitment is stored here; the secret seed is in private GM storage.
+- RNG counter begins at 0.
+- No in-universe time passed and no narrative event occurred.
+
