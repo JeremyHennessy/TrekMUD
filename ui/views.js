@@ -138,6 +138,65 @@ TM.renderThreads=()=>{
   TM.$("#view").innerHTML='<div class="grid two">'+TM.card("Open threads",'<div class="list">'+threads+'</div>')+TM.card("Known schedule",'<div class="list">'+cal+'</div>')+'</div>';
 };
 
+TM.renderRecords=()=>{
+  const d=TM.S.data,records=d.records||{};
+  const streams=[
+    {key:"duty",label:"Duty",icon:"D",rows:records.dutyLogs||[],accent:"duty"},
+    {key:"science",label:"Science",icon:"S",rows:records.scienceFindings||[],accent:"science"},
+    {key:"mission",label:"Missions",icon:"M",rows:records.missionRecords||[],accent:"mission"},
+    {key:"relationship",label:"Relationships",icon:"R",rows:records.relationshipMilestones||[],accent:"relationship"},
+    {key:"ship",label:"Ship Events",icon:"A",rows:records.shipEvents||[],accent:"ship"}
+  ];
+  const count=streams.reduce((n,s)=>n+s.rows.length,0);
+  const active=TM.S.recordFilter||"all";
+  const selected=active==="all"?streams:streams.filter(s=>s.key===active);
+
+  const filters='<div class="record-filters">'+
+    '<button class="'+(active==="all"?"active":"")+'" data-record-filter="all">All <b>'+count+'</b></button>'+
+    streams.map(s=>'<button class="'+(active===s.key?"active":"")+'" data-record-filter="'+s.key+'">'+TM.esc(s.label)+' <b>'+s.rows.length+'</b></button>').join("")+
+  '</div>';
+
+  const overview='<div class="record-overview">'+streams.map(s=>
+    '<div class="record-stat '+s.accent+'"><span>'+s.icon+'</span><div><b>'+s.rows.length+'</b><small>'+TM.esc(s.label)+'</small></div></div>'
+  ).join("")+'</div>';
+
+  const cards=selected.map(stream=>{
+    const rows=[...stream.rows].sort((a,b)=>{
+      const ad=Number(a.stardate??a.startStardate??0),bd=Number(b.stardate??b.startStardate??0);
+      if(ad!==bd)return bd-ad;
+      return String(b.id||"").localeCompare(String(a.id||""));
+    });
+    const body=rows.length?rows.map(row=>{
+      const target=row.targetId?d.crew.materialized.find(p=>p.id===row.targetId):null;
+      const meta=[
+        row.stardate!=null?"SD "+row.stardate:(row.startStardate!=null?"SD "+row.startStardate:null),
+        row.shipTime||null,
+        row.status||null,
+        row.domain||null,
+        row.system||null,
+        target?target.name:null
+      ].filter(Boolean).join(" · ");
+      return '<article class="record-entry '+stream.accent+'">'+
+        '<div class="record-id">'+TM.esc(row.id)+'</div>'+
+        '<h4>'+TM.esc(row.title)+'</h4>'+
+        '<p>'+TM.esc(row.summary)+'</p>'+
+        '<small>'+TM.esc(meta||"Player-visible campaign record")+'</small>'+
+      '</article>';
+    }).join(""):TM.empty("No "+stream.label.toLowerCase()+" records yet. This stream will populate naturally during play.");
+    return '<section class="card record-stream"><div class="record-stream-head"><div><span class="record-glyph '+stream.accent+'">'+stream.icon+'</span><div><span>'+TM.esc(stream.label.toUpperCase())+'</span><b>'+stream.rows.length+' records</b></div></div></div><div class="record-list">'+body+'</div></section>';
+  }).join("");
+
+  TM.$("#view").innerHTML=
+    '<div class="records-header card"><div><div class="section-number">STARFLEET PERSONNEL RECORDS</div><h2>Career & Mission Archive</h2><p>Player-visible history only. Empty streams are intentional until Jeremy actually lives them.</p></div><div class="records-total"><b>'+count+'</b><span>CANONICAL RECORDS</span></div></div>'+
+    overview+filters+'<div class="records-grid">'+cards+'</div>';
+
+  document.querySelectorAll("[data-record-filter]").forEach(b=>b.onclick=()=>{
+    TM.S.recordFilter=b.dataset.recordFilter;
+    TM.renderRecords();
+  });
+};
+
+
 TM.renderTimeline=()=>{
   const rows=TM.S.data.timeline;
   const body=rows.length?rows.map(r=>'<div class="timeline-item"><div class="timeline-date">'+TM.esc(r.year)+' · '+(r.stardate?"SD "+TM.esc(r.stardate):"")+'</div><div class="timeline-title">'+TM.esc(r.title)+'</div><div class="timeline-copy">'+TM.esc(r.summary)+'</div></div>').join(""):TM.empty();
