@@ -1,6 +1,6 @@
-# Resolution system — proposed v1.0
+# Resolution system — v1.0
 
-Status: **proposal**.
+Status: **APPROVED BASELINE — 2026-10-06**.
 
 ## First question: should there be a roll?
 
