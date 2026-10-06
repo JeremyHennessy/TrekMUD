@@ -15,7 +15,7 @@ on:
       - .github/workflows/validate-player-console.yml
   push:
     branches:
-      - nebula-asteria-retcon
+      - player-console-v3
       - main
     paths:
       - ui/**
@@ -59,4 +59,5 @@ jobs:
           test -s _site/core.js
           test -s _site/views.js
           test -s _site/map.js
+          test -s _site/manifest.webmanifest
           test -s _site/data/player-console.json
