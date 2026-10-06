@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 2,
+  "characterCreationVersion": "1.1-organic",
+  "name": "Jeremy Hennessy",
+  "species": "Human",
+  "age": 30,
+  "pronouns": "he/him",
+  "homeworld": "Federation starbase upbringing; exact station intentionally unresolved",
+  "primaryDepartment": "Science"
+}

@@ -1,6 +1,31 @@
 {
-  "schemaVersion": 1,
-  "revision": 0,
-  "characterId": null,
-  "records": []
+  "characterId": "PC-001",
+  "records": [
+    {
+      "id": "QUAL-00001",
+      "name": "Starfleet Academy Graduate",
+      "source": "STARTING_ASSIGNMENT",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "QUAL-00002",
+      "name": "Basic EVA Qualification",
+      "source": "STARTING_ASSIGNMENT",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "QUAL-00003",
+      "name": "Starship Emergency Procedures",
+      "source": "STARTING_ASSIGNMENT",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "QUAL-00004",
+      "name": "Science Sensor and Laboratory Qualification",
+      "source": "STARTING_ASSIGNMENT",
+      "status": "ACTIVE"
+    }
+  ],
+  "revision": 1,
+  "schemaVersion": 1
 }

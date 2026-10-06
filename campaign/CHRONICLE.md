@@ -12,3 +12,14 @@ Append-only campaign record. The game has **not started** yet.
 - Repository state is the continuity authority across chats.
 
 Narrative Scene One remains unplayed until mechanics and character creation are approved.
+
+## Character creation — revision 1
+
+- Jeremy Hennessy established as a Human Starfleet Ensign.
+- Homeworld/upbringing: Federation starbase upbringing; exact station intentionally unresolved.
+- Department: Science.
+- Billet: Junior Science Officer.
+- Rules upgraded from historical r00000 v1.0 to Rules v1.1 Organic Character Discovery.
+- Attributes, Academy cross-training, specialties, interests and detailed background remain intentionally unresolved.
+- Opening position remains Transporter Room 2 at 1217 hours; no narrative action has occurred.
+

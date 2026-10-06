@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "revision": 0,
-  "characterId": null,
-  "relationships": []
+  "characterId": "PC-001",
+  "relationships": [],
+  "revision": 1,
+  "schemaVersion": 1
 }

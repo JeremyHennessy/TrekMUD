@@ -1,6 +1,31 @@
 {
-  "schemaVersion": 1,
-  "revision": 0,
-  "characterId": null,
-  "facts": []
+  "characterId": "PC-001",
+  "facts": [
+    {
+      "fact": "Assigned vessel is USS Meridian, NCC-63542, Akira-class.",
+      "id": "KN-00001",
+      "source": "STARFLEET_ASSIGNMENT",
+      "subject": "USS Meridian"
+    },
+    {
+      "fact": "Assigned quarters are Deck 7, Section 12, cabin 0712-C.",
+      "id": "KN-00002",
+      "source": "PERSONNEL_TRANSFER",
+      "subject": "Quarters"
+    },
+    {
+      "fact": "Ship orientation is scheduled for 1400 hours.",
+      "id": "KN-00003",
+      "source": "PERSONNEL_TRANSFER",
+      "subject": "Orientation"
+    },
+    {
+      "fact": "Report to department head at 1530 hours.",
+      "id": "KN-00004",
+      "source": "PERSONNEL_TRANSFER",
+      "subject": "Department"
+    }
+  ],
+  "revision": 1,
+  "schemaVersion": 1
 }

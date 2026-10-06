@@ -1,6 +1,31 @@
 {
-  "schemaVersion": 1,
-  "revision": 0,
-  "characterId": null,
-  "items": []
+  "characterId": "PC-001",
+  "items": [
+    {
+      "category": "PERSONAL_ISSUE",
+      "id": "ITEM-00001",
+      "name": "Starfleet duty uniform",
+      "status": "IN_POSSESSION"
+    },
+    {
+      "category": "PERSONAL_ISSUE",
+      "id": "ITEM-00002",
+      "name": "Starfleet combadge",
+      "status": "IN_POSSESSION"
+    },
+    {
+      "category": "PERSONAL_ISSUE",
+      "id": "ITEM-00003",
+      "name": "Personal PADD",
+      "status": "IN_POSSESSION"
+    },
+    {
+      "category": "PERSONAL",
+      "id": "ITEM-00004",
+      "name": "Starfleet duffel and personal effects",
+      "status": "IN_POSSESSION"
+    }
+  ],
+  "revision": 1,
+  "schemaVersion": 1
 }

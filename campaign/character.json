@@ -1,6 +1,73 @@
 {
+  "character": {
+    "age": 30,
+    "assignment": {
+      "registry": "NCC-63542",
+      "shipId": "USS-MERIDIAN",
+      "shipName": "USS Meridian",
+      "startStardate": 49317.4,
+      "startYear": 2372
+    },
+    "attributes": {
+      "Intellect": null,
+      "Perception": null,
+      "Physical": null,
+      "Presence": null,
+      "Resolve": null
+    },
+    "billet": "Junior Science Officer",
+    "creationMode": "ORGANIC_DISCOVERY_V1_1",
+    "department": "Science",
+    "departmentId": "SCIENCE",
+    "discoveryState": {
+      "academyRank1SlotsRemaining": 3,
+      "attributePoolRemaining": [
+        2,
+        2,
+        1,
+        1,
+        1
+      ],
+      "backgroundFacts": [],
+      "departmentSpecialtyAvailable": true,
+      "developmentAreas": [],
+      "locks": [],
+      "personalInterests": [],
+      "secondarySpecialtyAvailable": true,
+      "traits": []
+    },
+    "health": {
+      "conditions": [],
+      "fatigue": 0,
+      "injuryState": "Healthy"
+    },
+    "homeworld": "Federation starbase upbringing; exact station intentionally unresolved",
+    "id": "PC-001",
+    "name": "Jeremy Hennessy",
+    "primaryShift": null,
+    "primarySpecialty": null,
+    "pronouns": "he/him",
+    "quartersId": "MER-D07-S12-0712C",
+    "rank": "Ensign",
+    "secondarySpecialty": null,
+    "skills": {
+      "Command": null,
+      "Computers": null,
+      "Conn / Flight Control": null,
+      "Counseling": null,
+      "Diplomacy / Protocol": null,
+      "Engineering": null,
+      "Investigation": null,
+      "Medicine": null,
+      "Operations": null,
+      "Science": 2,
+      "Security": null,
+      "Survival / Fieldcraft": null,
+      "Tactical": null
+    },
+    "species": "Human"
+  },
+  "revision": 1,
   "schemaVersion": 1,
-  "revision": 0,
-  "status": "UNCREATED",
-  "character": null
+  "status": "CREATED_DISCOVERING"
 }

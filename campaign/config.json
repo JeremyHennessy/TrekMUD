@@ -1,43 +1,44 @@
 {
-  "schemaVersion": 1,
-  "campaignName": "TrekMUD: USS Meridian",
-  "status": "pre_character_creation",
-  "start": {
-    "year": 2372,
-    "stardate": 49317.4,
-    "ship": "USS Meridian",
-    "shipClass": "Akira-class",
-    "playerRank": "Ensign",
-    "registry": "NCC-63542",
-    "location": "Starbase 375",
-    "arrivalLocationId": "MER-D09-TR-02",
-    "quartersId": "MER-D07-S12-0712C"
+  "baselines": {
+    "crew": "4fd20fd79c493735199fd1c8513fd8b0560fca32",
+    "lore": "584e27b794c0a4c82d06d580621fd93c632fe312",
+    "rules": "d0feb35647e2a9dc43aa19f8930f709a4fd61b5b",
+    "stateEngine": "f96ccdee9dcbd096b42c187539efaf71fbbed914",
+    "topology": "bf9b0f0b94e4853d471b178d6ad8fb0e50d625a9"
   },
+  "campaignName": "TrekMUD: USS Meridian",
+  "characterCreationVersion": "1.1-organic",
   "era": {
+    "futureCanonIsGMOnly": true,
+    "playerKnowledgeCutoffYear": 2372,
     "primarySeries": [
       "TNG",
       "DS9"
     ],
-    "primaryYearStart": 2364,
     "primaryYearEnd": 2375,
-    "playerKnowledgeCutoffYear": 2372,
-    "futureCanonIsGMOnly": true
+    "primaryYearStart": 2364
   },
   "persistence": {
-    "repositoryIsAuthoritative": true,
+    "appendOnlyChronicle": true,
     "approvedCheckpointsAreImmutable": true,
-    "appendOnlyChronicle": true
+    "repositoryIsAuthoritative": true
   },
+  "rulesVersion": "1.1",
+  "schemaVersion": 1,
   "spoilerSafety": {
-    "publicRepository": true,
-    "commitHiddenGMState": false
+    "commitHiddenGMState": false,
+    "publicRepository": true
   },
-  "rulesVersion": "1.0",
-  "baselines": {
-    "stateEngine": "f96ccdee9dcbd096b42c187539efaf71fbbed914",
-    "rules": "d0feb35647e2a9dc43aa19f8930f709a4fd61b5b",
-    "topology": "bf9b0f0b94e4853d471b178d6ad8fb0e50d625a9",
-    "lore": "584e27b794c0a4c82d06d580621fd93c632fe312",
-    "crew": "4fd20fd79c493735199fd1c8513fd8b0560fca32"
-  }
+  "start": {
+    "arrivalLocationId": "MER-D09-TR-02",
+    "location": "Starbase 375",
+    "playerRank": "Ensign",
+    "quartersId": "MER-D07-S12-0712C",
+    "registry": "NCC-63542",
+    "ship": "USS Meridian",
+    "shipClass": "Akira-class",
+    "stardate": 49317.4,
+    "year": 2372
+  },
+  "status": "ready_to_start"
 }

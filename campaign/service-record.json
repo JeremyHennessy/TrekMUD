@@ -1,6 +1,18 @@
 {
-  "schemaVersion": 1,
-  "revision": 0,
-  "characterId": null,
-  "events": []
+  "characterId": "PC-001",
+  "events": [
+    {
+      "billet": "Junior Science Officer",
+      "department": "Science",
+      "id": "SR-00001",
+      "rank": "Ensign",
+      "shipId": "USS-MERIDIAN",
+      "stardate": 49317.4,
+      "summary": "Reported aboard USS Meridian for initial assignment.",
+      "type": "ASSIGNMENT",
+      "year": 2372
+    }
+  ],
+  "revision": 1,
+  "schemaVersion": 1
 }

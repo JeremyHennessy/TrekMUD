@@ -1,5 +1,13 @@
 {
+  "revision": 1,
   "schemaVersion": 1,
-  "revision": 0,
-  "threads": []
+  "threads": [
+    {
+      "id": "TH-00001",
+      "status": "ACTIVE",
+      "summary": "Complete orientation, settle into quarters and report to the department head.",
+      "title": "Report aboard USS Meridian",
+      "type": "ONBOARDING"
+    }
+  ]
 }

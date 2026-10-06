@@ -1,7 +1,9 @@
 {
-  "activeThreadIds": [],
+  "activeThreadIds": [
+    "TH-00001"
+  ],
   "checkpoint": {
-    "lastCheckpointId": "r00000",
+    "lastCheckpointId": "r00001",
     "validated": true
   },
   "components": {
@@ -24,11 +26,11 @@
     "year": 2372
   },
   "player": {
-    "characterId": null,
-    "locationId": null
+    "characterId": "PC-001",
+    "locationId": "MER-D09-TR-02"
   },
-  "revision": 0,
-  "rulesVersion": "1.0",
+  "revision": 1,
+  "rulesVersion": "1.1",
   "schemaVersion": 1,
   "ship": {
     "alertCondition": "normal",
@@ -41,5 +43,5 @@
     "name": "USS Meridian",
     "registry": "NCC-63542"
   },
-  "status": "NOT_STARTED"
+  "status": "READY_TO_START"
 }
