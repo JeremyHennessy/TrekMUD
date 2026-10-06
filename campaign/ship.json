@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "revision": 0,
+  "ship": {
+    "id": "USS-MERIDIAN",
+    "name": "USS Meridian",
+    "class": "Akira-class",
+    "registry": null,
+    "commissioned": null,
+    "commandingOfficerId": null,
+    "executiveOfficerId": null,
+    "location": null,
+    "mission": null,
+    "alertCondition": "normal",
+    "damage": [],
+    "systems": {}
+  }
+}
