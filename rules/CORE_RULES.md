@@ -1,8 +1,8 @@
-# TrekMUD Core Rules — proposed v1.0
+# TrekMUD Core Rules — v1.0
 
-Status: **UNAPPROVED PROPOSAL**.
+Status: **APPROVED BASELINE — 2026-10-06**.
 
-This branch is the candidate rules package for the campaign. Nothing becomes locked Rules v1.0 until Jeremy explicitly approves the package.
+These rules are the locked TrekMUD v1.0 campaign baseline. Future changes require an explicit versioned rules revision; they are never applied silently.
 
 ## Design principles
 
@@ -18,7 +18,7 @@ This branch is the candidate rules package for the campaign. Nothing becomes loc
 10. **Canon is a constraint, not a railroad.** Canon defines the wider setting. TrekMUD's ship and crew develop their own history.
 11. **State beats memory.** Repository state and committed checkpoints are authoritative when chats disagree.
 
-## Proposed v1.0 package
+## Rules v1.0 package
 
 - `OPEN_PLAY.md` — free-form action, non-railroad GMing, improvisation and persistent setting fill
 - `ATTRIBUTES_SKILLS.md` — attributes, broad skills, specialties, qualifications and starting-Ensign baseline
@@ -27,7 +27,7 @@ This branch is the candidate rules package for the campaign. Nothing becomes loc
 - `ADVANCEMENT.md` — skill evidence, promotion readiness, billets and transfers
 - `RELATIONSHIPS.md` — player-visible relationships and persistent NPC materialization
 - `RNG.md` — deterministic SHA-256 counter RNG and audit policy
-- `CAREER.md` — Starfleet rank/billet structure already established in draft v0.9
+- `CAREER.md` — Starfleet rank/billet structure, specialties and career progression
 
 ## Resolution summary
 
@@ -62,12 +62,14 @@ A campaign checkpoint is required after:
 
 The player-visible state engine validates all revisioned component files as one snapshot. Checkpoints are content-hashed and immutable once committed.
 
-## Locking procedure
+## Baseline protection
 
-When the rules are approved:
+Rules v1.0 is immutable as an approved baseline.
 
-1. record the exact approved commit SHA;
-2. change the package status from proposal to approved;
-3. set campaign `rulesVersion` to `1.0`;
-4. create a rules changelog entry;
-5. never alter v1.0 silently—future changes become explicit versioned revisions.
+Any future mechanical change must:
+
+1. be proposed separately from live campaign state;
+2. identify the exact v1.0 behavior being changed;
+3. preserve existing campaign history;
+4. receive explicit approval;
+5. create a new versioned rules entry rather than silently rewriting v1.0.
