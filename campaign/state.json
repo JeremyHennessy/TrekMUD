@@ -34,9 +34,12 @@
     "id": "USS-MERIDIAN",
     "name": "USS Meridian",
     "class": "Akira-class",
-    "location": null,
+    "location": "Starbase 375",
     "mission": null,
-    "alertCondition": "normal"
+    "alertCondition": "normal",
+    "registry": "NCC-63542",
+    "commandingOfficerId": "CREW-001",
+    "executiveOfficerId": "CREW-002"
   },
   "activeThreadIds": []
 }
