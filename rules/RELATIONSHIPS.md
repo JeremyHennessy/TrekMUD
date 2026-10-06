@@ -1,6 +1,6 @@
-# Relationships and NPC continuity — proposed v1.0
+# Relationships and NPC continuity — v1.0
 
-Status: **proposal**.
+Status: **APPROVED BASELINE — 2026-10-06**.
 
 ## Relationships are not a persuasion score
 
