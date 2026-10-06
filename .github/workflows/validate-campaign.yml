@@ -63,18 +63,47 @@ jobs:
         run: |
           tmp="$(mktemp -d)"
           cp -R campaign "$tmp/campaign"
-          python scripts/create_checkpoint.py --root "$tmp" --summary "CI checkpoint fixture"
-          test -f "$tmp/campaign/checkpoints/r00000.json"
-          python scripts/validate_campaign.py --root "$tmp"
-          python - "$tmp/campaign/state.json" "$tmp/campaign/checkpoints/r00000.json" <<'PY'
+          python - "$tmp/campaign" <<'PY'
           import json
           import sys
           from pathlib import Path
+
+          campaign = Path(sys.argv[1])
+          state_path = campaign / "state.json"
+          state = json.loads(state_path.read_text())
+          revision = state["revision"]
+          checkpoint_id = f"r{revision:05d}"
+          checkpoint_path = campaign / "checkpoints" / f"{checkpoint_id}.json"
+
+          previous_id = None
+          if checkpoint_path.exists():
+              manifest = json.loads(checkpoint_path.read_text())
+              previous_id = manifest.get("previousCheckpointId")
+              checkpoint_path.unlink()
+
+          state["checkpoint"] = {
+              "lastCheckpointId": previous_id,
+              "validated": False,
+          }
+          state_path.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n")
+          print(f"fixture reset to immediately before {checkpoint_id}")
+          PY
+          python scripts/create_checkpoint.py --root "$tmp" --summary "CI checkpoint fixture"
+          python scripts/validate_campaign.py --root "$tmp"
+          python - "$tmp/campaign/state.json" "$tmp/campaign/checkpoints" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
           state = json.loads(Path(sys.argv[1]).read_text())
-          checkpoint = json.loads(Path(sys.argv[2]).read_text())
-          assert state["checkpoint"]["lastCheckpointId"] == "r00000"
+          revision = state["revision"]
+          checkpoint_id = f"r{revision:05d}"
+          checkpoint_path = Path(sys.argv[2]) / f"{checkpoint_id}.json"
+          checkpoint = json.loads(checkpoint_path.read_text())
+
+          assert state["checkpoint"]["lastCheckpointId"] == checkpoint_id
           assert state["checkpoint"]["validated"] is True
-          assert checkpoint["revision"] == 0
+          assert checkpoint["revision"] == revision
           assert checkpoint["validation"]["valid"] is True
-          print("checkpoint fixture verified")
+          print(f"{checkpoint_id} fixture verified")
           PY

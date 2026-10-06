@@ -1,45 +1,45 @@
 {
-  "schemaVersion": 1,
-  "revision": 0,
-  "status": "NOT_STARTED",
-  "rulesVersion": "1.0",
+  "activeThreadIds": [],
   "checkpoint": {
-    "lastCheckpointId": null,
-    "validated": false
+    "lastCheckpointId": "r00000",
+    "validated": true
   },
   "components": {
-    "character": "campaign/character.json",
-    "serviceRecord": "campaign/service-record.json",
-    "qualifications": "campaign/qualifications.json",
-    "inventory": "campaign/inventory.json",
-    "crew": "campaign/crew.json",
-    "relationships": "campaign/relationships.json",
-    "knowledge": "campaign/knowledge.json",
     "activeThreads": "campaign/active-threads.json",
     "calendar": "campaign/calendar.json",
-    "ship": "campaign/ship.json",
+    "character": "campaign/character.json",
+    "crew": "campaign/crew.json",
+    "inventory": "campaign/inventory.json",
+    "knowledge": "campaign/knowledge.json",
     "locations": "campaign/locations.json",
-    "rng": "campaign/rng.json"
+    "qualifications": "campaign/qualifications.json",
+    "relationships": "campaign/relationships.json",
+    "rng": "campaign/rng.json",
+    "serviceRecord": "campaign/service-record.json",
+    "ship": "campaign/ship.json"
   },
   "currentTime": {
-    "year": 2372,
+    "shipTime": "12:17",
     "stardate": 49317.4,
-    "shipTime": "12:17"
+    "year": 2372
   },
   "player": {
     "characterId": null,
     "locationId": null
   },
+  "revision": 0,
+  "rulesVersion": "1.0",
+  "schemaVersion": 1,
   "ship": {
-    "id": "USS-MERIDIAN",
-    "name": "USS Meridian",
+    "alertCondition": "normal",
     "class": "Akira-class",
+    "commandingOfficerId": "CREW-001",
+    "executiveOfficerId": "CREW-002",
+    "id": "USS-MERIDIAN",
     "location": "Starbase 375",
     "mission": null,
-    "alertCondition": "normal",
-    "registry": "NCC-63542",
-    "commandingOfficerId": "CREW-001",
-    "executiveOfficerId": "CREW-002"
+    "name": "USS Meridian",
+    "registry": "NCC-63542"
   },
-  "activeThreadIds": []
+  "status": "NOT_STARTED"
 }
