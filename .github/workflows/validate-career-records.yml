@@ -103,6 +103,8 @@ jobs:
         run: |
           tmp="$(mktemp -d)"
           cp -R campaign "$tmp/campaign"
+          mkdir -p "$tmp/world"
+          cp -R world/asteria "$tmp/world/asteria"
           python scripts/apply_player_records.py --root "$tmp" --input tests/fixtures/player-records-demo.json
           python - "$tmp" <<'PY'
           import json
