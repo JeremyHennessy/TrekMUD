@@ -71,6 +71,11 @@ def main() -> int:
     assert len(payload["map"]["locations"]) == 131
     assert len(payload["map"]["edges"]) == 138
     assert len(payload["map"]["deckNumbers"]) == 19
+    assert len(payload["map"]["profile"]) == 19
+    assert payload["map"]["currentDeck"] == 9
+    assert set(payload["map"]["deckPlans"]) == {str(i) for i in range(1, 20)}
+    assert payload["map"]["deckPlans"]["9"]["label"] == "Transport & Operations"
+    assert payload["map"]["deckPlans"]["9"]["compartmentCount"] >= 4
 
     # Organic character state must remain visibly unresolved instead of being
     # silently converted to zeroes by the presentation layer.
