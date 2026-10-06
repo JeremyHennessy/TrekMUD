@@ -6,9 +6,18 @@ on:
       - checkpoint-r00000
     paths:
       - .github/workflows/bootstrap-r00000.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - .github/workflows/bootstrap-r00000.yml
 
 permissions:
   contents: write
+
+concurrency:
+  group: bootstrap-r00000
+  cancel-in-progress: false
 
 jobs:
   checkpoint:
@@ -27,16 +36,25 @@ jobs:
       - name: Validate pre-character campaign
         run: python scripts/validate_campaign.py
 
-      - name: Create r00000
-        run: python scripts/create_checkpoint.py --summary "Pre-character world baseline"
+      - name: Create r00000 if absent
+        run: |
+          if [ -f campaign/checkpoints/r00000.json ]; then
+            echo "r00000 already exists"
+          else
+            python scripts/create_checkpoint.py --summary "Pre-character world baseline"
+          fi
 
       - name: Validate checkpointed state
         run: |
           test -f campaign/checkpoints/r00000.json
           python scripts/validate_campaign.py
 
-      - name: Commit checkpoint
+      - name: Commit checkpoint if changed
         run: |
+          if git diff --quiet -- campaign && [ -z "$(git status --porcelain -- campaign)" ]; then
+            echo "No checkpoint changes."
+            exit 0
+          fi
           git config user.name "trekmud-checkpoint-bot"
           git config user.email "actions@users.noreply.github.com"
           git add campaign
