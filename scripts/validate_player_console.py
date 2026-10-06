@@ -18,6 +18,7 @@ REQUIRED_ASSETS = {
     "core.js",
     "views.js",
     "map.js",
+    "manifest.webmanifest",
     ".nojekyll",
     "data/player-console.json",
     "data/build.json",
@@ -154,6 +155,10 @@ def main() -> int:
     index_html = (output / "index.html").read_text(encoding="utf-8")
     assert 'data-view="ship"' in index_html
     assert "USS Asteria" in index_html
+    assert 'rel="manifest"' in index_html
+    manifest = json.loads((output / "manifest.webmanifest").read_text(encoding="utf-8"))
+    assert manifest["short_name"] == "Asteria PADD"
+    assert manifest["display"] == "standalone"
 
     print(json.dumps({
         "valid": True,
