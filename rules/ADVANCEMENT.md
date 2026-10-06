@@ -1,6 +1,6 @@
-# Skill and career advancement — proposed v1.0
+# Skill and career advancement — v1.0
 
-Status: **proposal**.
+Status: **APPROVED BASELINE — 2026-10-06**.
 
 ## No XP total
 
