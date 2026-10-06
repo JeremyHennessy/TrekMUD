@@ -33,6 +33,39 @@ FORBIDDEN_TOKENS = {
 }
 
 
+def accessible_path(payload: dict, start: str, target: str) -> list[str]:
+    by_id = {row["id"]: row for row in payload["map"]["locations"]}
+    assert start in by_id and target in by_id
+    assert by_id[start].get("access") != "restricted"
+    assert by_id[target].get("access") != "restricted"
+
+    adjacency: dict[str, list[str]] = {}
+    for edge in payload["map"]["edges"]:
+        if edge.get("access") == "restricted":
+            continue
+        a, b = edge["from"], edge["to"]
+        if by_id[a].get("access") == "restricted" or by_id[b].get("access") == "restricted":
+            continue
+        adjacency.setdefault(a, []).append(b)
+        if edge.get("bidirectional", True):
+            adjacency.setdefault(b, []).append(a)
+
+    queue = [start]
+    previous: dict[str, str | None] = {start: None}
+    for current in queue:
+        for nxt in adjacency.get(current, []):
+            if nxt in previous:
+                continue
+            previous[nxt] = current
+            if nxt == target:
+                path = [nxt]
+                while previous[path[-1]] is not None:
+                    path.append(previous[path[-1]])
+                return list(reversed(path))
+            queue.append(nxt)
+    return []
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--keep", type=Path)
@@ -69,6 +102,11 @@ def main() -> int:
     assert payload["ship"]["id"] == "USS-ASTERIA"
     assert payload["ship"]["name"] == "USS Asteria"
     assert payload["ship"]["class"] == "Nebula-class"
+    assert payload["shipProfile"]["lengthMeters"] == 442.23
+    assert payload["shipProfile"]["maximumWarp"] == 9.5
+    assert payload["shipProfile"]["deckCount"] == 28
+    assert payload["shipProfile"]["podLevels"] == 4
+    assert "sensor/science pod" in payload["shipProfile"]["missionPod"].lower()
     assert payload["crew"]["materializedCount"] == 20
     assert payload["crew"]["nominalComplement"] == 750
     assert payload["crew"]["backgroundCount"] == 729
@@ -83,6 +121,18 @@ def main() -> int:
     assert payload["map"]["shipSilhouette"] == "nebula"
     assert set(payload["map"]["deckPlans"]) == {str(i) for i in range(1, 29)}
     assert set(payload["map"]["podPlans"]) == {"P1", "P2", "P3", "P4"}
+
+    # Standard-access PADD routes used by the console must remain traversable
+    # without crossing restricted rooms or restricted graph edges.
+    start = "AST-D09-TR-02"
+    for destination in (
+        "AST-D07-S12-0712C",
+        "AST-D04-SCI-OFFICE",
+        "AST-D06-SICKBAY",
+        "AST-D12-MESS",
+    ):
+        path = accessible_path(payload, start, destination)
+        assert path and path[0] == start and path[-1] == destination
 
     # Organic character state must remain visibly unresolved instead of being
     # silently converted to zeroes by the presentation layer.
@@ -100,6 +150,10 @@ def main() -> int:
     # console; keeping it out also prevents accidental coupling to GM storage.
     assert "publicCommitment" not in public_json
     assert payload["rng"]["counter"] == 0
+
+    index_html = (output / "index.html").read_text(encoding="utf-8")
+    assert 'data-view="ship"' in index_html
+    assert "USS Asteria" in index_html
 
     print(json.dumps({
         "valid": True,
