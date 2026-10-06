@@ -179,6 +179,9 @@ def validate(root: Path) -> dict[str, Any]:
                     "academyRank1SlotsRemaining must be 0-3")
             require(rank1_count + training_remaining == 3,
                     "rank-1 skills + remaining Academy slots must total 3")
+            if training_remaining == 0:
+                require(all(value is not None for value in skills.values()),
+                        "when Academy rank-1 slots are exhausted, remaining skills must resolve to rank 0")
 
             primary_specialty = payload.get("primarySpecialty")
             secondary_specialty = payload.get("secondarySpecialty")
@@ -193,9 +196,31 @@ def validate(root: Path) -> dict[str, Any]:
             require((secondary_specialty is None) == secondary_available,
                     "secondary specialty availability must match whether it is unresolved")
 
+            if primary_specialty is not None:
+                require(isinstance(primary_specialty, dict),
+                        "primarySpecialty must be null or an object")
+                primary_skill = primary_specialty.get("skill")
+                require(skills.get(primary_skill) == 2,
+                        "department specialty must belong to the rank-2 department skill")
+                require(isinstance(primary_specialty.get("name"), str) and primary_specialty["name"],
+                        "primarySpecialty.name is required")
+
+            if secondary_specialty is not None:
+                require(isinstance(secondary_specialty, dict),
+                        "secondarySpecialty must be null or an object")
+                secondary_skill = secondary_specialty.get("skill")
+                require(skills.get(secondary_skill) in {1, 2},
+                        "secondary specialty requires an established rank-1 or rank-2 skill")
+                require(isinstance(secondary_specialty.get("name"), str) and secondary_specialty["name"],
+                        "secondarySpecialty.name is required")
+
             for key in ("backgroundFacts", "personalInterests", "developmentAreas", "traits", "locks"):
                 require(isinstance(discovery.get(key), list),
                         f"discoveryState.{key} must be a list")
+
+            locks = discovery.get("locks", [])
+            lock_ids = unique_ids(locks, "id", "character discovery locks") if locks else set()
+            _ = lock_ids
 
     require(calendar.get("current") == state.get("currentTime"),
             "calendar.current must exactly match state.currentTime")
