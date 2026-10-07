@@ -31,7 +31,7 @@ If validation fails, the previous committed checkpoint remains authoritative.
 - `knowledge.json` — facts the player character actually knows
 - `active-threads.json` — unresolved player-visible story/career threads
 - `calendar.json` — scheduled duties, appointments and known future commitments
-- `ship.json` — current player-visible state of USS Meridian
+- `ship.json` — current player-visible state of USS Asteria
 - `locations.json` — authoritative ship/location topology visible to the campaign
 - `rng.json` — deterministic RNG metadata; secret seed is not stored while the repository is public
 - `records.json` — structured player-visible Duty, Science, Mission, Relationship, and Ship Event history
