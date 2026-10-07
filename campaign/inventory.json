@@ -22,10 +22,12 @@
     {
       "category": "PERSONAL",
       "id": "ITEM-00004",
+      "locationId": "AST-D07-S12-0712C",
       "name": "Starfleet duffel and personal effects",
+      "note": "Personal effects unpacked and settled into assigned quarters.",
       "status": "IN_POSSESSION"
     }
   ],
-  "revision": 7,
+  "revision": 8,
   "schemaVersion": 1
 }

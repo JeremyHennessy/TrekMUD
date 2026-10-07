@@ -3,7 +3,7 @@
     "TH-00001"
   ],
   "checkpoint": {
-    "lastCheckpointId": "r00007",
+    "lastCheckpointId": "r00008",
     "validated": true
   },
   "components": {
@@ -22,7 +22,7 @@
     "ship": "campaign/ship.json"
   },
   "currentTime": {
-    "shipTime": "12:23",
+    "shipTime": "12:40",
     "stardate": 49317.4,
     "year": 2372
   },
@@ -30,7 +30,7 @@
     "characterId": "PC-001",
     "locationId": "AST-D07-S12-0712C"
   },
-  "revision": 7,
+  "revision": 8,
   "rulesVersion": "1.1",
   "schemaVersion": 1,
   "ship": {

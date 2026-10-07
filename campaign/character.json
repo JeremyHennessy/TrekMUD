@@ -29,7 +29,8 @@
         1
       ],
       "backgroundFacts": [
-        "DS 2 station is home; Jeremy returned there after completing Starfleet Academy."
+        "DS 2 station is home; Jeremy returned there after completing Starfleet Academy.",
+        "Growing up on DS 2, Jeremy watched exploration vessels come and go and knew he wanted a life of shipboard exploration, despite a small temptation to remain on a station."
       ],
       "departmentSpecialtyAvailable": true,
       "developmentAreas": [],
@@ -42,6 +43,16 @@
           "stardate": 49317.4,
           "type": "background-fact",
           "value": "DS 2 station is home; Jeremy returned there after completing Starfleet Academy.",
+          "year": 2372
+        },
+        {
+          "id": "DISC-00002",
+          "note": "Jeremy explained his motivation to Brel Joras during their arrival conversation.",
+          "revision": 8,
+          "source": "PLAYER_DECLARATION",
+          "stardate": 49317.4,
+          "type": "background-fact",
+          "value": "Growing up on DS 2, Jeremy watched exploration vessels come and go and knew he wanted a life of shipboard exploration, despite a small temptation to remain on a station.",
           "year": 2372
         }
       ],
@@ -80,7 +91,7 @@
     },
     "species": "Human"
   },
-  "revision": 7,
+  "revision": 8,
   "schemaVersion": 1,
   "status": "CREATED_DISCOVERING"
 }

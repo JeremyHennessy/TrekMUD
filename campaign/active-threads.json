@@ -1,11 +1,11 @@
 {
-  "revision": 7,
+  "revision": 8,
   "schemaVersion": 1,
   "threads": [
     {
       "id": "TH-00001",
       "status": "ACTIVE",
-      "summary": "Complete orientation, settle into quarters and report to the department head.",
+      "summary": "Quarters 0712-C reached and settled into. Attend orientation at 14:00, then report to the department head at 15:30.",
       "title": "Report aboard USS Asteria",
       "type": "ONBOARDING"
     }

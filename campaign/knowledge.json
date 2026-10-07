@@ -42,8 +42,14 @@
       "id": "KN-00007",
       "source": "FIRSTHAND_CONVERSATION",
       "subject": "Brel Joras"
+    },
+    {
+      "fact": "Jeremy has settled into quarters 0712-C. The cabin has a bed, desk terminal, storage and a window with a view into space.",
+      "id": "KN-00008",
+      "source": "FIRSTHAND_OBSERVATION",
+      "subject": "Quarters 0712-C"
     }
   ],
-  "revision": 7,
+  "revision": 8,
   "schemaVersion": 1
 }

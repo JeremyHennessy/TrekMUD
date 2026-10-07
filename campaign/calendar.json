@@ -1,6 +1,6 @@
 {
   "current": {
-    "shipTime": "12:23",
+    "shipTime": "12:40",
     "stardate": 49317.4,
     "year": 2372
   },
@@ -22,6 +22,6 @@
       "year": 2372
     }
   ],
-  "revision": 7,
+  "revision": 8,
   "schemaVersion": 1
 }

@@ -63,3 +63,8 @@ Narrative Scene One remains unplayed until mechanics and character creation are 
 - background-fact established: DS 2 station is home; Jeremy returned there after completing Starfleet Academy. (DISC-00001)
 - At the doorway of quarters 0712-C, Brel said he had come from transporter training on Earth via Starbase 375. Jeremy's quarters have a bed, desk terminal and storage, as observed on arrival.
 - Ship time remains 12:23; no movement, roll or mechanical starting resource was consumed.
+
+## Scene state — revision 8
+
+- Jeremy said farewell to Brel Joras, saying he would see him at orientation; Brel agreed and departed. Jeremy entered quarters 0712-C, unpacked and settled in, then looked out of his cabin window at the stars with appreciation and excitement for the adventure ahead. His earlier conversation established that watching exploration vessels come and go at DS 2 inspired his wish for a shipboard exploration career, despite some temptation to remain on the station.
+- time 12:23 -> 12:40.

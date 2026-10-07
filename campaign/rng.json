@@ -3,7 +3,7 @@
   "counter": 0,
   "note": "Secret seed is stored only in synchronized private TrekMUD-GM state. This public file contains only its SHA-256 commitment and consumed counter.",
   "publicCommitment": "7fcb8273a412f1365dc155b28c48e96108335a0419768f11ec1fd13b08d3b513",
-  "revision": 7,
+  "revision": 8,
   "schemaVersion": 1,
   "status": "INITIALIZED"
 }

@@ -1,0 +1,37 @@
+{
+  "checkpointId": "r00008",
+  "createdAt": "2026-10-07T12:03:19.644077+00:00",
+  "files": {
+    "campaign/CHRONICLE.md": "7d5842e1dc55780965aa47adec66fd0395e14294f92ac5b0ec4a044229cf1141",
+    "campaign/active-threads.json": "119f2c7d4190acb9e8d4f1d284ba25337617592b6d5d051d36f7434c74fdd3a2",
+    "campaign/calendar.json": "4b959fedd08d10a6f064f6471a7b4a96cada0c91705aa5ec7f85a76f74df144f",
+    "campaign/character.json": "2c5cc92b325ecf5b7d2ebbbb377a6205d124c50d315041e3efe38be1a4b7a5aa",
+    "campaign/config.json": "24320dede2d9fc48c79b45baa0e3f9bbc35ff44bf0b1094ed4d9bd5f69d4f425",
+    "campaign/crew.json": "4820011eb1659c02c8dbf0d0a9bf9eaff8406046496e34fa1e7c43619ceb4a15",
+    "campaign/inventory.json": "ed9fae072b2bbe2e74eae10deb72505a870146c8d9deae26e232ec87a4cfe6c2",
+    "campaign/knowledge.json": "4948dab64f75aa4bb1ccfee73ca402dc5742cbf4346298432dc942da7ce3e629",
+    "campaign/locations.json": "b2879d58db66dd8b232abee654c8d497548f5a23b9e820e3e611b7b0e2870343",
+    "campaign/qualifications.json": "b270c0af8763aa83d4839cb792f8033636368154622ee2285d8753b4e1d570b9",
+    "campaign/records.json": "7c2689ed6828b5ad8a93829808003ee62a319f1677ab9a40b24a635e1e790cff",
+    "campaign/relationships.json": "008b67b7aaf3e36543a010f3a69d1ea121e1f9e71378349f7722158c63eb10cc",
+    "campaign/rng.json": "1be9cc5be2e3e721b933a96253bce5f2f404a801fd05afc320bd41ab437b521c",
+    "campaign/service-record.json": "4b569529fb6c92990d1f396126c84df7786f46142201a1bf948ee0f0998448c5",
+    "campaign/ship.json": "54d3988643ea85949050345008d59115fe4654979f73fd63e68d09df895a9de5",
+    "campaign/state.json": "4c036dea6ce8fee2f2db84b75a7c13a004e9c7063e3554935e174435dc944039"
+  },
+  "previousCheckpointId": "r00007",
+  "revision": 8,
+  "rulesVersion": "1.1",
+  "schemaVersion": 1,
+  "summary": "Settled into quarters; exploration ambition established",
+  "validation": {
+    "locations": 200,
+    "materializedCrew": 20,
+    "records": 0,
+    "revision": 8,
+    "rngCounter": 0,
+    "status": "ACTIVE",
+    "threads": 1,
+    "valid": true
+  }
+}

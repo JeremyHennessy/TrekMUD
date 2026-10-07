@@ -15,11 +15,11 @@
       "id": "REL-00002",
       "status": "MET",
       "subjectId": "PC-001",
-      "summary": "Brel Joras introduced himself as a transporter-systems crewman on his first posting aboard Asteria. He accompanied Jeremy to the doorway of quarters 0712-C.",
+      "summary": "Brel Joras introduced himself as a transporter-systems crewman on his first posting aboard Asteria. He accompanied Jeremy to the doorway of quarters 0712-C. Jeremy shared his DS 2 upbringing and interest in exploration. They said goodbye at the quarters and agreed to see each other at orientation.",
       "targetId": "CREW-013",
       "type": "New acquaintance"
     }
   ],
-  "revision": 7,
+  "revision": 8,
   "schemaVersion": 1
 }
