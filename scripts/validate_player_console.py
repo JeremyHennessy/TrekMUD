@@ -91,6 +91,12 @@ def main() -> int:
     character_doc = json.loads(
         (ROOT / "campaign/character.json").read_text(encoding="utf-8")
     )
+    records_doc = json.loads(
+        (ROOT / "campaign/records.json").read_text(encoding="utf-8")
+    )
+    rng_doc = json.loads(
+        (ROOT / "campaign/rng.json").read_text(encoding="utf-8")
+    )
     public_json = (output / "data/player-console.json").read_text(encoding="utf-8")
 
     assert payload["source"]["campaignRevision"] == state["revision"]
