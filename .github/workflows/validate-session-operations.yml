@@ -1,0 +1,101 @@
+name: Validate session operations
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - scripts/checkpoint_integrity.py
+      - scripts/build_resume_packet.py
+      - scripts/session_preflight.py
+      - scripts/apply_scene_state.py
+      - campaign/active-threads.json
+      - tests/fixtures/scene-first-move.json
+      - .github/workflows/validate-session-operations.yml
+  push:
+    branches:
+      - session-preflight-v1
+      - main
+    paths:
+      - scripts/checkpoint_integrity.py
+      - scripts/build_resume_packet.py
+      - scripts/session_preflight.py
+      - scripts/apply_scene_state.py
+      - campaign/active-threads.json
+      - tests/fixtures/scene-first-move.json
+      - .github/workflows/validate-session-operations.yml
+
+permissions:
+  contents: read
+
+jobs:
+  session:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile session tooling
+        run: python -m py_compile scripts/checkpoint_integrity.py scripts/build_resume_packet.py scripts/session_preflight.py scripts/apply_scene_state.py
+
+      - name: Verify canonical pre-session state
+        run: |
+          python scripts/session_preflight.py --write-json /tmp/resume.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          state=json.loads(Path("campaign/state.json").read_text())
+          packet=json.loads(Path("/tmp/resume.json").read_text())["resume"]
+          assert state["revision"] == 5
+          assert state["checkpoint"]["lastCheckpointId"] == "r00005"
+          assert packet["checkpointId"] == "r00005"
+          assert packet["campaignStatus"] == "READY_TO_START"
+          assert packet["currentTime"]["shipTime"] == "12:17"
+          assert packet["player"]["locationId"] == "AST-D09-TR-02"
+          assert packet["rng"]["counter"] == 0
+          PY
+
+      - name: Prove first-scene transition through disposable r00006
+        run: |
+          tmp="$(mktemp -d)"
+          cp -R campaign "$tmp/campaign"
+          mkdir -p "$tmp/world"
+          cp -R world/asteria "$tmp/world/asteria"
+
+          python scripts/apply_scene_state.py --root "$tmp" --input tests/fixtures/scene-first-move.json
+          python scripts/create_checkpoint.py --root "$tmp" --summary "CI first-scene transition"
+          python scripts/checkpoint_integrity.py --root "$tmp"
+          python scripts/session_preflight.py --root "$tmp" --write-json "$tmp/resume.json"
+
+          python - "$tmp" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          root=Path(sys.argv[1])
+          state=json.loads((root/"campaign/state.json").read_text())
+          rng=json.loads((root/"campaign/rng.json").read_text())
+          records=json.loads((root/"campaign/records.json").read_text())
+          cp=json.loads((root/"campaign/checkpoints/r00006.json").read_text())
+          packet=json.loads((root/"resume.json").read_text())["resume"]
+
+          assert state["revision"] == 6
+          assert state["checkpoint"]["lastCheckpointId"] == "r00006"
+          assert state["status"] == "ACTIVE"
+          assert state["currentTime"]["shipTime"] == "12:22"
+          assert state["currentTime"]["stardate"] == 49317.4
+          assert state["player"]["locationId"] == "AST-D09-HUB-C"
+          assert rng["counter"] == 0
+          assert sum(len(records[key]) for key in (
+              "dutyLogs","scienceFindings","missionRecords",
+              "relationshipMilestones","shipEvents"
+          )) == 0
+          assert cp["previousCheckpointId"] == "r00005"
+          assert cp["validation"]["valid"] is True
+          assert packet["checkpointId"] == "r00006"
+          assert packet["campaignStatus"] == "ACTIVE"
+          print("first-scene transition verified through r00006")
+          PY
