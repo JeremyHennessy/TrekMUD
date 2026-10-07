@@ -2,7 +2,7 @@
 
 Character creation is intentionally minimal.
 
-The player begins as a newly assigned **Starfleet Ensign** aboard USS Meridian. The campaign discovers most of the character through play rather than requiring a complete character sheet before Scene One.
+The player begins as a newly assigned **Starfleet Ensign** aboard USS Asteria. The campaign discovers most of the character through play rather than requiring a complete character sheet before Scene One.
 
 ## Required before r00001
 
@@ -41,7 +41,7 @@ At r00001, the following remain open unless the player has already volunteered t
 - weaknesses/development areas;
 - detailed Academy history;
 - family;
-- friendships before the Meridian;
+- friendships before the Asteria;
 - cultural habits;
 - personal history;
 - long-term career ambition;
