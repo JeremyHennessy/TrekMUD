@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import argparse
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -58,4 +59,7 @@ def verify(root:Path=ROOT)->dict:
     }
 
 if __name__=="__main__":
-    print(json.dumps(verify(ROOT),indent=2))
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--root",type=Path,default=ROOT)
+    args=parser.parse_args()
+    print(json.dumps(verify(args.root.resolve()),indent=2))
