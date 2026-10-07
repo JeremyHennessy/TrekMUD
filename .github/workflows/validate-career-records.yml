@@ -68,7 +68,7 @@ jobs:
           print("canonical records component verified")
           PY
 
-      - name: Prove all five record streams through disposable r00005
+      - name: Prove all five record streams through disposable r00006
         run: |
           tmp="$(mktemp -d)"
           cp -R campaign "$tmp/campaign"
@@ -84,10 +84,10 @@ jobs:
           root=Path(sys.argv[1])
           state=json.loads((root/"campaign/state.json").read_text())
           records=json.loads((root/"campaign/records.json").read_text())
-          cp=json.loads((root/"campaign/checkpoints/r00005.json").read_text())
+          cp=json.loads((root/"campaign/checkpoints/r00006.json").read_text())
 
-          assert state["revision"] == 5
-          assert state["checkpoint"]["lastCheckpointId"] == "r00005"
+          assert state["revision"] == 6
+          assert state["checkpoint"]["lastCheckpointId"] == "r00006"
           assert len(records["dutyLogs"]) == 1
           assert len(records["scienceFindings"]) == 1
           assert len(records["missionRecords"]) == 1
@@ -95,11 +95,11 @@ jobs:
           assert len(records["shipEvents"]) == 1
           assert records["relationshipMilestones"][0]["targetId"] == "CREW-005"
           assert records["shipEvents"][0]["shipId"] == "USS-ASTERIA"
-          assert cp["checkpointId"] == "r00005"
-          assert cp["previousCheckpointId"] == "r00004"
+          assert cp["checkpointId"] == "r00006"
+          assert cp["previousCheckpointId"] == "r00005"
           assert cp["validation"]["records"] == 5
           assert cp["validation"]["valid"] is True
-          print("all five record streams verified through r00005")
+          print("all five record streams verified through r00006")
           PY
 
       - name: Prove records render into player-safe PADD timeline
