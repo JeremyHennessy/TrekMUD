@@ -1471,7 +1471,7 @@
       "deck": 1,
       "department": "shipwide",
       "id": "AST-D01-HUB-C",
-      "name": "Central Corridor Hub — Deck 1",
+      "name": "Central Corridor Hub \u2014 Deck 1",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -1491,7 +1491,7 @@
       "deck": 1,
       "department": "operations",
       "id": "AST-D01-TL-C",
-      "name": "Central Turbolift — Deck 1",
+      "name": "Central Turbolift \u2014 Deck 1",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -1511,7 +1511,7 @@
       "deck": 2,
       "department": "shipwide",
       "id": "AST-D02-HUB-C",
-      "name": "Central Corridor Hub — Deck 2",
+      "name": "Central Corridor Hub \u2014 Deck 2",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -1531,7 +1531,7 @@
       "deck": 2,
       "department": "operations",
       "id": "AST-D02-TL-C",
-      "name": "Central Turbolift — Deck 2",
+      "name": "Central Turbolift \u2014 Deck 2",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -1571,7 +1571,7 @@
       "deck": 3,
       "department": "shipwide",
       "id": "AST-D03-HUB-C",
-      "name": "Central Corridor Hub — Deck 3",
+      "name": "Central Corridor Hub \u2014 Deck 3",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -1601,7 +1601,7 @@
       "deck": 3,
       "department": "operations",
       "id": "AST-D03-TL-C",
-      "name": "Central Turbolift — Deck 3",
+      "name": "Central Turbolift \u2014 Deck 3",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -1621,7 +1621,7 @@
       "deck": 4,
       "department": "shipwide",
       "id": "AST-D04-HUB-C",
-      "name": "Central Corridor Hub — Deck 4",
+      "name": "Central Corridor Hub \u2014 Deck 4",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -1681,7 +1681,7 @@
       "deck": 4,
       "department": "operations",
       "id": "AST-D04-TL-C",
-      "name": "Central Turbolift — Deck 4",
+      "name": "Central Turbolift \u2014 Deck 4",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -1691,7 +1691,7 @@
       "deck": 5,
       "department": "shipwide",
       "id": "AST-D05-HUB-C",
-      "name": "Central Corridor Hub — Deck 5",
+      "name": "Central Corridor Hub \u2014 Deck 5",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -1751,7 +1751,7 @@
       "deck": 5,
       "department": "operations",
       "id": "AST-D05-TL-C",
-      "name": "Central Turbolift — Deck 5",
+      "name": "Central Turbolift \u2014 Deck 5",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -1771,7 +1771,7 @@
       "deck": 6,
       "department": "shipwide",
       "id": "AST-D06-HUB-C",
-      "name": "Central Corridor Hub — Deck 6",
+      "name": "Central Corridor Hub \u2014 Deck 6",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -1831,7 +1831,7 @@
       "deck": 6,
       "department": "operations",
       "id": "AST-D06-TL-C",
-      "name": "Central Turbolift — Deck 6",
+      "name": "Central Turbolift \u2014 Deck 6",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -1851,7 +1851,7 @@
       "deck": 7,
       "department": "shipwide",
       "id": "AST-D07-HUB-C",
-      "name": "Central Corridor Hub — Deck 7",
+      "name": "Central Corridor Hub \u2014 Deck 7",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -1931,7 +1931,7 @@
       "deck": 7,
       "department": "operations",
       "id": "AST-D07-TL-C",
-      "name": "Central Turbolift — Deck 7",
+      "name": "Central Turbolift \u2014 Deck 7",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -1981,7 +1981,7 @@
       "deck": 8,
       "department": "shipwide",
       "id": "AST-D08-HUB-C",
-      "name": "Central Corridor Hub — Deck 8",
+      "name": "Central Corridor Hub \u2014 Deck 8",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2001,7 +2001,7 @@
       "deck": 8,
       "department": "operations",
       "id": "AST-D08-TL-C",
-      "name": "Central Turbolift — Deck 8",
+      "name": "Central Turbolift \u2014 Deck 8",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -2011,7 +2011,7 @@
       "deck": 9,
       "department": "operations",
       "id": "AST-D09-COMP-CORE-UPPER",
-      "name": "Computer Core — Upper",
+      "name": "Computer Core \u2014 Upper",
       "section": null,
       "source": "SETTING_FILL",
       "type": "computer"
@@ -2021,7 +2021,7 @@
       "deck": 9,
       "department": "shipwide",
       "id": "AST-D09-HUB-C",
-      "name": "Central Corridor Hub — Deck 9",
+      "name": "Central Corridor Hub \u2014 Deck 9",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2051,7 +2051,7 @@
       "deck": 9,
       "department": "operations",
       "id": "AST-D09-TL-C",
-      "name": "Central Turbolift — Deck 9",
+      "name": "Central Turbolift \u2014 Deck 9",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -2091,7 +2091,7 @@
       "deck": 10,
       "department": "operations",
       "id": "AST-D10-COMP-CORE-MID",
-      "name": "Computer Core — Mid",
+      "name": "Computer Core \u2014 Mid",
       "section": null,
       "source": "SETTING_FILL",
       "type": "computer"
@@ -2111,7 +2111,7 @@
       "deck": 10,
       "department": "shipwide",
       "id": "AST-D10-HUB-C",
-      "name": "Central Corridor Hub — Deck 10",
+      "name": "Central Corridor Hub \u2014 Deck 10",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2141,7 +2141,7 @@
       "deck": 10,
       "department": "operations",
       "id": "AST-D10-TL-C",
-      "name": "Central Turbolift — Deck 10",
+      "name": "Central Turbolift \u2014 Deck 10",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -2191,7 +2191,7 @@
       "deck": 11,
       "department": "shipwide",
       "id": "AST-D11-HUB-C",
-      "name": "Central Corridor Hub — Deck 11",
+      "name": "Central Corridor Hub \u2014 Deck 11",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2211,7 +2211,7 @@
       "deck": 11,
       "department": "operations",
       "id": "AST-D11-TL-C",
-      "name": "Central Turbolift — Deck 11",
+      "name": "Central Turbolift \u2014 Deck 11",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -2231,7 +2231,7 @@
       "deck": 12,
       "department": "shipwide",
       "id": "AST-D12-HUB-C",
-      "name": "Central Corridor Hub — Deck 12",
+      "name": "Central Corridor Hub \u2014 Deck 12",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2271,7 +2271,7 @@
       "deck": 12,
       "department": "operations",
       "id": "AST-D12-TL-C",
-      "name": "Central Turbolift — Deck 12",
+      "name": "Central Turbolift \u2014 Deck 12",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -2311,7 +2311,7 @@
       "deck": 13,
       "department": "flight",
       "id": "AST-D13-BAY-UPPER",
-      "name": "Main Shuttlebay — Upper Gallery",
+      "name": "Main Shuttlebay \u2014 Upper Gallery",
       "section": null,
       "source": "SETTING_FILL",
       "type": "hangar"
@@ -2341,7 +2341,7 @@
       "deck": 13,
       "department": "shipwide",
       "id": "AST-D13-HUB-C",
-      "name": "Central Corridor Hub — Deck 13",
+      "name": "Central Corridor Hub \u2014 Deck 13",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2361,7 +2361,7 @@
       "deck": 13,
       "department": "operations",
       "id": "AST-D13-TL-C",
-      "name": "Central Turbolift — Deck 13",
+      "name": "Central Turbolift \u2014 Deck 13",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -2381,7 +2381,7 @@
       "deck": 14,
       "department": "shipwide",
       "id": "AST-D14-HUB-C",
-      "name": "Central Corridor Hub — Deck 14",
+      "name": "Central Corridor Hub \u2014 Deck 14",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2421,7 +2421,7 @@
       "deck": 14,
       "department": "operations",
       "id": "AST-D14-TL-C",
-      "name": "Central Turbolift — Deck 14",
+      "name": "Central Turbolift \u2014 Deck 14",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -2471,7 +2471,7 @@
       "deck": 15,
       "department": "shipwide",
       "id": "AST-D15-HUB-C",
-      "name": "Central Corridor Hub — Deck 15",
+      "name": "Central Corridor Hub \u2014 Deck 15",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2501,7 +2501,7 @@
       "deck": 15,
       "department": "operations",
       "id": "AST-D15-TL-C",
-      "name": "Central Turbolift — Deck 15",
+      "name": "Central Turbolift \u2014 Deck 15",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -2541,7 +2541,7 @@
       "deck": 16,
       "department": "shipwide",
       "id": "AST-D16-HUB-C",
-      "name": "Central Corridor Hub — Deck 16",
+      "name": "Central Corridor Hub \u2014 Deck 16",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2571,7 +2571,7 @@
       "deck": 16,
       "department": "operations",
       "id": "AST-D16-TL-C",
-      "name": "Central Turbolift — Deck 16",
+      "name": "Central Turbolift \u2014 Deck 16",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -2621,7 +2621,7 @@
       "deck": 17,
       "department": "shipwide",
       "id": "AST-D17-HUB-C",
-      "name": "Central Corridor Hub — Deck 17",
+      "name": "Central Corridor Hub \u2014 Deck 17",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2651,7 +2651,7 @@
       "deck": 17,
       "department": "operations",
       "id": "AST-D17-TL-C",
-      "name": "Central Turbolift — Deck 17",
+      "name": "Central Turbolift \u2014 Deck 17",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -2681,7 +2681,7 @@
       "deck": 18,
       "department": "engineering",
       "id": "AST-D18-EPS-UPPER",
-      "name": "EPS Distribution — Upper",
+      "name": "EPS Distribution \u2014 Upper",
       "section": null,
       "source": "SETTING_FILL",
       "type": "engineering"
@@ -2691,7 +2691,7 @@
       "deck": 18,
       "department": "shipwide",
       "id": "AST-D18-HUB-C",
-      "name": "Central Corridor Hub — Deck 18",
+      "name": "Central Corridor Hub \u2014 Deck 18",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2701,7 +2701,7 @@
       "deck": 18,
       "department": "engineering",
       "id": "AST-D18-MAIN-ENG-UPPER",
-      "name": "Main Engineering — Upper",
+      "name": "Main Engineering \u2014 Upper",
       "section": null,
       "source": "SETTING_FILL",
       "type": "engineering"
@@ -2711,7 +2711,7 @@
       "deck": 18,
       "department": "operations",
       "id": "AST-D18-TL-C",
-      "name": "Central Turbolift — Deck 18",
+      "name": "Central Turbolift \u2014 Deck 18",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -2721,7 +2721,7 @@
       "deck": 18,
       "department": "engineering",
       "id": "AST-D18-WARP-CORE-UPPER",
-      "name": "Warp Core — Upper",
+      "name": "Warp Core \u2014 Upper",
       "section": null,
       "source": "SETTING_FILL",
       "type": "engineering"
@@ -2741,7 +2741,7 @@
       "deck": 19,
       "department": "shipwide",
       "id": "AST-D19-HUB-C",
-      "name": "Central Corridor Hub — Deck 19",
+      "name": "Central Corridor Hub \u2014 Deck 19",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2781,7 +2781,7 @@
       "deck": 19,
       "department": "operations",
       "id": "AST-D19-TL-C",
-      "name": "Central Turbolift — Deck 19",
+      "name": "Central Turbolift \u2014 Deck 19",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -2791,7 +2791,7 @@
       "deck": 19,
       "department": "engineering",
       "id": "AST-D19-WARP-CORE-MID",
-      "name": "Warp Core — Mid",
+      "name": "Warp Core \u2014 Mid",
       "section": null,
       "source": "SETTING_FILL",
       "type": "engineering"
@@ -2831,7 +2831,7 @@
       "deck": 20,
       "department": "shipwide",
       "id": "AST-D20-HUB-C",
-      "name": "Central Corridor Hub — Deck 20",
+      "name": "Central Corridor Hub \u2014 Deck 20",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2851,7 +2851,7 @@
       "deck": 20,
       "department": "operations",
       "id": "AST-D20-TL-C",
-      "name": "Central Turbolift — Deck 20",
+      "name": "Central Turbolift \u2014 Deck 20",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -2861,7 +2861,7 @@
       "deck": 20,
       "department": "engineering",
       "id": "AST-D20-WARP-CORE-LOWER",
-      "name": "Warp Core — Lower",
+      "name": "Warp Core \u2014 Lower",
       "section": null,
       "source": "SETTING_FILL",
       "type": "engineering"
@@ -2891,7 +2891,7 @@
       "deck": 21,
       "department": "shipwide",
       "id": "AST-D21-HUB-C",
-      "name": "Central Corridor Hub — Deck 21",
+      "name": "Central Corridor Hub \u2014 Deck 21",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2921,7 +2921,7 @@
       "deck": 21,
       "department": "operations",
       "id": "AST-D21-TL-C",
-      "name": "Central Turbolift — Deck 21",
+      "name": "Central Turbolift \u2014 Deck 21",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -2951,7 +2951,7 @@
       "deck": 22,
       "department": "shipwide",
       "id": "AST-D22-HUB-C",
-      "name": "Central Corridor Hub — Deck 22",
+      "name": "Central Corridor Hub \u2014 Deck 22",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -2981,7 +2981,7 @@
       "deck": 22,
       "department": "operations",
       "id": "AST-D22-TL-C",
-      "name": "Central Turbolift — Deck 22",
+      "name": "Central Turbolift \u2014 Deck 22",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -3041,7 +3041,7 @@
       "deck": 23,
       "department": "shipwide",
       "id": "AST-D23-HUB-C",
-      "name": "Central Corridor Hub — Deck 23",
+      "name": "Central Corridor Hub \u2014 Deck 23",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -3061,7 +3061,7 @@
       "deck": 23,
       "department": "operations",
       "id": "AST-D23-TL-C",
-      "name": "Central Turbolift — Deck 23",
+      "name": "Central Turbolift \u2014 Deck 23",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -3101,7 +3101,7 @@
       "deck": 24,
       "department": "shipwide",
       "id": "AST-D24-HUB-C",
-      "name": "Central Corridor Hub — Deck 24",
+      "name": "Central Corridor Hub \u2014 Deck 24",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -3121,7 +3121,7 @@
       "deck": 24,
       "department": "operations",
       "id": "AST-D24-TL-C",
-      "name": "Central Turbolift — Deck 24",
+      "name": "Central Turbolift \u2014 Deck 24",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -3131,7 +3131,7 @@
       "deck": 25,
       "department": "shipwide",
       "id": "AST-D25-HUB-C",
-      "name": "Central Corridor Hub — Deck 25",
+      "name": "Central Corridor Hub \u2014 Deck 25",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -3181,7 +3181,7 @@
       "deck": 25,
       "department": "operations",
       "id": "AST-D25-TL-C",
-      "name": "Central Turbolift — Deck 25",
+      "name": "Central Turbolift \u2014 Deck 25",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -3211,7 +3211,7 @@
       "deck": 26,
       "department": "shipwide",
       "id": "AST-D26-HUB-C",
-      "name": "Central Corridor Hub — Deck 26",
+      "name": "Central Corridor Hub \u2014 Deck 26",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -3241,7 +3241,7 @@
       "deck": 26,
       "department": "operations",
       "id": "AST-D26-TL-C",
-      "name": "Central Turbolift — Deck 26",
+      "name": "Central Turbolift \u2014 Deck 26",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -3251,7 +3251,7 @@
       "deck": 27,
       "department": "operations",
       "id": "AST-D27-ESCAPE-CTRL",
-      "name": "Escape Pod Control — Lower",
+      "name": "Escape Pod Control \u2014 Lower",
       "section": null,
       "source": "SETTING_FILL",
       "type": "safety"
@@ -3261,7 +3261,7 @@
       "deck": 27,
       "department": "shipwide",
       "id": "AST-D27-HUB-C",
-      "name": "Central Corridor Hub — Deck 27",
+      "name": "Central Corridor Hub \u2014 Deck 27",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -3301,7 +3301,7 @@
       "deck": 27,
       "department": "operations",
       "id": "AST-D27-TL-C",
-      "name": "Central Turbolift — Deck 27",
+      "name": "Central Turbolift \u2014 Deck 27",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -3321,7 +3321,7 @@
       "deck": 28,
       "department": "shipwide",
       "id": "AST-D28-HUB-C",
-      "name": "Central Corridor Hub — Deck 28",
+      "name": "Central Corridor Hub \u2014 Deck 28",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "corridor"
@@ -3351,7 +3351,7 @@
       "deck": 28,
       "department": "operations",
       "id": "AST-D28-TL-C",
-      "name": "Central Turbolift — Deck 28",
+      "name": "Central Turbolift \u2014 Deck 28",
       "section": "C",
       "source": "SETTING_FILL",
       "type": "turbolift"
@@ -3447,7 +3447,7 @@
       "type": "engineering"
     }
   ],
-  "revision": 4,
+  "revision": 5,
   "schemaVersion": 1,
   "shipId": "USS-ASTERIA"
 }

@@ -3,7 +3,7 @@
     "TH-00001"
   ],
   "checkpoint": {
-    "lastCheckpointId": "r00004",
+    "lastCheckpointId": "r00005",
     "validated": true
   },
   "components": {
@@ -30,7 +30,7 @@
     "characterId": "PC-001",
     "locationId": "AST-D09-TR-02"
   },
-  "revision": 4,
+  "revision": 5,
   "rulesVersion": "1.1",
   "schemaVersion": 1,
   "ship": {
