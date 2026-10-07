@@ -130,9 +130,9 @@ Before live play uses those systems, store them in a private repository/store sy
 
 ## Current handoff point
 
-At validated checkpoint `r00004`:
+At validated checkpoint `r00005`:
 
-- campaign revision: 4
+- campaign revision: 5
 - status: `READY_TO_START`
 - rules: v1.1 Organic Character Discovery
 - year: 2372
@@ -148,8 +148,8 @@ At validated checkpoint `r00004`:
 - RNG: initialized, counter 0
 - player-visible Records component: initialized with 5 empty streams
 - narrative actions: none
-- private GM state: must match r00003 before Scene One
+- private GM state: must match r00005 before Scene One
 
-Revision 4 is an infrastructure-only extension of r00003: no time, location, RNG, character, or narrative state changed.
+Revision 5 is a pre-session continuity cleanup: the onboarding thread now correctly names USS Asteria. No time, location, RNG, character, or narrative state changed.
 
 The earlier Meridian/Akira files are historical pre-play baselines only. Never resume live play from them unless explicitly restoring an older checkpoint.
