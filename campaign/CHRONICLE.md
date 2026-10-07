@@ -51,3 +51,10 @@ Narrative Scene One remains unplayed until mechanics and character creation are 
 - Corrected the onboarding thread title from USS Meridian to USS Asteria.
 - No in-universe time passed, no player action occurred, and RNG counter remains 0.
 
+## Scene state — revision 6
+
+- Jeremy greeted Brel Joras and thanked Chief Lian Okafor, saying he had heard good things about Asteria's crew. Brel identified this as his first posting here. Jeremy chose to settle into his quarters first. Brel accompanied him via the central turbolift from Deck 9 to Deck 7 and Section 12; Jeremy reached cabin 0712-C, with Brel at the doorway. Orientation at 14:00 and reporting to the department head at 15:30 remain pending. No checks or character discoveries occurred.
+- time 12:17 -> 12:23.
+- location AST-D09-TR-02 -> AST-D07-S12-0712C.
+- campaign READY_TO_START -> ACTIVE.
+

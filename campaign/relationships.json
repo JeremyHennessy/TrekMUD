@@ -1,6 +1,25 @@
 {
   "characterId": "PC-001",
-  "relationships": [],
-  "revision": 5,
+  "relationships": [
+    {
+      "firstMetStardate": 49317.4,
+      "id": "REL-00001",
+      "status": "MET",
+      "subjectId": "PC-001",
+      "summary": "Chief Lian Okafor welcomed Jeremy aboard in Transporter Room 2. Jeremy thanked the chief and expressed enthusiasm for the posting.",
+      "targetId": "CREW-012",
+      "type": "Professional acquaintance"
+    },
+    {
+      "firstMetStardate": 49317.4,
+      "id": "REL-00002",
+      "status": "MET",
+      "subjectId": "PC-001",
+      "summary": "Brel Joras introduced himself as a transporter-systems crewman on his first posting aboard Asteria. He accompanied Jeremy to the doorway of quarters 0712-C.",
+      "targetId": "CREW-013",
+      "type": "New acquaintance"
+    }
+  ],
+  "revision": 6,
   "schemaVersion": 1
 }

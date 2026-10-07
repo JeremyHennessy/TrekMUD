@@ -1,0 +1,37 @@
+{
+  "checkpointId": "r00006",
+  "createdAt": "2026-10-07T11:49:07.278893+00:00",
+  "files": {
+    "campaign/CHRONICLE.md": "f6a34353f07175dc6b573e506b2ebcad96698d53eb676c801a2b33141fbcaa14",
+    "campaign/active-threads.json": "2d7c63db63324c4e54a85de855a0ae2f1f2ffd209c58c502640bbde24736ebda",
+    "campaign/calendar.json": "c0c029cfbe834c676e10b310c2bbd167af26f230fc5ba2d137599e197e7a74cf",
+    "campaign/character.json": "36021f3cba27bdf2a5baf9779b6bd3bf47843ca998631db91e3374d5d668f717",
+    "campaign/config.json": "24320dede2d9fc48c79b45baa0e3f9bbc35ff44bf0b1094ed4d9bd5f69d4f425",
+    "campaign/crew.json": "04362dadd6dc8a81a1c5541935c12955d9dd6bb0411b7c34610f8e090a61a9ba",
+    "campaign/inventory.json": "707d56f3b356ca8d4d30e6492f11e87f7c89e4fd99e956ef3612c1fe83ff53c8",
+    "campaign/knowledge.json": "68adf4aeefba1ef6ef767a401f718646f24af7fd3e6c8536ec84308493d05bf2",
+    "campaign/locations.json": "0683064038e5c707796ed184f229c05c824377accf9a0f95a073da2c41608c29",
+    "campaign/qualifications.json": "9e23de4c351d6a8443c7c8fc413808d7fac3ea60558589ebfbae3b276dd4e52a",
+    "campaign/records.json": "a9a6b2bdc77c908d4c1c182413c01ca2ffbe90e87fcb50509c05ab32af05f6cb",
+    "campaign/relationships.json": "ca487e5456b4fe322aee793e135c43ed73b97bfafc355bad7e145d13a410dfa4",
+    "campaign/rng.json": "9eab037576cfde8f6b4e2d7d7796cede2b78a2f62d086c9ae4e67e2c5a526590",
+    "campaign/service-record.json": "2a4341e265389c4c4100a32d9e1341073054afa8fa5d9387e7d378c27aa675b2",
+    "campaign/ship.json": "d0c819efd60d47a3ca8822b398d8f7f0fe53e85ebfcd58ccf04a7b7b3eb402ec",
+    "campaign/state.json": "82ce17dca6533a894e5f2bfd07c8bec89ef9ba79b4cfb9f0d035aac90591b1e2"
+  },
+  "previousCheckpointId": "r00005",
+  "revision": 6,
+  "rulesVersion": "1.1",
+  "schemaVersion": 1,
+  "summary": "Scene One: arrival, introductions and settling into quarters",
+  "validation": {
+    "locations": 200,
+    "materializedCrew": 20,
+    "records": 0,
+    "revision": 6,
+    "rngCounter": 0,
+    "status": "ACTIVE",
+    "threads": 1,
+    "valid": true
+  }
+}

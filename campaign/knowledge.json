@@ -24,8 +24,20 @@
       "id": "KN-00004",
       "source": "PERSONNEL_TRANSFER",
       "subject": "Department"
+    },
+    {
+      "fact": "Chief Lian Okafor is the transporter chief who welcomed Jeremy aboard in Transporter Room 2.",
+      "id": "KN-00005",
+      "source": "FIRSTHAND_CONVERSATION",
+      "subject": "Lian Okafor"
+    },
+    {
+      "fact": "Brel Joras is a Bolian crewman assigned to transporter systems; he said this is his first posting here.",
+      "id": "KN-00006",
+      "source": "FIRSTHAND_CONVERSATION",
+      "subject": "Brel Joras"
     }
   ],
-  "revision": 5,
+  "revision": 6,
   "schemaVersion": 1
 }

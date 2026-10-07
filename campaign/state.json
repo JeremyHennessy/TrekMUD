@@ -3,7 +3,7 @@
     "TH-00001"
   ],
   "checkpoint": {
-    "lastCheckpointId": "r00005",
+    "lastCheckpointId": "r00006",
     "validated": true
   },
   "components": {
@@ -22,15 +22,15 @@
     "ship": "campaign/ship.json"
   },
   "currentTime": {
-    "shipTime": "12:17",
+    "shipTime": "12:23",
     "stardate": 49317.4,
     "year": 2372
   },
   "player": {
     "characterId": "PC-001",
-    "locationId": "AST-D09-TR-02"
+    "locationId": "AST-D07-S12-0712C"
   },
-  "revision": 5,
+  "revision": 6,
   "rulesVersion": "1.1",
   "schemaVersion": 1,
   "ship": {
@@ -44,5 +44,5 @@
     "name": "USS Asteria",
     "registry": "NCC-63542"
   },
-  "status": "READY_TO_START"
+  "status": "ACTIVE"
 }
