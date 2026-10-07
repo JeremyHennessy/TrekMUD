@@ -104,7 +104,7 @@ The answer is limited to what the character could reasonably perceive or know.
 
 ## Campaign scope can evolve
 
-The starting premise is life as a junior officer aboard USS Meridian. That premise does not permanently lock the campaign to one ship or one job.
+The starting premise is life as a junior officer aboard USS Asteria. That premise does not permanently lock the campaign to one ship or one job.
 
 Through play, the character may eventually:
 

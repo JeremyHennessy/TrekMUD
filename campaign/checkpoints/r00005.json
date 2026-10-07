@@ -1,0 +1,37 @@
+{
+  "checkpointId": "r00005",
+  "createdAt": "2026-10-07T00:03:12.066444+00:00",
+  "files": {
+    "campaign/CHRONICLE.md": "2af2bf82894a8fa1da3e99889f95cdf343e99853fdbd6f7918eae92c24bd419f",
+    "campaign/active-threads.json": "8527e05a6eaa5c0e0e9c2c1de9fad7ee55e881146739236a799448ed26c31b6b",
+    "campaign/calendar.json": "47e7cdb8731ff1658cf1622606e14cd5edfa4ff7871628e05742e65a197671e0",
+    "campaign/character.json": "51e3bb8c139ebc196e42dadb74e92c461c0d086d050ceaa7c6ae9d7ecf4642d2",
+    "campaign/config.json": "24320dede2d9fc48c79b45baa0e3f9bbc35ff44bf0b1094ed4d9bd5f69d4f425",
+    "campaign/crew.json": "c5c14c6c19e0dda37badb1a56106cdcfaf96ad9a7b36ed7ba536d4d321301efe",
+    "campaign/inventory.json": "11a0c2005dc9b8ce2458eaae0a6aac507677893a661e458fa1956338c16ddfde",
+    "campaign/knowledge.json": "7679500453d883068895b5357a8dff077a6b3cdce55060a668f4666d9c7f0ff1",
+    "campaign/locations.json": "9852081c68fe8f75d5e9832b2d6bde6e4e2b163057e187b07a8b99c446f10100",
+    "campaign/qualifications.json": "2e36fdcdd1452720ef5d53454e993e54f94116d4803d5cb382226ea3f5c317e1",
+    "campaign/records.json": "79a13288ad6a818f6a026a0d26c9425d9fa602dd257a58373ab9c25348fc3ab0",
+    "campaign/relationships.json": "360f99902a073e7e503e34565c4e600beddc87f9044c6dff4cecb71009f071a6",
+    "campaign/rng.json": "21bc1252325e25f638cf3c91f9187d1fa87dd32bccfcd8c0334286e27a9602a5",
+    "campaign/service-record.json": "f5ef879794b934c1d3a9dbc628915d23f47195c5fed77a543303b4a3888e738d",
+    "campaign/ship.json": "54ed9207125c437e665acca6bb6c1b8cd3adcd21c920a6861985caf68a877c2f",
+    "campaign/state.json": "f7dd44b7e098ade4625c6f6d7502bab2eeeb3249ef7c28a279cf319e7e58192a"
+  },
+  "previousCheckpointId": "r00004",
+  "revision": 5,
+  "rulesVersion": "1.1",
+  "schemaVersion": 1,
+  "summary": "Pre-session continuity cleanup and Asteria onboarding correction",
+  "validation": {
+    "locations": 200,
+    "materializedCrew": 20,
+    "records": 0,
+    "revision": 5,
+    "rngCounter": 0,
+    "status": "READY_TO_START",
+    "threads": 1,
+    "valid": true
+  }
+}

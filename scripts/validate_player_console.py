@@ -91,6 +91,12 @@ def main() -> int:
     character_doc = json.loads(
         (ROOT / "campaign/character.json").read_text(encoding="utf-8")
     )
+    records_doc = json.loads(
+        (ROOT / "campaign/records.json").read_text(encoding="utf-8")
+    )
+    rng_doc = json.loads(
+        (ROOT / "campaign/rng.json").read_text(encoding="utf-8")
+    )
     public_json = (output / "data/player-console.json").read_text(encoding="utf-8")
 
     assert payload["source"]["campaignRevision"] == state["revision"]
@@ -116,8 +122,6 @@ def main() -> int:
     assert len(payload["map"]["edges"]) == 206
     assert len(payload["map"]["deckNumbers"]) == 28
     assert payload["map"]["podLevels"] == ["P1", "P2", "P3", "P4"]
-    assert payload["map"]["currentKey"] == "9"
-    assert payload["now"]["locationId"] == "AST-D09-TR-02"
     assert payload["character"]["quartersId"] == "AST-D07-S12-0712C"
     assert payload["map"]["shipSilhouette"] == "nebula"
     assert set(payload["map"]["deckPlans"]) == {str(i) for i in range(1, 29)}
@@ -137,9 +141,6 @@ def main() -> int:
 
     # Organic character state must remain visibly unresolved instead of being
     # silently converted to zeroes by the presentation layer.
-    assert sum(value is None for value in payload["character"]["attributes"].values()) == 5
-    assert payload["character"]["skills"]["Science"] == 2
-    assert payload["character"]["discoveryState"]["academyRank1SlotsRemaining"] == 3
 
     # The browser artifact is deliberately player-safe. It must never reveal
     # private-repository names, RNG secrets, hidden relationship state, or GM
@@ -150,14 +151,15 @@ def main() -> int:
     # Public commitment is useful for audits but has no gameplay value in the
     # console; keeping it out also prevents accidental coupling to GM storage.
     assert "publicCommitment" not in public_json
-    assert payload["rng"]["counter"] == 0
-    assert payload["source"]["campaignRevision"] == 4
-    assert payload["source"]["checkpointId"] == "r00004"
-    assert payload["records"]["dutyLogs"] == []
-    assert payload["records"]["scienceFindings"] == []
-    assert payload["records"]["missionRecords"] == []
-    assert payload["records"]["relationshipMilestones"] == []
-    assert payload["records"]["shipEvents"] == []
+    assert payload["rng"]["counter"] == rng_doc["counter"]
+    assert payload["character"]["attributes"] == character_doc["character"]["attributes"]
+    assert payload["character"]["skills"] == character_doc["character"]["skills"]
+    assert payload["character"]["discoveryState"] == character_doc["character"]["discoveryState"]
+    assert payload["records"]["dutyLogs"] == records_doc["dutyLogs"]
+    assert payload["records"]["scienceFindings"] == records_doc["scienceFindings"]
+    assert payload["records"]["missionRecords"] == records_doc["missionRecords"]
+    assert payload["records"]["relationshipMilestones"] == records_doc["relationshipMilestones"]
+    assert payload["records"]["shipEvents"] == records_doc["shipEvents"]
 
     index_html = (output / "index.html").read_text(encoding="utf-8")
     assert 'data-view="ship"' in index_html

@@ -46,3 +46,8 @@ Narrative Scene One remains unplayed until mechanics and character creation are 
 - All streams begin empty because Scene One has not started.
 - This is an infrastructure-only revision: ship time, stardate, player location, character state, and RNG counter are unchanged.
 
+## Pre-session continuity cleanup — revision 5
+
+- Corrected the onboarding thread title from USS Meridian to USS Asteria.
+- No in-universe time passed, no player action occurred, and RNG counter remains 0.
+

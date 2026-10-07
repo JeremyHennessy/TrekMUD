@@ -1,12 +1,12 @@
 {
-  "revision": 4,
+  "revision": 5,
   "schemaVersion": 1,
   "threads": [
     {
       "id": "TH-00001",
       "status": "ACTIVE",
       "summary": "Complete orientation, settle into quarters and report to the department head.",
-      "title": "Report aboard USS Meridian",
+      "title": "Report aboard USS Asteria",
       "type": "ONBOARDING"
     }
   ]
