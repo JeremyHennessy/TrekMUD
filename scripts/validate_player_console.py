@@ -97,6 +97,8 @@ def main() -> int:
     rng_doc = json.loads(
         (ROOT / "campaign/rng.json").read_text(encoding="utf-8")
     )
+    crew_doc = json.loads((ROOT / "campaign/crew.json").read_text(encoding="utf-8"))
+    locations_doc = json.loads((ROOT / "campaign/locations.json").read_text(encoding="utf-8"))
     public_json = (output / "data/player-console.json").read_text(encoding="utf-8")
 
     assert payload["source"]["campaignRevision"] == state["revision"]
@@ -114,12 +116,12 @@ def main() -> int:
     assert payload["shipProfile"]["deckCount"] == 28
     assert payload["shipProfile"]["podLevels"] == 4
     assert "sensor/science pod" in payload["shipProfile"]["missionPod"].lower()
-    assert payload["crew"]["materializedCount"] == 20
-    assert payload["crew"]["nominalComplement"] == 750
-    assert payload["crew"]["backgroundCount"] == 729
-    assert payload["crew"]["playerIncludedInComplement"] is True
-    assert len(payload["map"]["locations"]) == 200
-    assert len(payload["map"]["edges"]) == 206
+    assert payload["crew"]["materializedCount"] == len(crew_doc["materializedCrew"])
+    assert payload["crew"]["nominalComplement"] == crew_doc["nominalCrewComplement"]
+    assert payload["crew"]["backgroundCount"] == crew_doc["backgroundPopulation"]["count"]
+    assert payload["crew"]["playerIncludedInComplement"] == bool(crew_doc.get("playerIncludedInComplement"))
+    assert len(payload["map"]["locations"]) == len(locations_doc["locations"])
+    assert len(payload["map"]["edges"]) == len(locations_doc["edges"])
     assert len(payload["map"]["deckNumbers"]) == 28
     assert payload["map"]["podLevels"] == ["P1", "P2", "P3", "P4"]
     assert payload["character"]["quartersId"] == "AST-D07-S12-0712C"
