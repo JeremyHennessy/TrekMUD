@@ -1,0 +1,101 @@
+name: Bootstrap pre-session r00005
+
+on:
+  push:
+    branches:
+      - session-preflight-v1
+    paths:
+      - campaign/active-threads.json
+      - .github/workflows/bootstrap-r00005-preflight.yml
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: session-preflight-v1
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Create zero-time revision 5
+        run: |
+          if [ ! -f campaign/checkpoints/r00005.json ]; then
+            python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root=Path(".")
+          state_path=root/"campaign/state.json"
+          state=json.loads(state_path.read_text())
+          assert state["revision"] == 4
+          assert state["checkpoint"]["lastCheckpointId"] == "r00004"
+          assert state["checkpoint"]["validated"] is True
+          assert state["currentTime"]["shipTime"] == "12:17"
+          assert state["currentTime"]["stardate"] == 49317.4
+
+          threads=json.loads((root/"campaign/active-threads.json").read_text())
+          assert threads["threads"][0]["title"] == "Report aboard USS Asteria"
+
+          for rel in state["components"].values():
+              path=root/rel
+              doc=json.loads(path.read_text())
+              assert doc["revision"] == 4
+              doc["revision"] = 5
+              path.write_text(json.dumps(doc,indent=2,sort_keys=True)+"\n")
+
+          state["revision"] = 5
+          state["checkpoint"] = {"lastCheckpointId":"r00004","validated":False}
+          state_path.write_text(json.dumps(state,indent=2,sort_keys=True)+"\n")
+
+          chronicle=root/"campaign/CHRONICLE.md"
+          text=chronicle.read_text().rstrip()
+          text += "\n\n## Pre-session continuity cleanup — revision 5\n\n"
+          text += "- Corrected the onboarding thread title from USS Meridian to USS Asteria.\n"
+          text += "- No in-universe time passed, no player action occurred, and RNG counter remains 0.\n"
+          chronicle.write_text(text+"\n")
+          PY
+
+            python scripts/validate_campaign.py
+            python scripts/create_checkpoint.py --summary "Pre-session continuity cleanup and Asteria onboarding correction"
+          fi
+
+      - name: Verify r00005
+        run: |
+          python scripts/validate_campaign.py
+          python scripts/checkpoint_integrity.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          state=json.loads(Path("campaign/state.json").read_text())
+          rng=json.loads(Path("campaign/rng.json").read_text())
+          threads=json.loads(Path("campaign/active-threads.json").read_text())
+          cp=json.loads(Path("campaign/checkpoints/r00005.json").read_text())
+          assert state["revision"] == 5
+          assert state["checkpoint"]["lastCheckpointId"] == "r00005"
+          assert state["currentTime"]["shipTime"] == "12:17"
+          assert state["currentTime"]["stardate"] == 49317.4
+          assert state["player"]["locationId"] == "AST-D09-TR-02"
+          assert rng["counter"] == 0
+          assert threads["threads"][0]["title"] == "Report aboard USS Asteria"
+          assert cp["previousCheckpointId"] == "r00004"
+          assert cp["validation"]["valid"] is True
+          PY
+
+      - name: Commit r00005
+        run: |
+          if git diff --quiet -- campaign && [ -z "$(git status --porcelain -- campaign)" ]; then
+            exit 0
+          fi
+          git config user.name "trekmud-preflight-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add campaign
+          git commit -m "checkpoint: r00005 pre-session continuity cleanup [skip ci]"
+          git push origin HEAD:session-preflight-v1
