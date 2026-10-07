@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - ui/**
+      - tests/player-console-refresh.test.cjs
       - campaign/**
       - world/asteria/**
       - scripts/build_player_console.py
@@ -19,6 +20,7 @@ on:
       - main
     paths:
       - ui/**
+      - tests/player-console-refresh.test.cjs
       - campaign/**
       - world/asteria/**
       - scripts/build_player_console.py
@@ -50,6 +52,9 @@ jobs:
 
       - name: Build and validate player-safe console
         run: python scripts/validate_player_console.py --keep _site
+
+      - name: Test automatic campaign refresh
+        run: node --test tests/player-console-refresh.test.cjs
 
       - name: Inspect generated site
         run: |

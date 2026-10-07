@@ -30,6 +30,14 @@ Build flow:
 
 The UI uses vanilla HTML/CSS/JavaScript with no runtime framework or third-party CDN dependency.
 
+The open PADD checks for a new snapshot every 30 seconds while visible, and when
+the window regains focus, becomes visible, or reconnects. Saved campaign changes
+appear after their GitHub Pages deployment completes. Refreshes preserve the
+selected view, deck/pod, room selection, filters, input focus and page scroll;
+active routes are recalculated from the current player location. Unchanged data
+does not redraw. Offline or invalid responses keep the last good screen and retry
+automatically. An open crew dialog defers refresh until it closes.
+
 ## Map and routing
 
 Canonical geography remains `campaign/locations.json`.
