@@ -4,7 +4,7 @@
   "missionRecords": [],
   "note": "Player-visible structured records. Streams begin empty because Scene One has not started; future entries are created only by observed/established play.",
   "relationshipMilestones": [],
-  "revision": 6,
+  "revision": 7,
   "schemaVersion": 1,
   "scienceFindings": [],
   "shipEvents": []

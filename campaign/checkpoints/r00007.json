@@ -1,0 +1,37 @@
+{
+  "checkpointId": "r00007",
+  "createdAt": "2026-10-07T11:55:23.819649+00:00",
+  "files": {
+    "campaign/CHRONICLE.md": "f8eea62cb544dbf17c366d25bbe89d365bc26bdb72864acabc9725cb2c3b9f5a",
+    "campaign/active-threads.json": "e1f607d2a8a29d9ea49d47c967e6e28ba90b662b8dcfbc12f678231662672aa7",
+    "campaign/calendar.json": "35ae50c9b631fd7a6dce18999cd80ddf045937552c4f2923539fe4b0489f3a2b",
+    "campaign/character.json": "25dcf024aa93b5e5fcc566e2733cabc9a5ef1262d0fb4d4a2f084560ccdf89d6",
+    "campaign/config.json": "24320dede2d9fc48c79b45baa0e3f9bbc35ff44bf0b1094ed4d9bd5f69d4f425",
+    "campaign/crew.json": "6df63770ca5a652635f81949917641d59489aa3e83f17310b3e25f4f30a5fe03",
+    "campaign/inventory.json": "99f665831cf91713447cf93c674ee96c496901eeb02f5225bdd8d66570dce563",
+    "campaign/knowledge.json": "f1debdd650eecb0c09f2b8c997f9fe6cbf6e0a276868be6e3677dc7f145e74bc",
+    "campaign/locations.json": "7bcc70ea6878c45e1070942049efd928c3457b3ede72555dbecebb5e7df4f704",
+    "campaign/qualifications.json": "d50fccec67a2c6ffe8c72a915a118a34834ab77d2df00bdd432e9857c08e796f",
+    "campaign/records.json": "77d1388d2f4e0833fc1ad605d1d37aea410940efecb5709b362f279c9ca2aa48",
+    "campaign/relationships.json": "3e327c85ccf8bc1705fcd226a807ed3d347dfa58fd12a3117c7615490b56f8ed",
+    "campaign/rng.json": "7d6c00afd909a6ca881f4184395fa81f0ef05d2ae860eca2e181c4171232c2d7",
+    "campaign/service-record.json": "d86a156fe98df5d515b7c541b8904e2ae9bca20adfeb8610fb451f2c9ef760cc",
+    "campaign/ship.json": "3b330ac2777caf9bd9266441de284723f8ba994bf0bfc17dc8ffcccdb7152cbd",
+    "campaign/state.json": "93e809a80684797f8103fd8186696f103fee187799dfc5ddab31baa530acdb88"
+  },
+  "previousCheckpointId": "r00006",
+  "revision": 7,
+  "rulesVersion": "1.1",
+  "schemaVersion": 1,
+  "summary": "Jeremy establishes DS 2 as home during conversation with Brel",
+  "validation": {
+    "locations": 200,
+    "materializedCrew": 20,
+    "records": 0,
+    "revision": 7,
+    "rngCounter": 0,
+    "status": "ACTIVE",
+    "threads": 1,
+    "valid": true
+  }
+}

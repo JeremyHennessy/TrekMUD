@@ -58,3 +58,8 @@ Narrative Scene One remains unplayed until mechanics and character creation are 
 - location AST-D09-TR-02 -> AST-D07-S12-0712C.
 - campaign READY_TO_START -> ACTIVE.
 
+## Character discovery — revision 7
+
+- background-fact established: DS 2 station is home; Jeremy returned there after completing Starfleet Academy. (DISC-00001)
+- At the doorway of quarters 0712-C, Brel said he had come from transporter training on Earth via Starbase 375. Jeremy's quarters have a bed, desk terminal and storage, as observed on arrival.
+- Ship time remains 12:23; no movement, roll or mechanical starting resource was consumed.

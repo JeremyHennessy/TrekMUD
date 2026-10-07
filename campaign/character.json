@@ -28,10 +28,23 @@
         1,
         1
       ],
-      "backgroundFacts": [],
+      "backgroundFacts": [
+        "DS 2 station is home; Jeremy returned there after completing Starfleet Academy."
+      ],
       "departmentSpecialtyAvailable": true,
       "developmentAreas": [],
-      "locks": [],
+      "locks": [
+        {
+          "id": "DISC-00001",
+          "note": "Jeremy told Brel Joras about returning home after the Academy while at quarters 0712-C.",
+          "revision": 7,
+          "source": "PLAYER_DECLARATION",
+          "stardate": 49317.4,
+          "type": "background-fact",
+          "value": "DS 2 station is home; Jeremy returned there after completing Starfleet Academy.",
+          "year": 2372
+        }
+      ],
       "personalInterests": [],
       "secondarySpecialtyAvailable": true,
       "traits": []
@@ -41,7 +54,7 @@
       "fatigue": 0,
       "injuryState": "Healthy"
     },
-    "homeworld": "Federation starbase upbringing; exact station intentionally unresolved",
+    "homeworld": "DS 2 station",
     "id": "PC-001",
     "name": "Jeremy Hennessy",
     "primaryShift": null,
@@ -67,7 +80,7 @@
     },
     "species": "Human"
   },
-  "revision": 6,
+  "revision": 7,
   "schemaVersion": 1,
   "status": "CREATED_DISCOVERING"
 }

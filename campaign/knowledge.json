@@ -36,8 +36,14 @@
       "id": "KN-00006",
       "source": "FIRSTHAND_CONVERSATION",
       "subject": "Brel Joras"
+    },
+    {
+      "fact": "Brel said he completed transporter training on Earth and travelled to Starbase 375 before joining Asteria.",
+      "id": "KN-00007",
+      "source": "FIRSTHAND_CONVERSATION",
+      "subject": "Brel Joras"
     }
   ],
-  "revision": 6,
+  "revision": 7,
   "schemaVersion": 1
 }
