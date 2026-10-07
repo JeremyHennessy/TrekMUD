@@ -48,7 +48,7 @@ jobs:
       - name: Compile record tooling
         run: python -m py_compile scripts/validate_campaign.py scripts/create_checkpoint.py scripts/initialize_career_records.py scripts/apply_player_records.py scripts/build_player_console.py
 
-      - name: Validate canonical empty record baseline
+      - name: Validate canonical record component
         run: |
           python scripts/validate_campaign.py
           python - <<'PY'
@@ -56,13 +56,16 @@ jobs:
           from pathlib import Path
           state=json.loads(Path("campaign/state.json").read_text())
           records=json.loads(Path("campaign/records.json").read_text())
-          assert state["revision"] == 4
-          assert state["checkpoint"]["lastCheckpointId"] == "r00004"
-          assert sum(len(records[key]) for key in (
+          assert state["revision"] >= 4
+          assert state["components"]["records"] == "campaign/records.json"
+          assert records["revision"] == state["revision"]
+          assert records["characterId"] == state["player"]["characterId"]
+          for key in (
               "dutyLogs","scienceFindings","missionRecords",
               "relationshipMilestones","shipEvents"
-          )) == 0
-          print("canonical empty records baseline verified")
+          ):
+              assert isinstance(records[key], list)
+          print("canonical records component verified")
           PY
 
       - name: Prove all five record streams through disposable r00005
