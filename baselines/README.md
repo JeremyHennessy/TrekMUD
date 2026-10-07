@@ -25,5 +25,8 @@ These remain historical evidence after the approved pre-play Asteria retcon.
 - RNG initialization checkpoint `r00002` — `1c03de02e1c51b648ebfa8e040325765eaf6e35e`
 - USS Asteria Nebula-class baseline / checkpoint `r00003` — `6dee5ba545530a900c3edf84b56300ebf8fb8958`
 - Player-visible career records baseline / checkpoint `r00004` — `6745828974a4b6f8382eab405d05fef62b02f01b`
+- Tomorrow-ready session baseline / checkpoint `r00005` — `c5c3cf0d938baabef048e5840edce25750d3b172`
 
 See `asteria-r00003.json` for the ship/world baseline and `records-r00004.json` for the current pre-play player-history baseline.
+
+See `session-start-r00005.json` for the current Scene One handoff.

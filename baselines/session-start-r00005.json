@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "baseline": "tomorrow-session-start",
+  "version": "1.0",
+  "status": "APPROVED",
+  "approvedDate": "2026-10-06",
+  "mergedCommit": "c5c3cf0d938baabef048e5840edce25750d3b172",
+  "checkpointId": "r00005",
+  "revision": 5,
+  "rulesVersion": "1.1",
+  "ship": {
+    "id": "USS-ASTERIA",
+    "name": "USS Asteria",
+    "registry": "NCC-63542",
+    "class": "Nebula-class",
+    "location": "Starbase 375"
+  },
+  "player": {
+    "id": "PC-001",
+    "name": "Jeremy Hennessy",
+    "rank": "Ensign",
+    "department": "Science",
+    "locationId": "AST-D09-TR-02"
+  },
+  "continuity": {
+    "shipTime": "12:17",
+    "stardate": 49317.4,
+    "rngCounter": 0,
+    "records": 0,
+    "narrativeStarted": false
+  },
+  "preflight": {
+    "checkpointHashVerification": true,
+    "resumePacket": true,
+    "firstSceneTransitionTested": true,
+    "testedNextCheckpoint": "r00006"
+  },
+  "correction": "Onboarding thread now correctly names USS Asteria."
+}
