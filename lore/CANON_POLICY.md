@@ -31,7 +31,7 @@ When a precise effective date is unavailable, the fact must be marked uncertain 
 
 ## Divergence policy
 
-TrekMUD can diverge locally through the USS Meridian and its crew. It must not casually overwrite major established events. If player action could plausibly affect a major canon event, record the divergence explicitly in the campaign chronicle and canon-delta log.
+TrekMUD can diverge locally through the USS Asteria and its crew. It must not casually overwrite major established events. If player action could plausibly affect a major canon event, record the divergence explicitly in the campaign chronicle and canon-delta log.
 
 ## Canon confidence
 
