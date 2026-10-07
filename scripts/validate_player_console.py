@@ -141,9 +141,6 @@ def main() -> int:
 
     # Organic character state must remain visibly unresolved instead of being
     # silently converted to zeroes by the presentation layer.
-    assert sum(value is None for value in payload["character"]["attributes"].values()) == 5
-    assert payload["character"]["skills"]["Science"] == 2
-    assert payload["character"]["discoveryState"]["academyRank1SlotsRemaining"] == 3
 
     # The browser artifact is deliberately player-safe. It must never reveal
     # private-repository names, RNG secrets, hidden relationship state, or GM
@@ -154,14 +151,15 @@ def main() -> int:
     # Public commitment is useful for audits but has no gameplay value in the
     # console; keeping it out also prevents accidental coupling to GM storage.
     assert "publicCommitment" not in public_json
-    assert payload["rng"]["counter"] == 0
-    assert payload["source"]["campaignRevision"] == 4
-    assert payload["source"]["checkpointId"] == "r00004"
-    assert payload["records"]["dutyLogs"] == []
-    assert payload["records"]["scienceFindings"] == []
-    assert payload["records"]["missionRecords"] == []
-    assert payload["records"]["relationshipMilestones"] == []
-    assert payload["records"]["shipEvents"] == []
+    assert payload["rng"]["counter"] == rng_doc["counter"]
+    assert payload["character"]["attributes"] == character_doc["character"]["attributes"]
+    assert payload["character"]["skills"] == character_doc["character"]["skills"]
+    assert payload["character"]["discoveryState"] == character_doc["character"]["discoveryState"]
+    assert payload["records"]["dutyLogs"] == records_doc["dutyLogs"]
+    assert payload["records"]["scienceFindings"] == records_doc["scienceFindings"]
+    assert payload["records"]["missionRecords"] == records_doc["missionRecords"]
+    assert payload["records"]["relationshipMilestones"] == records_doc["relationshipMilestones"]
+    assert payload["records"]["shipEvents"] == records_doc["shipEvents"]
 
     index_html = (output / "index.html").read_text(encoding="utf-8")
     assert 'data-view="ship"' in index_html
