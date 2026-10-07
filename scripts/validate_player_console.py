@@ -97,6 +97,8 @@ def main() -> int:
     rng_doc = json.loads(
         (ROOT / "campaign/rng.json").read_text(encoding="utf-8")
     )
+    crew_doc = json.loads((ROOT / "campaign/crew.json").read_text(encoding="utf-8"))
+    locations_doc = json.loads((ROOT / "campaign/locations.json").read_text(encoding="utf-8"))
     public_json = (output / "data/player-console.json").read_text(encoding="utf-8")
 
     assert payload["source"]["campaignRevision"] == state["revision"]
