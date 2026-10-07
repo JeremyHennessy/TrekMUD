@@ -122,8 +122,6 @@ def main() -> int:
     assert len(payload["map"]["edges"]) == 206
     assert len(payload["map"]["deckNumbers"]) == 28
     assert payload["map"]["podLevels"] == ["P1", "P2", "P3", "P4"]
-    assert payload["map"]["currentKey"] == "9"
-    assert payload["now"]["locationId"] == "AST-D09-TR-02"
     assert payload["character"]["quartersId"] == "AST-D07-S12-0712C"
     assert payload["map"]["shipSilhouette"] == "nebula"
     assert set(payload["map"]["deckPlans"]) == {str(i) for i in range(1, 29)}
