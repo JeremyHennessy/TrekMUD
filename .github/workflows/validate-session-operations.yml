@@ -39,10 +39,13 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Fetch immutable pre-play fixture baseline
+        run: git fetch --depth=1 origin b62e837fee0e9257df094aff393431a66b63a6c2
+
       - name: Compile session tooling
         run: python -m py_compile scripts/checkpoint_integrity.py scripts/build_resume_packet.py scripts/session_preflight.py scripts/apply_scene_state.py
 
-      - name: Verify canonical pre-session state
+      - name: Verify canonical session state
         run: |
           python scripts/session_preflight.py --write-json /tmp/resume.json
           python - <<'PY'
@@ -50,19 +53,22 @@ jobs:
           from pathlib import Path
           state=json.loads(Path("campaign/state.json").read_text())
           packet=json.loads(Path("/tmp/resume.json").read_text())["resume"]
-          assert state["revision"] == 5
-          assert state["checkpoint"]["lastCheckpointId"] == "r00005"
-          assert packet["checkpointId"] == "r00005"
-          assert packet["campaignStatus"] == "READY_TO_START"
-          assert packet["currentTime"]["shipTime"] == "12:17"
-          assert packet["player"]["locationId"] == "AST-D09-TR-02"
-          assert packet["rng"]["counter"] == 0
+          rng=json.loads(Path("campaign/rng.json").read_text())
+          assert state["revision"] >= 5
+          assert state["checkpoint"]["lastCheckpointId"] == f"r{state['revision']:05d}"
+          assert packet["revision"] == state["revision"]
+          assert packet["checkpointId"] == state["checkpoint"]["lastCheckpointId"]
+          assert packet["campaignStatus"] == state["status"]
+          assert packet["campaignStatus"] in {"READY_TO_START", "ACTIVE"}
+          assert packet["currentTime"] == state["currentTime"]
+          assert packet["player"]["locationId"] == state["player"]["locationId"]
+          assert packet["rng"]["counter"] == rng["counter"]
           PY
 
       - name: Prove first-scene transition through disposable r00006
         run: |
           tmp="$(mktemp -d)"
-          cp -R campaign "$tmp/campaign"
+          git archive b62e837fee0e9257df094aff393431a66b63a6c2 campaign | tar -x -C "$tmp"
           mkdir -p "$tmp/world"
           cp -R world/asteria "$tmp/world/asteria"
 

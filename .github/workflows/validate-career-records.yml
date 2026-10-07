@@ -45,6 +45,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Fetch immutable pre-play fixture baseline
+        run: git fetch --depth=1 origin b62e837fee0e9257df094aff393431a66b63a6c2
+
       - name: Compile record tooling
         run: python -m py_compile scripts/validate_campaign.py scripts/create_checkpoint.py scripts/initialize_career_records.py scripts/apply_player_records.py scripts/build_player_console.py
 
@@ -71,7 +74,7 @@ jobs:
       - name: Prove all five record streams through disposable r00006
         run: |
           tmp="$(mktemp -d)"
-          cp -R campaign "$tmp/campaign"
+          git archive b62e837fee0e9257df094aff393431a66b63a6c2 campaign | tar -x -C "$tmp"
           python scripts/apply_player_records.py --root "$tmp" --input tests/fixtures/player-records-demo.json
           python scripts/create_checkpoint.py --root "$tmp" --summary "CI structured player records fixture"
           python scripts/validate_campaign.py --root "$tmp"
@@ -105,7 +108,7 @@ jobs:
       - name: Prove records render into player-safe PADD timeline
         run: |
           tmp="$(mktemp -d)"
-          cp -R campaign "$tmp/campaign"
+          git archive b62e837fee0e9257df094aff393431a66b63a6c2 campaign | tar -x -C "$tmp"
           mkdir -p "$tmp/world"
           cp -R world/asteria "$tmp/world/asteria"
           python scripts/apply_player_records.py --root "$tmp" --input tests/fixtures/player-records-demo.json
