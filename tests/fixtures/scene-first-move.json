@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "summary": "CI first-scene fixture: Jeremy leaves Transporter Room 2 and the campaign becomes active.",
+  "activateCampaign": true,
+  "advanceMinutes": 5,
+  "locationId": "AST-D09-HUB-C",
+  "calendarStatusUpdates": []
+}
