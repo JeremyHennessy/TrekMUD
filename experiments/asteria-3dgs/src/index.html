@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10151e">
+<title>USS Asteria · Main Bridge · Hybrid 3DGS Experiment</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<canvas id="scene" aria-label="First-person walkable 3D cinematic set of the USS Asteria main bridge"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+<header class="identity"><div class="sigil">✧</div><div><strong>U.S.S. ASTERIA</strong><span>NCC-63542 · BRIDGE · DECK 01</span></div><div class="label">CINEMATIC SET STUDY · V04</div></header>
+<aside class="status" id="status"><div class="status-label">BRIDGE / LOCATION <small>AST-D01-BRIDGE</small></div><canvas id="map" width="300" height="220" aria-label="Bridge floorplan and current camera position"></canvas><div class="state"><span class="statusLight"></span><span id="stateLabel">Initializing renderer</span></div></aside>
+<div id="splatLabel" class="splatLabel">GAUSSIAN SPLATTING TECHNICAL TEST — SYNTHETIC V4 CHAIR ONLY</div><div class="zone" id="zoneLabel">AFT ACCESS / MAIN BRIDGE</div>
+<nav class="destinations" aria-label="Viewing locations"><button data-place="aft" class="active">01 <span>Aft access</span></button><button data-place="command">02 <span>Command</span></button><button data-place="flight">03 <span>Flight</span></button><button data-place="science">04 <span>Science</span></button><button data-place="viewer">05 <span>Viewscreen</span></button></nav>
+<div class="hint" id="hint">W A S D <span>MOVE</span> · MOUSE DRAG <span>LOOK</span> · SHIFT <span>FAST</span> · R <span>RESET</span></div>
+<div class="mobilePad" id="mobilePad" aria-label="Walking joystick"><div id="mobileThumb"></div></div>
+<div class="touchHint">DRAG TO LOOK</div>
+<div class="notice">An original TrekMUD starship interior · View-only exploration<br>Not a live game movement action · Not Enterprise-D</div>
+<div class="curtain" id="curtain"><div class="curtainContent"><span class="eyebrow">TREKMUD / STARFLEET / 2372</span><h1>U.S.S. <em>Asteria</em></h1><h2>Welcome to the main bridge</h2><p>Compare V4 mesh rendering with a deliberately synthetic Gaussian-splat sample of the same chair. This tests rendering integration, NOT a new photorealistic design.</p><button id="enter">ENTER THE BRIDGE <span>↗</span></button><small>Visual design prototype · Room 01 · No campaign changes</small></div></div>
+<div class="error" id="error" hidden></div>
+<script src="./app.js" defer></script>
+</body>
+</html>
