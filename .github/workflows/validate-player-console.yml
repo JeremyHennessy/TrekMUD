@@ -72,13 +72,15 @@ jobs:
             exit 1
           }
           grep -q 'data-detail-pieces=' "$RUNNER_TEMP/asteria-render-dom.html"
-          "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
-            --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
-            --virtual-time-budget=2500 --window-size=1440,900 \
-            --screenshot="$RUNNER_TEMP/asteria-bridge-room-01.png" \
-            "file://$PWD/_site/3d/index.html?studioCapture=1" \
-            2>> "$RUNNER_TEMP/asteria-chrome.log"
-          test -s "$RUNNER_TEMP/asteria-bridge-room-01.png"
+          for VIEW in aft command flight science; do
+            "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
+              --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
+              --virtual-time-budget=2500 --window-size=1440,900 \
+              --screenshot="$RUNNER_TEMP/asteria-bridge-${VIEW}.png" \
+              "file://$PWD/_site/3d/index.html?studioCapture=${VIEW}" \
+              2>> "$RUNNER_TEMP/asteria-chrome.log"
+            test -s "$RUNNER_TEMP/asteria-bridge-${VIEW}.png"
+          done
 
       - name: Archive 3D bridge visual regression screenshot
         if: always()
@@ -86,7 +88,7 @@ jobs:
         with:
           name: asteria-bridge-render-review
           path: |
-            ${{ runner.temp }}/asteria-bridge-room-01.png
+            ${{ runner.temp }}/asteria-bridge-*.png
             ${{ runner.temp }}/asteria-chrome.log
           if-no-files-found: ignore
           retention-days: 7
