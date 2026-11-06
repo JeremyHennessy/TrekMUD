@@ -55,6 +55,7 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid #e9b99
 <div id="notice">ASTERIA STUDIO · ORIGINAL SET INTERPRETATION<br>Room geography follows the TrekMUD world ID. Not a canonical Enterprise deck plan.</div></div>
 <div id="stick"><div id="thumb"></div></div><div id="touchHint">DRAG TO LOOK · LEFT PAD TO WALK</div>
 <div id="splash"><div class="inner"><div class="eyebrow">TREKMUD · U.S.S. ASTERIA · 2372</div><h2>Come aboard<br>the <span>Asteria.</span></h2><p>Explore the first constructed room of your ship: an original, detailed, walkable bridge inspired by the practical set design of 1990s Star Trek. This is a real 3D space—not a rendered image.</p><button id="enter">ENTER THE BRIDGE &nbsp; →</button><div class="small">Desktop: WASD to move, drag to look. iPhone: left thumbpad to walk, swipe the scene to look. Choose a station to jump there.</div></div></div>
+<script src="furniture.js"></script>
 <script src="set-details.js"></script>
 <script>
 'use strict';
@@ -198,8 +199,8 @@ arc(0,0,W*.977,D*.977,3.19,0,2*Math.PI,.045,0xd8bba3,8,112);
 // Side acoustic panels with panel seams and sconces.
 for(let a of [-2.25,-2.05,-1.84,-1.64,1.64,1.84,2.05,2.25]){radial(a,.969,1.13,.77,2.85,0xa6a3ae,3);radial(a,.962,1.02,.86,2.73,0xc0b8b4,2);for(let r=0;r<4;r++)radial(a,.955,1.01,1.02+r*.39,1.035+r*.39,0x98939b,0);radial(a,.951,.12,2.33,2.57,0xe7d1b3,8);}
 // Angular ceiling wedge segments and blue-white recessed perimeter luminaires.
-for(let k=0;k<96;k++){const a=k*2*Math.PI/96,b=(k+1)*2*Math.PI/96,p=(t,r,y)=>[Math.sin(t)*W*r,y,Math.cos(t)*D*r];plane(p(a,.36,4.38),p(b,.36,4.38),p(b,.985,3.72),p(a,.985,3.72),k%12===0?0xc2b3ab:0xe8deca,k%8===0?8:2);}
-for(let k=0;k<16;k++){const a=k*2*Math.PI/16,p=[Math.sin(a)*W*.63,4.04,Math.cos(a)*D*.63];box(p[0],4.05,p[2],.31,.032,.23,k%4===0?0xbacfd7:0xe8d5b4,8,-a);}
+for(let k=0;k<96;k++){const a=k*2*Math.PI/96,b=(k+1)*2*Math.PI/96,p=(t,r,y)=>[Math.sin(t)*W*r,y,Math.cos(t)*D*r];plane(p(a,.36,4.38),p(b,.36,4.38),p(b,.985,3.72),p(a,.985,3.72),k%12===0?0xbcb4ad:0xd3c9bd,2);}
+for(let k=0;k<16;k++){const a=k*2*Math.PI/16,p=[Math.sin(a)*W*.63,4.04,Math.cos(a)*D*.63];box(p[0],4.05,p[2],.21,.018,.18,k%4===0?0x98a4ad:0xc2b4ad,3,-a);}
 arc(0,0,W*.36,D*.36,4.36,0,2*Math.PI,.105,0xbca8a3,3,85);
 ellipse(0,4.35,0,2.2,1.72,0x34323a,7,70);ring(0,4.367,0,2.2,1.72,.86,0x7f858d,4,70);
 ellipse(0,4.37,0,1.4,1.05,0x494551,7,66);for(let a=0;a<12;a++){const t=a*Math.PI/6;box(Math.sin(t)*1.15,4.384,Math.cos(t)*.84,.27,.03,.14,a%2?0xd0b0a5:0x8eb4c7,8,-t);}
@@ -217,17 +218,18 @@ for(let i=0;i<23;i++){box((i-11)*.257,.52,-5.88,.07,.019,.012,i%5===0?0xe6b69c:0
 // Asteria command island: oval raised plinth, understated bronze rail and a single central command chair.
 cyl(0,.13,1.11,1.86,1.56,.27,0x766b7c,1,68);ellipse(0,.275,1.11,1.82,1.51,0x786a78,1,70);ring(0,.291,1.11,1.88,1.57,.979,0xd3ad90,8,70);
 for(let side of [-1,1]){tube([[side*1.90,.28,1.03],[side*1.96,.54,1.55],[side*1.78,.84,2.06]],.044,0x9a8375,4);}
-function chair(x,z,rot=0,large=false){const ca=Math.cos(rot),sa=Math.sin(rot),pos=(dx,y,dz)=>[x+dx*ca-dz*sa,y,z+dx*sa+dz*ca],bx=(dx,y,dz,w,h,d,c,m=0)=>{const p=pos(dx,y,dz);box(p[0],p[1],p[2],w,h,d,c,m,rot)};let w=large?.78:.65;
+function legacyChair(x,z,rot=0,large=false){const ca=Math.cos(rot),sa=Math.sin(rot),pos=(dx,y,dz)=>[x+dx*ca-dz*sa,y,z+dx*sa+dz*ca],bx=(dx,y,dz,w,h,d,c,m=0)=>{const p=pos(dx,y,dz);box(p[0],p[1],p[2],w,h,d,c,m,rot)};let w=large?.78:.65;
 bx(0,.21,.1,.50,.28,.52,0x5a5363,3);cyl(x,.45,z,.28,.28,.47,0x8e8994,3,18);bx(0,.69,.10,w+.12,.15,.74,0x706b7c,4);bx(0,.78,.04,w,.17,.60,0x9f8a9a,4);
 for(let r=0;r<6;r++){bx(0,.92+r*.145,.31+r*.031,w*.96,.145,.20,r%2?0x8e788c:0x9e889a,4);}bx(0,1.84,.56,w*.87,.19,.24,0x998596,4);
 for(let side of [-1,1]){bx(side*w*.58,.88,.02,.24,.18,.61,0x756575,4);bx(side*w*.58,.989,-.025,.21,.03,.52,0x1b1923,7);for(let k=0;k<4;k++){bx(side*w*.58,1.005,-.19+k*.105,.13,.007,.023,[0xb7c0d0,0xedb49a,0xd7b8cc,0x8ebbc2][k],8);}}
 }
+function chair(x,z,rot=0,large=false){if(window.AsteriaFurniture){return window.AsteriaFurniture.chair({x,z,rot,large},{box,cyl,ellipse,ring,plane,tube});}return legacyChair(x,z,rot,large);}
 ellipse(0,.297,1.14,.48,.55,0x554e5e,1,44);
 chair(0,1.20,0,true);
 // Two independent command-data pylons on the captain's left and right, not the Enterprise three-chair row.
 for(let s of [-1,1]){box(s*1.27,.68,.60,.68,.79,.98,0xb7afa8,2,s*.22);box(s*1.27,1.10,.53,.66,.09,.75,0x251f2a,7,s*.22);surface(s*1.27,1.17,.51,.59,.66,s*.22,0xffffff,s<0?3:5,.016);box(s*1.27,.31,.55,.33,.19,.50,0x8c8287,3,s*.22);}
 // Forward continuous flight island, original crescent design with separate seats.
-for(let i=0;i<11;i++){let x=(i-5)*.48,z=-3.24+.24*Math.pow(x/2.45,2);box(x,.58,z,.50,.82,.87,0xc5b9ae,2,Math.atan2(.18*x,1));box(x,1.01,z-.08,.50,.11,1.00,0x302c37,7,Math.atan2(.18*x,1));}
+if(window.AsteriaFurniture){window.AsteriaFurniture.flightIsland({box,plane,tube});}else{for(let i=0;i<11;i++){let x=(i-5)*.48,z=-3.24+.24*Math.pow(x/2.45,2);box(x,.58,z,.50,.82,.87,0xc5b9ae,2,Math.atan2(.18*x,1));box(x,1.01,z-.08,.50,.11,1.00,0x302c37,7,Math.atan2(.18*x,1));}}
 for(let i=0;i<6;i++){let x=(i-2.5)*.88,z=-3.19+.23*Math.pow(x/2.45,2);surface(x,1.087,z-.09,.77,.76,Math.atan2(.18*x,1),0xffffff,i%2===0?0:1,.085);}
 for(let s of [-1,1]){chair(s*1.15,-2.13,0,false);box(s*1.1,.27,-3.42,.53,.25,.12,0xb1a39f,2);}
 // Forward tactical relay spine on the starboard corner (unlike Enterprise rear horseshoe).
@@ -264,10 +266,10 @@ for(let side of [-1,1]){
   for(let i=0;i<10;i++)box(side*(2.1+i*.28),.49,3.55,.16,.018,.026,i%4===0?0xf2c49e:0x9cc5d4,8);
 }
 // Command plinth joinery: detailed brass edge lugs, inset upholstery seams and foot-level kick plates.
-for(let i=0;i<28;i++){
-  const a=i*2*Math.PI/28;
+for(let i=0;i<12;i++){
+  const a=i*2*Math.PI/12;
   const x=Math.sin(a)*1.86,z=1.11+Math.cos(a)*1.55;
-  box(x,.248,z,.052,.036,.045,i%7===0?0xe9c9ac:0x988c8f,8,-a);
+  box(x,.248,z,.052,.036,.045,0x887e86,8,-a);
 }
 for(let side of [-1,1]){
   tube([[side*.35,1.80,1.73],[side*.35,1.60,1.66],[side*.35,.98,1.49]],.017,0xa78f9b,4);
