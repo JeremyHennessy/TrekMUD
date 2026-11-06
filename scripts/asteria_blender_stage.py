@@ -42,7 +42,6 @@ def parse_args():
     p.add_argument("--view", choices=[*VIEWS, *DETAIL_VIEWS, "all"], default="command")
     p.add_argument("--resolution", nargs=2, type=int, default=(1280, 800))
     p.add_argument("--no-render", action="store_true")
-    p.add_argument("--chair-stitches", action="store_true", help="Optional unapproved chair upholstery stitch A/B test")
     # Blender passes its own flags before '--'.
     return p.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
 
@@ -131,11 +130,6 @@ def main():
     bpy.ops.import_scene.gltf(filepath=str(args.glb.resolve()))
     imported = list(bpy.context.scene.objects)
     meshes, triangles = imported_mesh_statistics(imported)
-    stitch_count = 0
-    if args.chair_stitches:
-        sys.path.insert(0, str(Path(__file__).resolve().parent))
-        from asteria_blender_chair_detail import install_stitches
-        stitch_count = install_stitches()
     scene = bpy.context.scene
     configure_scene(scene, args.samples, args.resolution)
 
@@ -167,7 +161,6 @@ def main():
         "sourceGlb": str(args.glb),
         "triangles": triangles,
         "importedMeshObjects": len(meshes),
-        "optionalChairStitchCount": stitch_count,
         "engine": "CYCLES",
         "samples": args.samples,
         "renderedViews": [] if args.no_render else views,
