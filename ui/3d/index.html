@@ -178,7 +178,7 @@ const tex=gl.createTexture();gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEX
 function tile(i){const x=i%4*.25,y=(3-Math.floor(i/4))*.25;const s=.25/512,t=.25/256;return[[x+s,y+t],[x+.25-s,y+t],[x+.25-s,y+.25-t],[x+s,y+.25-t]];}
 function surface(x,y,z,w,d,rot,color,idx,edgeRise=.05){const ca=Math.cos(rot),sa=Math.sin(rot),v=(a,b,dy)=>[x+a*ca-b*sa,y+dy,z+a*sa+b*ca];plane(v(-w/2,d/2,-edgeRise),v(w/2,d/2,-edgeRise),v(w/2,-d/2,edgeRise),v(-w/2,-d/2,edgeRise),color,6,tile(idx));}
 const W=7.55,D=6.55;const wallPos=(a,f=1)=>[Math.sin(a)*W*f,Math.cos(a)*D*f];
-function radial(a,r,w,y0,y1,color,material=0,idx=-1){const c=wallPos(a,r),t=[Math.cos(a),-Math.sin(a)],p=(dx,y)=>[c[0]+t[0]*dx,y,c[1]+t[1]*dx];plane(p(-w/2,y0),p(w/2,y0),p(w/2,y1),p(-w/2,y1),color,idx<0?material:6,idx<0?undefined:tile(idx));}
+function radial(a,r,w,y0,y1,color,material=0,idx=-1){const c=wallPos(a,r),t=[Math.cos(a),-Math.sin(a)],p=(dx,y)=>[c[0]+t[0]*dx,y,c[1]+t[1]*dx];const uv=idx<0?undefined:tile(idx);plane(p(-w/2,y0),p(w/2,y0),p(w/2,y1),p(-w/2,y1),color,idx<0?material:6,uv?[uv[1],uv[0],uv[3],uv[2]]:undefined);}
 function arc(cx,cz,rx,rz,y,a0,a1,radius,color,mat=0,count=72){const pts=[];for(let i=0;i<=count;i++){const a=lerp(a0,a1,i/count);pts.push([cx+Math.sin(a)*rx,y,cz+Math.cos(a)*rz]);}tube(pts,radius,color,mat);}
 const PAL={wall:0xd3c9ba,wallLight:0xe5d9ca,trim:0xa39ca5,rib:0xb0a29b,deep:0x24242d,carpet:0x5d6974,command:0x806d78,edge:0x9d8b88,bronze:0x94735f,desk:0xaaa6a7,seat:0x93849c,seatLight:0xb0a0b1,screen:0x0d1019,glow:0xb8d3de};
 // Original TrekMUD-Asteria architecture. Room location ID: AST-D01-BRIDGE.
@@ -244,7 +244,7 @@ box(0,1.62,6.38,2.10,3.03,.28,0x7c7883,3);box(0,1.60,6.16,1.86,2.78,.10,0xc4c1c5
 for(let i=0;i<4;i++)box(0,.37+i*.77,6.062,1.66,.016,.029,0xd1c9c3,3);
 box(0,3.15,6.04,2.10,.18,.15,0xdbc7af,8);box(1.30,1.58,6.06,.18,1.05,.08,0x262430,7);for(let i=0;i<6;i++)box(1.31,1.21+i*.15,6.005,.12,.066,.018,i%2?0xe8bd96:0x95b8cf,8);
 // Side hatches are scenic placeholders, not traversable connections in the approved room graph.
-function sideHatch(sign,labelIndex){const x=sign*7.03,z=-.28;box(x,1.62,z,.22,3.06,2.02,0xa89897,3);box(x-sign*.13,1.61,z,.10,2.81,1.78,0xb8b1b6,3);box(x-sign*.185,1.62,z,.035,2.66,.034,0x6f6e77,7);box(x-sign*.20,2.72,z,.045,.07,1.61,0xdfc1a3,8);
+function sideHatch(sign,labelIndex){const x=sign*7.03,z=-.28;box(x,1.62,z,.22,3.06,2.02,0xa89897,3);box(x-sign*.13,1.61,z,.10,2.81,1.78,0x938e98,3);box(x-sign*.185,1.62,z,.035,2.66,.034,0x6f6e77,7);box(x-sign*.20,2.72,z,.045,.07,1.61,0xdfc1a3,8);
 // Small edge-on side access panel and identifying vertical light bars.
 box(x-sign*.22,1.54,z+1.17,.10,.97,.23,0x262734,7);for(let k=0;k<5;k++)box(x-sign*.29,1.26+k*.13,z+1.17,.032,.056,.12,k%2?0x95bad0:0xeab79c,8);}
 sideHatch(-1,0);sideHatch(1,0);
@@ -284,7 +284,7 @@ gl.useProgram(program);for(const [name,data,n] of attr){const loc=gl.getAttribLo
 gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.clearColor(.025,.024,.046,1);gl.uniform1i(gl.getUniformLocation(program,'uAtlas'),0);
 function perspective(fov,aspect,near,far){const f=1/Math.tan(fov/2),nf=1/(near-far);return new Float32Array([f/aspect,0,0,0,0,f,0,0,0,0,(far+near)*nf,-1,0,0,2*far*near*nf,0]);}
 function lookAt(eye,target){const zz=[eye[0]-target[0],eye[1]-target[1],eye[2]-target[2]];let len=Math.hypot(...zz)||1;for(let k=0;k<3;k++)zz[k]/=len;let xx=[zz[2],0,-zz[0]];len=Math.hypot(...xx)||1;for(let k=0;k<3;k++)xx[k]/=len;const yy=[zz[1]*xx[2]-zz[2]*xx[1],zz[2]*xx[0]-zz[0]*xx[2],zz[0]*xx[1]-zz[1]*xx[0]];return new Float32Array([xx[0],yy[0],zz[0],0,xx[1],yy[1],zz[1],0,xx[2],yy[2],zz[2],0,-(xx[0]*eye[0]+xx[1]*eye[1]+xx[2]*eye[2]),-(yy[0]*eye[0]+yy[1]*eye[1]+yy[2]*eye[2]),-(zz[0]*eye[0]+zz[1]*eye[1]+zz[2]*eye[2]),1]);}
-const hotspots={aft:{x:-1.23,z:4.80,yaw:.44,label:'AFT CORRIDOR ACCESS · DECK 01'},command:{x:0,z:2.68,yaw:0,label:'COMMAND PLATFORM'},flight:{x:0,z:-1.32,yaw:0,label:'FLIGHT CONTROL'},science:{x:-3.70,z:2.76,yaw:2.8,label:'SCIENCE GALLERY'},viewer:{x:0,z:-4.78,yaw:Math.PI,label:'FORWARD VIEWSCREEN'}};
+const hotspots={aft:{x:-1.23,z:4.80,yaw:.44,label:'AFT CORRIDOR ACCESS · DECK 01'},command:{x:-2.32,z:2.15,yaw:.22,label:'COMMAND PLATFORM'},flight:{x:0,z:-1.32,yaw:0,label:'FLIGHT CONTROL'},science:{x:-3.70,z:2.76,yaw:2.8,label:'SCIENCE GALLERY'},viewer:{x:0,z:-4.78,yaw:Math.PI,label:'FORWARD VIEWSCREEN'}};
 const pos={x:-1.23,y:1.67,z:4.80,yaw:.44,pitch:-.14};let active='aft';let last=0,visible=true,drag=null,stick=null,stickX=0,stickY=0;const pressed=new Set();
 function resetAt(name){const p=hotspots[name];if(!p)return;pos.x=p.x;pos.z=p.z;pos.y=1.67;pos.yaw=p.yaw;pos.pitch=-.14;active=name;document.querySelectorAll('[data-go]').forEach(b=>b.classList.toggle('active',b.dataset.go===name));$('place').textContent=p.label;$('place').style.opacity='1';setTimeout(()=>{if($('place').textContent===p.label)$('place').style.opacity='0';},1700);}
 function blocked(x,z){if((x/W)**2+(z/D)**2>.845)return true;
