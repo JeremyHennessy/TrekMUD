@@ -1,0 +1,70 @@
+name: Validate Asteria Layout Viewer
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ui/3d-layout/**
+      - tests/asteria-layout-viewer.test.cjs
+      - scripts/build_player_console.py
+      - scripts/validate_player_console.py
+      - .github/workflows/validate-asteria-layout-viewer.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  layout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate model and standalone JS
+        run: node --test tests/asteria-layout-viewer.test.cjs
+      - name: Validate existing PADD and copy the separate viewer
+        run: python scripts/validate_player_console.py --keep _site
+      - name: Render real WebGL and capture aft/command/flight/mobile viewpoints
+        run: |
+          set -eu
+          CHROME="$(command -v google-chrome || command -v chromium || true)"
+          test -n "$CHROME"
+          for VIEW in aft command flight; do
+            "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
+              --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
+              --virtual-time-budget=3000 --window-size=1280,800 --dump-dom \
+              "file://$PWD/_site/3d-layout/index.html?capture=$VIEW" \
+              > "$RUNNER_TEMP/asteria-layout-$VIEW.dom" 2> "$RUNNER_TEMP/asteria-layout-$VIEW.chrome.log"
+            grep -q 'data-viewer-ready="true"' "$RUNNER_TEMP/asteria-layout-$VIEW.dom"
+            grep -q 'data-parts="117"' "$RUNNER_TEMP/asteria-layout-$VIEW.dom"
+            "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
+              --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
+              --virtual-time-budget=3000 --window-size=1280,800 \
+              --screenshot="$RUNNER_TEMP/asteria-layout-$VIEW.png" \
+              "file://$PWD/_site/3d-layout/index.html?capture=$VIEW" 2>> "$RUNNER_TEMP/asteria-layout-$VIEW.chrome.log"
+            test -s "$RUNNER_TEMP/asteria-layout-$VIEW.png"
+          done
+          "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
+            --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
+            --virtual-time-budget=3000 --window-size=390,844 \
+            --screenshot="$RUNNER_TEMP/asteria-layout-mobile.png" \
+            "file://$PWD/_site/3d-layout/index.html?capture=aft" \
+            2>> "$RUNNER_TEMP/asteria-layout-mobile.chrome.log"
+          test -s "$RUNNER_TEMP/asteria-layout-mobile.png"
+      - name: Archive visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-layout-viewer-review
+          path: |
+            ${{ runner.temp }}/asteria-layout-*.png
+            ${{ runner.temp }}/asteria-layout-*.dom
+            ${{ runner.temp }}/asteria-layout-*.chrome.log
+          if-no-files-found: ignore
+          retention-days: 7
