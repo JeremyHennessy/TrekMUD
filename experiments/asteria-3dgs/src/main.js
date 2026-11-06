@@ -48,6 +48,7 @@ import { SparkRenderer, SplatMesh } from '@sparkjsdev/spark';
   const views={
     aft:{x:-1.38,z:4.91,yaw:.40,pitch:-.095,label:'AFT CORRIDOR ACCESS'},
     command:{x:-2.48,z:2.60,yaw:.20,pitch:-.11,label:'COMMAND PLATFORM'},
+    chairClose:{x:-1.35,z:2.25,yaw:.78,pitch:-.055,label:'CAPTAIN CHAIR INSPECTION'},
     flight:{x:0,z:-1.56,yaw:0,pitch:-.025,label:'FLIGHT CONTROL'},
     science:{x:-4.75,z:2.10,yaw:2.63,pitch:-.045,label:'SCIENCE ANALYSIS'},
     viewer:{x:0,z:-4.84,yaw:0,pitch:.06,label:'FORWARD VIEWSCREEN'}
