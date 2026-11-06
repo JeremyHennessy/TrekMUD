@@ -174,7 +174,8 @@ world.node_tree.nodes['Background'].inputs['Strength'].default_value=.5
 bpy.context.scene.world=world
 scene=bpy.context.scene
 scene.render.engine='CYCLES';scene.cycles.samples=opt.samples
-if hasattr(scene.cycles,'use_denoising'):scene.cycles.use_denoising=True
+# The Ubuntu Blender package has no OpenImageDenoiser; use raw CPU Cycles.
+if hasattr(scene.cycles,'use_denoising'):scene.cycles.use_denoising=False
 scene.render.resolution_x=1180;scene.render.resolution_y=790;scene.render.resolution_percentage=100
 scene.render.image_settings.file_format='PNG';scene.render.film_transparent=False
 try:scene.view_settings.view_transform='AgX'
