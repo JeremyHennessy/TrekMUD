@@ -49,6 +49,23 @@ try:
     if route=='3d-preview-v5':
      assert int(data['triangles'])==106988 and data['missing']=='0',data
     page.close()
+  # One-variable lighting A/B: the default images above are untouched.
+  # Capture ceiling-bounce version at identical camera poses and exposure.
+  for view in ['aft','command','science']:
+   page=browser.new_page(viewport={'width':1280,'height':800},device_scale_factor=1)
+   errors=[];page.on('pageerror',lambda err:errors.append(str(err)))
+   page.goto(url+f'3d-preview-v5/?studioCapture={view}&ceilingBounce=1',wait_until='domcontentloaded',timeout=45000)
+   page.wait_for_function('document.body.dataset.rendererReady==="true" || document.body.dataset.rendererReady==="error"',timeout=120000)
+   page.wait_for_timeout(1100)
+   diag=page.evaluate('''() => ({ready:document.body.dataset.rendererReady,
+     bounce:document.body.dataset.ceilingBounce,position:window.__asteriaV5?.getPosition(),
+     triangles:document.body.dataset.geometryTriangles})''')
+   file=out/f'3d-preview-v5-{view}-bounce-1280.png'
+   page.screenshot(path=str(file),timeout=60000)
+   diag.update({'view':view,'experiment':'ceiling-bounce','errors':errors,'file':file.name})
+   results.append(diag);print('BOUNCE',json.dumps(diag),flush=True)
+   assert diag['ready']=='true' and diag['bounce']=='enabled' and diag['triangles']=='106988' and not errors
+   page.close()
   # Real browser walking (not synthetic direct state injection).
   page=browser.new_page(viewport={'width':860,'height':560})
   page.goto(url+'3d-preview-v5/?studioCapture=aft',wait_until='domcontentloaded',timeout=30000)
