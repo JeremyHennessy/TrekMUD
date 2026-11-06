@@ -15,8 +15,9 @@ A separate, opt-in, first-person browser walkthrough for the **TrekMUD** origina
 - Five station views: aft access, command, flight, science, forward view.
 
 ## Release and accuracy gates
-- Browser JavaScript syntax and in-browser control flow have been tested with a stub WebGL context; approximately 16,000 modelling triangles are generated, and keyboard movement plus mobile/desktop navigation handlers were exercised.
-- The test environment **does not expose an actual WebGL context**, so a true hardware-rendered visual screenshot, GPU behavior, touch-device frame pacing, and visual fidelity remain **unverified**. Review on a real WebGL browser before treating appearance as approved.
+- Browser JavaScript syntax and in-browser control flow have been tested; approximately 17,180 modelling triangles are generated, and keyboard movement plus mobile/desktop navigation handlers were exercised.
+- Actual **WebGL rendering succeeded under software GPU rendering** in a visible Chromium session on Linux/Xvfb. Screenshots were inspected at both desktop and mobile viewport dimensions; initial lighting and camera issues were corrected. Navigation, station jumps, the intro and the minimap were exercised. This is a **first-pass visual model**, not final photorealistic set quality.
+- Performance on a physical iPhone, real GPU framerate, detailed collision geometry and touch ergonomics remain **unverified**. User approval of geometry and presentation is still pending.
 - This is Room 01; no additional rooms are claimed to exist. Future room geometry should keep the existing 200 stable public topology IDs and add only authorized room links, preserving existing UI and campaign state.
 
 Open `3d/` under GitHub Pages, or open `index.html` in a modern WebGL browser.
