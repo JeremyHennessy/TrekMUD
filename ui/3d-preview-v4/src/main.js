@@ -177,7 +177,20 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       scene.add(plane);screenMaterials.push(plane);
     }
   }
-  addFlightScreens();addAftScreens();addSideTables();
+  function addCommandDisplays(){
+    const title=['COMMAND SYSTEMS','MISSION STATUS'];
+    for(const s of [-1,1]){
+      const i=s<0?0:1;
+      const tex=displayTexture(title[i],i+19,'systems');
+      const mat=new THREE.MeshStandardMaterial({map:tex,emissive:0xf1e8df,emissiveMap:tex,emissiveIntensity:.52,metalness:0,roughness:.31,side:THREE.DoubleSide});
+      const screen=new THREE.Mesh(new THREE.PlaneGeometry(.67,.87),mat);
+      screen.position.set(s*1.34,1.156,.50);
+      screen.rotation.x=-1.23;
+      screen.rotation.y=s*.16;
+      scene.add(screen);screenMaterials.push(screen);
+    }
+  }
+  addFlightScreens();addAftScreens();addSideTables();addCommandDisplays();
 
   function block(x,z){
     if((x/W)**2+(z/D)**2>.82) return true;
