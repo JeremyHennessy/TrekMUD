@@ -4,7 +4,7 @@ A separate, opt-in, first-person browser walkthrough for the **TrekMUD** origina
 ## Material and set realism pass 02 (in review)
 The accepted starting point is the deployed Room 01 at commit `1bec688cc57c7cea6c2954460e7b35e7aa426574`. Pass 02 changes only the opt-in 3D route and its associated visual tests. The approved PADD interface, campaign status, and world topology are not changed.
 
-- `set-details.js` adds more than 1,000 discrete pieces of physically modelled trim, fixtures, acoustic panels, seams, latches, controls, upholstery and service infrastructure in the existing space. The implementation is deterministic and uses no hidden campaign data.
+- `set-details.js` adds approximately 970 discrete pieces of physically modelled trim, fixtures, acoustic panels, seams, latches, controls, upholstery and service infrastructure in the existing space. The implementation is deterministic and uses no hidden campaign data.
 - A filmic, energy-aware shader distinguishes carpet, painted composite, cast substrate, satin metal, upholstery, smoked instrument glass and internally lit display faces. This is a *physically inspired approximation*, not offline ray tracing or a path-traced physically accurate lighting simulation.
 - The browser automatically falls back to the previous material shader if the new fragment program does not compile.
 - The GitHub PR checks run static topology/geometry tests and attempt a real software-WebGL rendering smoke with an uploaded screenshot for visual review. Use `?studioCapture=1` on the 3D route to bypass the opening modal for screenshot capture.
