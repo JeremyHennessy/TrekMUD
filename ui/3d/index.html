@@ -312,6 +312,6 @@ const pad=$('stick'),nub=$('thumb');function padMove(e){const rect=pad.getBoundi
 pad.addEventListener('pointerdown',e=>{stick=e.pointerId;pad.setPointerCapture(e.pointerId);padMove(e);});pad.addEventListener('pointermove',e=>{if(e.pointerId===stick)padMove(e);});for(const event of ['pointerup','pointercancel','lostpointercapture'])pad.addEventListener(event,e=>{if(e.pointerId===stick){stick=null;stickX=stickY=0;nub.style.transform='translate(0,0)';}});
 // Public debugging marker for automated geometry + walking checks (not game state).
 window.__asteriaWalkthrough={roomId:'AST-D01-BRIDGE',meshTriangles:tris,detailPieces:setDressing.pieces,visualPass:'materials-and-set-02',getPosition:()=>({...pos}),resetAt,collision:blocked,ready:true};
-document.body.dataset.rendererReady='true';document.body.dataset.geometryTriangles=String(tris);document.body.dataset.detailPieces=String(setDressing.pieces);if(new URLSearchParams(location.search).get('studioCapture')==='1'){$('splash').classList.add('off');}resize();requestAnimationFrame(frame);$('loading').classList.add('off');
+document.body.dataset.rendererReady='true';document.body.dataset.geometryTriangles=String(tris);document.body.dataset.detailPieces=String(setDressing.pieces);const captureView=new URLSearchParams(location.search).get('studioCapture');if(captureView){if(hotspots[captureView])resetAt(captureView);$('splash').classList.add('off');}resize();requestAnimationFrame(frame);$('loading').classList.add('off');
 })();
 </script></body></html>
