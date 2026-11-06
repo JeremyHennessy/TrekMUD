@@ -56,6 +56,41 @@ jobs:
       - name: Build and validate player-safe console
         run: python scripts/validate_player_console.py --keep _site
 
+      - name: Software-WebGL smoke and visual review capture
+        run: |
+          set -eu
+          CHROME="$(command -v google-chrome || command -v chromium || true)"
+          test -n "$CHROME" || { echo "Chromium not installed on runner"; exit 1; }
+          "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
+            --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
+            --virtual-time-budget=3500 --dump-dom \
+            "file://$PWD/_site/3d/index.html?studioCapture=1" \
+            > "$RUNNER_TEMP/asteria-render-dom.html" 2> "$RUNNER_TEMP/asteria-chrome.log"
+          grep -q 'data-renderer-ready="true"' "$RUNNER_TEMP/asteria-render-dom.html" || {
+            echo "Asteria bridge did not initialize WebGL"
+            tail -n 40 "$RUNNER_TEMP/asteria-chrome.log"
+            exit 1
+          }
+          grep -q 'data-detail-pieces=' "$RUNNER_TEMP/asteria-render-dom.html"
+          "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
+            --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
+            --virtual-time-budget=2500 --window-size=1440,900 \
+            --screenshot="$RUNNER_TEMP/asteria-bridge-room-01.png" \
+            "file://$PWD/_site/3d/index.html?studioCapture=1" \
+            2>> "$RUNNER_TEMP/asteria-chrome.log"
+          test -s "$RUNNER_TEMP/asteria-bridge-room-01.png"
+
+      - name: Archive 3D bridge visual regression screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-bridge-render-review
+          path: |
+            ${{ runner.temp }}/asteria-bridge-room-01.png
+            ${{ runner.temp }}/asteria-chrome.log
+          if-no-files-found: ignore
+          retention-days: 7
+
       - name: Test automatic campaign refresh
         run: node --test tests/player-console-refresh.test.cjs
 
