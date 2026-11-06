@@ -98,7 +98,17 @@ def surface(name,fn,rows,cols,mat,back=False):
 
 # Strong silhouette first: continuous high-back outer shell, inner padded face and rolled edge.
 surface('AST_Captain_Chair_Outer_CastShell',lambda t,u:backpoint(t,u,.105),60,44,shell,True)
-surface('AST_Captain_Chair_Front_Leather',lambda t,u:backpoint(t,u,-.045),60,44,leather,False)
+# Authored panel geometry: actual rounded cushion volume rather than seams drawn
+# on a flat sheet. Four pillowed vertical sections swell toward the sitter;
+# the grooves sit where the tailored fabric panels meet.
+def frontpoint(t,u):
+    x,y,z=backpoint(t,u,-.055)
+    phase=((u+1.0)*2.0)%1.0
+    rib=max(0.0,sin(pi*phase))**1.5
+    end=max(.0,sin(pi*t))**.42
+    pillowed=.065*rib*end
+    return (x,y-pillowed,z)
+surface('AST_Captain_Chair_Front_Leather',frontpoint,72,64,leather,False)
 for side in [-1,1]:
     for j in range(48):
        t0=j/48;t1=(j+1)/48
@@ -110,15 +120,15 @@ for side in [-1,1]:
        obj=bpy.data.objects.new(surface_name,me);bpy.context.collection.objects.link(obj);track(obj);assign(obj,shell)
     pts=[backpoint(k/72,side,.07) for k in range(73)]
     tube(f'AST_Captain_Chair_Sewn_Back_Edge_{side}',pts,.013,bronze)
-    pts=[backpoint(k/72,side*.96,-.050) for k in range(73)]
+    pts=[frontpoint(k/72,side*.96) for k in range(73)]
     tube(f'AST_Captain_Chair_Inner_Piping_{side}',pts,.009,stitched)
 
 # Upholstery hand stitched vertical curved panels; subtle 3D seams, no flat decal.
-for u in [-.55,-.26,.26,.55]:
-    pts=[backpoint(.05+k*.90/55,u,-.053) for k in range(56)]
+for u in [-.50,0.0,.50]:
+    pts=[frontpoint(.05+k*.90/55,u) for k in range(56)]
     tube(f'AST_Captain_Chair_Upholstery_SewnChannel_{int(u*100)}',pts,.0044,stitched,3)
-for t in [.16,.43,.70,.94]:
-    pts=[backpoint(t,-.85+k*1.7/46,-.055) for k in range(47)]
+for t in [.28,.57,.84]:
+    pts=[frontpoint(t,-.85+k*1.7/46) for k in range(47)]
     tube(f'AST_Captain_Chair_Upholstery_CrossSeam_{int(t*100)}',pts,.004,stitched,2)
 
 # Twin cushion rolls at lumbar and head support; seat pan has human-scale recess.
@@ -174,8 +184,7 @@ world.node_tree.nodes['Background'].inputs['Strength'].default_value=.5
 bpy.context.scene.world=world
 scene=bpy.context.scene
 scene.render.engine='CYCLES';scene.cycles.samples=opt.samples
-# The Ubuntu Blender package has no OpenImageDenoiser; use raw CPU Cycles.
-if hasattr(scene.cycles,'use_denoising'):scene.cycles.use_denoising=False
+if hasattr(scene.cycles,'use_denoising'):scene.cycles.use_denoising=True
 scene.render.resolution_x=1180;scene.render.resolution_y=790;scene.render.resolution_percentage=100
 scene.render.image_settings.file_format='PNG';scene.render.film_transparent=False
 try:scene.view_settings.view_transform='AgX'
