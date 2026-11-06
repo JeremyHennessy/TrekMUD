@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "shipId": "USS-ASTERIA",
+  "registry": "NCC-63542",
+  "rendering": "webgl1-procedural",
+  "sourceTopology": "world/asteria/topology.json",
+  "rooms": [
+    {
+      "roomId": "AST-D01-BRIDGE",
+      "deck": 1,
+      "name": "Main Bridge",
+      "model": "index.html",
+      "status": "prototype-visual-review-pending",
+      "campaignAccess": "restricted",
+      "confirmedTopologyNeighbors": [
+        "AST-D01-HUB-C"
+      ],
+      "linkedTravelImplemented": false
+    }
+  ]
+}
