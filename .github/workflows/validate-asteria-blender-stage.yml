@@ -1,0 +1,71 @@
+name: Asteria Blender / Cycles source-stage proof
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: ['feature/asteria-v5-faithful-pbr']
+    paths:
+      - 'scripts/asteria_blender_stage.py'
+      - 'docs/ASTERIA_REALISM_STAGE_01.md'
+      - '.github/workflows/validate-asteria-blender-stage.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  cycles-proof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate authoring script syntax before installing Blender
+        run: python -m py_compile scripts/asteria_blender_stage.py
+      - name: Install locked V3 mesh extractor dependencies
+        run: |
+          python -m pip install --disable-pip-version-check numpy==2.3.5 Pillow==12.3.0 playwright==1.56.0
+      - name: Recover immutable V3 geometry
+        run: python scripts/extract_asteria_v3_for_v5.py
+      - name: Build V5 glTF reference source
+        run: python scripts/build_asteria_v5_assets.py
+      - name: Install Blender in isolated CI runner
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender
+          blender --version
+      - name: Render a matched command station and aft view in Cycles
+        run: |
+          mkdir -p _blender_asteria
+          blender -b -t 4 --python scripts/asteria_blender_stage.py -- \
+            --glb _site/3d-preview-v5/models/asteria-v3-restored-pbr.glb \
+            --out _blender_asteria --samples 24 --resolution 960 600 --view all
+      - name: Verify actual output and fixed geometry provenance
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image, ImageStat
+          root=Path('_blender_asteria')
+          data=json.loads((root/'stage-manifest.json').read_text())
+          assert data['roomId']=='AST-D01-BRIDGE'
+          assert data['triangles']==106988
+          assert (root/'asteria-bridge-realism-stage.blend').stat().st_size>100000
+          for name in ('aft','command','flight','science'):
+              image=Image.open(root/f'asteria-cycles-{name}.png').convert('RGB')
+              assert image.size==(960,600)
+              assert max(ImageStat.Stat(image).stddev)>8, f'Blank render: {name}'
+          print('Cycles reference files exist and have nonblank image content. Visual approval still required.')
+          PY
+      - name: Archive editable source and actual render proofs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-blender-cycles-stage-01
+          path: |
+            _blender_asteria/*.blend
+            _blender_asteria/*.png
+            _blender_asteria/stage-manifest.json
+          if-no-files-found: ignore
+          retention-days: 7
