@@ -89,6 +89,28 @@ def main():
    samples.append({"u":u,"v":v,"hits":layers})
  centre=next(x for x in samples if x["u"]==0 and x["v"]==0)
  visible=Counter(s["hits"][0]["material"] if s["hits"] else "<no hit>" for s in samples)
+ # Compare triangle winding with stored V3 vertex normals without changing either.
+ e1=tri[:,1,:]-tri[:,0,:]
+ e2=tri[:,2,:]-tri[:,0,:]
+ geo=np.cross(e1,e2)
+ geo/=np.maximum(1e-12,np.linalg.norm(geo,axis=1,keepdims=True))
+ vn=norm.mean(axis=1)
+ vn/=np.maximum(1e-12,np.linalg.norm(vn,axis=1,keepdims=True))
+ alignment=np.einsum("ij,ij->i",geo,vn)
+ centroids=tri.mean(axis=1)
+ chair=(np.abs(centroids[:,0])<.95)&(centroids[:,1]>.45)&(centroids[:,1]<2.3)&(np.abs(centroids[:,2]-1.2)<.9)
+ normal_alignment={}
+ for m,name in MATERIAL.items():
+  group=(mat[:,0]==m)
+  area=group&chair
+  normal_alignment[name]={
+   "faces":int(group.sum()),
+   "globalOpposed":int((group&(alignment<-.5)).sum()),
+   "globalAligned":int((group&(alignment>.5)).sum()),
+   "chairNearbyFaces":int(area.sum()),
+   "chairNearbyOpposed":int((area&(alignment<-.5)).sum()),
+   "chairNearbyAligned":int((area&(alignment>.5)).sum()),
+  }
  report={
   "roomId":"AST-D01-BRIDGE",
   "sourceV3Blob":"74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
@@ -97,12 +119,14 @@ def main():
   "cameraDirection":[0,-.14/3,1],
   "centreHits":centre["hits"],
   "firstSurfaceMaterials":dict(visible),
+  "windingVsVertexNormal":normal_alignment,
   "samples":samples,
   "note":"This reports unlit geometry/material at ray hits, not a final pixel-lighting diagnosis.",
  }
  args.out.parent.mkdir(parents=True,exist_ok=True)
  args.out.write_text(json.dumps(report,indent=2)+"\n")
  print("First-surface materials:",dict(visible))
+ print("Normal alignment:",json.dumps(normal_alignment["upholstery"],indent=2))
  print("Centre intersection stack:",json.dumps(centre["hits"][:4],indent=2))
  assert centre["hits"],"Camera centre sees no source triangles"
 
