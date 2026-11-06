@@ -94,7 +94,12 @@ def imported_mesh_statistics(imported):
 def configure_scene(scene, samples, resolution):
     scene.render.engine = "CYCLES"
     scene.cycles.samples = samples
-    scene.cycles.use_denoising = True
+    # The distro's Blender/Cycles package may lack OpenImageDenoiser entirely.
+    # Avoid making reference rendering depend on an optional binary feature.
+    scene.cycles.use_denoising = False
+    for view_layer in scene.view_layers:
+        if hasattr(view_layer, "cycles"):
+            view_layer.cycles.use_denoising = False
     scene.render.resolution_x = resolution[0]
     scene.render.resolution_y = resolution[1]
     scene.render.resolution_percentage = 100
