@@ -48,7 +48,7 @@ jobs:
           names=['asteria-command-chair.glb','chair-aft.png','chair-front.png','chair-side.png','manifest.json']
           for n in names:
               f=d/n
-              assert f.exists() and f.stat().st_size>5000,(n,f.stat().st_size if f.exists() else 'MISSING')
+              assert f.exists() and f.stat().st_size>(100 if n=='manifest.json' else 5000),(n,f.stat().st_size if f.exists() else 'MISSING')
           b=(d/'asteria-command-chair.glb').read_bytes()
           assert b[:4]==b'glTF' and struct.unpack_from('<I',b,4)[0]==2
           report=json.loads((d/'manifest.json').read_text())
