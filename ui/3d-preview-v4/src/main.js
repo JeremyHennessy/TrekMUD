@@ -4,6 +4,7 @@
  */
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 (() => {
   'use strict';
@@ -19,12 +20,18 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
   const mobile = matchMedia('(max-width:720px)').matches;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = mobile ? 1.33 : 1.25;
+  renderer.toneMappingExposure = mobile ? 1.24 : 1.13;
   renderer.shadowMap.enabled = !mobile;
   renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.setClearColor(0x101522,1);
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x090f18);
+  // PBR reflection environment: restrained studio softbox approximation.
+  const pmrem=new THREE.PMREMGenerator(renderer);
+  const env=pmrem.fromScene(new RoomEnvironment(),.065);
+  scene.environment=env.texture;
+  scene.environmentIntensity=.31;
+  pmrem.dispose();
   const camera = new THREE.PerspectiveCamera(64,1,.065,160);
   camera.rotation.order = 'YXZ';
   const W=7.55,D=6.55, eyeY=1.69;
@@ -40,19 +47,19 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
   const originalState = { roomId:'AST-D01-BRIDGE', deck:1, neighbors:['AST-D01-HUB-C'], writesCampaign:false };
 
   function track(el){ el.castShadow=true;el.receiveShadow=true;return el; }
-  const hemi = new THREE.HemisphereLight(0xd8e7f4,0x3e3d45,1.52);scene.add(hemi);
-  scene.add(new THREE.AmbientLight(0x9eafc0,.24));
-  const key = new THREE.DirectionalLight(0xffe1c4,2.45);
+  const hemi = new THREE.HemisphereLight(0xd8e7f4,0x3e3d45,1.20);scene.add(hemi);
+  scene.add(new THREE.AmbientLight(0x9eafc0,.21));
+  const key = new THREE.DirectionalLight(0xffe1c4,1.86);
   key.position.set(-3.8,7.2,1.2);key.target.position.set(0,.8,0);key.castShadow=!mobile;
   key.shadow.mapSize.set(2048,2048);key.shadow.camera.left=-9;key.shadow.camera.right=9;key.shadow.camera.top=8;key.shadow.camera.bottom=-8;key.shadow.camera.near=1;key.shadow.camera.far=23;
   key.shadow.bias=-.0004;key.shadow.normalBias=.035;
   scene.add(key,key.target);
-  const fill=new THREE.DirectionalLight(0xa8cbeb,1.05);fill.position.set(5.2,3.8,-3.5);scene.add(fill);
+  const fill=new THREE.DirectionalLight(0xa8cbeb,.81);fill.position.set(5.2,3.8,-3.5);scene.add(fill);
   for(const x of [-4.74,4.74]) for(const z of [-4.65,.78,3.45]){
-    const light = new THREE.PointLight(0xffdec0,mobile?11:15,5.7,2);
+    const light = new THREE.PointLight(0xffdec0,mobile?7:9,5.7,2);
     light.position.set(x,3.75,z);scene.add(light);
   }
-  const frontGlow=new THREE.PointLight(0x91b9de,8.0,9.5,2);
+  const frontGlow=new THREE.PointLight(0x91b9de,5.3,9.5,2);
   frontGlow.position.set(0,2.30,-5.68);scene.add(frontGlow);
   const rearGlow=new THREE.PointLight(0xffd3a0,5,6,2);
   rearGlow.position.set(0,3.65,5.90);scene.add(rearGlow);
