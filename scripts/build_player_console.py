@@ -262,6 +262,12 @@ def build(output: Path) -> dict[str, Any]:
         raise FileNotFoundError("missing USS Asteria 3D bridge entrypoint")
     shutil.copytree(walkthrough_root, output / "3d")
 
+    # Opt-in higher-detail bridge preview: preserve the approved /3d/ baseline.
+    preview_root = UI_ROOT / "3d-preview"
+    if not (preview_root / "index.html").exists():
+        raise FileNotFoundError("missing Asteria 3D realism preview")
+    shutil.copytree(preview_root, output / "3d-preview")
+
     payload = player_safe_snapshot(ROOT)
     (output / "data" / "player-console.json").write_text(
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
