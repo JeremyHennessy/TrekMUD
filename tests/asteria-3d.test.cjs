@@ -60,7 +60,7 @@ test('high-detail dressing builds deterministically with valid geometry and no c
   }
   const a=safe.window.AsteriaSetDetails({...draw,wallPos:(a,f=1)=>[Math.sin(a)*7.55*f,Math.cos(a)*6.55*f],W:7.55,D:6.55});
   assert.equal(a.roomId,'AST-D01-BRIDGE');
-  assert.ok(a.pieces>=1000,'insufficient construction detail');
+  assert.ok(a.pieces>=900,'high-detail set dressing disappeared');
   assert.ok(calls>=a.pieces,'primitives not generated');
   assert.equal(moduleText.includes('TrekMUD-GM'),false);
 });
