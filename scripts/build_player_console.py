@@ -274,6 +274,13 @@ def build(output: Path) -> dict[str, Any]:
         raise FileNotFoundError("missing Asteria bridge v3 hero-set preview")
     shutil.copytree(preview_v3_root, output / "3d-preview-v3")
 
+    # Independent offline-capable visual viewer of the V3-based layout guide.
+    # Does not modify, replace, or connect to any approved MUD campaign screen.
+    blockout_root = UI_ROOT / "3d-layout"
+    if not (blockout_root / "index.html").exists():
+        raise FileNotFoundError("missing Asteria 3D layout viewer")
+    shutil.copytree(blockout_root, output / "3d-layout")
+
     payload = player_safe_snapshot(ROOT)
     (output / "data" / "player-console.json").write_text(
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
