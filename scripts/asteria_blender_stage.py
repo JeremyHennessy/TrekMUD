@@ -130,6 +130,7 @@ def main():
     meshes, triangles = imported_mesh_statistics(imported)
     stitch_count = 0
     if args.chair_stitches:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
         from asteria_blender_chair_detail import install_stitches
         stitch_count = install_stitches()
     scene = bpy.context.scene
