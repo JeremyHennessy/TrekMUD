@@ -21,6 +21,7 @@ import { SparkRenderer, SplatMesh } from '@sparkjsdev/spark';
   // Single reversible A/B trial. No new game geography or campaign state.
   const params = new URLSearchParams(location.search);
   const splatMode = params.get('chair') === 'splat';
+  const isolateSplat = params.get('splatOnly') === '1';
   document.body.dataset.hybridMode = splatMode ? 'synthetic-chair-splat' : 'mesh-baseline';
   document.body.dataset.splatReady = splatMode ? 'loading' : 'disabled';
   const mobile = matchMedia('(max-width:720px)').matches;
@@ -298,6 +299,13 @@ import { SparkRenderer, SplatMesh } from '@sparkjsdev/spark';
           group.traverse(o => {
             if (o.isMesh && /^(AST_Captain_Seat_Padded_Contour|AST_Captain_Seat_Outer_Composite_Shell|AST_Captain_Seat_3D_Padded_Pan|AST_Captain_Headrest|AST_Captain_Seat_Arm_Leather_|AST_Captain_Seat_Arm_Cast_|AST_Captain_Seat_Back_SideRail_|AST_Captain_Seat_Outer_Rear_Recess_|AST_Captain_Seat_Control_Pad_)/.test(o.name)) o.visible = false;
           });
+          window.__asteriaSplatDebug = {numSplats:splat.numSplats,initialized:splat.isInitialized,position:splat.position.toArray(),sampleMode:'synthetic glb surface',isolate:isolateSplat};
+          document.body.dataset.splatCount=String(splat.numSplats);
+          if (isolateSplat) {
+            // Isolate one variable: mesh depth/occlusion versus splat source/runtime.
+            [...scene.children].forEach(o=>{if(o!==spark && o!==splat)o.visible=false;});
+            scene.background=new THREE.Color(0x292c36);
+          }
           document.body.dataset.splatReady = 'true';
         }});
       scene.add(splat);
