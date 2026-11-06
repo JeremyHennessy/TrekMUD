@@ -12,6 +12,8 @@ on:
       - scripts/build_player_console.py
       - scripts/build_map_layout.py
       - scripts/validate_player_console.py
+      - scripts/build_asteria_v4_assets.py
+      - scripts/verify_asteria_v4_assets.py
       - .github/workflows/deploy-player-console.yml
 
 permissions:
@@ -32,6 +34,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
 
       - name: Validate canonical campaign state
         run: python scripts/validate_campaign.py
@@ -46,6 +51,18 @@ jobs:
 
       - name: Validate standalone Asteria 3D room
         run: node --test tests/asteria-3d.test.cjs
+
+      - name: Build opt-in USS Asteria cinematic V4 site (isolated from PADD)
+        run: |
+          python -m pip install --disable-pip-version-check -r ui/3d-preview-v4/asset-requirements.txt
+          npm ci --prefix ui/3d-preview-v4 --no-audit --no-fund
+          mkdir -p _site/3d-preview-v4/models
+          python scripts/build_asteria_v4_assets.py --out _site/3d-preview-v4/models
+          npm run build --prefix ui/3d-preview-v4
+          cp ui/3d-preview-v4/src/index.html _site/3d-preview-v4/index.html
+          cp ui/3d-preview-v4/src/style.css _site/3d-preview-v4/style.css
+          cp ui/3d-preview-v4/dist/app.js _site/3d-preview-v4/app.js
+          python scripts/verify_asteria_v4_assets.py _site/3d-preview-v4
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
