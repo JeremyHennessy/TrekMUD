@@ -21,7 +21,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
   renderer.setClearColor(0x11121d,1);
   renderer.outputColorSpace=THREE.SRGBColorSpace;
   renderer.toneMapping=THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure=mobile?.94:1.01;
+  renderer.toneMappingExposure=mobile?.83:.91;
   renderer.shadowMap.enabled=!mobile&&params.get('shadows')!=='off';
   renderer.shadowMap.type=THREE.PCFSoftShadowMap;
   const scene=new THREE.Scene();scene.background=new THREE.Color(0x0d0e17);
@@ -29,14 +29,14 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
   try {
     const pmrem=new THREE.PMREMGenerator(renderer);
     const env=pmrem.fromScene(new RoomEnvironment(),.065);
-    scene.environment=env.texture;scene.environmentIntensity=.21;
+    scene.environment=env.texture;scene.environmentIntensity=.14;
     pmrem.dispose();
   }catch(err){console.warn('Reflection environment unavailable; using material lighting.',err);}
 
   // Wide, soft key above the command island; cool light toward flight consoles.
-  scene.add(new THREE.HemisphereLight(0xf3ebdf,0x38465b,.90));
-  scene.add(new THREE.AmbientLight(0xbab6b2,.17));
-  const key=new THREE.DirectionalLight(0xffe8d4,1.25);
+  scene.add(new THREE.HemisphereLight(0xf3ebdf,0x38465b,.70));
+  scene.add(new THREE.AmbientLight(0xbab6b2,.12));
+  const key=new THREE.DirectionalLight(0xffe8d4,.97);
   key.position.set(-4.6,7.5,1.8);key.target.position.set(0,.65,-.2);
   key.castShadow=renderer.shadowMap.enabled;
   key.shadow.mapSize.set(2048,2048);
@@ -46,15 +46,15 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
   key.shadow.bias=-.0005;key.shadow.normalBias=.055;
   key.shadow.radius=4;
   scene.add(key,key.target);
-  const cool=new THREE.DirectionalLight(0x94b6d5,.45);
+  const cool=new THREE.DirectionalLight(0x94b6d5,.35);
   cool.position.set(5.4,4.2,-4.8);scene.add(cool);
   for(const x of [-3.4,3.4])for(const z of [-3.4,1.35,4.05]){
-    const lamp=new THREE.SpotLight(0xffdfc4,5.1,11,Math.PI/3,.94,2);
+    const lamp=new THREE.SpotLight(0xffdfc4,2.8,11,Math.PI/3,.94,2);
     lamp.position.set(x,4.07,z);
     lamp.target.position.set(x*.74,0,z*.82);
     scene.add(lamp,lamp.target);
   }
-  const instrumentFill=new THREE.PointLight(0x8fb9d6,3.0,6.8,2);
+  const instrumentFill=new THREE.PointLight(0x8fb9d6,.6,6.8,2);
   instrumentFill.position.set(0,2.2,-4.6);scene.add(instrumentFill);
 
   // Use V3's exact physical camera viewpoints and collision logic.
@@ -153,7 +153,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
       if(mat){mat.side=THREE.DoubleSide;
         if(mat.normalMap)mat.normalScale.set(.27,.27);
         if(/smoked_instrument/.test(obj.name)){
-          mat.metalness=.22;mat.roughness=.29;mat.envMapIntensity=.35;
+          mat.metalness=.12;mat.roughness=.47;mat.envMapIntensity=.11;
         }
         if(/diffused_practical/.test(obj.name)){
           mat.emissive=new THREE.Color(0xffd4ae);mat.emissiveIntensity=.30;
