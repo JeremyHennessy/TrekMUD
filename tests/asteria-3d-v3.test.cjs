@@ -73,8 +73,8 @@ test('hero furniture emits finite smooth geometry without controlling game state
 });
 
 test('static directional shadows have an explicit compatibility and device fallback',()=>{
- assert.ok(page.includes('function keyShadow('));
- assert.ok(page.includes('function unpackDepth('));
+ assert.ok(page.includes('float keyShadow('));
+ assert.ok(page.includes('float unpackDepth('));
  assert.ok(page.includes('shadowCasterStart=P.length/3'));
  assert.ok(page.includes('shadowCasterEnd=P.length/3'));
  assert.ok(page.includes("get('shadows')!=='off'"));
