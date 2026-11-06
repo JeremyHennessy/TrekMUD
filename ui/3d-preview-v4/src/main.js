@@ -202,8 +202,12 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
     const side=(pressed.has('d')||pressed.has('arrowright')?1:0)-(pressed.has('a')||pressed.has('arrowleft')?1:0)+joyX;
     const norm=Math.hypot(f,side);
     if(norm>.001)move(f/norm,side/norm,dt);
-    syncCamera();renderer.render(scene,camera);drawMinimap();
-    if(ready && ++frameN===3){document.body.dataset.v4Ready='true';document.body.dataset.renderTriangles=String(renderer.info.render.triangles);}
+    syncCamera();document.body.dataset.frameAttempt=String(frameN+1);
+    try { renderer.render(scene,camera); } catch(e) { fail("WebGL scene render failed: "+e.message); return; }
+    drawMinimap();
+    if(ready){frameN++; document.body.dataset.renderedFrames=String(frameN);
+      if(frameN===1){document.body.dataset.v4Ready='true';document.body.dataset.renderTriangles=String(renderer.info.render.triangles);}
+    }
   }
   function resize(){
     const w=Math.max(1,canvas.clientWidth),h=Math.max(1,canvas.clientHeight);
