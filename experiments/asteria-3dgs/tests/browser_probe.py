@@ -15,7 +15,7 @@ try:
   browser=playwright.chromium.launch(executable_path=os.getenv('CHROME','/usr/bin/google-chrome'),headless=True,
     args=['--no-sandbox','--disable-dev-shm-usage','--enable-webgl','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
   for mode in ('mesh','splat'):
-   for view in ('aft','command'):
+   for view in ('aft','command','chairClose'):
     p=browser.new_page(viewport={'width':1024,'height':640},device_scale_factor=1)
     errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
     p.goto(url+f'?capture={view}&chair={mode}',wait_until='domcontentloaded',timeout=30000)
