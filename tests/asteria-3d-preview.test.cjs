@@ -1,0 +1,96 @@
+'use strict';
+const assert = require('node:assert/strict');
+const test = require('node:test');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+const root = path.resolve(__dirname, '..');
+const page = fs.readFileSync(path.join(root, 'ui/3d-preview/index.html'), 'utf8');
+const manifest = JSON.parse(fs.readFileSync(path.join(root, 'ui/3d/rooms.json'), 'utf8'));
+const topology = JSON.parse(fs.readFileSync(path.join(root, 'world/asteria/topology.json'), 'utf8'));
+
+test('3D room is separately identified and matches approved ship topology', () => {
+  assert.equal(manifest.shipId, 'USS-ASTERIA');
+  assert.equal(manifest.registry, 'NCC-63542');
+  assert.equal(manifest.rooms.length, 1);
+  const room = manifest.rooms[0];
+  const canonical = topology.locations.find(row => row.id === room.roomId);
+  assert.ok(canonical, `unknown topology room ${room.roomId}`);
+  assert.equal(room.roomId, 'AST-D01-BRIDGE');
+  assert.equal(room.deck, canonical.deck);
+  assert.equal(room.campaignAccess, canonical.access);
+  const neighbors = topology.edges.filter(edge => edge.to === room.roomId || edge.from === room.roomId)
+    .map(edge => edge.to === room.roomId ? edge.from : edge.to).sort();
+  assert.deepEqual(room.confirmedTopologyNeighbors, neighbors);
+  assert.equal(room.linkedTravelImplemented, false);
+});
+
+test('3D page parses as JavaScript without external assets or hidden campaign state', () => {
+  const source = page.match(/<script>([\s\S]*?)<\/script>/);
+  assert.ok(source, 'missing standalone scene script');
+  assert.doesNotThrow(() => new vm.Script(source[1], { filename: 'asteria-3d.js' }));
+  assert.ok(page.includes("roomId:'AST-D01-BRIDGE'"));
+  assert.ok(page.includes("getContext('webgl'"));
+  assert.ok(page.includes("$('enter').addEventListener('click'"));
+  assert.ok(page.includes('requestAnimationFrame(frame)'));
+  assert.ok(page.includes('<script src="set-details.js"></script>'), 'missing same-origin dressing script');
+  assert.ok(page.includes('<script src="furniture.js"></script>'), 'missing custom sculpted furniture');
+  assert.doesNotMatch(page, /<script[^>]+src="https?:|<link[^>]+href="https?:|<img[^>]+src="https?:/i);
+  assert.ok(page.includes("const FS_FALLBACK=`"), 'compatible shader fallback not available');
+  for (const forbidden of ['TrekMUD-GM', 'secretSeedHex', 'npc-private', 'plot-clocks', 'future-events']) {
+    assert.ok(!page.includes(forbidden), `potential GM data in 3D page: ${forbidden}`);
+  }
+});
+
+test('high-detail dressing builds deterministically with valid geometry and no campaign access', () => {
+  const moduleText = fs.readFileSync(path.join(root, 'ui/3d-preview/set-details.js'), 'utf8');
+  const safe = {window: {}};
+  assert.doesNotThrow(() => vm.runInNewContext(moduleText, safe));
+  assert.equal(typeof safe.window.AsteriaSetDetails, 'function');
+  let calls=0;
+  const draw={};
+  for (const fn of ['box','roundBox','cyl','ellipse','ring','tube','plane','radial','arc','surface']) {
+    draw[fn]=(...args)=>{
+      calls++;
+      assert.ok(args.length>0, fn+' has no arguments');
+      for(const arg of args){
+        if(typeof arg==='number')assert.ok(Number.isFinite(arg),fn+' nonfinite argument');
+      }
+    };
+  }
+  const a=safe.window.AsteriaSetDetails({...draw,wallPos:(a,f=1)=>[Math.sin(a)*7.55*f,Math.cos(a)*6.55*f],W:7.55,D:6.55});
+  assert.equal(a.roomId,'AST-D01-BRIDGE');
+  assert.ok(a.pieces>=900,'high-detail set dressing disappeared');
+  assert.ok(calls>=a.pieces,'primitives not generated');
+  assert.equal(moduleText.includes('TrekMUD-GM'),false);
+});
+
+test('sculpted original ship furniture uses curved construction without modifying travel state', () => {
+  const text = fs.readFileSync(path.join(root,'ui/3d-preview/furniture.js'),'utf8');
+  const sandbox={window:{}};
+  assert.doesNotThrow(()=>vm.runInNewContext(text,sandbox));
+  const furniture=sandbox.window.AsteriaFurniture;
+  assert.ok(furniture && typeof furniture.chair==='function' && typeof furniture.flightIsland==='function');
+  let planes=0;
+  const geom={};
+  for(const op of ['box','cyl','ellipse','ring','plane','tube']){
+    geom[op]=(...args)=>{
+      if(op==='plane')planes++;
+      for(const arg of args)if(typeof arg==='number')assert.ok(Number.isFinite(arg));
+    };
+  }
+  assert.equal(furniture.chair({x:0,z:1.20,large:true},geom).shape,'contoured-seat');
+  assert.equal(furniture.chair({x:1.15,z:-2.13},geom).cols,22);
+  assert.equal(furniture.flightIsland(geom).segments,46);
+  assert.ok(planes>1000,'curved seat and continuous desk surfaces not generated');
+  for(const word of ['TrekMUD-GM','campaign/state.json','locationId','RNG']) {
+    assert.ok(!text.includes(word), '3D furniture must not touch game state: '+word);
+  }
+});
+
+test('original approved bridge and preview are independent',()=>{
+  const original=fs.readFileSync(path.join(root,'ui/3d/index.html'),'utf8');
+  assert.ok(!original.includes('src="furniture.js"'), 'approved live bridge overwritten');
+  assert.ok(!original.includes('set-details.js'), 'approved geometry touched');
+  assert.ok(page.includes('visualPass:\'materials-and-set-02\''),'preview realism marker missing');
+});
