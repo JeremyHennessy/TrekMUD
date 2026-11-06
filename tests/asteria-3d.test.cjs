@@ -33,8 +33,33 @@ test('3D page parses as JavaScript without external assets or hidden campaign st
   assert.ok(page.includes("getContext('webgl'"));
   assert.ok(page.includes("$('enter').addEventListener('click'"));
   assert.ok(page.includes('requestAnimationFrame(frame)'));
-  assert.doesNotMatch(page, /<script[^>]+src=|<link[^>]+href="https?:|<img[^>]+src="https?:/i);
+  assert.match(page, /<script src="set-details\\.js"><\\/script>/);
+  assert.doesNotMatch(page, /<script[^>]+src="https?:|<link[^>]+href="https?:|<img[^>]+src="https?:/i);
+  assert.ok(page.includes("const FS_FALLBACK=`"), 'compatible shader fallback not available');
   for (const forbidden of ['TrekMUD-GM', 'secretSeedHex', 'npc-private', 'plot-clocks', 'future-events']) {
     assert.ok(!page.includes(forbidden), `potential GM data in 3D page: ${forbidden}`);
   }
+});
+
+test('high-detail dressing builds deterministically with valid geometry and no campaign access', () => {
+  const moduleText = fs.readFileSync(path.join(root, 'ui/3d/set-details.js'), 'utf8');
+  const safe = {window: {}};
+  assert.doesNotThrow(() => vm.runInNewContext(moduleText, safe));
+  assert.equal(typeof safe.window.AsteriaSetDetails, 'function');
+  let calls=0;
+  const draw={};
+  for (const fn of ['box','roundBox','cyl','ellipse','ring','tube','plane','radial','arc','surface']) {
+    draw[fn]=(...args)=>{
+      calls++;
+      assert.ok(args.length>0, fn+' has no arguments');
+      for(const arg of args){
+        if(typeof arg==='number')assert.ok(Number.isFinite(arg),fn+' nonfinite argument');
+      }
+    };
+  }
+  const a=safe.window.AsteriaSetDetails({...draw,wallPos:(a,f=1)=>[Math.sin(a)*7.55*f,Math.cos(a)*6.55*f],W:7.55,D:6.55});
+  assert.equal(a.roomId,'AST-D01-BRIDGE');
+  assert.ok(a.pieces>=1000,'insufficient construction detail');
+  assert.ok(calls>=a.pieces,'primitives not generated');
+  assert.equal(moduleText.includes('TrekMUD-GM'),false);
 });
