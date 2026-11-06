@@ -34,6 +34,7 @@ test('3D page parses as JavaScript without external assets or hidden campaign st
   assert.ok(page.includes("$('enter').addEventListener('click'"));
   assert.ok(page.includes('requestAnimationFrame(frame)'));
   assert.ok(page.includes('<script src="set-details.js"></script>'), 'missing same-origin dressing script');
+  assert.ok(page.includes('<script src="furniture.js"></script>'), 'missing custom sculpted furniture');
   assert.doesNotMatch(page, /<script[^>]+src="https?:|<link[^>]+href="https?:|<img[^>]+src="https?:/i);
   assert.ok(page.includes("const FS_FALLBACK=`"), 'compatible shader fallback not available');
   for (const forbidden of ['TrekMUD-GM', 'secretSeedHex', 'npc-private', 'plot-clocks', 'future-events']) {
@@ -62,4 +63,27 @@ test('high-detail dressing builds deterministically with valid geometry and no c
   assert.ok(a.pieces>=1000,'insufficient construction detail');
   assert.ok(calls>=a.pieces,'primitives not generated');
   assert.equal(moduleText.includes('TrekMUD-GM'),false);
+});
+
+test('sculpted original ship furniture uses curved construction without modifying travel state', () => {
+  const text = fs.readFileSync(path.join(root,'ui/3d/furniture.js'),'utf8');
+  const sandbox={window:{}};
+  assert.doesNotThrow(()=>vm.runInNewContext(text,sandbox));
+  const furniture=sandbox.window.AsteriaFurniture;
+  assert.ok(furniture && typeof furniture.chair==='function' && typeof furniture.flightIsland==='function');
+  let planes=0;
+  const geom={};
+  for(const op of ['box','cyl','ellipse','ring','plane','tube']){
+    geom[op]=(...args)=>{
+      if(op==='plane')planes++;
+      for(const arg of args)if(typeof arg==='number')assert.ok(Number.isFinite(arg));
+    };
+  }
+  assert.equal(furniture.chair({x:0,z:1.20,large:true},geom).shape,'contoured-seat');
+  assert.equal(furniture.chair({x:1.15,z:-2.13},geom).cols,22);
+  assert.equal(furniture.flightIsland(geom).segments,46);
+  assert.ok(planes>1000,'curved seat and continuous desk surfaces not generated');
+  for(const word of ['TrekMUD-GM','campaign/state.json','locationId','RNG']) {
+    assert.ok(!text.includes(word), '3D furniture must not touch game state: '+word);
+  }
 });
