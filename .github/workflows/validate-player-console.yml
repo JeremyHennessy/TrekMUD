@@ -106,6 +106,22 @@ jobs:
               2>> "$RUNNER_TEMP/asteria-v3-chrome.log"
             test -s "$RUNNER_TEMP/asteria-v3-${VIEW}.png"
           done
+          # Exercise the same renderer at a phone-sized viewport: shadows should
+          # be disabled there to avoid costly high-resolution shadow sampling.
+          "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
+            --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
+            --virtual-time-budget=3500 --window-size=390,844 --dump-dom \
+            "file://$PWD/_site/3d-preview-v3/index.html?studioCapture=aft" \
+            > "$RUNNER_TEMP/asteria-v3-mobile-dom.html" 2>> "$RUNNER_TEMP/asteria-v3-chrome.log"
+          grep -q 'data-renderer-ready="true"' "$RUNNER_TEMP/asteria-v3-mobile-dom.html"
+          grep -q 'data-shadows="fallback"' "$RUNNER_TEMP/asteria-v3-mobile-dom.html"
+          "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
+            --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
+            --virtual-time-budget=2600 --window-size=390,844 \
+            --screenshot="$RUNNER_TEMP/asteria-v3-mobile.png" \
+            "file://$PWD/_site/3d-preview-v3/index.html?studioCapture=aft" \
+            2>> "$RUNNER_TEMP/asteria-v3-chrome.log"
+          test -s "$RUNNER_TEMP/asteria-v3-mobile.png"
 
       - name: Upload v3 visual review evidence
         if: always()
@@ -115,6 +131,7 @@ jobs:
           path: |
             ${{ runner.temp }}/asteria-v3-*.png
             ${{ runner.temp }}/asteria-v3-dom.html
+            ${{ runner.temp }}/asteria-v3-mobile-dom.html
             ${{ runner.temp }}/asteria-v3-chrome.log
           if-no-files-found: ignore
           retention-days: 7
