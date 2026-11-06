@@ -95,6 +95,8 @@ jobs:
             > "$RUNNER_TEMP/asteria-v3-dom.html" 2> "$RUNNER_TEMP/asteria-v3-chrome.log"
           grep -q 'data-renderer-ready="true"' "$RUNNER_TEMP/asteria-v3-dom.html"
           grep -q 'data-geometry-triangles=' "$RUNNER_TEMP/asteria-v3-dom.html"
+          grep -q 'data-material-shader="filmic"' "$RUNNER_TEMP/asteria-v3-dom.html"
+          grep -q 'data-shadows="enabled"' "$RUNNER_TEMP/asteria-v3-dom.html"
           for VIEW in aft command flight; do
             "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
               --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
