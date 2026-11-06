@@ -9,6 +9,7 @@ window.AsteriaFurniture=Object.freeze({
     const T=(dx,y,dz)=>[x+dx*co-dz*si,y,z+dx*si+dz*co];
     const B=(dx,y,dz,w,h,d,c,m=0)=>{const p=T(dx,y,dz);box(p[0],p[1],p[2],w,h,d,c,m,rot)};
     const L=(p,r,c,m=4,n=10)=>tube(p.map(t=>T(...t)),r,c,m,n);
+    const LW=(worldPoints,r,c,m=4,n=10)=>tube(worldPoints,r,c,m,n);
     const h=large?1.12:.97;
     const w=large?.49:.42;
     const upholstery=large?0x857283:0x897782;
@@ -60,8 +61,8 @@ window.AsteriaFurniture=Object.freeze({
         edge.push(back(t,s,1));
         inner.push(back(t,s,-1));
       }
-      L(edge,.030,0x9c898e,4,8);
-      L(inner,.018,0xb49da8,4,8);
+      LW(edge,.030,0x9c898e,4,8);
+      LW(inner,.018,0xb49da8,4,8);
       for(let i=0;i<36;i++){
         plane(edge[i],inner[i],inner[i+1],edge[i+1],0x766776,4);
       }
@@ -73,12 +74,12 @@ window.AsteriaFurniture=Object.freeze({
         const t=.09+j*.048;
         points.push(back(t,v,-1).map((p,i)=>i===2?p-.007:p));
       }
-      L(points,.006,0xb6a1ad,4,5);
+      LW(points,.006,0xb6a1ad,4,5);
     }
     for(let t of [.25,.49,.73,.91]){
       const marks=[];
       for(let j=0;j<=16;j++)marks.push(back(t,-.60+j*.075,-1));
-      L(marks,.006,0x766270,4,5);
+      LW(marks,.006,0x766270,4,5);
     }
     // Leather-wrapped headrest, shaped shoulder cap and concealed attachment.
     cyl(...(p=>[p[0],p[1],p[2]])(T(0,.81+h-.05,.49)),w*.77,.105,.075,0x6c5d6b,4,36);
