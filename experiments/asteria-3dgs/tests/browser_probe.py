@@ -52,6 +52,30 @@ try:
   # Do not assert presence of non-background pixels until checking whether the
   # client has a valid depth/alpha render; the captured image is the visual evidence.
   p.close()
+  # Positive control: an independently generated turquoise 13x13 Gaussian patch.
+  # This is not part of the ship; it discriminates renderer failure from bad .splat bytes.
+  p=browser.new_page(viewport={'width':1024,'height':640},device_scale_factor=1)
+  control_errors=[];p.on('pageerror',lambda e:control_errors.append(str(e)))
+  p.goto(url+'?capture=chairClose&chair=splat&splatOnly=1&controlSplat=1',
+         wait_until='domcontentloaded',timeout=30000)
+  p.wait_for_function('document.body.dataset.controlReady==="true" || document.body.dataset.controlReady==="error"',timeout=120000)
+  p.wait_for_timeout(2200)
+  control_path=out/'isolated-procedural-control.png';p.screenshot(path=str(control_path))
+  cinfo=p.evaluate("""() => ({controlReady:document.body.dataset.controlReady,
+    controlCount:document.body.dataset.controlCount,splatCount:document.body.dataset.splatCount,
+    frames:document.body.dataset.renderedFrames,
+    error:document.querySelector('#error')?.textContent||null})""")
+  pixels=np.asarray(Image.open(control_path).convert('RGB')).astype(np.int32)
+  roi=pixels[145:450,280:750]
+  cyan=(roi[:,:,1]>145)&(roi[:,:,1]>roi[:,:,0]*1.5)&(roi[:,:,2]>roi[:,:,0]*1.4)
+  cinfo.update({'mode':'procedural-control','path':control_path.name,
+    'cyanPixels':int(cyan.sum()),'errors':control_errors})
+  results.append(cinfo);print(json.dumps(cinfo),flush=True)
+  assert not control_errors
+  assert cinfo['controlReady']=='true' and int(cinfo.get('controlCount') or 0)>100
+  # A renderer success requires actual visible cyan pixels, not just loading.
+  assert cinfo['cyanPixels']>100,'Known-good Gaussian patch is invisible: renderer path not validated'
+  p.close()
   browser.close()
 finally:
  server.shutdown()
