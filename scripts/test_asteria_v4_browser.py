@@ -15,17 +15,21 @@ try:
         browser=p.chromium.launch(executable_path=exe,headless=True,args=[
             '--no-sandbox','--disable-dev-shm-usage','--enable-webgl',
             '--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
-        page=browser.new_page(viewport={'width':900,'height':640},device_scale_factor=1)
+        page=browser.new_page(viewport={'width':620,'height':520},device_scale_factor=1)
         errors=[]
         page.on('pageerror',lambda e:errors.append(str(e)))
         page.goto('http://127.0.0.1:8767/3d-preview-v4/?capture=aft',wait_until='domcontentloaded',timeout=45000)
         page.wait_for_function('Boolean(window.__asteriaV4 && document.body.dataset.scene === "loaded")',timeout=60000)
         before=page.evaluate('window.__asteriaV4.getPosition()')
+        before_frames=page.evaluate('Number(document.body.dataset.renderedFrames||0)')
         assert page.evaluate('window.__asteriaV4.roomId')=='AST-D01-BRIDGE'
         page.keyboard.down('w')
-        page.wait_for_timeout(1250)
+        page.wait_for_timeout(4500)
         page.keyboard.up('w')
         after=page.evaluate('window.__asteriaV4.getPosition()')
+        after_frames=page.evaluate('Number(document.body.dataset.renderedFrames||0)')
+        print(json.dumps({'keyboard_before':before,'keyboard_after':after,'frames_before':before_frames,'frames_after':after_frames}),flush=True)
+        assert after_frames>before_frames, 'No render frames advanced during keyboard hold'
         assert after['z'] < before['z']-.025, {'before':before,'after':after}
         page.locator('[data-place="command"]').click(timeout=20000)
         command=page.evaluate('window.__asteriaV4.getPosition()')
