@@ -44,6 +44,9 @@ jobs:
       - name: Build player-safe console
         run: python scripts/validate_player_console.py --keep _site
 
+      - name: Validate standalone Asteria 3D room
+        run: node --test tests/asteria-3d.test.cjs
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
