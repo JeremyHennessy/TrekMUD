@@ -55,15 +55,106 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid #e9b99
 <div id="notice">ASTERIA STUDIO · ORIGINAL SET INTERPRETATION<br>Room geography follows the TrekMUD world ID. Not a canonical Enterprise deck plan.</div></div>
 <div id="stick"><div id="thumb"></div></div><div id="touchHint">DRAG TO LOOK · LEFT PAD TO WALK</div>
 <div id="splash"><div class="inner"><div class="eyebrow">TREKMUD · U.S.S. ASTERIA · 2372</div><h2>Come aboard<br>the <span>Asteria.</span></h2><p>Explore the first constructed room of your ship: an original, detailed, walkable bridge inspired by the practical set design of 1990s Star Trek. This is a real 3D space—not a rendered image.</p><button id="enter">ENTER THE BRIDGE &nbsp; →</button><div class="small">Desktop: WASD to move, drag to look. iPhone: left thumbpad to walk, swipe the scene to look. Choose a station to jump there.</div></div></div>
+<script src="set-details.js"></script>
 <script>
 'use strict';
 (()=>{
 const $=id=>document.getElementById(id);const canvas=$('scene');const gl=canvas.getContext('webgl',{antialias:true,alpha:false,depth:true,powerPreference:'high-performance'})||canvas.getContext('experimental-webgl');
 if(!gl){$('loading').classList.add('off');$('error').style.display='grid';$('error').textContent='WebGL could not start on this device. Try the current Safari, Chrome, Edge, or Firefox.';return;}
 const VS=`attribute vec3 aP;attribute vec3 aN;attribute vec3 aC;attribute float aM;attribute vec2 aUV;uniform mat4 uProjection;uniform mat4 uView;varying vec3 vP;varying vec3 vN;varying vec3 vC;varying float vM;varying vec2 vUV;void main(){vP=aP;vN=aN;vC=aC;vM=aM;vUV=aUV;gl_Position=uProjection*uView*vec4(aP,1.);}`;
-const FS=`precision mediump float;varying vec3 vP;varying vec3 vN;varying vec3 vC;varying float vM;varying vec2 vUV;uniform sampler2D uAtlas;uniform vec3 uEye;float hash(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}float noise(vec3 p){return hash(floor(p));}void main(){vec3 n=normalize(vN);vec3 col=vC;float m=vM;if(m>.5&&m<1.5){col*=.91+.12*noise(vP*vec3(30.,12.,27.));}if(m>1.5&&m<2.5){col*=.93+.09*noise(vP*vec3(12.,19.,11.));}if(m>2.5&&m<3.5){col*=.92+.12*noise(vP*vec3(45.,16.,22.));}if(m>3.5&&m<4.5){col*=.92+.12*noise(vP*vec3(24.,26.,17.));}if(m>4.5&&m<5.5){col*=.90+.09*sin(vP.z*150.+noise(vP*5.)*9.)+.04*noise(vP*30.);}vec3 sun=normalize(vec3(-.32,.92,-.34));float lambert=max(dot(n,sun),0.);vec3 light=vec3(.51,.49,.52)+vec3(.80,.69,.60)*lambert*.66;float down=max(dot(n,vec3(0.,1.,0.)),0.);light+=vec3(.79,.84,1.)*down*.24;float d=length(vP-vec3(0.,4.,0.));light+=vec3(1.,.88,.75)*1.8/(4.+d*d);float d2=length(vP-vec3(-4.,3.,1.));light+=vec3(.64,.79,.99)*1.1/(3.+d2*d2);float d3=length(vP-vec3(4.,3.,1.));light+=vec3(.64,.79,.99)*1.1/(3.+d3*d3);vec3 view=normalize(uEye-vP);float shine=pow(max(dot(reflect(-sun,n),view),0.),m>6.5&&m<7.5?65.:20.)*(m>6.5&&m<7.5?.34:.08);vec3 res=col*light+vec3(1.,.82,.67)*shine;if(m>5.5&&m<6.5){res=texture2D(uAtlas,vUV).rgb*1.14+vec3(.012,.012,.026);}if(m>7.5&&m<8.5){res=col*vec3(1.14,1.06,.99)+vec3(.1,.075,.052);}res=pow(clamp(res,0.,1.),vec3(.96));float fog=clamp((length(uEye-vP)-18.)/32.,0.,.15);res=mix(res,vec3(.48,.44,.51),fog);gl_FragColor=vec4(res,1.);}`;
+const FS=`precision highp float;
+varying vec3 vP;
+varying vec3 vN;
+varying vec3 vC;
+varying float vM;
+varying vec2 vUV;
+uniform sampler2D uAtlas;
+uniform vec3 uEye;
+const float PI=3.14159265;
+float hash(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}
+float noise3(vec3 p){vec3 f=fract(p),i=floor(p);f=f*f*(3.0-2.0*f);return mix(mix(mix(hash(i),hash(i+vec3(1.,0.,0.)),f.x),mix(hash(i+vec3(0.,1.,0.)),hash(i+vec3(1.,1.,0.)),f.x),f.y),mix(mix(hash(i+vec3(0.,0.,1.)),hash(i+vec3(1.,0.,1.)),f.x),mix(hash(i+vec3(0.,1.,1.)),hash(i+vec3(1.,1.,1.)),f.x),f.y),f.z);}
+vec3 tonemap(vec3 x){return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14),0.,1.);}
+float D_GGX(float nh,float rough){float a=rough*rough,aa=a*a,d=nh*nh*(aa-1.)+1.;return aa/(PI*d*d+0.0001);}
+float G1(float nv,float k){return nv/(nv*(1.-k)+k+0.0001);}
+vec3 F_schlick(vec3 f0,float vh){return f0+(1.-f0)*pow(1.-vh,5.);}
+vec3 specularBRDF(vec3 N,vec3 V,vec3 L,float rough,vec3 f0){vec3 H=normalize(V+L);float nl=max(dot(N,L),0.),nv=max(dot(N,V),0.),nh=max(dot(N,H),0.),vh=max(dot(V,H),0.);float k=pow(rough+1.,2.)/8.;return F_schlick(f0,vh)*D_GGX(nh,rough)*G1(nl,k)*G1(nv,k)/(4.*nl*nv+.001);}
+void main(){
+  vec3 N=normalize(vN),V=normalize(uEye-vP);
+  float m=vM,rough=.78,metal=0.;
+  vec3 base=clamp(vC,0.,1.);
+  float micro=noise3(vP*vec3(44.,24.,47.));
+  if(m>.5&&m<1.5){
+    // Dense blue-grey woven carpet, subtle low-pile direction and short fibres.
+    float pile=.94+.12*noise3(vP*vec3(146.,14.,130.));
+    float fibres=.975+.022*sin(vP.x*280.+vP.z*177.);
+    base*=pile*fibres;rough=.96;
+  }else if(m>1.5&&m<2.5){
+    // Cream laminate / painted composite, not plastic-white.
+    base*=.966+.064*micro;rough=.57;
+  }else if(m>2.5&&m<3.5){
+    // Cast structural substrate with fine mineral grain.
+    base*=.94+.08*noise3(vP*vec3(92.,31.,93.));rough=.82;
+  }else if(m>3.5&&m<4.5){
+    // Brushed satin trim, warm steel, subtle directionality.
+    base*=.94+.075*micro+.012*sin(vP.y*360.);rough=.31;metal=.60;
+  }else if(m>4.5&&m<5.5){
+    // Tight woven vinyl upholstery with soft highlights.
+    base*=.95+.09*noise3(vP*vec3(120.,150.,82.));rough=.86;
+  }else if(m>6.5&&m<7.5){
+    // Black smoked-glass instruments, low roughness and visible Fresnel.
+    rough=.15;
+  }
+  if(m>5.5&&m<6.5){
+    // LCARS-like instrument surfaces, emission from *inside* the glass.
+    vec3 lcd=pow(texture2D(uAtlas,vUV).rgb,vec3(2.2));
+    vec3 emissive=lcd*(1.38+.09*sin(vP.x*.34+vP.z*.47));
+    vec3 pixel=tonemap(emissive+vec3(.004,.006,.012));
+    gl_FragColor=vec4(pow(pixel,vec3(1./2.2)),1.);
+    return;
+  }
+  if(m>7.5&&m<8.5){
+    // A practical illuminated diffuser, not an unbounded fluorescent strip.
+    vec3 emit=pow(base,vec3(2.2))*1.72;
+    emit+=vec3(.08,.06,.045);
+    gl_FragColor=vec4(pow(tonemap(emit),vec3(1./2.2)),1.);
+    return;
+  }
+  vec3 albedo=pow(base,vec3(2.2));
+  vec3 f0=mix(vec3(.045),albedo,metal);
+  float nv=max(dot(N,V),0.04);
+  vec3 fres=F_schlick(f0,nv);
+  vec3 kd=(1.-fres)*(1.-metal);
+  // Soft bounced fill from the light ceiling and silver wall panels.
+  vec3 ambient=albedo*kd*vec3(.365,.366,.386);
+  ambient+=fres*vec3(.018,.017,.021);
+  // Key softbox and rear cool fill approximate practical studio fixtures.
+  vec3 L1=normalize(vec3(-.38,.88,-.29));
+  vec3 L2=normalize(vec3(.75,.65,.1));
+  float n1=max(dot(N,L1),0.),n2=max(dot(N,L2),0.);
+  vec3 key=(albedo*kd/PI+specularBRDF(N,V,L1,rough,f0))*vec3(2.2,1.94,1.72)*n1;
+  vec3 fill=(albedo*kd/PI+specularBRDF(N,V,L2,rough,f0))*vec3(.55,.67,.90)*n2;
+  // Practical-light spill at crown of the bridge and both side galleries.
+  vec3 lamps=vec3(0.);
+  vec3 p0=vec3(0.,4.30,0.),p1=vec3(-4.6,3.95,.75),p2=vec3(4.6,3.95,.75);
+  vec3 l0=normalize(p0-vP),l1=normalize(p1-vP),l2=normalize(p2-vP);
+  float d0=dot(p0-vP,p0-vP),d1=dot(p1-vP,p1-vP),d2=dot(p2-vP,p2-vP);
+  lamps+=(albedo*kd*.46+specularBRDF(N,V,l0,rough,f0)*.75)*vec3(1.1,.97,.88)*max(dot(N,l0),0.)*5.8/(d0+3.5);
+  lamps+=(albedo*kd*.35+specularBRDF(N,V,l1,rough,f0)*.38)*vec3(.60,.76,.89)*max(dot(N,l1),0.)*4.5/(d1+3.5);
+  lamps+=(albedo*kd*.35+specularBRDF(N,V,l2,rough,f0)*.38)*vec3(.60,.76,.89)*max(dot(N,l2),0.)*4.5/(d2+3.5);
+  vec3 linear=ambient+key+fill+lamps;
+  // Subtle contact darkening near wall-floor intersections, not heavy fog.
+  float r=sqrt(vP.x*vP.x/57.+vP.z*vP.z/43.);
+  float corner=smoothstep(.83,1.,r)*(1.-smoothstep(.15,.8,vP.y));
+  linear*=1.-.18*corner;
+  // Fine film grain after tonemapping for a photographed practical-set response.
+  vec3 mapped=tonemap(max(linear,vec3(0.)));
+  mapped*=.993+.014*hash(vec3(gl_FragCoord.xy,.17));
+  gl_FragColor=vec4(pow(clamp(mapped,0.,1.),vec3(1./2.2)),1.);
+}`;
+// Proven original render program for browsers which reject the higher-quality shader.
+const FS_FALLBACK=`precision mediump float;varying vec3 vP;varying vec3 vN;varying vec3 vC;varying float vM;varying vec2 vUV;uniform sampler2D uAtlas;uniform vec3 uEye;float hash(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}float noise(vec3 p){return hash(floor(p));}void main(){vec3 n=normalize(vN);vec3 col=vC;float m=vM;if(m>.5&&m<1.5){col*=.91+.12*noise(vP*vec3(30.,12.,27.));}if(m>1.5&&m<2.5){col*=.93+.09*noise(vP*vec3(12.,19.,11.));}if(m>2.5&&m<3.5){col*=.92+.12*noise(vP*vec3(45.,16.,22.));}if(m>3.5&&m<4.5){col*=.92+.12*noise(vP*vec3(24.,26.,17.));}if(m>4.5&&m<5.5){col*=.90+.09*sin(vP.z*150.+noise(vP*5.)*9.)+.04*noise(vP*30.);}vec3 sun=normalize(vec3(-.32,.92,-.34));float lambert=max(dot(n,sun),0.);vec3 light=vec3(.51,.49,.52)+vec3(.80,.69,.60)*lambert*.66;float down=max(dot(n,vec3(0.,1.,0.)),0.);light+=vec3(.79,.84,1.)*down*.24;float d=length(vP-vec3(0.,4.,0.));light+=vec3(1.,.88,.75)*1.8/(4.+d*d);float d2=length(vP-vec3(-4.,3.,1.));light+=vec3(.64,.79,.99)*1.1/(3.+d2*d2);float d3=length(vP-vec3(4.,3.,1.));light+=vec3(.64,.79,.99)*1.1/(3.+d3*d3);vec3 view=normalize(uEye-vP);float shine=pow(max(dot(reflect(-sun,n),view),0.),m>6.5&&m<7.5?65.:20.)*(m>6.5&&m<7.5?.34:.08);vec3 res=col*light+vec3(1.,.82,.67)*shine;if(m>5.5&&m<6.5){res=texture2D(uAtlas,vUV).rgb*1.14+vec3(.012,.012,.026);}if(m>7.5&&m<8.5){res=col*vec3(1.14,1.06,.99)+vec3(.1,.075,.052);}res=pow(clamp(res,0.,1.),vec3(.96));float fog=clamp((length(uEye-vP)-18.)/32.,0.,.15);res=mix(res,vec3(.48,.44,.51),fog);gl_FragColor=vec4(res,1.);}`;
 function compile(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;}
-let program;try{program=gl.createProgram();gl.attachShader(program,compile(gl.VERTEX_SHADER,VS));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,FS));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));}catch(e){$('loading').classList.add('off');$('error').style.display='grid';$('error').textContent='3D renderer failed: '+e.message;return;}
+let program;try{const vertex=compile(gl.VERTEX_SHADER,VS);let fragment;try{fragment=compile(gl.FRAGMENT_SHADER,FS);}catch(materialError){console.warn('Asteria quality shader unavailable, using compatible material shading:',materialError.message);fragment=compile(gl.FRAGMENT_SHADER,FS_FALLBACK);}program=gl.createProgram();gl.attachShader(program,vertex);gl.attachShader(program,fragment);gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));}catch(e){$('loading').classList.add('off');$('error').style.display='grid';$('error').textContent='3D renderer failed: '+e.message;return;}
 const P=[],N=[],C=[],M=[],UV=[];let tris=0;const rgb=h=>[(h>>16&255)/255,(h>>8&255)/255,(h&255)/255],lerp=(a,b,t)=>a+(b-a)*t,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function tri(a,b,c,n,color,material=0,uv){const pts=[a,b,c];for(let i=0;i<3;i++){P.push(...pts[i]);N.push(...n);C.push(...color);M.push(material);UV.push(...(uv?uv[i]:[0,0]));}tris++;}
 function quad(a,b,c,d,n,color,material=0,uv){tri(a,b,c,n,color,material,uv&&[uv[0],uv[1],uv[2]]);tri(a,c,d,n,color,material,uv&&[uv[0],uv[2],uv[3]]);}
@@ -184,6 +275,7 @@ for(let side of [-1,1]){
   // Thin caution pinstripes on isolated tactical and command stations.
   for(let i=0;i<8;i++)box(side*1.25,1.18,.16+i*.045,.44,.008,.014,i%2?0x94adbd:0xcba38f,8,side*.22);
 }
+const setDressing=(typeof window.AsteriaSetDetails==='function')?window.AsteriaSetDetails({box,roundBox,cyl,ellipse,ring,tube,plane,radial,arc,surface,wallPos,W,D}):{pieces:0};
 // Buffers are static; draw the actual modeled triangles each frame under a movable camera.
 const attr=[['aP',P,3],['aN',N,3],['aC',C,3],['aM',M,1],['aUV',UV,2]];
 gl.useProgram(program);for(const [name,data,n] of attr){const loc=gl.getAttribLocation(program,name);const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,n,gl.FLOAT,false,0,0);}
@@ -217,7 +309,7 @@ $('enter').addEventListener('click',()=>{$('splash').classList.add('off');});
 const pad=$('stick'),nub=$('thumb');function padMove(e){const rect=pad.getBoundingClientRect(),cx=rect.left+rect.width/2,cy=rect.top+rect.height/2,dx=e.clientX-cx,dy=e.clientY-cy;const scale=Math.min(1,48/(Math.hypot(dx,dy)||1));stickX=clamp(dx*scale/46,-1,1);stickY=clamp(dy*scale/46,-1,1);nub.style.transform=`translate(${stickX*40}px,${stickY*40}px)`;}
 pad.addEventListener('pointerdown',e=>{stick=e.pointerId;pad.setPointerCapture(e.pointerId);padMove(e);});pad.addEventListener('pointermove',e=>{if(e.pointerId===stick)padMove(e);});for(const event of ['pointerup','pointercancel','lostpointercapture'])pad.addEventListener(event,e=>{if(e.pointerId===stick){stick=null;stickX=stickY=0;nub.style.transform='translate(0,0)';}});
 // Public debugging marker for automated geometry + walking checks (not game state).
-window.__asteriaWalkthrough={roomId:'AST-D01-BRIDGE',meshTriangles:tris,getPosition:()=>({...pos}),resetAt,collision:blocked,ready:true};
+window.__asteriaWalkthrough={roomId:'AST-D01-BRIDGE',meshTriangles:tris,detailPieces:setDressing.pieces,visualPass:'materials-and-set-02',getPosition:()=>({...pos}),resetAt,collision:blocked,ready:true};
 resize();requestAnimationFrame(frame);$('loading').classList.add('off');
 })();
 </script></body></html>
