@@ -50,6 +50,9 @@ jobs:
           node --check ui/views.js
           node --check ui/map.js
 
+      - name: Validate standalone Asteria 3D room
+        run: node --test tests/asteria-3d.test.cjs
+
       - name: Build and validate player-safe console
         run: python scripts/validate_player_console.py --keep _site
 

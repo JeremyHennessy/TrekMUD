@@ -22,6 +22,8 @@ REQUIRED_ASSETS = {
     ".nojekyll",
     "data/player-console.json",
     "data/build.json",
+    "3d/index.html",
+    "3d/rooms.json",
 }
 FORBIDDEN_TOKENS = {
     "secretSeedHex",

@@ -256,6 +256,12 @@ def build(output: Path) -> dict[str, Any]:
             raise FileNotFoundError(f"missing UI asset: {src}")
         shutil.copy2(src, output / filename)
 
+    # Publish the opt-in 3D ship studio without changing the approved PADD UI.
+    walkthrough_root = UI_ROOT / "3d"
+    if not (walkthrough_root / "index.html").exists():
+        raise FileNotFoundError("missing USS Asteria 3D bridge entrypoint")
+    shutil.copytree(walkthrough_root, output / "3d")
+
     payload = player_safe_snapshot(ROOT)
     (output / "data" / "player-console.json").write_text(
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
