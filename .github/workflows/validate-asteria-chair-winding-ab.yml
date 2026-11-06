@@ -1,0 +1,73 @@
+name: Asteria chair winding A/B — isolated Cycles experiment
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: ['feature/asteria-v5-faithful-pbr']
+    paths:
+      - 'scripts/asteria_trial_chair_winding.py'
+      - '.github/workflows/validate-asteria-chair-winding-ab.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  trial:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check temporary correction script syntax
+        run: python -m py_compile scripts/asteria_trial_chair_winding.py
+      - name: Install frozen source extraction prerequisites
+        run: |
+          python -m pip install --disable-pip-version-check numpy==2.3.5 Pillow==12.3.0 playwright==1.56.0
+      - name: Recover original source and construct independent chair-winding trial
+        run: |
+          python scripts/extract_asteria_v3_for_v5.py
+          python scripts/asteria_trial_chair_winding.py
+      - name: Generate trial GLB separately from original preview
+        run: |
+          ASTERIA_V5_SOURCE_DIR="$PWD/_v5_mesh_capture_chair_winding_trial" \
+          ASTERIA_V5_OUT_DIR="$PWD/_site/asteria-chair-winding-trial/models" \
+          python scripts/build_asteria_v5_assets.py
+      - name: Install Blender for source-based comparison
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender
+          blender --version
+      - name: Render trial chair with unchanged Cycles camera and lights
+        run: |
+          blender -b -t 4 --python-exit-code 1 --python scripts/asteria_blender_stage.py -- \
+            --glb _site/asteria-chair-winding-trial/models/asteria-v3-restored-pbr.glb \
+            --out _blender_asteria_winding_trial \
+            --samples 24 --resolution 960 600 --view chair
+      - name: Validate trial image without conflating success and realism
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image,ImageStat
+          trial=json.loads(Path('_v5_mesh_capture_chair_winding_trial/winding-trial-report.json').read_text())
+          render=json.loads(Path('_blender_asteria_winding_trial/stage-manifest.json').read_text())
+          assert trial['reorderedUpholsteryFaces']>5000
+          assert render['triangles']==trial['triangles']==106988
+          im=Image.open('_blender_asteria_winding_trial/asteria-cycles-chair.png').convert('RGB')
+          assert im.size==(960,600)
+          assert max(ImageStat.Stat(im).stddev)>8
+          print('Winding trial rendered; visual comparison and browser QA remain mandatory.')
+          PY
+      - name: Preserve trial evidence without replacing existing bridge
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-chair-face-winding-trial
+          path: |
+            _v5_mesh_capture_chair_winding_trial/winding-trial-report.json
+            _blender_asteria_winding_trial/asteria-cycles-chair.png
+            _blender_asteria_winding_trial/stage-manifest.json
+          if-no-files-found: ignore
+          retention-days: 7

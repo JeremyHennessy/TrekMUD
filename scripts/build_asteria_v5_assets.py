@@ -30,6 +30,32 @@ assert len(P)==len(N)==len(C)==len(M)==len(UV)==320964
 assert np.isfinite(P).all() and np.isfinite(N).all()
 assert len(P)%3==0 and (M.reshape(-1,3)==M.reshape(-1,3)[:,0:1]).all()
 print('Exact original V3:',len(P)//3,'triangles',flush=True)
+# Optional verified A/B correction for the V3 chair-front shading defect.
+# Default OFF: existing V5 outputs remain unchanged. This changes face ordering
+# only for the command-chair upholstery whose normals oppose triangle winding.
+# Original captured arrays on disk and all vertex coordinates remain untouched.
+CHAIR_WINDING_REPAIR=os.environ.get("ASTERIA_V5_CHAIR_WINDING_REPAIR")=="1"
+chair_winding_faces_reordered=0
+if CHAIR_WINDING_REPAIR:
+    tri=P.reshape(-1,3,3)
+    n=N.reshape(-1,3,3)
+    m=M.reshape(-1,3)
+    mid=tri.mean(axis=1)
+    near=(np.abs(mid[:,0])<.95)&(mid[:,1]>.45)&(mid[:,1]<2.3)&(np.abs(mid[:,2]-1.2)<.9)
+    g=np.cross(tri[:,1]-tri[:,0],tri[:,2]-tri[:,0])
+    g/=np.maximum(1e-12,np.linalg.norm(g,axis=1,keepdims=True))
+    sn=n.mean(axis=1)
+    sn/=np.maximum(1e-12,np.linalg.norm(sn,axis=1,keepdims=True))
+    alignment=np.einsum("ij,ij->i",g,sn)
+    repair=(m[:,0]==5)&near&(alignment<-.5)
+    chair_winding_faces_reordered=int(repair.sum())
+    assert chair_winding_faces_reordered==5136, (
+      f"Unexpected chair winding condition: {chair_winding_faces_reordered}; refuse repair")
+    for array,dimensions in ((P,3),(N,3),(C,3),(UV,2)):
+        face=array.reshape(-1,3,dimensions)
+        original=face[repair].copy()
+        face[repair]=original[:,[0,2,1],:]
+    print('V5 chair winding A/B repair:',chair_winding_faces_reordered,'faces',flush=True)
 
 # Materials correspond to V3's carefully tuned physical set categories.
 MATS={
@@ -211,6 +237,6 @@ total=12+8+len(js)+8+len(raw)
 header=struct.pack('<4sII',b'glTF',2,total)
 glb=header+struct.pack('<I4s',len(js),b'JSON')+js+struct.pack('<I4s',len(raw),b'BIN\x00')+raw
 out=OUT/'asteria-v3-restored-pbr.glb';out.write_bytes(glb)
-report={'path':str(out),'sha256':hashlib.sha256(glb).hexdigest(),'bytes':len(glb),'triangles':len(P)//3,'material_groups':len(MATS),'position_bounds':{'min':P.min(0).tolist(),'max':P.max(0).tolist()},'source_git_blob':'74a154ae62bccb0c16d03c2ecf791a64ab19ce81'}
+report={'path':str(out),'sha256':hashlib.sha256(glb).hexdigest(),'bytes':len(glb),'triangles':len(P)//3,'chair_winding_faces_reordered':chair_winding_faces_reordered,'material_groups':len(MATS),'position_bounds':{'min':P.min(0).tolist(),'max':P.max(0).tolist()},'source_git_blob':'74a154ae62bccb0c16d03c2ecf791a64ab19ce81'}
 (OUT/'manifest.json').write_text(json.dumps(report,indent=2))
 print('REPORT',json.dumps(report,indent=2),flush=True)
