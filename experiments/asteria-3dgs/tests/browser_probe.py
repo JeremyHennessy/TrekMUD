@@ -34,6 +34,24 @@ try:
     assert not errors,(mode,view,errors)
     assert std>22,(mode,view,'blank screenshot')
     p.close()
+  # Separate depth/occlusion diagnostic. If a splat doesn't appear here, the problem
+  # is the splat encoding/renderer rather than the existing Asteria meshes.
+  p=browser.new_page(viewport={'width':1024,'height':640},device_scale_factor=1)
+  errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
+  p.goto(url+'?capture=chairClose&chair=splat&splatOnly=1',wait_until='domcontentloaded',timeout=30000)
+  p.wait_for_function('document.body.dataset.splatReady==="true" || document.body.dataset.splatReady==="error"',timeout=120000)
+  p.wait_for_timeout(1100)
+  iso_path=out/'isolated-chair-splat.png';p.screenshot(path=str(iso_path))
+  info=p.evaluate('''() => ({splat:document.body.dataset.splatReady,splatCount:document.body.dataset.splatCount,
+    debug:window.__asteriaSplatDebug, error:document.querySelector('#error')?.textContent||null})''')
+  info.update({'mode':'isolated','errors':errors,'path':iso_path.name})
+  arr=np.asarray(Image.open(iso_path).convert('RGB'),dtype=np.uint8)
+  info['imageStd']=float(arr.std(axis=(0,1)).mean())
+  results.append(info);print(json.dumps(info),flush=True)
+  assert info['splat']=='true' and int(info.get('splatCount') or 0)>10000 and not errors
+  # Do not assert presence of non-background pixels until checking whether the
+  # client has a valid depth/alpha render; the captured image is the visual evidence.
+  p.close()
   browser.close()
 finally:
  server.shutdown()
