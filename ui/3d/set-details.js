@@ -95,11 +95,10 @@ window.AsteriaSetDetails=function buildAsteriaSetDetails(api){
   }
   // Ceiling acoustic baffles, suspended longitudinal uplight coffers and access fasteners.
   for(let s of [-1,1]){
-    for(let k=0;k<9;k++){
-      const z=-4.65+k*.90,x=s*4.85;
-      B(x,4.004,z,1.43,.065,.058,0x5d5d67,3);
-      B(x,3.968,z,1.19,.020,.042,0xc3d6df,8);
-      B(x,3.990,z,.90,.012,.022,0xf4daca,8);
+    for(let k=0;k<4;k++){
+      const z=-3.30+k*1.72,x=s*4.92;
+      B(x,3.845,z,.64,.045,.48,0x67646c,3);
+      B(x,3.818,z,.48,.016,.31,0xb6c1c7,8);
     }
     // Paired stepped columns beside viewer — read as actual built scenery.
     for(let i=0;i<7;i++){
@@ -123,16 +122,16 @@ window.AsteriaSetDetails=function buildAsteriaSetDetails(api){
   B(0,3.29,-6.005,6.28,.016,.024,0xb4c0c6,8);
   for(let j=0;j<17;j++)B((j-8)*.362,.68,-5.92,.12,.018,.025,j%6===0?C.ivory:C.steel,8);
   // Captain's platform has bevelled lower extrusion, curved gasket, tenoned rail hardware.
-  for(let j=0;j<72;j++){
-    const a=j*2*PI/72,x=Math.sin(a)*1.87,z=1.11+Math.cos(a)*1.565;
-    if(j%3===0)Cyl(x,.165,z,.027,.027,.13,j%4===0?C.bronze:C.shadow,4,8);
-    if(j%2===0)B(x,.284,z,.047,.015,.043,j%6===0?C.ivory:0x91848a,4,-a);
+  for(let j=0;j<18;j++){
+    const a=j*2*PI/18,x=Math.sin(a)*1.87,z=1.11+Math.cos(a)*1.565;
+    if(j%3===0)Cyl(x,.165,z,.017,.017,.09,C.shadow,4,8);
+    if(j%2===0)B(x,.284,z,.031,.011,.025,0x877d83,4,-a);
   }
   Ell(0,.304,1.11,1.48,1.16,0x655d6b,1,70);
   for(let s of [-1,1]){
     // Structural supports on the inset bridge chair, suede side panels, stitches and arm electronics.
     B(s*.39,.64,1.42,.115,.35,.43,0x686170,3);
-    B(s*.390,1.12,1.60,.15,.59,.115,C.shadow,3);
+    B(s*.390,.88,1.53,.082,.16,.095,C.shadow,3);
     for(let j=0;j<11;j++)B(s*.376,1.06+j*.062,1.700,.037,.012,.008,0xcab9b2,4);
     for(let j=0;j<7;j++)B(s*.31,1.1+j*.099,1.782,.015,.014,.014,0xb4a3a4,4);
     for(let j=0;j<10;j++){
