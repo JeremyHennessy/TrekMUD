@@ -33,7 +33,7 @@ test('3D page parses as JavaScript without external assets or hidden campaign st
   assert.ok(page.includes("getContext('webgl'"));
   assert.ok(page.includes("$('enter').addEventListener('click'"));
   assert.ok(page.includes('requestAnimationFrame(frame)'));
-  assert.match(page, /<script src="set-details\\.js"><\\/script>/);
+  assert.ok(page.includes('<script src="set-details.js"></script>'), 'missing same-origin dressing script');
   assert.doesNotMatch(page, /<script[^>]+src="https?:|<link[^>]+href="https?:|<img[^>]+src="https?:/i);
   assert.ok(page.includes("const FS_FALLBACK=`"), 'compatible shader fallback not available');
   for (const forbidden of ['TrekMUD-GM', 'secretSeedHex', 'npc-private', 'plot-clocks', 'future-events']) {
