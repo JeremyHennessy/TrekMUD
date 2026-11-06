@@ -27,6 +27,10 @@ The proof uses *only the captain's chair*, deliberately sampled from the **exist
 2. **Best for a quick high-quality visual exploration:** experiment with **World Labs Marble** generating an original science-ship bridge scene from a detailed prompt and consistent reference imagery or a 3D layout. Export `.spz` / PLY visuals plus its collision GLB, then test inside Spark. **Generative worlds may change the room proportions, door positioning, signage, and console arrangement**. Treat the generated output as a *concept candidate* until its topology can be validated against the canonical USS Asteria map. Marble may require paid access; no API call or charges are authorized by this experiment.
 3. **Avoid:** multiplying existing synthetic triangles into Gaussian points and claiming photorealism, using a single still-image projection to fake a walkable 3D room, merging experimental AI assets into the approved bridge without comparison, or copying an Enterprise-D set plan.
 
+## V3-layout guidance for a future high-quality generative source
+
+A separate `generate_chisel_blockout.py` builds a **117-piece, neutral-color coarse bridge GLB** in the V3-inspired coordinate envelope (15.1 × 13.1 m, 3.915 m tall). `MARBLE_CHISEL_LAYOUT.md` specifies the desired original set design, opening positions, controlled camera views, rejection tests and export requirements. This is a conditioning proposal, **not a completed Marble generation**. It preserves the existing Asteria location ID and one approved corridor connection. CI generates the .glb into a review artifact for later use by a compatible layout-guided 3D world generator.
+
 ## Reproducible test
 
 From the TrekMUD repository root with Python packages installed from `ui/3d-preview-v4/asset-requirements.txt`:
