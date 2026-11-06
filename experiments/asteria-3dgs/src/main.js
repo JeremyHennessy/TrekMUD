@@ -16,7 +16,7 @@ import { SparkRenderer, SplatMesh } from '@sparkjsdev/spark';
   if (!webgl2) { fail('This cinematic preview needs a WebGL 2-capable browser. The earlier /3d/ versions are still available.'); return; }
   let renderer;
   try {
-    renderer = new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
+    renderer = new THREE.WebGLRenderer({canvas,antialias:false,alpha:false,powerPreference:'high-performance'});
   } catch (e) { fail(`Unable to start the 3D renderer: ${e.message}`); return; }
   // Single reversible A/B trial. No new game geography or campaign state.
   const params = new URLSearchParams(location.search);
