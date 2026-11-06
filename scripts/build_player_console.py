@@ -268,6 +268,12 @@ def build(output: Path) -> dict[str, Any]:
         raise FileNotFoundError("missing Asteria 3D realism preview")
     shutil.copytree(preview_root, output / "3d-preview")
 
+    # Self-contained, opt-in Room 01 hero-set study. Never replaces earlier versions.
+    preview_v3_root = UI_ROOT / "3d-preview-v3"
+    if not (preview_v3_root / "index.html").exists():
+        raise FileNotFoundError("missing Asteria bridge v3 hero-set preview")
+    shutil.copytree(preview_v3_root, output / "3d-preview-v3")
+
     payload = player_safe_snapshot(ROOT)
     (output / "data" / "player-console.json").write_text(
         json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
