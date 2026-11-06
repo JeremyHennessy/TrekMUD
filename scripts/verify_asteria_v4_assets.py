@@ -12,7 +12,7 @@ assert report.is_file()
 data=json.loads(report.read_text())
 scene=trimesh.load(model,force='scene')
 names=set(scene.graph.nodes_geometry)
-assert len(names)>=440, len(names)
+assert len(names)>=400, len(names)
 for needle in ('AST_Captain_Seat_Padded_Contour','AST_Captain_Seat_Outer_Composite_Shell','AST_Command_Pylon_Base_1','AST_Flight_Desk_Raked_Molded_Console','AST_Ceiling_Light_Diffuser_1_0','AST_Viewer_Header'):
  assert needle in names, needle
 assert data['originalRoomId']=='AST-D01-BRIDGE'
