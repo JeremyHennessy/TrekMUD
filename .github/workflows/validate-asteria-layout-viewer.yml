@@ -57,6 +57,10 @@ jobs:
             "file://$PWD/_site/3d-layout/index.html?capture=aft" \
             2>> "$RUNNER_TEMP/asteria-layout-mobile.chrome.log"
           test -s "$RUNNER_TEMP/asteria-layout-mobile.png"
+      - name: Test real WASD navigation, station jump and touch joystick
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.56.0
+          CHROME="$(command -v google-chrome || command -v chromium)" python scripts/test_asteria_layout_browser.py _site
       - name: Archive visual evidence
         if: always()
         uses: actions/upload-artifact@v4
