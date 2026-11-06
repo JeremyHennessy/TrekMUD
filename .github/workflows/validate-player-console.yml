@@ -53,8 +53,32 @@ jobs:
       - name: Validate standalone Asteria 3D room
         run: node --test tests/asteria-3d.test.cjs
 
+      - name: Validate independent higher-detail bridge preview
+        run: node --test tests/asteria-3d-preview.test.cjs
+
       - name: Build and validate player-safe console
         run: python scripts/validate_player_console.py --keep _site
+
+      - name: Verify 3D preview renders in Chrome WebGL
+        run: |
+          set -eu
+          CHROME="$(command -v google-chrome || command -v chromium || true)"
+          test -n "$CHROME"
+          "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
+            --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
+            --virtual-time-budget=3000 --dump-dom \
+            "file://$PWD/_site/3d-preview/index.html?studioCapture=aft" \
+            > "$RUNNER_TEMP/asteria-preview-dom.html" 2> "$RUNNER_TEMP/asteria-preview-chrome.log"
+          grep -q 'data-renderer-ready="true"' "$RUNNER_TEMP/asteria-preview-dom.html"
+          grep -q 'data-detail-pieces=' "$RUNNER_TEMP/asteria-preview-dom.html"
+
+      - name: Save 3D preview screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-bridge-v2-preview-check
+          path: ${{ runner.temp }}/asteria-preview-chrome.log
+          if-no-files-found: ignore
 
       - name: Test automatic campaign refresh
         run: node --test tests/player-console-refresh.test.cjs

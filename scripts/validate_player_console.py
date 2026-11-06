@@ -24,6 +24,9 @@ REQUIRED_ASSETS = {
     "data/build.json",
     "3d/index.html",
     "3d/rooms.json",
+    "3d-preview/index.html",
+    "3d-preview/furniture.js",
+    "3d-preview/set-details.js",
 }
 FORBIDDEN_TOKENS = {
     "secretSeedHex",
