@@ -116,14 +116,20 @@ window.AsteriaHero=Object.freeze({
       const x=side*1.27,z=.58,rotation=side*.24;
       const co=Math.cos(rotation),si=Math.sin(rotation);
       const P=(a,y,b)=>[x+a*co-b*si,y,z+a*si+b*co];
-      // Continuous flared cast housings with taper and an integral flying brow.
-      S(20,18,(u,v)=>{
-        const a=2*u-1,b=2*v-1;
-        const bulge=(1-v)*.18;
-        return P(a*(.32+bulge),.25+v*.84,b*(.32+.09*(1-v)));
-      },0xaca5a4,2,true);
-      S(20,12,(u,v)=>P((u-.5)*.73,1.105+Math.sin(v*Math.PI)*.04,(v-.5)*.81),0x34333c,7,false);
-      const a=P(0,1.105,-.065);display(a[0],1.165,a[2],.64,.60,rotation,0xffffff,side<0?3:5,.020);
+      // Four-sided cast housing (not an open sheet): taper is continuous on
+      // front/back faces and the shaped cheek panels actually close the body.
+      const width=t=>.385+.026*Math.sin(Math.PI*t)-.045*t;
+      const forward=t=>-.365-.045*t;
+      const rear=t=>.395-.025*t;
+      for(const depth of [0,1]){
+        S(24,16,(u,v)=>P((2*u-1)*width(v),.275+v*.82,depth?rear(v):forward(v)),
+          depth?0xa9a2a0:0x8e8b92,2,depth!==1);
+      }
+      for(const sg of [-1,1]){
+        S(10,16,(u,v)=>P(sg*width(v),.275+v*.82,forward(v)+u*(rear(v)-forward(v))),0x9d989c,3,sg===-1);
+      }
+      S(24,14,(u,v)=>P((u-.5)*.742,1.104+.016*Math.sin(v*Math.PI),-.37+v*.76),0x282b34,7,true);
+      const a=P(0,1.104,-.025);display(a[0],1.157,a[2],.62,.58,rotation,0xffffff,side<0?3:5,.028);
       const rim=[];for(let k=0;k<=22;k++)rim.push(P(-.33+k*.03,1.126,-.46));
       T(rim,.015,0x887b81,4,8);
       const trim=P(0,.46,.24);B(trim[0],trim[1],trim[2],.55,.070,.13,0x6c666e,4,rotation);
@@ -143,8 +149,10 @@ window.AsteriaHero=Object.freeze({
     S(N,12,(u,v)=>{
       const x=(u-.5)*5.34,zz=z(x);
       const depth=.46-1.00*v;
-      const crown=.025*Math.sin(v*Math.PI)+.02*(1-Math.pow(x/2.67,2));
-      return [x,1.04+.11*v+crown,zz+depth];
+      const crown=.007*Math.sin(v*Math.PI)+.008*(1-Math.pow(x/2.67,2));
+      // The existing six functional monitor UV planes follow the original
+      // .94→1.16 sweep. Stay just below them rather than occluding the glass.
+      return [x,.94+.22*v+crown,zz+depth];
     },0x252730,7,true);
     S(N,7,(u,v)=>{
       const x=(u-.5)*5.34,zz=z(x);
