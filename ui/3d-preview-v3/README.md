@@ -15,6 +15,8 @@ This path (`/3d-preview-v3/`) is an original starship bridge interior for the Tr
 - Captain's chair: true curved double-wall upholstered backrest, seat pan and sculpted armrests instead of layered rectangular boxes; padded seams, forged swivel base and independent controls.
 - Flight stations: re-profiled one-piece desk shell preserving original monitor UV placement.
 - Lighting: physical inset ceiling diffuser housings and trim rather than isolated emissive patches.
+- Optional **WebGL 1 static shadow map**, generated once at startup for the central chair and console furniture. A two-by-two percentage-closer filter softens key-light shadows. This is not path tracing or physically measured indirect illumination. The dais was deliberately excluded as a shadow caster after actual screenshots revealed self-shadow striping.
+- A WebGL/FBO or shader error retains compatible studio lighting. Phone-sized viewports and `?shadows=off` disable the costly shadow pass for performance.
 - Uses existing `furniture.js` as a geometry fallback, `set-details.js` for nonhero details, and the independent WebGL renderer in `index.html`.
 - Movement, rendering entry points, location ID and control affordances intentionally match v2.
 
@@ -24,4 +26,4 @@ This path (`/3d-preview-v3/`) is an original starship bridge interior for the Tr
 
 GitHub PR validation runs the player PADD and campaign safety checks, opens the v3 page in software-WebGL Chromium, then captures 1440×900 views from **aft**, **command**, and **flight** positions. Visual approval requires reviewing these actual renders, not only successful code tests.
 
-**Not yet photorealistic.** This stage improves authored silhouettes and surface normals. Real-time shadows, high-resolution authored PBR material textures, baked indirect illumination, and physical-device performance are separate follow-up gates. Do not merge into `/3d/` or `/3d-preview/` based only on code passing.
+**Not yet photorealistic.** This stage improves authored silhouettes, surface normals and optional one-time directional shadows. High-resolution authored PBR textures, true multi-bounce indirect illumination and physical-device performance remain open follow-up gates. Do not replace `/3d/` or `/3d-preview/` based only on code passing.
