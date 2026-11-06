@@ -21,6 +21,11 @@ N=np.load(SOURCE/'normals.npy').reshape(-1,3).astype('<f4')
 C=np.load(SOURCE/'colors.npy').reshape(-1,3).astype('<f4')
 M=np.load(SOURCE/'materials.npy').astype('u1')
 UV=np.load(SOURCE/'uv.npy').reshape(-1,2).astype('<f4')
+# Identify exactly the two original forward starfield screen triangles. The PBR
+# shader must not reflect ceiling lights off an image meant to depict deep space.
+star=(M==7)&(np.abs(P[:,2]+6.06)<.0005)&(np.abs(P[:,0])<=3.101)
+assert int(star.sum())==6, f'V3 star-pane geometry drift: {star.sum()} vertices'
+M[star]=9
 assert len(P)==len(N)==len(C)==len(M)==len(UV)==320964
 assert np.isfinite(P).all() and np.isfinite(N).all()
 assert len(P)%3==0 and (M.reshape(-1,3)==M.reshape(-1,3)[:,0:1]).all()
@@ -37,6 +42,7 @@ MATS={
  6:('asteria_live_instruments',.0,1.,'atlas'),
  7:('smoked_instrument_glass',.12,.22,'glass'),
  8:('diffused_practical_lights',.0,.95,'glow'),
+ 9:('forward_starfield_unlit',0.,1.,'starfield'),
 }
 
 # Pattern maps are low-amplitude microstructure, not a replacement for good geometry.
@@ -125,7 +131,10 @@ texmap[('atlas','base')]=png_texture((SOURCE/'atlas.png').read_bytes(),False)
 
 # A stable world-space texel scale; console UVs remain byte-for-byte original.
 def generate_uv(p,n,material):
- if material==6: return UV[M==6].copy()
+ if material==6:
+  flip=UV[M==6].copy()
+  flip[:,1]=1-flip[:,1]  # V3 atlas uploaded flipped in WebGL; glTF uses unflipped image
+  return flip
  n=np.abs(n)
  # Dominant plane axis per triangle avoids corrupted texture stretching on geometry.
  f=n.reshape(-1,3,3).mean(axis=1)
@@ -142,7 +151,7 @@ def generate_uv(p,n,material):
   v[idx]=coords*2.1
  return v.reshape(-1,2)
 
-for i in range(9):
+for i in range(10):
  name,metallic,rough,style=MATS[i]
  mask=M==i
  pos=P[mask]
@@ -167,9 +176,10 @@ for i in range(9):
   'COLOR_0':accessor(rgba.tobytes(),5121,len(pos),'VEC3',normalized=True),
   'TEXCOORD_0':accessor(uv.astype('<f4').tobytes(),5126,len(pos),'VEC2'),
  }
- if style=='atlas':
+ if style in ('atlas','starfield'):
   m={'name':name,'doubleSided':True,'pbrMetallicRoughness':{
-     'baseColorTexture':{'index':texmap[('atlas','base')]},'metallicFactor':0,'roughnessFactor':1},'extensions':{'KHR_materials_unlit':{}}}
+     'metallicFactor':0,'roughnessFactor':1},'extensions':{'KHR_materials_unlit':{}}}
+  if style=='atlas':m['pbrMetallicRoughness']['baseColorTexture']={'index':texmap[('atlas','base')]}
  else:
   m={'name':name,'doubleSided':True,
    'pbrMetallicRoughness':{'baseColorTexture':{'index':texmap[(style,'base')]},'metallicFactor':metallic,'roughnessFactor':rough,'metallicRoughnessTexture':{'index':texmap[(style,'orm')]}},
