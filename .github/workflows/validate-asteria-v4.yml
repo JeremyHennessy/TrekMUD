@@ -109,6 +109,10 @@ jobs:
             2>> "$RUNNER_TEMP/asteria-v4-chrome.log"
           # A plain browser 404 screenshot is small; reject missing V3 comparisons.
           test "$(stat -c%s "$RUNNER_TEMP/asteria-v3-aft.png")" -gt 100000
+      - name: Verify first-person keyboard movement and station navigation
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.56.0
+          python scripts/test_asteria_v4_browser.py _site
       - name: Archive render and source evidence
         if: always()
         uses: actions/upload-artifact@v4
