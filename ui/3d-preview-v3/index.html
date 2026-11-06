@@ -63,7 +63,7 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid #e9b99
 (()=>{
 const $=id=>document.getElementById(id);const canvas=$('scene');const gl=canvas.getContext('webgl',{antialias:true,alpha:false,depth:true,powerPreference:'high-performance'})||canvas.getContext('experimental-webgl');
 if(!gl){$('loading').classList.add('off');$('error').style.display='grid';$('error').textContent='WebGL could not start on this device. Try the current Safari, Chrome, Edge, or Firefox.';return;}
-const VS=`attribute vec3 aP;attribute vec3 aN;attribute vec3 aC;attribute float aM;attribute vec2 aUV;uniform mat4 uProjection;uniform mat4 uView;varying vec3 vP;varying vec3 vN;varying vec3 vC;varying float vM;varying vec2 vUV;void main(){vP=aP;vN=aN;vC=aC;vM=aM;vUV=aUV;gl_Position=uProjection*uView*vec4(aP,1.);}`;
+const VS=`attribute vec3 aP;attribute vec3 aN;attribute vec3 aC;attribute float aM;attribute vec2 aUV;uniform mat4 uProjection;uniform mat4 uView;uniform mat4 uLightVP;varying vec3 vP;varying vec3 vN;varying vec3 vC;varying float vM;varying vec2 vUV;varying vec4 vLightSpace;void main(){vP=aP;vN=aN;vC=aC;vM=aM;vUV=aUV;vLightSpace=uLightVP*vec4(aP,1.);gl_Position=uProjection*uView*vec4(aP,1.);}`;
 const FS=`precision highp float;
 varying vec3 vP;
 varying vec3 vN;
@@ -71,6 +71,10 @@ varying vec3 vC;
 varying float vM;
 varying vec2 vUV;
 uniform sampler2D uAtlas;
+uniform sampler2D uShadow;
+uniform vec2 uShadowTexel;
+uniform float uShadowEnabled;
+varying vec4 vLightSpace;
 uniform vec3 uEye;
 const float PI=3.14159265;
 float hash(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}
@@ -80,6 +84,22 @@ float D_GGX(float nh,float rough){float a=rough*rough,aa=a*a,d=nh*nh*(aa-1.)+1.;
 float G1(float nv,float k){return nv/(nv*(1.-k)+k+0.0001);}
 vec3 F_schlick(vec3 f0,float vh){return f0+(1.-f0)*pow(1.-vh,5.);}
 vec3 specularBRDF(vec3 N,vec3 V,vec3 L,float rough,vec3 f0){vec3 H=normalize(V+L);float nl=max(dot(N,L),0.),nv=max(dot(N,V),0.),nh=max(dot(N,H),0.),vh=max(dot(V,H),0.);float k=pow(rough+1.,2.)/8.;return F_schlick(f0,vh)*D_GGX(nh,rough)*G1(nl,k)*G1(nv,k)/(4.*nl*nv+.001);}
+// Depth is encoded into the RGBA attachment to keep WebGL 1 compatibility.
+float unpackDepth(vec4 x){return dot(x,vec4(1.0/16777216.,1.0/65536.,1.0/256.,1.0));}
+float keyShadow(float nDotL){
+  if(uShadowEnabled<.5) return 1.;
+  vec3 sc=vLightSpace.xyz/max(vLightSpace.w,.0001);
+  vec2 uv=sc.xy*.5+.5;float depth=sc.z*.5+.5;
+  if(uv.x<=0.||uv.x>=1.||uv.y<=0.||uv.y>=1.||depth<=0.||depth>=1.) return 1.;
+  float bias=.00135+.0030*(1.-nDotL);
+  float lit=0.;
+  for(int ix=0;ix<2;ix++)for(int iy=0;iy<2;iy++){
+    vec2 delta=(vec2(float(ix),float(iy))-.5)*uShadowTexel*2.;
+    float stored=unpackDepth(texture2D(uShadow,uv+delta));
+    lit+=step(depth-bias,stored);
+  }
+  return mix(.31,1.,lit*.25);
+}
 void main(){
   vec3 N=normalize(vN),V=normalize(uEye-vP);
   float m=vM,rough=.78,metal=0.;
@@ -133,7 +153,7 @@ void main(){
   vec3 L1=normalize(vec3(-.38,.88,-.29));
   vec3 L2=normalize(vec3(.75,.65,.1));
   float n1=max(dot(N,L1),0.),n2=max(dot(N,L2),0.);
-  vec3 key=(albedo*kd/PI+specularBRDF(N,V,L1,rough,f0))*vec3(2.2,1.94,1.72)*n1;
+  vec3 key=(albedo*kd/PI+specularBRDF(N,V,L1,rough,f0))*vec3(2.2,1.94,1.72)*n1*keyShadow(n1);
   vec3 fill=(albedo*kd/PI+specularBRDF(N,V,L2,rough,f0))*vec3(.55,.67,.90)*n2;
   // Practical-light spill at crown of the bridge and both side galleries.
   vec3 lamps=vec3(0.);
@@ -156,7 +176,7 @@ void main(){
 // Proven original render program for browsers which reject the higher-quality shader.
 const FS_FALLBACK=`precision mediump float;varying vec3 vP;varying vec3 vN;varying vec3 vC;varying float vM;varying vec2 vUV;uniform sampler2D uAtlas;uniform vec3 uEye;float hash(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}float noise(vec3 p){return hash(floor(p));}void main(){vec3 n=normalize(vN);vec3 col=vC;float m=vM;if(m>.5&&m<1.5){col*=.91+.12*noise(vP*vec3(30.,12.,27.));}if(m>1.5&&m<2.5){col*=.93+.09*noise(vP*vec3(12.,19.,11.));}if(m>2.5&&m<3.5){col*=.92+.12*noise(vP*vec3(45.,16.,22.));}if(m>3.5&&m<4.5){col*=.92+.12*noise(vP*vec3(24.,26.,17.));}if(m>4.5&&m<5.5){col*=.90+.09*sin(vP.z*150.+noise(vP*5.)*9.)+.04*noise(vP*30.);}vec3 sun=normalize(vec3(-.32,.92,-.34));float lambert=max(dot(n,sun),0.);vec3 light=vec3(.51,.49,.52)+vec3(.80,.69,.60)*lambert*.66;float down=max(dot(n,vec3(0.,1.,0.)),0.);light+=vec3(.79,.84,1.)*down*.24;float d=length(vP-vec3(0.,4.,0.));light+=vec3(1.,.88,.75)*1.8/(4.+d*d);float d2=length(vP-vec3(-4.,3.,1.));light+=vec3(.64,.79,.99)*1.1/(3.+d2*d2);float d3=length(vP-vec3(4.,3.,1.));light+=vec3(.64,.79,.99)*1.1/(3.+d3*d3);vec3 view=normalize(uEye-vP);float shine=pow(max(dot(reflect(-sun,n),view),0.),m>6.5&&m<7.5?65.:20.)*(m>6.5&&m<7.5?.34:.08);vec3 res=col*light+vec3(1.,.82,.67)*shine;if(m>5.5&&m<6.5){res=texture2D(uAtlas,vUV).rgb*1.14+vec3(.012,.012,.026);}if(m>7.5&&m<8.5){res=col*vec3(1.14,1.06,.99)+vec3(.1,.075,.052);}res=pow(clamp(res,0.,1.),vec3(.96));float fog=clamp((length(uEye-vP)-18.)/32.,0.,.15);res=mix(res,vec3(.48,.44,.51),fog);gl_FragColor=vec4(res,1.);}`;
 function compile(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;}
-let program;try{const vertex=compile(gl.VERTEX_SHADER,VS);let fragment;try{fragment=compile(gl.FRAGMENT_SHADER,FS);}catch(materialError){console.warn('Asteria quality shader unavailable, using compatible material shading:',materialError.message);fragment=compile(gl.FRAGMENT_SHADER,FS_FALLBACK);}program=gl.createProgram();gl.attachShader(program,vertex);gl.attachShader(program,fragment);gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));}catch(e){$('loading').classList.add('off');$('error').style.display='grid';$('error').textContent='3D renderer failed: '+e.message;return;}
+let program;let filmicShaderActive=true;try{const vertex=compile(gl.VERTEX_SHADER,VS);let fragment;try{fragment=compile(gl.FRAGMENT_SHADER,FS);}catch(materialError){filmicShaderActive=false;console.warn('Asteria quality shader unavailable, using compatible material shading:',materialError.message);fragment=compile(gl.FRAGMENT_SHADER,FS_FALLBACK);}program=gl.createProgram();gl.attachShader(program,vertex);gl.attachShader(program,fragment);gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));}catch(e){$('loading').classList.add('off');$('error').style.display='grid';$('error').textContent='3D renderer failed: '+e.message;return;}
 const P=[],N=[],C=[],M=[],UV=[];let tris=0;const rgb=h=>[(h>>16&255)/255,(h>>8&255)/255,(h&255)/255],lerp=(a,b,t)=>a+(b-a)*t,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function tri(a,b,c,n,color,material=0,uv){const pts=[a,b,c];for(let i=0;i<3;i++){P.push(...pts[i]);N.push(...n);C.push(...color);M.push(material);UV.push(...(uv?uv[i]:[0,0]));}tris++;}
 function quad(a,b,c,d,n,color,material=0,uv){tri(a,b,c,n,color,material,uv&&[uv[0],uv[1],uv[2]]);tri(a,c,d,n,color,material,uv&&[uv[0],uv[2],uv[3]]);}
@@ -236,6 +256,8 @@ box(1.18,2.42,-5.90,.052,.89,.06,0x9fa9b7,3);box(1.18,1.59,-5.90,.052,.75,.06,0x
 for(let s of [-1,1]){box(s*3.51,2.02,-6.09,.17,2.89,.18,0xb3a1a2,3);box(s*3.30,2.01,-6.03,.047,2.57,.08,0x645e69,7)}
 box(0,3.64,-6.05,7.15,.13,.4,0xc7b5aa,3);box(0,.49,-6.04,7.14,.15,.30,0xcab8ac,3);
 for(let i=0;i<23;i++){box((i-11)*.257,.52,-5.88,.07,.019,.012,i%5===0?0xe6b69c:0x8abbd2,8);}
+// Command hero meshes and flight controls are the only static directional shadow casters.
+const shadowCasterStart=P.length/3;
 // Asteria command island: oval raised plinth, understated bronze rail and a single central command chair.
 if(window.AsteriaHero){window.AsteriaHero.commandPlatform({smoothSurface,box,cyl,ellipse,ring,tube});}else{cyl(0,.13,1.11,1.86,1.56,.27,0x766b7c,1,68);ellipse(0,.275,1.11,1.82,1.51,0x786a78,1,70);ring(0,.291,1.11,1.88,1.57,.979,0xd3ad90,8,70);}
 for(let side of [-1,1]){tube([[side*1.90,.28,1.03],[side*1.96,.54,1.55],[side*1.78,.84,2.06]],.044,0x9a8375,4);}
@@ -256,6 +278,7 @@ for(let s of [-1,1]){chair(s*1.15,-2.13,0,false);box(s*1.1,.27,-3.42,.53,.25,.12
 // Forward tactical relay spine on the starboard corner (unlike Enterprise rear horseshoe).
 box(4.35,.54,-2.11,1.35,1.03,1.12,0xa6a4a9,2,-.36);box(4.35,1.07,-2.18,1.43,.13,1.15,0x33303d,7,-.36);surface(4.35,1.16,-2.16,1.3,.97,-.36,0xffffff,6,.06);
 chair(3.85,-1.1,-.36);
+const shadowCasterEnd=P.length/3;
 // Aft SCIENCE GALLERY raised behind command, with continuous rails and seven screens.
 for(let s of [-1,1]){const cx=s*3.5;box(cx,.22,4.23,3.65,.39,1.82,0x646879,1,s*.1);box(cx,.47,4.23,3.55,.13,1.73,0x82838a,3,s*.1);for(let k=0;k<3;k++){const x=cx+s*(k-1)*1.03;box(x,.82,4.65,1.00,.77,.57,0xc8bdb0,2,s*.07);box(x,1.26,4.56,.97,.115,.62,0x23232d,7,s*.07);surface(x,1.335,4.51,.87,.50,s*.07,0xffffff,2+(k+(s===1?3:0))%11,.03);}}
 // Vertical aft mission consoles in wall at arcs to left and right of main turbolift.
@@ -302,8 +325,62 @@ const setDressing=(typeof window.AsteriaSetDetails==='function')?window.AsteriaS
 const heroLighting=window.AsteriaHero?window.AsteriaHero.ceilingFixtures({box,tube,cyl}):{fixtures:0};
 // Buffers are static; draw the actual modeled triangles each frame under a movable camera.
 const attr=[['aP',P,3],['aN',N,3],['aC',C,3],['aM',M,1],['aUV',UV,2]];
-gl.useProgram(program);for(const [name,data,n] of attr){const loc=gl.getAttribLocation(program,name);const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,n,gl.FLOAT,false,0,0);}
+const buffers={};
+gl.useProgram(program);for(const [name,data,n] of attr){const loc=gl.getAttribLocation(program,name);const buffer=gl.createBuffer();buffers[name]=buffer;gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.STATIC_DRAW);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,n,gl.FLOAT,false,0,0);}
 gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.clearColor(.025,.024,.046,1);gl.uniform1i(gl.getUniformLocation(program,'uAtlas'),0);
+// Optional STATIC soft shadows: one extra FBO pass at initialization, never each frame.
+// Only the central furniture casts, so the studio ceiling does not accidentally
+// shadow the whole interior from the simulated softbox outside the hull.
+function ortho(l,r,b,t,n,f){return new Float32Array([2/(r-l),0,0,0,0,2/(t-b),0,0,0,0,-2/(f-n),0,-(r+l)/(r-l),-(t+b)/(t-b),-(f+n)/(f-n),1]);}
+function mat4Mul(A,B){const out=new Float32Array(16);for(let c=0;c<4;c++)for(let r=0;r<4;r++){let sum=0;for(let k=0;k<4;k++)sum+=A[k*4+r]*B[c*4+k];out[c*4+r]=sum;}return out;}
+const lightEye=[-9.0,14.0,-6.5];
+const lightVP=mat4Mul(ortho(-10,10,-10,10,.1,35),lookAt(lightEye,[0,1.2,0]));
+const shadowSize=window.innerWidth>1100?768:512;
+let shadowEnabled=false;let shadowTexture=null;
+const fallbackShadow=gl.createTexture();gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,fallbackShadow);
+gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([255,255,255,255]));
+gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);
+gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
+gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+if(window.innerWidth>700 && new URLSearchParams(location.search).get('shadows')!=='off'){
+  try{
+    const shadowVS='attribute vec3 aP;uniform mat4 uLightVP;void main(){gl_Position=uLightVP*vec4(aP,1.);}';
+    const shadowFS='precision highp float;vec4 packDepth(float d){vec4 c=fract(d*vec4(16777216.,65536.,256.,1.));c-=c.xxyz*vec4(0.,1./256.,1./256.,1./256.);return c;}void main(){gl_FragColor=packDepth(gl_FragCoord.z);}';
+    const shadowProgram=gl.createProgram();gl.attachShader(shadowProgram,compile(gl.VERTEX_SHADER,shadowVS));gl.attachShader(shadowProgram,compile(gl.FRAGMENT_SHADER,shadowFS));gl.linkProgram(shadowProgram);
+    if(!gl.getProgramParameter(shadowProgram,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(shadowProgram));
+    const st=gl.createTexture();shadowTexture=st;gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,st);
+    gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,shadowSize,shadowSize,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);
+    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+    const depth=gl.createRenderbuffer();gl.bindRenderbuffer(gl.RENDERBUFFER,depth);gl.renderbufferStorage(gl.RENDERBUFFER,gl.DEPTH_COMPONENT16,shadowSize,shadowSize);
+    const fbo=gl.createFramebuffer();gl.bindFramebuffer(gl.FRAMEBUFFER,fbo);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,st,0);
+    gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,depth);
+    if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw Error('Shadow framebuffer unsupported');
+    gl.useProgram(shadowProgram);
+    gl.bindBuffer(gl.ARRAY_BUFFER,buffers.aP);
+    const positionLoc=gl.getAttribLocation(shadowProgram,'aP');gl.enableVertexAttribArray(positionLoc);gl.vertexAttribPointer(positionLoc,3,gl.FLOAT,false,0,0);
+    gl.uniformMatrix4fv(gl.getUniformLocation(shadowProgram,'uLightVP'),false,lightVP);
+    gl.viewport(0,0,shadowSize,shadowSize);gl.clearColor(1,1,1,1);
+    gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES,shadowCasterStart,shadowCasterEnd-shadowCasterStart);
+    if(gl.getError()!==gl.NO_ERROR)throw Error('Shadow draw failed');
+    shadowEnabled=true;
+  }catch(error){console.warn('Asteria static shadow map unavailable; fallback lighting retained',error.message);}
+  finally{gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.useProgram(program);
+    // Rebind all main vertex streams after the dedicated depth-only program.
+    for(const [name,data,n] of attr){const loc=gl.getAttribLocation(program,name);if(loc<0)continue;gl.bindBuffer(gl.ARRAY_BUFFER,buffers[name]);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,n,gl.FLOAT,false,0,0);}
+  }
+}
+gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,shadowEnabled?shadowTexture:fallbackShadow);
+gl.useProgram(program);
+gl.uniformMatrix4fv(gl.getUniformLocation(program,'uLightVP'),false,lightVP);
+gl.uniform1i(gl.getUniformLocation(program,'uShadow'),1);
+gl.uniform2f(gl.getUniformLocation(program,'uShadowTexel'),1/shadowSize,1/shadowSize);
+gl.uniform1f(gl.getUniformLocation(program,'uShadowEnabled'),shadowEnabled?1:0);
+gl.activeTexture(gl.TEXTURE0);
+gl.clearColor(.025,.024,.046,1);
 function perspective(fov,aspect,near,far){const f=1/Math.tan(fov/2),nf=1/(near-far);return new Float32Array([f/aspect,0,0,0,0,f,0,0,0,0,(far+near)*nf,-1,0,0,2*far*near*nf,0]);}
 function lookAt(eye,target){const zz=[eye[0]-target[0],eye[1]-target[1],eye[2]-target[2]];let len=Math.hypot(...zz)||1;for(let k=0;k<3;k++)zz[k]/=len;let xx=[zz[2],0,-zz[0]];len=Math.hypot(...xx)||1;for(let k=0;k<3;k++)xx[k]/=len;const yy=[zz[1]*xx[2]-zz[2]*xx[1],zz[2]*xx[0]-zz[0]*xx[2],zz[0]*xx[1]-zz[1]*xx[0]];return new Float32Array([xx[0],yy[0],zz[0],0,xx[1],yy[1],zz[1],0,xx[2],yy[2],zz[2],0,-(xx[0]*eye[0]+xx[1]*eye[1]+xx[2]*eye[2]),-(yy[0]*eye[0]+yy[1]*eye[1]+yy[2]*eye[2]),-(zz[0]*eye[0]+zz[1]*eye[1]+zz[2]*eye[2]),1]);}
 const hotspots={aft:{x:-1.23,z:4.80,yaw:.44,label:'AFT CORRIDOR ACCESS · DECK 01'},command:{x:-2.32,z:2.15,yaw:.22,label:'COMMAND PLATFORM'},flight:{x:0,z:-1.32,yaw:0,label:'FLIGHT CONTROL'},science:{x:-3.70,z:2.76,yaw:2.8,label:'SCIENCE GALLERY'},viewer:{x:0,z:-4.78,yaw:Math.PI,label:'FORWARD VIEWSCREEN'}};
@@ -333,7 +410,7 @@ $('enter').addEventListener('click',()=>{$('splash').classList.add('off');});
 const pad=$('stick'),nub=$('thumb');function padMove(e){const rect=pad.getBoundingClientRect(),cx=rect.left+rect.width/2,cy=rect.top+rect.height/2,dx=e.clientX-cx,dy=e.clientY-cy;const scale=Math.min(1,48/(Math.hypot(dx,dy)||1));stickX=clamp(dx*scale/46,-1,1);stickY=clamp(dy*scale/46,-1,1);nub.style.transform=`translate(${stickX*40}px,${stickY*40}px)`;}
 pad.addEventListener('pointerdown',e=>{stick=e.pointerId;pad.setPointerCapture(e.pointerId);padMove(e);});pad.addEventListener('pointermove',e=>{if(e.pointerId===stick)padMove(e);});for(const event of ['pointerup','pointercancel','lostpointercapture'])pad.addEventListener(event,e=>{if(e.pointerId===stick){stick=null;stickX=stickY=0;nub.style.transform='translate(0,0)';}});
 // Public debugging marker for automated geometry + walking checks (not game state).
-window.__asteriaWalkthrough={roomId:'AST-D01-BRIDGE',meshTriangles:tris,detailPieces:setDressing.pieces,visualPass:'hero-set-03',heroLighting:heroLighting.fixtures,getPosition:()=>({...pos}),resetAt,collision:blocked,ready:true};
-document.body.dataset.rendererReady='true';document.body.dataset.geometryTriangles=String(tris);document.body.dataset.detailPieces=String(setDressing.pieces);const captureView=new URLSearchParams(location.search).get('studioCapture');if(captureView){if(hotspots[captureView])resetAt(captureView);$('splash').classList.add('off');}resize();requestAnimationFrame(frame);$('loading').classList.add('off');
+window.__asteriaWalkthrough={roomId:'AST-D01-BRIDGE',meshTriangles:tris,detailPieces:setDressing.pieces,visualPass:'hero-set-03-shadow',heroLighting:heroLighting.fixtures,shadows:shadowEnabled,filmicShader:filmicShaderActive,getPosition:()=>({...pos}),resetAt,collision:blocked,ready:true};
+document.body.dataset.shadows=shadowEnabled?'enabled':'fallback';document.body.dataset.materialShader=filmicShaderActive?'filmic':'fallback';document.body.dataset.rendererReady='true';document.body.dataset.geometryTriangles=String(tris);document.body.dataset.detailPieces=String(setDressing.pieces);const captureView=new URLSearchParams(location.search).get('studioCapture');if(captureView){if(hotspots[captureView])resetAt(captureView);$('splash').classList.add('off');}resize();requestAnimationFrame(frame);$('loading').classList.add('off');
 })();
 </script></body></html>
