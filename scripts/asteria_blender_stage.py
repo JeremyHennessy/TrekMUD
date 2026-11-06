@@ -101,7 +101,7 @@ def configure_scene(scene, samples, resolution):
     scene.render.film_transparent = False
     if hasattr(scene, "view_settings"):
         scene.view_settings.view_transform = "AgX"
-        scene.view_settings.look = "Medium High Contrast"
+        scene.view_settings.look = "AgX - Medium High Contrast"
     scene.world = bpy.data.worlds.new("Asteria soft ambient studio")
     scene.world.use_nodes = True
     background = scene.world.node_tree.nodes.get("Background")
