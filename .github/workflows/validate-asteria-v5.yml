@@ -12,7 +12,7 @@ on:
       - 'scripts/test_asteria_v5_browser.py'
       - '.github/workflows/validate-asteria-v5.yml'
   push:
-    branches: ['feature/asteria-v5-faithful-pbr']
+    branches: ['feature/asteria-v5-faithful-pbr', 'experiment/asteria-v5-upward-bounce']
     paths:
       - 'ui/3d-preview-v5/**'
       - 'scripts/extract_asteria_v3_for_v5.py'
