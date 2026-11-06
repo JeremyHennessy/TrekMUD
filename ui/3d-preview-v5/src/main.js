@@ -57,6 +57,20 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
   const instrumentFill=new THREE.PointLight(0x8fb9d6,.6,6.8,2);
   instrumentFill.position.set(0,2.2,-4.6);scene.add(instrumentFill);
 
+  // Verified visual adjustment: warm underside bounce from floor and consoles.
+  // Retains the unmodified V3 geometry and can be disabled for A/B review with
+  // ?ceilingBounce=0. Matched camera screenshots inspected in the isolated trial.
+  if (params.get('ceilingBounce') !== '0') {
+    const bounced = new THREE.DirectionalLight(0xffe8d8, .58);
+    bounced.position.set(0, -2.5, 0.25);
+    bounced.target.position.set(0, 3.7, 0);
+    bounced.castShadow = false;
+    scene.add(bounced, bounced.target);
+    document.body.dataset.ceilingBounce = 'enabled';
+  } else {
+    document.body.dataset.ceilingBounce = 'disabled';
+  }
+
   // Use V3's exact physical camera viewpoints and collision logic.
   const views={
     aft:{x:-1.23,z:4.80,yaw:.44,label:'AFT CORRIDOR ACCESS · DECK 01'},
