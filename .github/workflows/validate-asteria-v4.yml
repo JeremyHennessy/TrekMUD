@@ -60,6 +60,14 @@ jobs:
             --virtual-time-budget=12000 --dump-dom \
             "http://127.0.0.1:8765/3d-preview-v4/?capture=aft" \
             > "$RUNNER_TEMP/asteria-v4-dom.html" 2> "$RUNNER_TEMP/asteria-v4-chrome.log"
+          # Always capture an initial image before any assertions, so renderer
+          # failures can be diagnosed visually instead of hiding useful evidence.
+          "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
+            --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
+            --virtual-time-budget=12000 --window-size=1024,720 \
+            --screenshot="$RUNNER_TEMP/asteria-v4-diagnostic.png" \
+            "http://127.0.0.1:8765/3d-preview-v4/?capture=aft" \
+            2>> "$RUNNER_TEMP/asteria-v4-chrome.log"
           grep -q 'data-v4-ready="true"' "$RUNNER_TEMP/asteria-v4-dom.html"
           grep -q 'data-glb-meshes=' "$RUNNER_TEMP/asteria-v4-dom.html"
           grep -q 'data-missing-material="0"' "$RUNNER_TEMP/asteria-v4-dom.html"
