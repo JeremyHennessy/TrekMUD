@@ -62,6 +62,7 @@ jobs:
           cp ui/3d-preview-v4/src/index.html _site/3d-preview-v4/index.html
           cp ui/3d-preview-v4/src/style.css _site/3d-preview-v4/style.css
           cp ui/3d-preview-v4/dist/app.js _site/3d-preview-v4/app.js
+          cp ui/3d-preview-v4/node_modules/three/LICENSE _site/3d-preview-v4/THREE-LICENSE.txt
           python scripts/verify_asteria_v4_assets.py _site/3d-preview-v4
 
       - name: Configure GitHub Pages
