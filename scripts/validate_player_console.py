@@ -31,6 +31,7 @@ REQUIRED_ASSETS = {
     "3d-preview-v3/hero-v3.js",
     "3d-preview-v3/furniture.js",
     "3d-preview-v3/set-details.js",
+    "3d-layout/index.html",
 }
 FORBIDDEN_TOKENS = {
     "secretSeedHex",
