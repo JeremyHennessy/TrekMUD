@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Validate authoring script syntax before installing Blender
-        run: python -m py_compile scripts/asteria_blender_stage.py scripts/asteria_blender_chair_detail.py
+        run: python -m py_compile scripts/asteria_blender_stage.py
       - name: Install locked V3 mesh extractor dependencies
         run: |
           python -m pip install --disable-pip-version-check numpy==2.3.5 Pillow==12.3.0 playwright==1.56.0
@@ -58,33 +58,21 @@ jobs:
               assert max(ImageStat.Stat(image).stddev)>8, f'Blank render: {name}'
           print('Cycles reference files exist and have nonblank image content. Visual approval still required.')
           PY
-      - name: Render matching front close-ups with chair stitching off and on
+      - name: Capture original chair front diagnostic (no geometry changes)
         run: |
-          mkdir -p _blender_asteria_chair_base _blender_asteria_chair
+          mkdir -p _blender_asteria_chair_front
           blender -b -t 4 --python-exit-code 1 --python scripts/asteria_blender_stage.py -- \
             --glb _site/3d-preview-v5/models/asteria-v3-restored-pbr.glb \
-            --out _blender_asteria_chair_base --samples 24 --resolution 960 600 --view chair
-          blender -b -t 4 --python-exit-code 1 --python scripts/asteria_blender_stage.py -- \
-            --glb _site/3d-preview-v5/models/asteria-v3-restored-pbr.glb \
-            --out _blender_asteria_chair --samples 24 --resolution 960 600 --view chair --chair-stitches
+            --out _blender_asteria_chair_front --samples 24 --resolution 960 600 --view chair
           python - <<'PY'
           from pathlib import Path
           import json
-          from PIL import Image, ImageChops
-          base=Path('_blender_asteria_chair_base')
-          trial=Path('_blender_asteria_chair')
-          a=json.loads((base/'stage-manifest.json').read_text())
-          b=json.loads((trial/'stage-manifest.json').read_text())
-          assert a['triangles']==b['triangles']==106988
-          assert a['optionalChairStitchCount']==0
-          assert b['optionalChairStitchCount']==160, b
-          assert a['renderedViews']==b['renderedViews']==['chair']
-          a_img=Image.open(base/'asteria-cycles-chair.png').convert('RGB')
-          b_img=Image.open(trial/'asteria-cycles-chair.png').convert('RGB')
-          assert a_img.size==b_img.size==(960,600)
-          # A nonzero diff proves distinct outputs, not artistic acceptance.
-          assert ImageChops.difference(a_img,b_img).getbbox() is not None
-          print('Both matched front close-ups exist. Artistic inspection still required.')
+          from PIL import Image
+          d=Path('_blender_asteria_chair_front')
+          manifest=json.loads((d/'stage-manifest.json').read_text())
+          assert manifest['triangles']==106988 and manifest['renderedViews']==['chair']
+          assert Image.open(d/'asteria-cycles-chair.png').size==(960,600)
+          print('A full-resolution original chair reference was captured; visual acceptance not implied.')
           PY
       - name: Archive editable source and actual render proofs
         if: always()
@@ -95,11 +83,8 @@ jobs:
             _blender_asteria/*.blend
             _blender_asteria/*.png
             _blender_asteria/stage-manifest.json
-            _blender_asteria_chair_base/*.blend
-            _blender_asteria_chair_base/*.png
-            _blender_asteria_chair_base/stage-manifest.json
-            _blender_asteria_chair/*.blend
-            _blender_asteria_chair/*.png
-            _blender_asteria_chair/stage-manifest.json
+            _blender_asteria_chair_front/*.blend
+            _blender_asteria_chair_front/*.png
+            _blender_asteria_chair_front/stage-manifest.json
           if-no-files-found: ignore
           retention-days: 7
