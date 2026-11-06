@@ -1,0 +1,17 @@
+{
+  "name": "asteria-v4-cinematic-bridge",
+  "private": true,
+  "version": "0.4.0",
+  "description": "Isolated original USS Asteria cinematic glTF scene. No campaign writes.",
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "esbuild src/main.js --bundle --platform=browser --target=es2021 --format=iife --minify --outfile=dist/app.js",
+    "check": "node --check src/main.js"
+  },
+  "dependencies": {
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
+  }
+}
