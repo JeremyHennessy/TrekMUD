@@ -70,8 +70,19 @@ jobs:
             --screenshot="$RUNNER_TEMP/asteria-v4-diagnostic.png" \
             "http://127.0.0.1:8765/3d-preview-v4/?capture=aft" \
             2>> "$RUNNER_TEMP/asteria-v4-chrome.log"
-          grep -q 'data-v4-ready="true"' "$RUNNER_TEMP/asteria-v4-dom.html"
+          # Chrome virtual time may snapshot the DOM between asynchronous GLB
+          # completion and the next RAF. Validate loaded scene and actual pixels
+          # rather than trusting a RAF counter as evidence of a rendered image.
+          grep -q 'data-scene="loaded"' "$RUNNER_TEMP/asteria-v4-dom.html"
           grep -q 'data-glb-meshes=' "$RUNNER_TEMP/asteria-v4-dom.html"
+          python - <<'PY_IMAGE'
+          from PIL import Image, ImageStat
+          import os
+          img=Image.open(os.environ['RUNNER_TEMP']+'/asteria-v4-diagnostic.png').convert('RGB')
+          stdev=ImageStat.Stat(img).stddev
+          assert max(stdev)>20, f'diagnostic screenshot has insufficient visual content: {stdev}'
+          print({'diagnostic_visual_spread':stdev})
+          PY_IMAGE
           grep -q 'data-missing-material="0"' "$RUNNER_TEMP/asteria-v4-dom.html"
           for VIEW in aft command flight viewer; do
             "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
