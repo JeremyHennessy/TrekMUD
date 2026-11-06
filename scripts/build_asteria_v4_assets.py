@@ -29,8 +29,8 @@ def texture_set(key, rgb, kind, size=512):
         variation=weave*3.0+n*1.7
         rough=.91; metal=.0; normal_z=246; scale=5.5
     elif kind=='carpet':
-        wave=(np.sin((x-y)*1.42)+np.sin((x+y)*.92))*1.25
-        variation=wave*2.1+n*3
+        wave=(np.sin((x-y)*.24)+np.sin((x+y)*.36))*1.20
+        variation=wave*1.65+n*1.2
         rough=.98; metal=.0; normal_z=239; scale=10.0
     elif kind=='metal':
         brush=np.sin(y*2.46)*.85+np.sin(y*.23)*.25
@@ -61,9 +61,9 @@ def texture_set(key, rgb, kind, size=512):
 
 TEXTURES={}
 PALETTE={
- 'wall': ((181,174,164),'paint'),
- 'bone': ((217,210,197),'paint'),
- 'carpet':((67,82,100),'carpet'),
+ 'wall': ((164,155,147),'paint'),
+ 'bone': ((192,181,169),'paint'),
+ 'carpet':((57,74,92),'carpet'),
  'dais':((98,79,95),'textile'),
  'upholstery':((118,96,114),'textile'),
  'upholstery_dark':((74,62,79),'textile'),
@@ -98,7 +98,8 @@ def add(mesh,name,mat='wall',uv=None):
         # world-aligned UVs allow seamless texture appearance on most room surfaces
         dimensions=np.ptp(pts,axis=0)
         ids=np.argsort(dimensions)[-2:]
-        uv=np.stack([pts[:,ids[0]]*.58,pts[:,ids[1]]*.58],axis=-1)
+        scale=.25 if mat=='carpet' else .58
+        uv=np.stack([pts[:,ids[0]]*scale,pts[:,ids[1]]*scale],axis=-1)
     mesh.visual=TextureVisuals(uv=np.asarray(uv,dtype=np.float64),material=TEXTURES[mat])
     try: mesh.fix_normals()
     except Exception: pass
@@ -184,7 +185,7 @@ for idx,s in enumerate([-1,1]):
     curve_tube(f'AST_Aisle_Inlay_{idx}',[(s*(1.4+.17*k/22),.043,-4.66+6.32*k/22) for k in range(23)],.010,'bronze',8)
 
 # ORIGINAL ARCHITECTURAL WALL SYSTEM: segmented true curved skin, inset relief and shadow coves
-N=64
+N=48
 for k in range(N):
     a=(k+.5)*2*PI/N
     dfront=abs((a-PI+PI)%(2*PI)-PI)
@@ -284,6 +285,18 @@ for s in [-1,1]:
     box(f'AST_Captain_Seat_Control_Pad_{s}',(s*.635,1.09,cz+.00),(.20,.023,.31),'glass')
     for j in range(7):
         box(f'AST_Captain_Seat_Control_Key_{s}_{j}',(s*.635 + ((j%2)-.5)*.065,1.110,cz-.09+(j//2)*.063),(.048,.009,.033),'coollight' if j==0 else 'satin')
+# aft-facing seat shell accent: three raised cushioned contour bands and a metal center spine.
+for t in [.22,.50,.78]:
+    curve_tube(f'AST_Captain_Seat_Outer_Rear_Recess_{int(t*100)}',
+        [tuple(np.asarray(chair_back(u,t,False))+[0,0,.013]) for u in np.linspace(.18,.82,56)],
+        .010,'upholstery_dark',7)
+curve_tube('AST_Captain_Seat_Rear_Center_Stem',
+    [tuple(np.asarray(chair_back(.50,t,False))+[0,0,.026]) for t in np.linspace(.16,.89,64)],
+    .018,'bronze',8)
+for ss in [-1,1]:
+    curve_tube(f'AST_Captain_Seat_Rear_Piping_{ss}',
+      [tuple(np.asarray(chair_back(.50+ss*.29,t,False))+[0,0,.018]) for t in np.linspace(.08,.94,64)],
+      .012,'satin',7)
 # horizontal stitch lines from real geometry crossing front fabric
 for t in [.23,.47,.69,.85]:
     curve_tube('AST_Captain_Seat_Stitch_'+str(int(100*t)),[tuple(np.array(chair_back(u,t,True))+[0,0,-.008]) for u in np.linspace(.19,.81,52)],.006,'upholstery_dark',6)
