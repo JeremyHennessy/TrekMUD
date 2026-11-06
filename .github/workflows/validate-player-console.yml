@@ -83,6 +83,19 @@ jobs:
       - name: Test automatic campaign refresh
         run: node --test tests/player-console-refresh.test.cjs
 
+      - name: Archive verified v2 bridge sources for v3 worktree
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-v2-source-snapshot
+          path: |
+            ui/3d-preview/index.html
+            ui/3d-preview/furniture.js
+            ui/3d-preview/set-details.js
+            ui/3d-preview/README.md
+          if-no-files-found: error
+          retention-days: 2
+
       - name: Inspect generated site
         run: |
           test -s _site/index.html
