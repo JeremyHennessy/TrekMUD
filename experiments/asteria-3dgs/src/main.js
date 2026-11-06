@@ -305,6 +305,23 @@ import { SparkRenderer, SplatMesh } from '@sparkjsdev/spark';
             // Isolate one variable: mesh depth/occlusion versus splat source/runtime.
             [...scene.children].forEach(o=>{if(o!==spark && o!==splat)o.visible=false;});
             scene.background=new THREE.Color(0x292c36);
+            // Isolated positive control from official Spark procedural-splats API.
+            // The only purpose is to determine whether ANY Gaussian is visible.
+            if (params.get('controlSplat')==='1') {
+              const control=new SplatMesh({constructSplats:(packed)=>{
+                for(let i=-6;i<=6;i++)for(let j=-6;j<=6;j++){
+                  packed.pushSplat(new THREE.Vector3(i*.095,1.5+j*.095,1.15),
+                    new THREE.Vector3(.10,.10,.10),new THREE.Quaternion(),
+                    1,new THREE.Color(0x16f2b7));
+                }
+              }});
+              control.name='Diagnostic_Procedural_Gaussian_Control';
+              scene.add(control);
+              control.initialized.then(()=>{
+                document.body.dataset.controlReady='true';
+                document.body.dataset.controlCount=String(control.numSplats);
+              }).catch(err=>{document.body.dataset.controlReady='error';console.error(err);});
+            }
           }
           document.body.dataset.splatReady = 'true';
         }});
