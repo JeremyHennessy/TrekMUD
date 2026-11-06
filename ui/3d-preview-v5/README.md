@@ -8,7 +8,7 @@ The user correctly reported the separately authored V4 bridge looked worse in se
 
 **The source model is not recreated from memory.** `scripts/extract_asteria_v3_for_v5.py` evaluates the immutable `ui/3d-preview-v3/index.html` (Git blob `74a154ae62bccb0c16d03c2ecf791a64ab19ce81`) with the original geometry-generating scripts, capturing its actual 106,988 triangles, 3D positions, normals, colors, UVs and console atlas. It validates the exact source hash and refuses to build on drift.
 
-`build_asteria_v5_assets.py` exports those triangles to genuine glTF 2.0 as 9 physically based material groups. Geometry bounds remain `[-7.55,-.35,-6.558]` to `[7.55,4.462,6.558]` metres. Its near-neutral procedural surface maps represent physical wall composite, carpet pile, fabric upholstery, brushed metal, cast material, smoky glass and practical diffusers. The maps are a *measured material rendering study*, **not photogrammetry, Gaussian splatting, or photo-realistic material scans**. The original V3 screen atlas remains intact.
+`build_asteria_v5_assets.py` exports those triangles to genuine glTF 2.0 as nine physically based material groups plus one unlit forward starfield plane. Geometry bounds remain `[-7.55,-.35,-6.558]` to `[7.55,4.462,6.558]` metres. Its near-neutral procedural surface maps represent physical wall composite, carpet pile, fabric upholstery, brushed metal, cast material, smoky glass and practical diffusers. The maps are a *measured material rendering study*, **not photogrammetry, Gaussian splatting, or photo-realistic material scans**. The original V3 screen atlas remains intact.
 
 ## No-risk presentation / quality gates
 
