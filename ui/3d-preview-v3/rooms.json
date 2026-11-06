@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "shipId": "USS-ASTERIA",
+  "registry": "NCC-63542",
+  "class": "Nebula-class",
+  "year": 2372,
+  "displayName": "USS Asteria · Pass 03 hero bridge",
+  "mode": "separate-visual-preview",
+  "sourceTopology": "world/asteria/topology.json",
+  "rooms": [
+    {
+      "roomId": "AST-D01-BRIDGE",
+      "name": "Main Bridge",
+      "deck": 1,
+      "access": "restricted",
+      "confirmedTopologyNeighbors": [
+        "AST-D01-HUB-C"
+      ],
+      "model": "index.html",
+      "linkedTravelImplemented": false,
+      "status": "candidate-pending-user-approval"
+    }
+  ],
+  "preserve": [
+    "/3d/",
+    "/3d-preview/"
+  ],
+  "campaignWrites": false
+}
