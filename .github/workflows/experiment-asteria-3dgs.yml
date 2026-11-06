@@ -32,7 +32,7 @@ jobs:
           python experiments/asteria-3dgs/tests/verify_splat.py experiments/asteria-3dgs/dist/models/captain-chair.splat
       - name: Pin and bundle Spark + Three.js (isolated from published V4)
         run: |
-          npm install --prefix experiments/asteria-3dgs --no-audit --no-fund
+          npm ci --prefix experiments/asteria-3dgs --no-audit --no-fund
           npm run build --prefix experiments/asteria-3dgs
           cp experiments/asteria-3dgs/src/index.html experiments/asteria-3dgs/dist/index.html
           cp experiments/asteria-3dgs/src/style.css experiments/asteria-3dgs/dist/style.css
