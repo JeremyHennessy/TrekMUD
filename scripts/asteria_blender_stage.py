@@ -29,6 +29,9 @@ VIEWS = {
     "science": (-3.70, 2.76, 2.8),
 }
 EYE_Y = 1.67
+# New render-only close-up: looking toward the original command chair from forward.
+# It does not add or alter any in-game camera waypoint.
+DETAIL_VIEWS = {"chair": (0.0, -0.85, math.pi)}
 
 
 def parse_args():
@@ -36,7 +39,7 @@ def parse_args():
     p.add_argument("--glb", required=True, type=Path)
     p.add_argument("--out", required=True, type=Path)
     p.add_argument("--samples", type=int, default=96)
-    p.add_argument("--view", choices=[*VIEWS, "all"], default="command")
+    p.add_argument("--view", choices=[*VIEWS, *DETAIL_VIEWS, "all"], default="command")
     p.add_argument("--resolution", nargs=2, type=int, default=(1280, 800))
     p.add_argument("--no-render", action="store_true")
     p.add_argument("--chair-stitches", action="store_true", help="Optional unapproved chair upholstery stitch A/B test")
@@ -73,7 +76,7 @@ def make_camera(name, x, z, yaw):
     aim = world_position(x + math.sin(yaw) * 3, EYE_Y - .14, z - math.cos(yaw) * 3)
     obj.rotation_euler = (aim - obj.location).to_track_quat("-Z", "Y").to_euler()
     camera_data.type = "PERSP"
-    camera_data.lens = 32
+    camera_data.lens = 48 if name.endswith("chair") else 32
     camera_data.sensor_width = 36
     camera_data.clip_start = .05
     camera_data.clip_end = 160
@@ -148,7 +151,7 @@ def main():
               (0, 1.2, 2.0), 220, (1.0, .78, .65), 3.4, 1.3)
 
     cameras = {name: make_camera("Asteria / " + name, *pose)
-               for name, pose in VIEWS.items()}
+               for name, pose in {**VIEWS, **DETAIL_VIEWS}.items()}
     scene.camera = cameras["command"]
     blend_path = args.out / "asteria-bridge-realism-stage.blend"
     bpy.ops.wm.save_as_mainfile(filepath=str(blend_path.resolve()))
