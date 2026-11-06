@@ -38,7 +38,7 @@ jobs:
       - name: Render a matched command station and aft view in Cycles
         run: |
           mkdir -p _blender_asteria
-          blender -b -t 4 --python scripts/asteria_blender_stage.py -- \
+          blender -b -t 4 --python-exit-code 1 --python scripts/asteria_blender_stage.py -- \
             --glb _site/3d-preview-v5/models/asteria-v3-restored-pbr.glb \
             --out _blender_asteria --samples 24 --resolution 960 600 --view all
       - name: Verify actual output and fixed geometry provenance
