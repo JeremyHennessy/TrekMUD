@@ -27,8 +27,11 @@ jobs:
         run: |
           if ! command -v blender >/dev/null; then
             sudo apt-get update -qq
-            sudo apt-get install -y blender
+            sudo apt-get install -y blender python3-numpy
           fi
+          # Debian's Blender glTF exporter requires numpy in its Python environment.
+          sudo apt-get install -y python3-numpy
+          blender --background --python-expr "import numpy; print('BLENDER_NUMPY_READY', numpy.__version__)"
           blender --version | head -3
       - name: Author original chair and render Cycles reference images
         run: |
