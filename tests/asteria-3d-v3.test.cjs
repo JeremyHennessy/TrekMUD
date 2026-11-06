@@ -15,7 +15,7 @@ const world=JSON.parse(read('world/asteria/topology.json'));
 test('v3 preserves canonical room identity and existing navigation',()=>{
  assert.ok(world.locations.some(x=>x.id==='AST-D01-BRIDGE'&&x.deck===1&&x.access==='restricted'));
  assert.ok(page.includes("roomId:'AST-D01-BRIDGE'"));
- assert.ok(page.includes("visualPass:'hero-set-03'"));
+ assert.ok(page.includes("visualPass:'hero-set-03-shadow'"));
  const suffix='function blocked(x,z)';
  const end='function resize()';
  const section=s=>s.slice(s.indexOf(suffix),s.indexOf(end,s.indexOf(suffix)));
@@ -70,4 +70,14 @@ test('hero furniture emits finite smooth geometry without controlling game state
  assert.ok(faces>=70);
  const script=read(prefix+'hero-v3.js');
  assert.doesNotMatch(script,/fetch\(|localStorage|XMLHttpRequest|location\.hash|campaign\/state/);
+});
+
+test('static directional shadows have an explicit compatibility and device fallback',()=>{
+ assert.ok(page.includes('function keyShadow('));
+ assert.ok(page.includes('function unpackDepth('));
+ assert.ok(page.includes('shadowCasterStart=P.length/3'));
+ assert.ok(page.includes('shadowCasterEnd=P.length/3'));
+ assert.ok(page.includes("get('shadows')!=='off'"));
+ assert.ok(page.includes("dataset.materialShader=filmicShaderActive"));
+ assert.ok(page.includes("dataset.shadows=shadowEnabled"));
 });
