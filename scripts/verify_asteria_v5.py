@@ -9,7 +9,7 @@ assert (dir/'index.html').is_file() and (dir/'app.js').stat().st_size>200000
 file=dir/'models/asteria-v3-restored-pbr.glb'
 assert 5_000_000<file.stat().st_size<24_000_000
 s=trimesh.load(file,force='scene',process=False)
-assert len(s.geometry)==9,len(s.geometry)
+assert len(s.geometry)==10,len(s.geometry)
 assert sum(len(g.faces) for g in s.geometry.values())==106988
 bounds=s.bounds
 assert abs(bounds[0][0]+7.55)<.002 and abs(bounds[1][0]-7.55)<.002,bounds
