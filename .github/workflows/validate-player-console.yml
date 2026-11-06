@@ -56,6 +56,9 @@ jobs:
       - name: Validate independent higher-detail bridge preview
         run: node --test tests/asteria-3d-preview.test.cjs
 
+      - name: Test isolated Asteria hero set v3
+        run: node --test tests/asteria-3d-v3.test.cjs
+
       - name: Build and validate player-safe console
         run: python scripts/validate_player_console.py --keep _site
 
@@ -80,21 +83,42 @@ jobs:
           path: ${{ runner.temp }}/asteria-preview-chrome.log
           if-no-files-found: ignore
 
-      - name: Test automatic campaign refresh
-        run: node --test tests/player-console-refresh.test.cjs
+      - name: Verify v3 real WebGL and capture three camera angles
+        run: |
+          set -eu
+          CHROME="$(command -v google-chrome || command -v chromium || true)"
+          test -n "$CHROME" || { echo "Chromium not installed"; exit 1; }
+          "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
+            --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
+            --virtual-time-budget=4000 --dump-dom \
+            "file://$PWD/_site/3d-preview-v3/index.html?studioCapture=aft" \
+            > "$RUNNER_TEMP/asteria-v3-dom.html" 2> "$RUNNER_TEMP/asteria-v3-chrome.log"
+          grep -q 'data-renderer-ready="true"' "$RUNNER_TEMP/asteria-v3-dom.html"
+          grep -q 'data-geometry-triangles=' "$RUNNER_TEMP/asteria-v3-dom.html"
+          for VIEW in aft command flight; do
+            "$CHROME" --headless=new --no-sandbox --disable-dev-shm-usage --enable-webgl \
+              --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
+              --virtual-time-budget=3000 --window-size=1440,900 \
+              --screenshot="$RUNNER_TEMP/asteria-v3-${VIEW}.png" \
+              "file://$PWD/_site/3d-preview-v3/index.html?studioCapture=${VIEW}" \
+              2>> "$RUNNER_TEMP/asteria-v3-chrome.log"
+            test -s "$RUNNER_TEMP/asteria-v3-${VIEW}.png"
+          done
 
-      - name: Archive verified v2 bridge sources for v3 worktree
+      - name: Upload v3 visual review evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: asteria-v2-source-snapshot
+          name: asteria-v3-hero-room-review
           path: |
-            ui/3d-preview/index.html
-            ui/3d-preview/furniture.js
-            ui/3d-preview/set-details.js
-            ui/3d-preview/README.md
-          if-no-files-found: error
-          retention-days: 2
+            ${{ runner.temp }}/asteria-v3-*.png
+            ${{ runner.temp }}/asteria-v3-dom.html
+            ${{ runner.temp }}/asteria-v3-chrome.log
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Test automatic campaign refresh
+        run: node --test tests/player-console-refresh.test.cjs
 
       - name: Inspect generated site
         run: |
