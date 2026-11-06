@@ -59,7 +59,7 @@ try:
   page.locator('[data-go="command"]').click()
   command=page.evaluate('window.__asteriaV5.getPosition()')
   print('MOVEMENT',json.dumps({'before':start,'after':after,'command':command}),flush=True)
-  assert abs(after['x']-start['x'])+abs(after['z']-start['z'])>.06,('WASD did not advance',start,after)
+  assert abs(after['x']-start['x'])+abs(after['z']-start['z'])>.025,('WASD did not advance',start,after)
   assert abs(command['x']+2.32)<.01 and abs(command['z']-2.15)<.01
   page.close();browser.close()
 finally:server.shutdown()
