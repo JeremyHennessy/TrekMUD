@@ -1,0 +1,67 @@
+name: Asteria experimental sculpted hero chair (not production)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - experiment/asteria-blender-hero-chair
+    paths:
+      - experiments/asteria-blender-hero-chair/**
+      - .github/workflows/experiment-asteria-blender-chair.yml
+  pull_request:
+    branches: [main]
+    paths:
+      - experiments/asteria-blender-hero-chair/**
+      - .github/workflows/experiment-asteria-blender-chair.yml
+
+permissions:
+  contents: read
+
+jobs:
+  chair-model:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install real Blender modeling and Cycles renderer
+        run: |
+          if ! command -v blender >/dev/null; then
+            sudo apt-get update -qq
+            sudo apt-get install -y blender
+          fi
+          blender --version | head -3
+      - name: Author original chair and render Cycles reference images
+        run: |
+          mkdir -p "${{ runner.temp }}/asteria-chair"
+          blender --background --factory-startup --threads 2 \
+            --python experiments/asteria-blender-hero-chair/build_hero_chair.py \
+            -- --out "${{ runner.temp }}/asteria-chair" --samples 24
+      - name: Inspect expected actual model and three image files
+        run: |
+          python - <<'PY'
+          import os,struct,json
+          from pathlib import Path
+          d=Path(os.environ['RUNNER_TEMP'])/'asteria-chair'
+          names=['asteria-command-chair.glb','chair-aft.png','chair-front.png','chair-side.png','manifest.json']
+          for n in names:
+              f=d/n
+              assert f.exists() and f.stat().st_size>5000,(n,f.stat().st_size if f.exists() else 'MISSING')
+          b=(d/'asteria-command-chair.glb').read_bytes()
+          assert b[:4]==b'glTF' and struct.unpack_from('<I',b,4)[0]==2
+          report=json.loads((d/'manifest.json').read_text())
+          assert report['chair_objects']>=60,report
+          for n in names[1:4]:
+              data=(d/n).read_bytes()
+              assert data[:8]==b'\x89PNG\r\n\x1a\n'
+              w,h=struct.unpack_from('>II',data,16)
+              assert w>=1000 and h>=600,(n,w,h)
+          print(json.dumps({'valid':True,'files':names,'chair_objects':report['chair_objects'],'glb_bytes':len(b),'blender':report['blender_version']}))
+          PY
+      - name: Preserve complete experimental asset and actual Cycles screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-blender-sculpted-chair-review
+          path: ${{ runner.temp }}/asteria-chair/**
+          if-no-files-found: ignore
+          retention-days: 7
