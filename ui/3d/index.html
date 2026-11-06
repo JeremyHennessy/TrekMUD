@@ -50,7 +50,7 @@ button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid #e9b99
 <div id="topTitle"><small>ORIGINAL NEBULA-CLASS INTERIOR</small><h1>Main Bridge</h1><p>An original 2372-era Starfleet-inspired command environment, created for the persistent TrekMUD ship.</p></div>
 <div id="panel"><div class="row">DECK 01 <span>AST-D01-BRIDGE</span></div><canvas id="minimap" width="392" height="310" aria-label="Top-down bridge navigation map"></canvas></div>
 <div id="tools"><button id="full">FULLSCREEN</button><button id="hide">HIDE HUD</button></div><div id="place"></div>
-<div id="waypoints"><button class="active" data-go="aft"><b>01</b>Aft entrance</button><button data-go="command"><b>02</b>Command</button><button data-go="flight"><b>03</b>Flight</button><button data-go="science"><b>04</b>Science</button><button data-go="viewer"><b>05</b>Forward view</button></div>
+<div id="waypoints"><button class="active" data-go="aft"><b>01</b>Aft access</button><button data-go="command"><b>02</b>Command</button><button data-go="flight"><b>03</b>Flight</button><button data-go="science"><b>04</b>Science</button><button data-go="viewer"><b>05</b>Forward view</button></div>
 <div id="help"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> WALK &nbsp;·&nbsp; DRAG TO LOOK<br><kbd>SHIFT</kbd> FASTER &nbsp;·&nbsp; <kbd>R</kbd> RESET</div>
 <div id="notice">ASTERIA STUDIO · ORIGINAL SET INTERPRETATION<br>Room geography follows the TrekMUD world ID. Not a canonical Enterprise deck plan.</div></div>
 <div id="stick"><div id="thumb"></div></div><div id="touchHint">DRAG TO LOOK · LEFT PAD TO WALK</div>
@@ -91,8 +91,8 @@ function arc(cx,cz,rx,rz,y,a0,a1,radius,color,mat=0,count=72){const pts=[];for(l
 const PAL={wall:0xd3c9ba,wallLight:0xe5d9ca,trim:0xa39ca5,rib:0xb0a29b,deep:0x24242d,carpet:0x5d6974,command:0x806d78,edge:0x9d8b88,bronze:0x94735f,desk:0xaaa6a7,seat:0x93849c,seatLight:0xb0a0b1,screen:0x0d1019,glow:0xb8d3de};
 // Original TrekMUD-Asteria architecture. Room location ID: AST-D01-BRIDGE.
 // Distinctive plan: central offset oval command island, continuous flight arc,
-// raised rear science gallery, broad forward display, aft central turbolift,
-// port ready-room hatch and starboard observation-lounge hatch.
+// raised rear science gallery, broad forward display, aft central command corridor entrance,
+// port and starboard sealed side hatches (not yet mapped to room connections).
 cyl(0,-.175,0,W,D,.35,0x434a55,1,110);ellipse(0,.005,0,W-.08,D-.08,PAL.carpet,1,110);
 ellipse(0,.027,.46,3.15,2.68,PAL.command,1,80);ring(0,.039,.46,3.18,2.72,.984,PAL.edge,8,80);
 // Carpet runner to forward navigation dais, with copper-rose inset lines.
@@ -145,11 +145,11 @@ chair(3.85,-1.1,-.36);
 for(let s of [-1,1]){const cx=s*3.5;box(cx,.22,4.23,3.65,.39,1.82,0x646879,1,s*.1);box(cx,.47,4.23,3.55,.13,1.73,0x82838a,3,s*.1);for(let k=0;k<3;k++){const x=cx+s*(k-1)*1.03;box(x,.82,4.65,1.00,.77,.57,0xc8bdb0,2,s*.07);box(x,1.26,4.56,.97,.115,.62,0x23232d,7,s*.07);surface(x,1.335,4.51,.87,.50,s*.07,0xffffff,2+(k+(s===1?3:0))%11,.03);}}
 // Vertical aft mission consoles in wall at arcs to left and right of main turbolift.
 for(let side of [-1,1])for(let k=0;k<3;k++){const a=side*(.35+k*.23),at=wallPos(a,.965);radial(a,.961,1.38,1.06,2.82,0x615c68,7);radial(a,.950,1.26,1.18,2.73,0xffffff,6,8+(k+(side===1?3:0))%8);const p=wallPos(a,.91);box(p[0],.96,p[1],1.17,.13,.44,0xbcaea4,2,-a);}
-// Distinct turbolift portal: central aft opening with light bands, numbered deck identity.
+// Aft corridor-access portal: the approved topology connects Bridge to the Deck 01 central hub.
 box(0,1.62,6.38,2.10,3.03,.28,0x7c7883,3);box(0,1.60,6.16,1.86,2.78,.10,0xc4c1c5,3);box(-.46,1.60,6.098,.86,2.68,.035,0xa7a9b3,3);box(.46,1.60,6.098,.86,2.68,.035,0xa7a9b3,3);box(0,1.59,6.065,.025,2.66,.05,0x535666,7);
 for(let i=0;i<4;i++)box(0,.37+i*.77,6.062,1.66,.016,.029,0xd1c9c3,3);
 box(0,3.15,6.04,2.10,.18,.15,0xdbc7af,8);box(1.30,1.58,6.06,.18,1.05,.08,0x262430,7);for(let i=0;i<6;i++)box(1.31,1.21+i*.15,6.005,.12,.066,.018,i%2?0xe8bd96:0x95b8cf,8);
-// Side doors remain sealed until the next modelled room is commissioned.
+// Side hatches are scenic placeholders, not traversable connections in the approved room graph.
 function sideHatch(sign,labelIndex){const x=sign*7.03,z=-.28;box(x,1.62,z,.22,3.06,2.02,0xa89897,3);box(x-sign*.13,1.61,z,.10,2.81,1.78,0xb8b1b6,3);box(x-sign*.185,1.62,z,.035,2.66,.034,0x6f6e77,7);box(x-sign*.20,2.72,z,.045,.07,1.61,0xdfc1a3,8);
 // Small edge-on side access panel and identifying vertical light bars.
 box(x-sign*.22,1.54,z+1.17,.10,.97,.23,0x262734,7);for(let k=0;k<5;k++)box(x-sign*.29,1.26+k*.13,z+1.17,.032,.056,.12,k%2?0x95bad0:0xeab79c,8);}
@@ -165,7 +165,7 @@ gl.useProgram(program);for(const [name,data,n] of attr){const loc=gl.getAttribLo
 gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.clearColor(.025,.024,.046,1);gl.uniform1i(gl.getUniformLocation(program,'uAtlas'),0);
 function perspective(fov,aspect,near,far){const f=1/Math.tan(fov/2),nf=1/(near-far);return new Float32Array([f/aspect,0,0,0,0,f,0,0,0,0,(far+near)*nf,-1,0,0,2*far*near*nf,0]);}
 function lookAt(eye,target){const zz=[eye[0]-target[0],eye[1]-target[1],eye[2]-target[2]];let len=Math.hypot(...zz)||1;for(let k=0;k<3;k++)zz[k]/=len;let xx=[zz[2],0,-zz[0]];len=Math.hypot(...xx)||1;for(let k=0;k<3;k++)xx[k]/=len;const yy=[zz[1]*xx[2]-zz[2]*xx[1],zz[2]*xx[0]-zz[0]*xx[2],zz[0]*xx[1]-zz[1]*xx[0]];return new Float32Array([xx[0],yy[0],zz[0],0,xx[1],yy[1],zz[1],0,xx[2],yy[2],zz[2],0,-(xx[0]*eye[0]+xx[1]*eye[1]+xx[2]*eye[2]),-(yy[0]*eye[0]+yy[1]*eye[1]+yy[2]*eye[2]),-(zz[0]*eye[0]+zz[1]*eye[1]+zz[2]*eye[2]),1]);}
-const hotspots={aft:{x:0,z:4.91,yaw:0,label:'AFT TURBOLIFT · MAIN BRIDGE'},command:{x:0,z:2.68,yaw:0,label:'COMMAND PLATFORM'},flight:{x:0,z:-1.32,yaw:0,label:'FLIGHT CONTROL'},science:{x:-3.70,z:2.76,yaw:2.8,label:'SCIENCE GALLERY'},viewer:{x:0,z:-4.78,yaw:Math.PI,label:'FORWARD VIEWSCREEN'}};
+const hotspots={aft:{x:0,z:4.91,yaw:0,label:'AFT CORRIDOR ACCESS · DECK 01'},command:{x:0,z:2.68,yaw:0,label:'COMMAND PLATFORM'},flight:{x:0,z:-1.32,yaw:0,label:'FLIGHT CONTROL'},science:{x:-3.70,z:2.76,yaw:2.8,label:'SCIENCE GALLERY'},viewer:{x:0,z:-4.78,yaw:Math.PI,label:'FORWARD VIEWSCREEN'}};
 const pos={x:0,y:1.67,z:4.91,yaw:0,pitch:-.055};let active='aft';let last=0,visible=true,drag=null,stick=null,stickX=0,stickY=0;const pressed=new Set();
 function resetAt(name){const p=hotspots[name];if(!p)return;pos.x=p.x;pos.z=p.z;pos.y=1.67;pos.yaw=p.yaw;pos.pitch=-.055;active=name;document.querySelectorAll('[data-go]').forEach(b=>b.classList.toggle('active',b.dataset.go===name));$('place').textContent=p.label;$('place').style.opacity='1';setTimeout(()=>{if($('place').textContent===p.label)$('place').style.opacity='0';},1700);}
 function blocked(x,z){if((x/W)**2+(z/D)**2>.845)return true;
