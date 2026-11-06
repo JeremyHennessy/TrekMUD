@@ -196,7 +196,7 @@ for k in range(120):
     if dfront<.55 or daft<.215:
         continue
     def structural_at(a,y):
-        return (W*1.007*math.sin(a),y,D*1.007*math.cos(a))
+        return (W*.995*math.sin(a),y,D*.995*math.cos(a))
     panel4(f'AST_Structural_Wall_Back_{k:03d}',
            [structural_at(a0,.24),structural_at(a1,.24),
             structural_at(a1,3.58),structural_at(a0,3.58)],'wall')
