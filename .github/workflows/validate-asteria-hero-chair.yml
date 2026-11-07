@@ -1,0 +1,90 @@
+name: Asteria hero-chair 01 Cycles and glTF inspection
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - experiment/asteria-hero-chair-01
+    paths:
+      - scripts/asteria_hero_chair_blender.py
+      - .github/workflows/validate-asteria-hero-chair.yml
+  pull_request:
+    branches:
+      - feature/asteria-blender-realism-stage-01
+    paths:
+      - scripts/asteria_hero_chair_blender.py
+      - .github/workflows/validate-asteria-hero-chair.yml
+
+permissions:
+  contents: read
+
+jobs:
+  hero-chair:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 32
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate script and player world isolation
+        run: |
+          python -m py_compile scripts/asteria_hero_chair_blender.py
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+      - name: Install Blender and independent glTF inspection packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender
+          python -m pip install --disable-pip-version-check Pillow==12.3.0 trimesh==4.11.1
+          blender --version
+      - name: Produce real editable chair, glTF and four Cycles viewpoints
+        run: |
+          blender -b -t 4 --python-exit-code 1 --python scripts/asteria_hero_chair_blender.py -- \
+            --out _hero_chair_01 --samples 24 --view all --resolution 900 800
+      - name: Verify geometry export excludes the studio and that images are nonblank
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image, ImageStat
+          import trimesh
+          root=Path('_hero_chair_01')
+          report=json.loads((root/'hero-chair-report.json').read_text())
+          assert report['frozenV3Blob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+          assert report['roomId']=='AST-D01-BRIDGE'
+          assert report['visualApproved'] is False
+          assert report['meshObjects']>=20,report
+          blend=root/'asteria-hero-chair-candidate.blend'
+          glb=root/'asteria-hero-chair-candidate.glb'
+          assert blend.stat().st_size>50000
+          assert glb.stat().st_size>100000
+          scene=trimesh.load(glb,force='scene',process=False)
+          assert len(scene.geometry)>=15,len(scene.geometry)
+          triangle_count=sum(len(g.faces) for g in scene.geometry.values())
+          assert triangle_count>=5000,triangle_count
+          b=scene.bounds
+          assert b[0][0]>=-1.1 and b[1][0]<=1.1,b
+          assert b[0][1]>=-.1 and 1.75<=b[1][1]<=2.05,b
+          assert .45<=b[0][2]<=1.4 and 1.4<=b[1][2]<=2.5,b
+          for view in ['front','rear','quarter','detail']:
+              picture=Image.open(root/f'asteria-chair-{view}.png').convert('RGB')
+              assert picture.size==(900,800)
+              spread=max(ImageStat.Stat(picture).stddev)
+              assert spread>9,(view,spread)
+          print({'triangle_count':triangle_count,'meshes':len(scene.geometry),
+                 'bounds':b.tolist(),'renderedViews':report['renderedViews']})
+          print('Structural and nonblank-image checks only; visual quality must be inspected.')
+          PY
+      - name: Archive the actual 3D model and Cycles render evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-hero-chair-01-review
+          path: |
+            _hero_chair_01/*.blend
+            _hero_chair_01/*.glb
+            _hero_chair_01/*.png
+            _hero_chair_01/hero-chair-report.json
+          if-no-files-found: ignore
+          retention-days: 7
