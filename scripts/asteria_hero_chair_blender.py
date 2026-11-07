@@ -242,9 +242,11 @@ def studio():
     area("Cool rim",(1.5,3.0,1.2),(0,1.15,0),360,(.68,.84,1),2.2,2.8)
     area("Warm bounce",(1.3,2.5,-1.6),(0,1.0,0),215,(1,.90,.83),1.4,2.0)
     data={
-      "front":((0,1.32,-1.42),(0,1.15,.10),57),
-      "rear":((0,1.48,2.88),(0,1.15,.2),54),
-      "quarter":((-1.55,1.52,-1.05),(0,1.10,.10),52),
+      # Wider whole-object composition before judging texture and geometry.
+      # Only these offline reference cameras change; no game camera moves.
+      "front":((0,1.29,-3.20),(0,1.02,.13),47),
+      "rear":((0,1.43,4.10),(0,1.06,.18),47),
+      "quarter":((-2.40,1.53,-2.55),(0,1.09,.11),48),
       "detail":((-.73,1.53,-.53),(0,1.29,.17),75),
     }
     return {key:cam("ASSET QA / "+key,*v) for key,v in data.items()}
