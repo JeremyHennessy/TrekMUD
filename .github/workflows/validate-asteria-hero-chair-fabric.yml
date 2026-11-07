@@ -1,0 +1,102 @@
+name: Asteria scanned-fabric chair A/B render and glTF QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [experiment/asteria-hero-chair-fabric-01]
+    paths:
+      - scripts/asteria_hero_chair_blender.py
+      - scripts/asteria_fetch_cc0_velour.py
+      - .github/workflows/validate-asteria-hero-chair-fabric.yml
+  pull_request:
+    branches: [experiment/asteria-hero-chair-01]
+    paths:
+      - scripts/asteria_hero_chair_blender.py
+      - scripts/asteria_fetch_cc0_velour.py
+      - .github/workflows/validate-asteria-hero-chair-fabric.yml
+
+permissions:
+  contents: read
+
+jobs:
+  compare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate original Asteria ship and isolated authoring code
+        run: |
+          python scripts/validate_campaign.py
+          python -m py_compile scripts/asteria_hero_chair_blender.py scripts/asteria_fetch_cc0_velour.py
+      - name: Install Blender and source material validators
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender
+          python -m pip install --disable-pip-version-check Pillow==12.3.0 numpy==2.3.5 trimesh==4.11.1
+      - name: Download the checksum-pinned CC0 scan
+        run: python scripts/asteria_fetch_cc0_velour.py --out _asteria_cc0_fabric
+      - name: Render original base chair for A/B
+        run: |
+          blender -b -t 4 --python-exit-code 1 --python scripts/asteria_hero_chair_blender.py -- \
+            --out _hero_base_comparison --samples 24 --view quarter --resolution 900 800
+      - name: Render material-only PBR candidate with identical camera and lights
+        run: |
+          blender -b -t 4 --python-exit-code 1 --python scripts/asteria_hero_chair_blender.py -- \
+            --out _hero_cc0_comparison --samples 24 --view all --resolution 900 800 \
+            --texture-dir _asteria_cc0_fabric
+      - name: Verify real embedded texture data, UVs, unchanged geometry and A/B image difference
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,struct
+          import numpy as np
+          from PIL import Image
+          import trimesh
+          a=Path('_hero_base_comparison')
+          b=Path('_hero_cc0_comparison')
+          base=json.loads((a/'hero-chair-report.json').read_text())
+          change=json.loads((b/'hero-chair-report.json').read_text())
+          assert not base['photoScannedFabric'] and change['photoScannedFabric']
+          left=trimesh.load(a/'asteria-hero-chair-candidate.glb',force='scene',process=False)
+          right=trimesh.load(b/'asteria-hero-chair-candidate.glb',force='scene',process=False)
+          assert len(left.geometry)==len(right.geometry)
+          faces=lambda s:sum(len(g.faces) for g in s.geometry.values())
+          assert faces(left)==faces(right) and faces(right)>10000
+          assert np.allclose(left.bounds,right.bounds,atol=.0001)
+          raw=(b/'asteria-hero-chair-candidate.glb').read_bytes()
+          length=struct.unpack_from('<I',raw,12)[0]
+          data=json.loads(raw[20:20+length])
+          assert len(data.get('images',[]))>=4,len(data.get('images',[]))
+          assert len(data.get('textures',[]))>=4
+          assert any('normalTexture' in m for m in data.get('materials',[]))
+          assert any('baseColorTexture' in m.get('pbrMetallicRoughness',{}) for m in data['materials'])
+          assert sum('TEXCOORD_0' in primitive['attributes']
+             for mesh in data['meshes'] for primitive in mesh['primitives'])>=10
+          x=np.array(Image.open(a/'asteria-chair-quarter.png').convert('RGB'),dtype=np.int16)
+          y=np.array(Image.open(b/'asteria-chair-quarter.png').convert('RGB'),dtype=np.int16)
+          assert x.shape==y.shape==(800,900,3)
+          diff=float(np.abs(x-y).mean())
+          assert diff>2.0,('PBR test visually indistinguishable',diff)
+          print({'sourceFaces':faces(left),'candidateFaces':faces(right),
+                  'embeddedImages':len(data['images']),'pixelDifferenceMean':round(diff,3),
+                  'candidateGLBBytes':len(raw)})
+          print('Material A/B and source checks passed; human render acceptance remains separate.')
+          PY
+      - name: Preserve both references and full glTF source evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-hero-chair-cc0-material-ab
+          path: |
+            _hero_base_comparison/*.png
+            _hero_base_comparison/hero-chair-report.json
+            _hero_cc0_comparison/*.png
+            _hero_cc0_comparison/*.blend
+            _hero_cc0_comparison/*.glb
+            _hero_cc0_comparison/hero-chair-report.json
+            _asteria_cc0_fabric/fabric-provenance.json
+          if-no-files-found: ignore
+          retention-days: 7
