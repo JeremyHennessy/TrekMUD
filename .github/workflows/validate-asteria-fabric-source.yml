@@ -1,0 +1,61 @@
+name: Asteria CC0 fabric asset provenance test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [experiment/asteria-hero-chair-fabric-01]
+    paths:
+      - scripts/asteria_fetch_cc0_velour.py
+      - .github/workflows/validate-asteria-fabric-source.yml
+  pull_request:
+    branches: [experiment/asteria-hero-chair-01]
+    paths:
+      - scripts/asteria_fetch_cc0_velour.py
+      - .github/workflows/validate-asteria-fabric-source.yml
+
+permissions:
+  contents: read
+
+jobs:
+  fabric-provenance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check source syntax and unchanged campaign
+        run: |
+          python -m py_compile scripts/asteria_fetch_cc0_velour.py
+          python scripts/validate_campaign.py
+      - name: Install image verification libraries
+        run: python -m pip install --disable-pip-version-check numpy==2.3.5 Pillow==12.3.0
+      - name: Fetch three official CC0 maps and create recolored test fabric
+        run: python scripts/asteria_fetch_cc0_velour.py --out _asteria_cc0_fabric
+      - name: Verify actual texture size and named image derivations
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          p=Path('_asteria_cc0_fabric')
+          m=json.loads((p/'fabric-provenance.json').read_text())
+          assert m['assetId']=='velour_velvet' and m['license']=='CC0-1.0'
+          assert set(m['maps'])=={'diff','nor_gl','rough'}
+          for name,data in m['maps'].items():
+              assert (p/data['file']).stat().st_size==data['bytes']
+              assert data['url'].startswith('https://dl.polyhaven.org/')
+          for name in m['derived']:
+              im=Image.open(p/name)
+              assert min(im.size)>=512 and im.mode=='RGB'
+          print('Verified actual source downloads, checksums and recolored images')
+          PY
+      - name: Archive internal source/provenance for the next material test
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-cc0-velour-inputs
+          path: _asteria_cc0_fabric/**
+          if-no-files-found: ignore
+          retention-days: 7
