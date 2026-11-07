@@ -282,6 +282,9 @@ def main():
     sc.render.image_settings.file_format="PNG"
     sc.view_settings.view_transform="AgX"
     sc.view_settings.look="AgX - Medium High Contrast"
+    # A/B only: reduce Cycles display exposure, preserving all asset geometry,
+    # material inputs, studio light positions, and exported GLB bytes.
+    sc.view_settings.exposure=-1.4
     sc.camera=cameras["quarter"]
     bpy.ops.wm.save_as_mainfile(filepath=str((a.out/"asteria-hero-chair-candidate.blend").resolve()))
     # Blender curves are editable in the .blend; convert only the export stage
@@ -309,6 +312,7 @@ def main():
       "roomId":"AST-D01-BRIDGE","originalChairAnchor":[0,ANCHOR_Z],
       "frozenV3Blob":V3_BLOB,"meshObjects":len(mesh_objects),
       "renderer":"Blender Cycles","samples":a.samples,
+      "cyclesExposureEV":-1.4,
       "renderedViews":chosen,"separateFromBrowser":True,
       "materialLimit":"Cycles procedural fabric bump is not baked into GLB",
       "visualApproved":False,
