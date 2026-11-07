@@ -9,6 +9,7 @@ V3/V5 bridge, collisions, browser UI, PADD or game state.
 """
 from __future__ import annotations
 import argparse
+import hashlib
 import json
 import math
 import sys
@@ -28,6 +29,7 @@ def parameters():
     p=argparse.ArgumentParser()
     p.add_argument("--out",type=Path,required=True)
     p.add_argument("--samples",type=int,default=24)
+    p.add_argument("--texture-dir",type=Path,default=None,help="Optional pinned CC0 scan input")
     p.add_argument("--view",choices=["front","rear","quarter","detail","all"],default="all")
     p.add_argument("--resolution",nargs=2,type=int,default=[900,800])
     return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
@@ -60,6 +62,14 @@ def geometry(name,vertices,faces,materials,indices):
     data.from_pydata(vertices,[],faces);data.update()
     ob=bpy.data.objects.new(name,data);HERO.objects.link(ob)
     for material in materials:data.materials.append(material)
+    # True meter-scale UVs for textile geometry; curves and hard parts keep their
+    # original generated mapping. Repeat roughly every 0.30 m.
+    uv=data.uv_layers.new(name="ASTERIA_FABRIC_UV")
+    for poly in data.polygons:
+        for li in poly.loop_indices:
+            vertex=data.vertices[data.loops[li].vertex_index].co
+            x,depth,height=float(vertex.x),float(-vertex.y-ANCHOR_Z),float(vertex.z)
+            uv.data[li].uv=(x*3.3,(depth if name.startswith("Seat /") else height)*3.3)
     for k,poly in enumerate(data.polygons):
         poly.material_index=indices[k]
         poly.use_smooth=True
@@ -144,6 +154,47 @@ def seat_surface(u,v):
     x=.54*u;z=-.42+.76*v
     y=.702+.065*(1-u*u)+.018*math.sin(PI*v)-.025*(v-.5)**2
     return x,y,z
+
+def apply_cc0_material_scan(m,folder):
+    """Use vetted 1K photo-scanned PBR maps; no runtime URLs or new geometry."""
+    info=json.loads((folder/"fabric-provenance.json").read_text())
+    if info.get("assetId")!="velour_velvet" or info.get("license")!="CC0-1.0":
+        raise RuntimeError("Unexpected scanned-fabric provenance")
+    verified={
+        "diff.png":"fb9bde5e9ca1015424f3149fdc96daed0d040cbb944965d727993c9af40c478c",
+        "nor_gl.png":"0bfa4622e13072494f36ce32d6af5e95b1037eb05e6dac10e39e90aac4154ed1",
+        "rough.png":"abbf0df83e6b19e8924f3e32eb853d5f0a78d6a64f96e2aff16803ca2bae99d8",
+        "asteria_mauve_diffuse.png":"a66fe908499d46c2aef9b03e0e0e627afa9af74cd7ca129dae7b969dc250a0e2",
+        "asteria_mauve_light_diffuse.png":"babdbc8285877b2456d9ebcc67f2ba17bd210c81efa342df0016bf2aebf27025",
+    }
+    for fname,digest in verified.items():
+        path=folder/fname
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest()!=digest:
+            raise RuntimeError("CC0 fabric source changed; reject unapproved asset: "+fname)
+    def attach(key,base):
+        matobj=m[key]
+        tree=matobj.node_tree
+        shader=tree.nodes.get("Principled BSDF")
+        for label,filename,srgb in [
+          ("Asteria signed-off CC0 base",base,True),
+          ("Asteria CC0 roughness","rough.png",False),
+          ("Asteria CC0 normal OpenGL","nor_gl.png",False),
+        ]:
+            image=bpy.data.images.load(str((folder/filename).resolve()),check_existing=True)
+            if not srgb:image.colorspace_settings.name="Non-Color"
+            image.pack()
+            tex=tree.nodes.new("ShaderNodeTexImage")
+            tex.label=label;tex.image=image;tex.extension="REPEAT"
+            if srgb:tree.links.new(tex.outputs["Color"],shader.inputs["Base Color"])
+            elif filename=="rough.png":
+                tree.links.new(tex.outputs["Color"],shader.inputs["Roughness"])
+            else:
+                normal=tree.nodes.new("ShaderNodeNormalMap")
+                normal.inputs["Strength"].default_value=.45
+                tree.links.new(tex.outputs["Color"],normal.inputs["Color"])
+                tree.links.new(normal.outputs["Normal"],shader.inputs["Normal"])
+    attach("fabric","asteria_mauve_diffuse.png")
+    attach("fabric_light","asteria_mauve_light_diffuse.png")
 
 def chair(m):
     # Weighted swivel construction, bearings and load-bearing collar.
@@ -271,6 +322,8 @@ def main():
       "amber":mat("Asteria / amber controls",(.72,.47,.27),.35),
       "pale":mat("Asteria / pale controls",(.68,.68,.68),.40),
     }
+    if a.texture_dir:
+        apply_cc0_material_scan(m,a.texture_dir)
     chair(m)
     cameras=studio()
     sc=bpy.context.scene;sc.render.engine="CYCLES";sc.cycles.samples=a.samples
@@ -314,7 +367,8 @@ def main():
       "renderer":"Blender Cycles","samples":a.samples,
       "cyclesExposureEV":-1.4,
       "renderedViews":chosen,"separateFromBrowser":True,
-      "materialLimit":"Cycles procedural fabric bump is not baked into GLB",
+      "photoScannedFabric":bool(a.texture_dir),
+      "materialLimit":"Scanned albedo, roughness and normal embedded in candidate GLB when texture-dir is supplied",
       "visualApproved":False,
     }
     (a.out/"hero-chair-report.json").write_text(json.dumps(report,indent=2)+"\n")
