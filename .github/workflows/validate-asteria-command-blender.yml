@@ -50,7 +50,7 @@ jobs:
           blender -b -t 4 --python-exit-code 1 \
             --python scripts/asteria_command_blender.py -- \
             --materials _asteria_command_maps --out _asteria_command_model \
-            --samples 24 --resolution 960 640 --view all --bake-ao
+            --samples 24 --resolution 960 640 --view all --bake-ao --correct-screen-uv
       - name: Verify actual built 3D model and real screenshot pixels
         run: |
           python - <<'PY'
@@ -65,6 +65,7 @@ jobs:
           assert report['sourceV3Blob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
           assert report['sourceFrozen'] and report['cameraAndCampaignUnchanged']
           assert report['realAOBakedFor']=='platform top only'
+          assert report['correctedOriginalScreenUv'] is True
           assert report['renderViews']==['aft','command','console','overhead']
           assert report['meshObjects']>30
           blend=root/'asteria-command-set-candidate.blend'
@@ -88,6 +89,7 @@ jobs:
           assert any('command overview' in n.lower() for n in names)
           assert any('systems screen' in n.lower() for n in names)
           assert any(m.get('normalTexture') for m in gltf['materials'])
+          assert any(m.get('occlusionTexture',{}).get('texCoord')==1 for m in gltf['materials']), 'True UV1 Cycles AO not exported'
           for view in ['aft','command','console','overhead']:
               im=Image.open(root/f'asteria-command-{view}.png').convert('RGB')
               assert im.size==(960,640)
