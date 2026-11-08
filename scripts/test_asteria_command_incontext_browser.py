@@ -85,6 +85,14 @@ try:
       assert state["changesCampaign"] is False
       if route==candidate:
         assert state["originalGeometry"]==82088,state
+        if width<500:
+          overlap=page.evaluate("""() => {
+            const a=document.getElementById('topTitle').getBoundingClientRect();
+            const b=document.getElementById('panel').getBoundingClientRect();
+            return Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left)) *
+                   Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));
+          }""")
+          assert overlap==0,('Approved mobile title/minimap fix regressed',overlap)
         assert state["removedCommand"]==8628,state
         assert state["commandFaces"]==16292,state
         assert state["commandMeshes"]>=40,state
