@@ -154,14 +154,18 @@ try:
         assert page.evaluate("window.__asteriaV5.changesCampaign") is False
         print("WALKING",json.dumps({"start":start,"after":finish,"command":command}),flush=True)
         # Touch viewport: verify actual original controls still accept taps.
+        # Release the active desktop WebGL renderer before constructing another
+        # GPU-heavy context. The old page otherwise competes for SwiftShader CPU.
+        page.close()
         phone=browser.new_page(viewport={"width":390,"height":844},has_touch=True)
-        phone.goto(f"{origin}/3d-preview-v5-chair/?studioCapture=aft")
+        phone.goto(f"{origin}/3d-preview-v5-chair/?studioCapture=aft",
+                   wait_until="domcontentloaded",timeout=60000)
         phone.wait_for_function("document.body.dataset.rendererReady==='true'",timeout=90000)
         phone.locator('[data-go="flight"]').click(timeout=30000)
         flight=phone.evaluate("window.__asteriaV5.getPosition()")
         assert abs(flight["z"]+1.32)<.01,flight
         print("TOUCH_STATION",json.dumps(flight),flush=True)
-        phone.close();page.close();browser.close()
+        phone.close();browser.close()
 finally:
     server.shutdown()
 
