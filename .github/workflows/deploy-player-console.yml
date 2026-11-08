@@ -302,6 +302,171 @@ jobs:
                 'existing Pages assets unchanged',len(before),flush=True)
           PY
 
+      # Publish an OPTIONAL, source-pinned wall-art review route. This is not a
+      # merge of any experimental UI/renderer into the approved Player Console.
+      - name: Checkout pinned independently screenshot-tested Asteria three-bay source
+        uses: actions/checkout@v4
+        with:
+          repository: JeremyHennessy/TrekMUD
+          ref: 5066014473b143b66ef12d93121376f726d8b094
+          path: asteria-three-bays-source
+          persist-credentials: false
+
+      - name: Build isolated three-bay review route without modifying existing Pages
+        run: |
+          set -euo pipefail
+          # SHA-256 every current Pages artifact before introducing the new route.
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          site=Path('_site')
+          before={str(f.relative_to(site)):hashlib.sha256(f.read_bytes()).hexdigest()
+                  for f in site.rglob('*') if f.is_file()}
+          assert '3d-preview-v5-three-bays/index.html' not in before
+          (Path('_site-before-three-bays.json')).write_text(json.dumps(before,sort_keys=True))
+          print('STAGE04_EXISTING_PAGES_LOCKED',len(before),flush=True)
+          PY
+          mkdir -p _site/3d-preview-v5-three-bays
+          cp -a _site/3d-preview-v5-command/. _site/3d-preview-v5-three-bays/
+          npm ci --prefix asteria-three-bays-source/ui/3d-preview-v5 --no-audit --no-fund
+          (
+            cd asteria-three-bays-source
+            ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 \
+              ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+              ASTERIA_V3_CAPTURE_INLAID_BAY=1 \
+              ASTERIA_V3_CAPTURE_THREE_RIB_BAYS=1 \
+              python scripts/extract_asteria_v3_for_v5.py
+
+            ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 \
+              ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
+              ASTERIA_V5_EXCLUDE_THREE_RIB_BAYS=1 \
+              ASTERIA_V5_OUT_DIR="$PWD/../_site/3d-preview-v5-three-bays/models" \
+              python scripts/build_asteria_v5_assets.py
+
+            python scripts/asteria_command_pbr_maps.py \
+              --out _asteria_command_maps --v3-atlas _v5_mesh_capture/atlas.png
+            python scripts/asteria_rib_fin_maps.py --out _asteria_rib_fin_maps
+
+            blender -b -t 4 --python-exit-code 1 \
+              --python scripts/asteria_three_rib_bays_blender.py -- \
+              --out _three_bays_pages_asset --materials _asteria_rib_fin_maps \
+              --command-materials _asteria_command_maps \
+              --source-report _v5_mesh_capture/three-rib-bays-source-spans.json \
+              --samples 20 --no-render
+            cp _three_bays_pages_asset/asteria-three-original-pitch-rib-bays-04.glb \
+               ../_site/3d-preview-v5-three-bays/models/asteria-three-original-pitch-rib-bays-04.glb
+
+            # Exactly the verified original command renderer with a guarded
+            # optional GLB loader. Hidden QA cameras do not change UI buttons,
+            # game state, movement, HUD positioning or user interaction.
+            python - <<'PY'
+          from pathlib import Path
+          source=Path('ui/3d-preview-v5-command/src/main.js').read_text()
+          command=Path('../asteria-command-source/ui/3d-preview-v5-command/src/main.js').read_text()
+          assert source==command,'Pinned Stage04 must not change approved command renderer source'
+          anchor='  const views={'
+          assert source.count(anchor)==1
+          extra=(
+            "\n    bayDetail:{x:3.7,z:-3.2,yaw:.69,label:'THREE-BAY DETAIL · QA ONLY'},"
+            "\n    bayPanorama:{x:3.25,z:-2.85,yaw:.70,label:'THREE-BAY PANORAMA · QA ONLY'},")
+          source=source.replace(anchor,anchor+extra)
+          verification='triangles!==106988-removed-commandRemoved||missing'
+          assert source.count(verification)==1
+          source=source.replace(verification,
+              'triangles!==106988-removed-commandRemoved-174||'+
+              'meta.threeRibBaysRemovedFaces!==174||'+
+              '(meta.threeRibBaysSourceRanges||[]).length!==3||missing')
+          scene_anchor='    scene.add(room,hero,command);'
+          assert source.count(scene_anchor)==1
+          new_loader="""    scene.add(room,hero,command);
+            // This is an independently published original-geometry art
+            // preview. All game, wall-collision, HUD and camera controls
+            // retain the exact original command renderer behavior.
+            loader.loadAsync('./models/asteria-three-original-pitch-rib-bays-04.glb')
+              .then(({scene:replacement})=>{
+                let triangles=0,meshes=0,missing=0;
+                replacement.traverse(o=>{
+                  if(!o.isMesh)return;
+                  meshes++;
+                  triangles+=o.geometry.index?o.geometry.index.count/3:
+                             o.geometry.attributes.position.count/3;
+                  if(!o.material)missing++;
+                  else o.material.side=THREE.DoubleSide;
+                  o.castShadow=!mobile;o.receiveShadow=true;
+                });
+                if(triangles!==13098||meshes!==105||missing){
+                  fail('Original source-fit three-bay asset geometry is invalid.');
+                  return;
+                }
+                replacement.updateMatrixWorld(true);
+                scene.add(replacement);
+                document.body.dataset.threeBayFaces=String(triangles);
+                document.body.dataset.threeBayMeshes=String(meshes);
+                document.body.dataset.threeBayLoaded='true';
+                window.__asteriaThreeBayReview={excludedOriginalFaces:174,
+                  selectedOriginalBays:[22,23,24],replacementTriangles:triangles,
+                  originalCeilingRetained:true,noGameWrites:true,
+                  visualApproved:false};
+              }).catch(err=>fail('Independent three-bay GLB load failed: '+String(err.message||err)));
+          """
+          source=source.replace(scene_anchor,new_loader)
+          assert source.count('threeBayLoaded')==1
+          Path('ui/3d-preview-v5/src/__pages_three_bays.js').write_text(source)
+          PY
+            trap 'rm -f ui/3d-preview-v5/src/__pages_three_bays.js' EXIT
+            ui/3d-preview-v5/node_modules/.bin/esbuild \
+              ui/3d-preview-v5/src/__pages_three_bays.js \
+              --bundle --platform=browser --target=es2021 --format=iife --minify \
+              --outfile=../_site/3d-preview-v5-three-bays/app.js
+            rm ui/3d-preview-v5/src/__pages_three_bays.js
+            trap - EXIT
+          )
+
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib,struct
+          import trimesh
+          site=Path('_site')
+          hashes=json.loads(Path('_site-before-three-bays.json').read_text())
+          for name,expected in hashes.items():
+              p=site/name
+              assert p.is_file() and hashlib.sha256(p.read_bytes()).hexdigest()==expected, \
+                 f'Protected existing Pages file unexpectedly changed: {name}'
+          previous=site/'3d-preview-v5-command'
+          new=site/'3d-preview-v5-three-bays'
+          assert previous.is_dir() and new.is_dir()
+          assert (previous/'index.html').read_bytes()==(new/'index.html').read_bytes()
+          assert (new/'app.js').stat().st_size>200000
+          assert b'AST-D01-BRIDGE' in (new/'app.js').read_bytes()
+          assert (previous/'app.js').read_bytes()!=(new/'app.js').read_bytes()
+          for old in ('asteria-hero-chair-candidate.glb','asteria-command-set-candidate.glb'):
+              assert (new/'models'/old).read_bytes()==(previous/'models'/old).read_bytes()
+          def faces(p):
+              obj=trimesh.load(p,force='scene',process=False)
+              return sum(len(mesh.faces) for mesh in obj.geometry.values())
+          root=new/'models'
+          assert faces(root/'asteria-v3-restored-pbr.glb')==81914
+          assert faces(root/'asteria-hero-chair-candidate.glb')==31484
+          assert faces(root/'asteria-command-set-candidate.glb')==16292
+          candidate=root/'asteria-three-original-pitch-rib-bays-04.glb'
+          assert faces(candidate)==13098
+          report=json.loads((root/'manifest.json').read_text())
+          assert report['original_triangles']==106988
+          assert report['captain_chair_source_faces_removed']==16272
+          assert report['command_section_source_faces_removed']==8628
+          assert report['three_rib_bays_source_faces_removed']==174
+          assert [r['faces'] for r in report['three_rib_bays_source_ranges']]==[58,58,58]
+          raw=candidate.read_bytes()
+          n=struct.unpack_from('<I',raw,12)[0]
+          gltf=json.loads(raw[20:20+n])
+          assert len(gltf.get('images',[]))==15
+          assert not (previous/'models/asteria-three-original-pitch-rib-bays-04.glb').exists()
+          assert (site/'3d-preview-v5-chair/index.html').is_file()
+          assert (site/'3d-preview-v4/index.html').is_file()
+          print('STAGE04_ISOLATED_PAGES_BUILD_PASS',len(hashes),
+                'protected original files; model faces',81914,31484,16292,13098,flush=True)
+          PY
+
       - name: Configure GitHub Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
@@ -330,7 +495,7 @@ jobs:
     if: github.event_name != 'pull_request'
     needs: deploy
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 20
     permissions:
       contents: read
     steps:
@@ -355,6 +520,12 @@ jobs:
             ('3d-preview-v5-command/models/asteria-v3-restored-pbr.glb',b'glTF',3_000_000),
             ('3d-preview-v5-command/models/asteria-hero-chair-candidate.glb',b'glTF',100_000),
             ('3d-preview-v5-command/models/asteria-command-set-candidate.glb',b'glTF',100_000),
+            ('3d-preview-v5-three-bays/',b'REVIEW ONLY',1000),
+            ('3d-preview-v5-three-bays/app.js',b'AST-D01-BRIDGE',200_000),
+            ('3d-preview-v5-three-bays/models/asteria-v3-restored-pbr.glb',b'glTF',3_000_000),
+            ('3d-preview-v5-three-bays/models/asteria-hero-chair-candidate.glb',b'glTF',100_000),
+            ('3d-preview-v5-three-bays/models/asteria-command-set-candidate.glb',b'glTF',100_000),
+            ('3d-preview-v5-three-bays/models/asteria-three-original-pitch-rib-bays-04.glb',b'glTF',100_000),
           ]
           # GitHub Pages CDN can take a short time to update after deployment.
           for attempt in range(1,16):
@@ -510,6 +681,105 @@ jobs:
                           'artApproved':False},indent=2)+'\n')
           print('PUBLIC_COMMAND_WALKTHROUGH_ACTUALLY_VERIFIED',origin,flush=True)
           PY
+      - name: Verify PUBLIC opt-in three-bay scene with real Chromium and screenshots
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,shutil
+          from PIL import Image,ImageStat
+          from playwright.sync_api import sync_playwright
+
+          url='https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/'
+          output=Path('_three_bays_deployed_qa')
+          output.mkdir(exist_ok=True)
+          views=[('aft',1280,800),('bayDetail',960,720),
+                 ('bayPanorama',960,720),('aft',390,844)]
+          rows=[]
+          with sync_playwright() as p:
+              browser=p.chromium.launch(
+                headless=True,executable_path=shutil.which('google-chrome'),
+                args=['--no-sandbox','--disable-dev-shm-usage',
+                      '--enable-webgl','--use-gl=angle','--use-angle=swiftshader',
+                      '--enable-unsafe-swiftshader'])
+              for view,width,height in views:
+                  page=browser.new_page(viewport={'width':width,'height':height},
+                      device_scale_factor=1,has_touch=width<500)
+                  errors=[]
+                  asset_urls=[]
+                  page.on('pageerror',lambda e:errors.append(str(e)))
+                  page.on('response',lambda r:errors.append(
+                    f'HTTP_{r.status} {r.url}') if r.status>=400 else None)
+                  page.on('request',lambda req:asset_urls.append(req.url))
+                  response=page.goto(url+'?studioCapture='+view,
+                    wait_until='domcontentloaded',timeout=60000)
+                  assert response and response.status==200,(view,response.status if response else None)
+                  page.wait_for_function(
+                    "document.body.dataset.threeBayLoaded==='true' || document.body.dataset.rendererReady==='error'",
+                    timeout=120000)
+                  page.wait_for_function(
+                    "Number(document.body.dataset.renderedFrames||0)>=3",
+                    timeout=90000)
+                  state=page.evaluate("""() => ({
+                    ready:document.body.dataset.rendererReady,
+                    extra:document.body.dataset.threeBayLoaded,
+                    room:window.__asteriaV5?.roomId,
+                    source:window.__asteriaV5?.sourceV3Sha,
+                    noGameChanges:window.__asteriaV5?.changesCampaign === false,
+                    original:Number(document.body.dataset.geometryTriangles),
+                    oldChairRemoved:Number(document.body.dataset.captainChairFacesRemoved),
+                    oldCommandRemoved:Number(document.body.dataset.commandFacesRemoved),
+                    chair:Number(document.body.dataset.heroChairFaces),
+                    command:Number(document.body.dataset.commandMeshFaces),
+                    bakedAO:Number(document.body.dataset.commandBakedAoMaterials),
+                    threeBayTriangles:Number(document.body.dataset.threeBayFaces),
+                    threeBayMeshes:Number(document.body.dataset.threeBayMeshes),
+                    removed:window.__asteriaThreeBayReview?.excludedOriginalFaces,
+                    materials:document.body.dataset.missingMaterials,
+                    rendered:Number(document.body.dataset.renderedFrames),
+                    overlap:(() => {
+                      const a=document.getElementById('topTitle').getBoundingClientRect();
+                      const b=document.getElementById('panel').getBoundingClientRect();
+                      return Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left)) *
+                             Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));
+                    })()
+                  })""")
+                  assert state['ready']=='true' and state['extra']=='true',(view,state)
+                  assert state['room']=='AST-D01-BRIDGE'
+                  assert state['source']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+                  assert state['noGameChanges']
+                  assert (state['original'],state['chair'],state['command'])==(81914,31484,16292),state
+                  assert (state['oldChairRemoved'],state['oldCommandRemoved'])==(16272,8628),state
+                  assert (state['threeBayTriangles'],state['threeBayMeshes'],state['removed'])==(13098,105,174),state
+                  assert state['bakedAO']>=1 and state['materials']=='0'
+                  assert not errors,(view,errors)
+                  glbs=set(req for req in asset_urls if req.endswith('.glb'))
+                  assert len(glbs)==4,(view,glbs)
+                  if width<500:assert state['overlap']==0,(view,state)
+                  filename=f'three-bays-public-{view}-{width}x{height}.png'
+                  page.screenshot(path=str(output/filename),timeout=90000)
+                  im=Image.open(output/filename).convert('RGB')
+                  assert im.size==(width,height) and min(ImageStat.Stat(im).stddev)>17,view
+                  item={'view':view,'size':[width,height],'browser':state,'screenshot':filename,
+                        'glbs':sorted(glbs),'jsErrors':errors}
+                  rows.append(item)
+                  print('ACTUAL_PUBLIC_THREE_BAYS_BROWSER_PASS',json.dumps(item),flush=True)
+                  page.close()
+              browser.close()
+          (output/'public-three-bays-qa.json').write_text(json.dumps({
+            'url':url,'screenshots':rows,'verifiedWebGL':True,
+            'originalGameUnchanged':True,'userArtApproved':False,
+            'physicalIphoneGPUVerified':False},indent=2)+'\n')
+          print('PUBLIC_THREE_BAYS_INTERACTIVE_URL_VERIFIED',url,flush=True)
+          PY
+      - name: Archive real deployed three-bay desktop and mobile screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-three-bays-public-visual-evidence
+          path: _three_bays_deployed_qa/*
+          if-no-files-found: ignore
+          retention-days: 30
+
       - name: Archive real public command-platform WebGL screenshots
         if: always()
         uses: actions/upload-artifact@v4
