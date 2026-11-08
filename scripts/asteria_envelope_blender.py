@@ -29,6 +29,7 @@ def args():
  p.add_argument("--samples",type=int,default=28)
  p.add_argument("--resolution",type=int,nargs=2,default=[960,640])
  p.add_argument("--bake-ao",action="store_true")
+ p.add_argument("--omit-radial-rails",action="store_true",help="QA only: isolate roof radial rail shading without touching the ceiling panels")
  p.add_argument("--no-render",action="store_true")
  return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
 
@@ -113,7 +114,7 @@ def build_wall(mat):
            points,rad,MATS['satin_nickel'] if y==3.65 else MATS['gasket'],segments=2)
  return ob
 
-def build_ceiling(mat):
+def build_ceiling(mat,omit_radial_rails=False):
  # Each of 96 EXACT measured V3 wedge sectors is rebuilt as real sheet
  # material in 3 shallower, manufactured bands. The original inner ceiling
  # ring and other acoustic/cove detail are not removed.
@@ -140,7 +141,7 @@ def build_ceiling(mat):
  MESHES['ceiling']=ob
  # Genuine dark aluminium captured seams at only every fourth radial
  # panel join, not fake white glow lines across the roof.
- for k in range(0,96,4):
+ for k in (() if omit_radial_rails else range(0,96,4)):
   a=k*TAU/96
   path=[wpos(a,r,roof_y(r)-.009)
         for r in (.40,.53,.62,.78,.89,.97)]
@@ -305,7 +306,7 @@ def main():
   "gasket":kit.build_material("Asteria / captured neutral gasket","console_gasket",.87,0,a.command_materials),
   "light":make_emissive(),
  }
- build_wall(MATS["wall"]);build_ceiling(MATS["ceiling"])
+ build_wall(MATS["wall"]);build_ceiling(MATS["ceiling"],a.omit_radial_rails)
  studio_floor=other_studio()
  cameras=studio_cameras()
  sc=bpy.context.scene
@@ -334,7 +335,7 @@ def main():
   obj.select_set(True);bpy.context.view_layer.objects.active=obj
   bpy.ops.object.convert(target="MESH")
  meshes=[ob for ob in kit.COMMAND.objects if ob.type=="MESH"]
- assert len(meshes)>=50,len(meshes)
+ assert len(meshes)==(30 if a.omit_radial_rails else 54),len(meshes)
  bpy.ops.object.select_all(action="DESELECT")
  for ob in meshes:ob.select_set(True)
  bpy.context.view_layer.objects.active=meshes[0]
@@ -357,6 +358,8 @@ def main():
   "originalThreeBaysPreserved":True,
   "newWallPanels":112,"roofWedges":96,
   "formedRoofBandsPerWedge":3,"physicalPracticalHousings":12,
+  "radialRailsEmitted":0 if a.omit_radial_rails else 24,
+  "railIsolationExperiment":bool(a.omit_radial_rails),
   "originalPbrScan":pbr["scanPage"],
   "pbrLicense":pbr["license"],"PBRScanPhotoBased":True,
   "architecturalBakedAO":ao,"fullIndirectLightmapYetUnproven":True,
