@@ -1,0 +1,199 @@
+name: Asteria one-bay in-context browser A/B - unpublished QA
+
+on:
+  push:
+    branches: [experiment/asteria-wall-ceiling-bay-01]
+    paths:
+      - 'scripts/test_asteria_wall_bay_incontext_browser.py'
+      - '.github/workflows/validate-asteria-wall-bay-browser.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: asteria-wall-bay-browser-stage01
+  cancel-in-progress: false
+
+jobs:
+  real-browser-a-b:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 48
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirm frozen source, player game, and QA script syntax
+        run: |
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+          python -m py_compile scripts/test_asteria_wall_bay_incontext_browser.py \
+             scripts/asteria_wall_ceiling_bay_blender.py
+      - name: Install exact existing scene pipeline and actual Chromium runtime
+        run: |
+          python -m pip install --disable-pip-version-check \
+             numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          npm ci --prefix ui/3d-preview-v5 --no-audit --no-fund
+          sudo apt-get update
+          sudo apt-get install -y blender
+          command -v google-chrome || command -v chromium
+      - name: Capture provenance-pinned V3 retained room meshes
+        run: |
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+            python scripts/extract_asteria_v3_for_v5.py
+          mkdir -p _site/3d-preview-v5-command/models
+          ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5-command/models" \
+            python scripts/build_asteria_v5_assets.py
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          j=json.loads(Path('_site/3d-preview-v5-command/models/manifest.json').read_text())
+          assert j['triangles']==82088
+          assert j['captain_chair_source_faces_removed']==16272
+          assert j['command_section_source_faces_removed']==8628
+          assert [r['faces'] for r in j['command_source_ranges']]==[1784,6428,416]
+          PY
+      - name: Reproduce verified integrated chair and command platform
+        run: |
+          python scripts/asteria_fetch_cc0_velour.py --out _asteria_cc0_fabric
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_hero_chair_blender.py -- \
+            --out _bay_chair --texture-dir _asteria_cc0_fabric \
+            --samples 24 --no-render --integrated-back
+          cp _bay_chair/asteria-hero-chair-candidate.glb \
+             _site/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb
+          python scripts/asteria_command_pbr_maps.py \
+            --out _asteria_command_maps --v3-atlas _v5_mesh_capture/atlas.png
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_command_blender.py -- \
+            --materials _asteria_command_maps --out _bay_command \
+            --samples 24 --no-render --bake-ao --correct-screen-uv
+          cp _bay_command/asteria-command-set-candidate.glb \
+             _site/3d-preview-v5-command/models/asteria-command-set-candidate.glb
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_wall_ceiling_bay_blender.py -- \
+            --materials _asteria_command_maps --out _bay_wall \
+            --samples 20 --no-render
+      - name: Build byte-identical control app and isolated four-model candidate
+        run: |
+          set -euo pipefail
+          cp ui/3d-preview-v5-command/src/index.html _site/3d-preview-v5-command/index.html
+          cp ui/3d-preview-v5-command/src/main.js \
+            ui/3d-preview-v5/src/__temporary_bay_control.js
+          ui/3d-preview-v5/node_modules/.bin/esbuild \
+            ui/3d-preview-v5/src/__temporary_bay_control.js \
+            --bundle --platform=browser --target=es2021 --format=iife --minify \
+            --outfile=_site/3d-preview-v5-command/app.js
+          cp -a _site/3d-preview-v5-command _site/3d-preview-v5-command-bay
+          cp _bay_wall/asteria-wall-ceiling-bay-candidate.glb \
+            _site/3d-preview-v5-command-bay/models/asteria-wall-ceiling-bay-candidate.glb
+          python - <<'PY'
+          from pathlib import Path
+          source=Path('ui/3d-preview-v5-command/src/main.js').read_text()
+          anchor='    scene.add(room,hero,command);'
+          assert source.count(anchor)==1
+          patch="""    scene.add(room,hero,command);
+              // Isolated QA asset only; the live model, waypoints and
+              // all camera/collision controls are untouched.
+              loader.loadAsync('./models/asteria-wall-ceiling-bay-candidate.glb').then(({scene:bay})=>{
+                let faces=0,meshes=0,missing=0;
+                bay.traverse(o=>{
+                  if(!o.isMesh)return;
+                  meshes++;
+                  const g=o.geometry;
+                  faces+=g.index?g.index.count/3:g.attributes.position.count/3;
+                  if(!o.material)missing++;
+                  else{o.material.side=THREE.DoubleSide;}
+                  o.receiveShadow=true;o.castShadow=!mobile;
+                });
+                if(faces!==1344||meshes<40||missing){
+                  fail('Isolated wall-bay geometry or materials did not pass browser validation.');
+                  return;
+                }
+                scene.add(bay);
+                document.body.dataset.wallBayLoaded='true';
+                document.body.dataset.wallBayFaces=String(faces);
+                document.body.dataset.wallBayMeshes=String(meshes);
+                window.__asteriaWallBayReview={faces,meshes,noGameWrites:true,
+                    noSourceReplacement:true,visualApproval:false};
+              }).catch(err=>fail('QA-only wall bay asset did not load: '+String(err.message||err)));
+          """
+          result=source.replace(anchor,patch)
+          assert result!=source and result.count('wallBayLoaded')==1
+          Path('ui/3d-preview-v5/src/__temporary_bay_candidate.js').write_text(result)
+          PY
+          ui/3d-preview-v5/node_modules/.bin/esbuild \
+            ui/3d-preview-v5/src/__temporary_bay_candidate.js \
+            --bundle --platform=browser --target=es2021 --format=iife --minify \
+            --outfile=_site/3d-preview-v5-command-bay/app.js
+          rm ui/3d-preview-v5/src/__temporary_bay_control.js \
+             ui/3d-preview-v5/src/__temporary_bay_candidate.js
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          a=Path('_site/3d-preview-v5-command')
+          b=Path('_site/3d-preview-v5-command-bay')
+          assert (a/'index.html').read_bytes()==(b/'index.html').read_bytes()
+          for p in (a/'models').glob('*.glb'):
+              assert hashlib.sha256(p.read_bytes()).digest()==hashlib.sha256(
+                (b/'models'/p.name).read_bytes()).digest(),p.name
+          assert (a/'app.js').read_bytes()!=(b/'app.js').read_bytes()
+          assert not (a/'models/asteria-wall-ceiling-bay-candidate.glb').exists()
+          print('UNCHANGED_CONTROL_ASSETS_VERIFIED')
+          PY
+      - name: Render matched full-scene Chromium screenshots and walk test
+        run: |
+          CHROME="$(command -v google-chrome || command -v chromium)" \
+            python scripts/test_asteria_wall_bay_incontext_browser.py \
+             _site _bay_incontext_qa
+      - name: Verify no production source or approved UI files were touched
+        run: |
+          git diff --exit-code -- ui/3d/ ui/3d-preview/ ui/3d-preview-v3/ \
+            ui/3d-preview-v4/ ui/3d-preview-v5/ ui/3d-preview-v5-chair/ \
+            ui/3d-preview-v5-command/ campaign/ world/asteria/
+      - name: Preserve actual browser screenshots and observed metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-one-bay-real-webgl-ab
+          path: |
+            _bay_incontext_qa/*.png
+            _bay_incontext_qa/*.json
+            _bay_wall/bay-report.json
+            _bay_command/command-report.json
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Archive passing A/B screenshot pixels to experiment branch only
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p docs/asteria-wall-bay-incontext-qa
+          cp _bay_incontext_qa/*.png docs/asteria-wall-bay-incontext-qa/
+          cp _bay_incontext_qa/incontext-browser-results.json docs/asteria-wall-bay-incontext-qa/
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          root=Path('docs/asteria-wall-bay-incontext-qa')
+          canvas=Image.new('RGB',(1280*2,2*(800+40)),(18,20,28))
+          for i,view in enumerate(['aft','command']):
+              for j,route in enumerate(['3d-preview-v5-command','3d-preview-v5-command-bay']):
+                  file=root/f'{route}-{view}-1280x800.png'
+                  canvas.paste(Image.open(file).convert('RGB'),(1280*j,(800+40)*i))
+                  ImageDraw.Draw(canvas).text((1280*j+14,(800+40)*i+809),
+                      f'{view}: '+('baseline' if j==0 else 'one bay candidate'),
+                      fill=(255,255,255))
+          canvas.save(root/'matched-wall-bay-ab.jpg',quality=88,optimize=True)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/asteria-wall-bay-incontext-qa/
+          git diff --cached --quiet && exit 0
+          git commit -m 'QA-only: archive verified real in-context WebGL A/B screens'
+          git push origin HEAD:experiment/asteria-wall-ceiling-bay-01
