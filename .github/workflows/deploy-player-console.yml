@@ -187,6 +187,121 @@ jobs:
           print('Verified isolated publishing route, 90,716+31,484 triangles; approved Pages assets unchanged.')
           PY
 
+      # Separate reviewed command-panel source: an opt-in extra Pages folder,
+      # NOT a merge of experimental Blender source into the game or PADD.
+      - name: Checkout pinned, screenshot-verified Asteria command architecture
+        uses: actions/checkout@v4
+        with:
+          repository: JeremyHennessy/TrekMUD
+          ref: 2edb73fe7e43967a22c57dc81b2cebdfd6ad3e1a
+          path: asteria-command-source
+          persist-credentials: false
+
+      - name: Build independently isolated command-platform preview
+        run: |
+          set -euo pipefail
+          # The existing, previously approved Pages output is a hard baseline.
+          # Every byte outside the NEW preview folder must remain identical.
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          site=Path('_site')
+          files={str(f.relative_to(site)):hashlib.sha256(f.read_bytes()).hexdigest()
+                 for f in site.rglob('*') if f.is_file()}
+          Path('_site-before-command-hashes.json').write_text(json.dumps(files,sort_keys=True))
+          print('Preexisting published Pages assets locked:',len(files))
+          PY
+
+          npm ci --prefix asteria-command-source/ui/3d-preview-v5 --no-audit --no-fund
+          (
+            cd asteria-command-source
+            ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+              python scripts/extract_asteria_v3_for_v5.py
+
+            mkdir -p _site/3d-preview-v5-command/models
+            ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
+              ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5-command/models" \
+              python scripts/build_asteria_v5_assets.py
+
+            python scripts/asteria_command_pbr_maps.py \
+              --out _asteria_command_maps --v3-atlas _v5_mesh_capture/atlas.png
+            blender -b -t 4 --python-exit-code 1 \
+              --python scripts/asteria_command_blender.py -- \
+              --materials _asteria_command_maps --out _command_pages_source \
+              --samples 24 --no-render --bake-ao --correct-screen-uv
+
+            cp _command_pages_source/asteria-command-set-candidate.glb \
+               _site/3d-preview-v5-command/models/asteria-command-set-candidate.glb
+            cp ui/3d-preview-v5-command/src/index.html \
+               _site/3d-preview-v5-command/index.html
+            cp ui/3d-preview-v5/node_modules/three/LICENSE \
+               _site/3d-preview-v5-command/THREE-LICENSE.txt
+
+            # Resolve the exact pinned Three.js/esbuild modules; leave the
+            # original app bundle and all earlier public routes untouched.
+            cp ui/3d-preview-v5-command/src/main.js \
+               ui/3d-preview-v5/src/__temporary_command_pages_review.js
+            trap 'rm -f ui/3d-preview-v5/src/__temporary_command_pages_review.js' EXIT
+            ui/3d-preview-v5/node_modules/.bin/esbuild \
+               ui/3d-preview-v5/src/__temporary_command_pages_review.js \
+               --bundle --platform=browser --target=es2021 --format=iife --minify \
+               --outfile=_site/3d-preview-v5-command/app.js
+            rm ui/3d-preview-v5/src/__temporary_command_pages_review.js
+            trap - EXIT
+          )
+
+          cp -a asteria-command-source/_site/3d-preview-v5-command _site/3d-preview-v5-command
+          # REUSE the already built, verified hero-chair GLB identically;
+          # don't create a near-duplicate with changed positions/materials.
+          cp _site/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb \
+             _site/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb
+          python - <<'PY'
+          import hashlib,json,struct
+          from pathlib import Path
+          import trimesh
+          site=Path('_site')
+          before=json.loads(Path('_site-before-command-hashes.json').read_text())
+          for path,sha in before.items():
+              p=site/path
+              assert p.is_file() and hashlib.sha256(p.read_bytes()).hexdigest()==sha, \
+                  f'Approved Pages file changed during command preview build: {path}'
+          folder=site/'3d-preview-v5-command'
+          html=(folder/'index.html').read_text()
+          assert 'REVIEW ONLY · COMMAND PLATFORM' in html
+          assert '#topTitle{width:calc(100vw - 194px);max-width:210px}' in html
+          assert (folder/'app.js').stat().st_size>200000
+          root=folder/'models'
+          manifest=json.loads((root/'manifest.json').read_text())
+          assert manifest['original_triangles']==106988
+          assert manifest['captain_chair_source_faces_removed']==16272
+          assert manifest['command_section_source_faces_removed']==8628
+          assert manifest['triangles']==82088
+          model=trimesh.load(root/'asteria-v3-restored-pbr.glb',force='scene',process=False)
+          chair=trimesh.load(root/'asteria-hero-chair-candidate.glb',force='scene',process=False)
+          command=trimesh.load(root/'asteria-command-set-candidate.glb',force='scene',process=False)
+          count=lambda scene:sum(len(mesh.faces) for mesh in scene.geometry.values())
+          assert (count(model),count(chair),count(command))==(82088,31484,16292)
+          # The chair is exactly the published chair already visually accepted
+          # as the test baseline, not just geometrically similar.
+          prior=site/'3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb'
+          new=root/'asteria-hero-chair-candidate.glb'
+          assert hashlib.sha256(prior.read_bytes()).hexdigest()==hashlib.sha256(new.read_bytes()).hexdigest()
+          binary=(root/'asteria-command-set-candidate.glb').read_bytes()
+          length=struct.unpack_from('<I',binary,12)[0]
+          gltf=json.loads(binary[20:20+length])
+          assert any(m.get('occlusionTexture',{}).get('texCoord')==1
+                    for m in gltf['materials'])
+          assert any('TEXCOORD_1' in p['attributes']
+                    for mesh in gltf['meshes'] for p in mesh['primitives'])
+          assert len(gltf.get('images',[]))>=18
+          assert (site/'index.html').is_file()
+          assert (site/'3d-preview-v3/index.html').is_file()
+          assert (site/'3d-preview-v4/index.html').is_file()
+          print('CMD_PUBLICATION_PREVIEW_BUILD_VERIFIED:',
+                'original room',82088,'chair',31484,'new command',16292,
+                'existing Pages assets unchanged',len(before),flush=True)
+          PY
+
       - name: Configure GitHub Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
@@ -235,6 +350,11 @@ jobs:
             ('3d-preview-v5-chair/app.js',b'AST-D01-BRIDGE',200_000),
             ('3d-preview-v5-chair/models/asteria-v3-restored-pbr.glb',b'glTF',3_000_000),
             ('3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb',b'glTF',100_000),
+            ('3d-preview-v5-command/',b'REVIEW ONLY',1000),
+            ('3d-preview-v5-command/app.js',b'AST-D01-BRIDGE',200_000),
+            ('3d-preview-v5-command/models/asteria-v3-restored-pbr.glb',b'glTF',3_000_000),
+            ('3d-preview-v5-command/models/asteria-hero-chair-candidate.glb',b'glTF',100_000),
+            ('3d-preview-v5-command/models/asteria-command-set-candidate.glb',b'glTF',100_000),
           ]
           # GitHub Pages CDN can take a short time to update after deployment.
           for attempt in range(1,16):
@@ -319,6 +439,86 @@ jobs:
               browser.close()
           print('REMOTE_INTERACTIVE_URL_VERIFIED',url,flush=True)
           PY
+      - name: Verify PUBLIC command-platform WebGL and capture real screenshots
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageStat
+          from playwright.sync_api import sync_playwright
+          import shutil,json
+          origin='https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-command/'
+          output=Path('_command_deployed_qa');output.mkdir(exist_ok=True)
+          testViews=[('aft',1280,800),('commandDetail',1280,800),
+                     ('command',1280,800),('aft',390,844)]
+          rows=[]
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True,
+                executable_path=shutil.which('google-chrome'),
+                args=['--no-sandbox','--disable-dev-shm-usage','--enable-webgl',
+                      '--use-gl=angle','--use-angle=swiftshader',
+                      '--enable-unsafe-swiftshader'])
+              for view,width,height in testViews:
+                  page=browser.new_page(viewport={'width':width,'height':height},
+                                        has_touch=width<500,device_scale_factor=1)
+                  errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+                  response=page.goto(origin+'?studioCapture='+view,
+                      wait_until='domcontentloaded',timeout=60000)
+                  assert response and response.status==200,(view,response.status if response else None)
+                  page.wait_for_function(
+                      "document.body.dataset.rendererReady === 'true' || document.body.dataset.rendererReady === 'error'",
+                      timeout=120000)
+                  state=page.evaluate("""() => ({
+                      ready:document.body.dataset.rendererReady,
+                      source:window.__asteriaV5?.sourceV3Sha,
+                      unchangedGame:window.__asteriaV5?.changesCampaign === false,
+                      oldRoom:Number(document.body.dataset.geometryTriangles),
+                      oldChairRemoved:Number(document.body.dataset.captainChairFacesRemoved),
+                      oldCommandRemoved:Number(document.body.dataset.commandFacesRemoved),
+                      chair:Number(document.body.dataset.heroChairFaces),
+                      newCommand:Number(document.body.dataset.commandMeshFaces),
+                      bakedAo:Number(document.body.dataset.commandBakedAoMaterials),
+                      missing:document.body.dataset.missingMaterials,
+                      frames:Number(document.body.dataset.renderedFrames||0),
+                      mobileTitleOverlap:(() => {
+                        const a=document.getElementById('topTitle').getBoundingClientRect();
+                        const b=document.getElementById('panel').getBoundingClientRect();
+                        return Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left)) *
+                               Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));
+                      })()
+                  })""")
+                  assert state['ready']=='true' and not errors,(view,state,errors)
+                  assert state['source']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+                  assert state['unchangedGame'] and state['oldRoom']==82088,state
+                  assert (state['oldChairRemoved'],state['oldCommandRemoved'])==(16272,8628),state
+                  assert (state['chair'],state['newCommand'])==(31484,16292),state
+                  assert state['bakedAo']>=1 and state['missing']=='0',state
+                  assert state['mobileTitleOverlap']==0 if width<500 else True,state
+                  filename=f'asteria-command-live-{view}-{width}x{height}.png'
+                  page.screenshot(path=str(output/filename),timeout=90000)
+                  im=Image.open(output/filename).convert('RGB')
+                  assert im.size==(width,height)
+                  assert min(ImageStat.Stat(im).stddev)>18
+                  row={'view':view,'size':[width,height],'state':state,'file':filename}
+                  rows.append(row)
+                  print('PUBLIC_COMMAND_SCREENSHOT_VERIFIED',json.dumps(row),flush=True)
+                  page.close()
+              browser.close()
+          (output/'public-command-qa.json').write_text(
+              json.dumps({'url':origin,'screenshots':rows,
+                          'gameSourceUnchanged':True,
+                          'actualLiveWebGl':True,
+                          'artApproved':False},indent=2)+'\n')
+          print('PUBLIC_COMMAND_WALKTHROUGH_ACTUALLY_VERIFIED',origin,flush=True)
+          PY
+      - name: Archive real public command-platform WebGL screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-command-public-real-screenshots
+          path: _command_deployed_qa/*
+          if-no-files-found: ignore
+          retention-days: 14
+
       - name: Preserve actual deployed mobile verification screenshots
         if: always()
         uses: actions/upload-artifact@v4
