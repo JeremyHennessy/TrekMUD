@@ -1,0 +1,40 @@
+{
+  "roomId": "AST-D01-BRIDGE",
+  "sourceV3Blob": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "totalFaces": 106988,
+  "selectedWallDecorK": 24,
+  "selectedCeilingWedges": [
+    36,
+    37
+  ],
+  "wallAngleRadians": 2.405281875404685,
+  "ceilingAngleSpanRadians": [
+    2.356194490192345,
+    2.4870941840919194
+  ],
+  "ranges": [
+    {
+      "name": "ceilingWedge36",
+      "start": 6408,
+      "end": 6410,
+      "faces": 2
+    },
+    {
+      "name": "ceilingWedge37",
+      "start": 6410,
+      "end": 6412,
+      "faces": 2
+    },
+    {
+      "name": "wallBayDecor24",
+      "start": 96966,
+      "end": 97024,
+      "faces": 58
+    }
+  ],
+  "removedFaces": 62,
+  "method": "exact frozen V3 generator drawing call boundaries, instrumented in memory",
+  "structuralWallSubstrateRetained": true,
+  "neighborRibsAndConsolesRetained": true,
+  "noSourceEdits": true
+}
