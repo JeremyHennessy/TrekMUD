@@ -1,0 +1,96 @@
+name: External Asteria Pages URL verification (temporary)
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-asteria-public-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-site:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify the real public site plus existing URLs by HTTPS GET
+        run: |
+          python - <<'PY'
+          import json
+          import time
+          import urllib.request
+          root='https://jeremyhennessy.github.io/TrekMUD/'
+          files=[
+              ('',2000,b'asteria'),
+              ('3d-preview-v3/',1000,b'asteria'),
+              ('3d-preview-v4/',1000,b'asteria'),
+              ('3d-preview-v5-chair/',1000,b'REVIEW ONLY'),
+              ('3d-preview-v5-chair/app.js',200000,b'AST-D01-BRIDGE'),
+              ('3d-preview-v5-chair/models/manifest.json',200,b'captain_chair_source_faces_removed'),
+              ('3d-preview-v5-chair/models/asteria-v3-restored-pbr.glb',3000000,b'glTF'),
+              ('3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb',100000,b'glTF'),
+          ]
+          for attempt in range(1,26):
+              try:
+                  for relative,minimum,marker in files:
+                      url=root+relative
+                      req=urllib.request.Request(url,headers={'User-Agent':'Asteria-Independent-Public-Healthcheck/1.0'})
+                      with urllib.request.urlopen(req,timeout=40) as res:
+                          content=res.read(24000001)
+                          assert res.status==200,(relative,res.status)
+                      assert len(content)>=minimum,(relative,len(content))
+                      assert marker.lower() in content.lower(),(relative,'marker absent')
+                      if relative.endswith('manifest.json'):
+                          data=json.loads(content)
+                          assert data['triangles']==90716,data
+                          assert data['captain_chair_source_faces_removed']==16272,data
+                      print('EXTERNAL_HTTP_OK',url,len(content),flush=True)
+                  break
+              except Exception as e:
+                  print('PUBLIC_CHECK_RETRY',attempt,str(e),flush=True)
+                  if attempt==25:raise
+                  time.sleep(12)
+          print('PUBLIC_HTTP_READY',root+'3d-preview-v5-chair/',flush=True)
+          PY
+      - name: Verify actual remote WebGL boot and model integrity
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.56.0
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          import shutil
+          url='https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/?studioCapture=aft'
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True,executable_path=shutil.which('google-chrome'),
+                  args=['--no-sandbox','--disable-dev-shm-usage','--enable-webgl',
+                        '--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+              page=browser.new_page(viewport={'width':1024,'height':720})
+              errors=[]
+              page.on('pageerror',lambda err:errors.append(str(err)))
+              r=page.goto(url,wait_until='domcontentloaded',timeout=60000)
+              assert r and r.status==200
+              page.wait_for_function(
+                  "document.body.dataset.rendererReady === 'true' || document.body.dataset.rendererReady === 'error'",
+                  timeout=120000)
+              state=page.evaluate("""() => ({
+                  ready:document.body.dataset.rendererReady,
+                  chair:document.body.dataset.heroChairFaces,
+                  removed:document.body.dataset.captainChairFacesRemoved,
+                  missing:document.body.dataset.missingMaterials,
+                  source:window.__asteriaV5?.sourceV3Sha,
+                  rendered:document.body.dataset.renderedFrames,
+                  campaignWrites:window.__asteriaV5?.changesCampaign
+              })""")
+              print('EXTERNAL_WEBGL_STATE',state,'errors',errors,flush=True)
+              assert state['ready']=='true',state
+              assert state['chair']=='31484',state
+              assert state['removed']=='16272',state
+              assert state['missing']=='0',state
+              assert state['source']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81',state
+              assert int(state['rendered'])>=1 and state['campaignWrites'] is False
+              assert not errors
+              browser.close()
+          print('PUBLIC_WALKTHROUGH_URL_VERIFIED',url,flush=True)
+          PY
