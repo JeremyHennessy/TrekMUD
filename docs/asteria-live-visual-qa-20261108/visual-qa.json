@@ -1,0 +1,534 @@
+{
+  "sourceUrl": "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/",
+  "liveSiteOnly": true,
+  "screenshotCount": 10,
+  "referenceV3Source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "testsPassed": true,
+  "screenshots": [
+    {
+      "view": "aft",
+      "size": [
+        1280,
+        800
+      ],
+      "hudVisible": true,
+      "filename": "live-aft-1280x800-hud.png",
+      "renderedFrameCount": 9,
+      "runtime": {
+        "ready": "true",
+        "source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "heroFaces": 31484,
+        "removedFaces": 16272,
+        "retainedFaces": 90716,
+        "missingMaterials": "0",
+        "frames": 3,
+        "changesCampaign": false,
+        "sceneVersion": "v5-chair-replacement-review-01",
+        "splashHidden": true,
+        "errorText": "",
+        "canvas": {
+          "w": 1280,
+          "h": 800
+        }
+      },
+      "image": {
+        "resolution": [
+          1280,
+          800
+        ],
+        "meanRgb": [
+          86.66,
+          79.22,
+          80.71
+        ],
+        "stdRgb": [
+          40.79,
+          36.84,
+          31.41
+        ],
+        "darkFraction": 0.065,
+        "brightFraction": 0.0
+      },
+      "assetResponses": [
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-v3-restored-pbr.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb"
+      ],
+      "pageErrors": [],
+      "networkErrors": [],
+      "verified": true
+    },
+    {
+      "view": "aft",
+      "size": [
+        1280,
+        800
+      ],
+      "hudVisible": false,
+      "filename": "live-aft-1280x800-clean.png",
+      "renderedFrameCount": 9,
+      "runtime": {
+        "ready": "true",
+        "source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "heroFaces": 31484,
+        "removedFaces": 16272,
+        "retainedFaces": 90716,
+        "missingMaterials": "0",
+        "frames": 2,
+        "changesCampaign": false,
+        "sceneVersion": "v5-chair-replacement-review-01",
+        "splashHidden": true,
+        "errorText": "",
+        "canvas": {
+          "w": 1280,
+          "h": 800
+        }
+      },
+      "image": {
+        "resolution": [
+          1280,
+          800
+        ],
+        "meanRgb": [
+          91.22,
+          83.07,
+          83.68
+        ],
+        "stdRgb": [
+          37.77,
+          33.89,
+          28.43
+        ],
+        "darkFraction": 0.0653,
+        "brightFraction": 0.0
+      },
+      "assetResponses": [
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": [],
+      "networkErrors": [],
+      "verified": true
+    },
+    {
+      "view": "chairReview",
+      "size": [
+        1280,
+        800
+      ],
+      "hudVisible": false,
+      "filename": "live-chairReview-1280x800-clean.png",
+      "renderedFrameCount": 9,
+      "runtime": {
+        "ready": "true",
+        "source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "heroFaces": 31484,
+        "removedFaces": 16272,
+        "retainedFaces": 90716,
+        "missingMaterials": "0",
+        "frames": 2,
+        "changesCampaign": false,
+        "sceneVersion": "v5-chair-replacement-review-01",
+        "splashHidden": true,
+        "errorText": "",
+        "canvas": {
+          "w": 1280,
+          "h": 800
+        }
+      },
+      "image": {
+        "resolution": [
+          1280,
+          800
+        ],
+        "meanRgb": [
+          73.67,
+          67.81,
+          69.54
+        ],
+        "stdRgb": [
+          41.2,
+          38.95,
+          34.37
+        ],
+        "darkFraction": 0.1126,
+        "brightFraction": 0.0
+      },
+      "assetResponses": [
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-v3-restored-pbr.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb"
+      ],
+      "pageErrors": [],
+      "networkErrors": [],
+      "verified": true
+    },
+    {
+      "view": "command",
+      "size": [
+        1280,
+        800
+      ],
+      "hudVisible": false,
+      "filename": "live-command-1280x800-clean.png",
+      "renderedFrameCount": 9,
+      "runtime": {
+        "ready": "true",
+        "source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "heroFaces": 31484,
+        "removedFaces": 16272,
+        "retainedFaces": 90716,
+        "missingMaterials": "0",
+        "frames": 2,
+        "changesCampaign": false,
+        "sceneVersion": "v5-chair-replacement-review-01",
+        "splashHidden": true,
+        "errorText": "",
+        "canvas": {
+          "w": 1280,
+          "h": 800
+        }
+      },
+      "image": {
+        "resolution": [
+          1280,
+          800
+        ],
+        "meanRgb": [
+          90.43,
+          84.31,
+          84.72
+        ],
+        "stdRgb": [
+          38.57,
+          34.59,
+          28.52
+        ],
+        "darkFraction": 0.07,
+        "brightFraction": 0.0
+      },
+      "assetResponses": [
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-v3-restored-pbr.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb"
+      ],
+      "pageErrors": [],
+      "networkErrors": [],
+      "verified": true
+    },
+    {
+      "view": "science",
+      "size": [
+        1280,
+        800
+      ],
+      "hudVisible": false,
+      "filename": "live-science-1280x800-clean.png",
+      "renderedFrameCount": 11,
+      "runtime": {
+        "ready": "true",
+        "source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "heroFaces": 31484,
+        "removedFaces": 16272,
+        "retainedFaces": 90716,
+        "missingMaterials": "0",
+        "frames": 3,
+        "changesCampaign": false,
+        "sceneVersion": "v5-chair-replacement-review-01",
+        "splashHidden": true,
+        "errorText": "",
+        "canvas": {
+          "w": 1280,
+          "h": 800
+        }
+      },
+      "image": {
+        "resolution": [
+          1280,
+          800
+        ],
+        "meanRgb": [
+          70.45,
+          67.88,
+          69.96
+        ],
+        "stdRgb": [
+          46.8,
+          44.5,
+          41.04
+        ],
+        "darkFraction": 0.2402,
+        "brightFraction": 0.0
+      },
+      "assetResponses": [
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": [],
+      "networkErrors": [],
+      "verified": true
+    },
+    {
+      "view": "flight",
+      "size": [
+        1280,
+        800
+      ],
+      "hudVisible": false,
+      "filename": "live-flight-1280x800-clean.png",
+      "renderedFrameCount": 9,
+      "runtime": {
+        "ready": "true",
+        "source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "heroFaces": 31484,
+        "removedFaces": 16272,
+        "retainedFaces": 90716,
+        "missingMaterials": "0",
+        "frames": 2,
+        "changesCampaign": false,
+        "sceneVersion": "v5-chair-replacement-review-01",
+        "splashHidden": true,
+        "errorText": "",
+        "canvas": {
+          "w": 1280,
+          "h": 800
+        }
+      },
+      "image": {
+        "resolution": [
+          1280,
+          800
+        ],
+        "meanRgb": [
+          72.88,
+          68.7,
+          72.28
+        ],
+        "stdRgb": [
+          54.73,
+          49.86,
+          41.64
+        ],
+        "darkFraction": 0.3012,
+        "brightFraction": 0.0
+      },
+      "assetResponses": [
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-v3-restored-pbr.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb"
+      ],
+      "pageErrors": [],
+      "networkErrors": [],
+      "verified": true
+    },
+    {
+      "view": "viewer",
+      "size": [
+        1280,
+        800
+      ],
+      "hudVisible": false,
+      "filename": "live-viewer-1280x800-clean.png",
+      "renderedFrameCount": 9,
+      "runtime": {
+        "ready": "true",
+        "source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "heroFaces": 31484,
+        "removedFaces": 16272,
+        "retainedFaces": 90716,
+        "missingMaterials": "0",
+        "frames": 2,
+        "changesCampaign": false,
+        "sceneVersion": "v5-chair-replacement-review-01",
+        "splashHidden": true,
+        "errorText": "",
+        "canvas": {
+          "w": 1280,
+          "h": 800
+        }
+      },
+      "image": {
+        "resolution": [
+          1280,
+          800
+        ],
+        "meanRgb": [
+          75.64,
+          70.68,
+          72.26
+        ],
+        "stdRgb": [
+          43.07,
+          39.92,
+          35.8
+        ],
+        "darkFraction": 0.1061,
+        "brightFraction": 0.0
+      },
+      "assetResponses": [
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": [],
+      "networkErrors": [],
+      "verified": true
+    },
+    {
+      "view": "aft",
+      "size": [
+        390,
+        844
+      ],
+      "hudVisible": true,
+      "filename": "live-aft-390x844-hud.png",
+      "renderedFrameCount": 7,
+      "runtime": {
+        "ready": "true",
+        "source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "heroFaces": 31484,
+        "removedFaces": 16272,
+        "retainedFaces": 90716,
+        "missingMaterials": "0",
+        "frames": 2,
+        "changesCampaign": false,
+        "sceneVersion": "v5-chair-replacement-review-01",
+        "splashHidden": true,
+        "errorText": "",
+        "canvas": {
+          "w": 390,
+          "h": 844
+        }
+      },
+      "image": {
+        "resolution": [
+          390,
+          844
+        ],
+        "meanRgb": [
+          74.19,
+          66.53,
+          69.36
+        ],
+        "stdRgb": [
+          43.25,
+          39.27,
+          33.58
+        ],
+        "darkFraction": 0.0843,
+        "brightFraction": 0.0
+      },
+      "assetResponses": [
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-v3-restored-pbr.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb"
+      ],
+      "pageErrors": [],
+      "networkErrors": [],
+      "verified": true
+    },
+    {
+      "view": "chairReview",
+      "size": [
+        390,
+        844
+      ],
+      "hudVisible": false,
+      "filename": "live-chairReview-390x844-clean.png",
+      "renderedFrameCount": 9,
+      "runtime": {
+        "ready": "true",
+        "source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "heroFaces": 31484,
+        "removedFaces": 16272,
+        "retainedFaces": 90716,
+        "missingMaterials": "0",
+        "frames": 2,
+        "changesCampaign": false,
+        "sceneVersion": "v5-chair-replacement-review-01",
+        "splashHidden": true,
+        "errorText": "",
+        "canvas": {
+          "w": 390,
+          "h": 844
+        }
+      },
+      "image": {
+        "resolution": [
+          390,
+          844
+        ],
+        "meanRgb": [
+          68.59,
+          59.59,
+          62.66
+        ],
+        "stdRgb": [
+          34.98,
+          34.31,
+          29.28
+        ],
+        "darkFraction": 0.0455,
+        "brightFraction": 0.0
+      },
+      "assetResponses": [
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-v3-restored-pbr.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb"
+      ],
+      "pageErrors": [],
+      "networkErrors": [],
+      "verified": true
+    },
+    {
+      "view": "command",
+      "size": [
+        390,
+        844
+      ],
+      "hudVisible": true,
+      "filename": "live-command-390x844-hud.png",
+      "renderedFrameCount": 7,
+      "runtime": {
+        "ready": "true",
+        "source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "heroFaces": 31484,
+        "removedFaces": 16272,
+        "retainedFaces": 90716,
+        "missingMaterials": "0",
+        "frames": 2,
+        "changesCampaign": false,
+        "sceneVersion": "v5-chair-replacement-review-01",
+        "splashHidden": true,
+        "errorText": "",
+        "canvas": {
+          "w": 390,
+          "h": 844
+        }
+      },
+      "image": {
+        "resolution": [
+          390,
+          844
+        ],
+        "meanRgb": [
+          64.6,
+          58.75,
+          63.74
+        ],
+        "stdRgb": [
+          45.46,
+          40.29,
+          34.38
+        ],
+        "darkFraction": 0.196,
+        "brightFraction": 0.0
+      },
+      "assetResponses": [
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": [],
+      "networkErrors": [],
+      "verified": true
+    }
+  ],
+  "limitations": [
+    "Software-WebGL CI screenshot quality is not physical iPhone FPS.",
+    "No model quality or user artistic approval is implied.",
+    "Screenshots are from real live page pixels, not image-generation previews."
+  ]
+}
