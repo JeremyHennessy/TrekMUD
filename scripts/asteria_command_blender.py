@@ -350,7 +350,7 @@ def studio():
     return {
       "aft":camera("QA / aft",(-1.23,1.67,4.80),(0,.68,.73),37),
       "command":camera("QA / command",(-2.32,1.67,2.15),(-.22,1.07,.50),42),
-      "console":camera("QA / port instrument",(-1.87,1.63,-.92),(-1.27,1.08,.58),62),
+      "console":camera("QA / port instrument",(-1.75,1.66,2.10),(-1.27,1.08,.58),62),
       "overhead":camera("QA / over-platform",(0,3.85,.20),(0,.20,1.11),37),
     }
 
