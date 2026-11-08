@@ -129,10 +129,24 @@ try:
                   wait_until="domcontentloaded")
         page.wait_for_function("document.body.dataset.rendererReady==='true'",timeout=90000)
         start=page.evaluate("window.__asteriaV5.getPosition()")
+        frames_before=page.evaluate("Number(document.body.dataset.renderedFrames||0)")
         page.keyboard.down("w")
-        page.wait_for_timeout(2200)
-        page.keyboard.up("w")
+        try:
+            # SwiftShader CPU rendering can be slow: wait for actual frame work
+            # instead of asserting movement after arbitrary wall-clock time.
+            page.wait_for_function(
+                "(initial) => Number(document.body.dataset.renderedFrames||0) >= initial+2",
+                arg=frames_before,timeout=90000
+            )
+        finally:
+            page.keyboard.up("w")
+        frames_after=page.evaluate("Number(document.body.dataset.renderedFrames||0)")
         finish=page.evaluate("window.__asteriaV5.getPosition()")
+        print("FRAME_GATED_WALK",json.dumps({
+            "beforeFrames":frames_before,"afterFrames":frames_after,
+            "positionBefore":start,"positionAfter":finish
+        }),flush=True)
+        assert frames_after>frames_before,(frames_before,frames_after)
         page.locator('[data-go="command"]').click()
         command=page.evaluate("window.__asteriaV5.getPosition()")
         assert abs(start["x"]-finish["x"])+abs(start["z"]-finish["z"])>.025,(start,finish)
