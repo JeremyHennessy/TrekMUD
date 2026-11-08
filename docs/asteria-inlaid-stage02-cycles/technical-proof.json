@@ -15,9 +15,9 @@
   ],
   "pbrImages": 12,
   "realCycesPixels": {
-    "wall": 48.926,
-    "ceiling": 34.274,
-    "combined": 23.241
+    "wall": 48.973,
+    "ceiling": 46.732,
+    "combined": 25.821
   },
   "reproducedFrom62SourceFaces": true,
   "inContextVisualImprovementUnproven": true
