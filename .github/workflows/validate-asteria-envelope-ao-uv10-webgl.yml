@@ -1,8 +1,8 @@
-name: Asteria Stage10 isolated inner-wall UV1 AO full-room real browser A/B
+name: Asteria Stage11 isolated inner-wall UV1 AO full-room real browser A/B
 
 on:
   push:
-    branches: [experiment/asteria-envelope-ao-uv10-webgl]
+    branches: [experiment/asteria-recessed-roof-rails-11]
     paths:
       - scripts/test_asteria_envelope_browser.py
       - scripts/asteria_envelope_blender.py
@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: asteria-stage10-isolated-receiver-full-webgl
+  group: asteria-stage11-isolated-receiver-full-webgl
   cancel-in-progress: false
 
 jobs:
@@ -309,7 +309,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: asteria-stage10-valid-UV1-fullroom-browser
+          name: asteria-stage11-valid-UV1-fullroom-browser
           path: |
             _stage08_browser/*.png
             _stage08_browser/*.json
@@ -347,4 +347,4 @@ jobs:
           git add docs/asteria-envelope-ao-uv10-webgl/
           git diff --cached --quiet && exit 0
           git commit -m 'QA Stage10: 14 real original vs valid interior UV1 architectural screenshots'
-          git push origin HEAD:experiment/asteria-envelope-ao-uv10-webgl
+          git push origin HEAD:experiment/asteria-recessed-roof-rails-11
