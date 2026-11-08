@@ -1,0 +1,151 @@
+name: Independently verify PUBLIC Asteria command architecture and screenshots
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-asteria-command-public.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-command:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 19
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check actual deployed HTTPS pages and binary model files
+        run: |
+          python - <<'PY'
+          import time,json,urllib.request
+          from urllib.error import HTTPError,URLError
+          root='https://jeremyhennessy.github.io/TrekMUD/'
+          paths=[
+            ('',500,b'asteria'),
+            ('3d-preview-v3/',1000,b'asteria'),
+            ('3d-preview-v4/',1000,b'asteria'),
+            ('3d-preview-v5-chair/',1000,b'REVIEW ONLY'),
+            ('3d-preview-v5-command/',1000,b'REVIEW ONLY'),
+            ('3d-preview-v5-command/app.js',200000,b'AST-D01-BRIDGE'),
+            ('3d-preview-v5-command/models/manifest.json',200,b'command_section_source_faces_removed'),
+            ('3d-preview-v5-command/models/asteria-v3-restored-pbr.glb',3000000,b'glTF'),
+            ('3d-preview-v5-command/models/asteria-hero-chair-candidate.glb',100000,b'glTF'),
+            ('3d-preview-v5-command/models/asteria-command-set-candidate.glb',100000,b'glTF'),
+          ]
+          for attempt in range(1,26):
+              try:
+                  for suffix,minimum,marker in paths:
+                      url=root+suffix
+                      request=urllib.request.Request(
+                          url,headers={'User-Agent':'Asteria-Independent-Command-VisualQA/1.0'})
+                      with urllib.request.urlopen(request,timeout=45) as r:
+                          data=r.read(24000001)
+                          assert r.status==200,(suffix,r.status)
+                      assert len(data)>=minimum,(suffix,len(data))
+                      assert marker.lower() in data.lower(),(suffix,'unexpected published bytes')
+                      if suffix.endswith('manifest.json'):
+                          meta=json.loads(data)
+                          assert meta['original_triangles']==106988,meta
+                          assert (meta['triangles'],meta['captain_chair_source_faces_removed'],
+                                  meta['command_section_source_faces_removed'])==(82088,16272,8628),meta
+                      print('LIVE_ASSET_OK',url,len(data),flush=True)
+                  break
+              except Exception as exc:
+                  print('DEPLOYMENT_WAIT',attempt,type(exc).__name__,str(exc),flush=True)
+                  if attempt==25:raise
+                  time.sleep(12)
+          print('PUBLIC_ASTERIA_COMMAND_ASSETS_VERIFIED',root+'3d-preview-v5-command/',flush=True)
+          PY
+      - name: Install real screenshot/browser verification dependencies
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.56.0 Pillow==12.3.0
+      - name: Load actual public WebGL, inspect three viewports and capture real screenshots
+        run: |
+          python - <<'PY'
+          import json,shutil
+          from pathlib import Path
+          from PIL import Image,ImageStat
+          from playwright.sync_api import sync_playwright
+          url='https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-command/'
+          out=Path('_asteria_command_public_qa');out.mkdir(exist_ok=True)
+          views=[('aft',1280,800),('commandDetail',1280,800),
+                 ('command',1280,800),('aft',390,844)]
+          results=[]
+          with sync_playwright() as playwright:
+              browser=playwright.chromium.launch(headless=True,
+                  executable_path=shutil.which('google-chrome'),
+                  args=['--no-sandbox','--disable-dev-shm-usage','--enable-webgl',
+                        '--use-gl=angle','--use-angle=swiftshader',
+                        '--enable-unsafe-swiftshader'])
+              for view,width,height in views:
+                  page=browser.new_page(viewport={'width':width,'height':height},
+                                        device_scale_factor=1,has_touch=width<500)
+                  errors=[]
+                  page.on('pageerror',lambda err:errors.append(str(err)))
+                  response=page.goto(url+'?studioCapture='+view,
+                         wait_until='domcontentloaded',timeout=60000)
+                  assert response and response.status==200
+                  page.wait_for_function(
+                      "['true','error'].includes(document.body.dataset.rendererReady)",
+                      timeout=120000)
+                  state=page.evaluate("""() => ({
+                    ready:document.body.dataset.rendererReady,
+                    originalSource:window.__asteriaV5?.sourceV3Sha,
+                    changesCampaign:window.__asteriaV5?.changesCampaign,
+                    roomFaces:Number(document.body.dataset.geometryTriangles),
+                    chairFaces:Number(document.body.dataset.heroChairFaces),
+                    commandFaces:Number(document.body.dataset.commandMeshFaces),
+                    removedOriginalChair:Number(document.body.dataset.captainChairFacesRemoved),
+                    removedOriginalCommand:Number(document.body.dataset.commandFacesRemoved),
+                    bakedAoMaterials:Number(document.body.dataset.commandBakedAoMaterials),
+                    materialErrors:document.body.dataset.missingMaterials,
+                    frames:Number(document.body.dataset.renderedFrames||0),
+                    titlePanelOverlap:(() => {
+                      const a=document.getElementById('topTitle').getBoundingClientRect();
+                      const b=document.getElementById('panel').getBoundingClientRect();
+                      return Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left)) *
+                             Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));
+                    })()
+                  })""")
+                  assert state['ready']=='true',state
+                  assert state['originalSource']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+                  assert state['changesCampaign'] is False
+                  assert (state['roomFaces'],state['chairFaces'],state['commandFaces'])==(82088,31484,16292)
+                  assert (state['removedOriginalChair'],state['removedOriginalCommand'])==(16272,8628)
+                  assert state['materialErrors']=='0' and state['bakedAoMaterials']>=1
+                  if width<500:assert state['titlePanelOverlap']==0,state
+                  assert not errors,(view,errors)
+                  page.wait_for_function(
+                      'Number(document.body.dataset.renderedFrames||0)>=2',
+                      timeout=90000)
+                  filename=f'asteria-command-live-{view}-{width}x{height}.png'
+                  page.screenshot(path=str(out/filename),timeout=90000)
+                  photo=Image.open(out/filename).convert('RGB')
+                  assert photo.size==(width,height)
+                  assert min(ImageStat.Stat(photo).stddev)>18
+                  item={'url':url,'view':view,'size':[width,height],
+                        'capture':filename,'browser':state,'pageErrors':errors,
+                        'actualWebGLPixels':True}
+                  results.append(item)
+                  print('REMOTE_COMMAND_IMAGE_VERIFIED',json.dumps(item),flush=True)
+                  page.close()
+              browser.close()
+          (out/'public-command-qa.json').write_text(
+              json.dumps({'url':url,'sourceVerified':True,'images':results,
+                          'visualAcceptance':False,
+                          'notPhysicalIPhoneTest':True},indent=2)+'\n')
+          print('PUBLIC_3D_COMMAND_WALKTHROUGH_SCREENSHOT_PASS',url,len(results),flush=True)
+          PY
+      - name: Archive actual public 3D command screenshots and captured browser data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-command-actual-public-webgl-screenshots
+          path: _asteria_command_public_qa/*
+          if-no-files-found: ignore
+          retention-days: 14
