@@ -113,25 +113,6 @@ jobs:
               python scripts/build_asteria_v5_assets.py
 
             cp ui/3d-preview-v5-chair/src/index.html _site/3d-preview-v5-chair/index.html
-            # One tested mobile-only heading fix. The pinned room art and desktop
-            # HUD remain unchanged; revert this small injection to roll back.
-            python - <<'PY'
-            from pathlib import Path
-            path=Path('_site/3d-preview-v5-chair/index.html')
-            original=path.read_text()
-            marker='</style>'
-            assert original.count(marker)==1
-            css=(
-              '@media(max-width:760px){'
-              '#topTitle{width:calc(100vw - 194px);max-width:210px}'
-              '#topTitle small{display:block;max-width:100%;white-space:normal;'
-              'letter-spacing:.12em;line-height:1.4;font-size:8px}'
-              '#topTitle h1{margin-top:7px;font-size:25px}'
-              '}'
-            )
-            path.write_text(original.replace(marker,css+'\n'+marker))
-            print('Asteria mobile title/minimap spacing applied to isolated preview only.')
-            PY
             cp ui/3d-preview-v5/node_modules/three/LICENSE _site/3d-preview-v5-chair/THREE-LICENSE.txt
             cp ui/3d-preview-v5-chair/src/main.js \
               ui/3d-preview-v5/src/__temporary_pages_preview.js
@@ -154,6 +135,25 @@ jobs:
           )
 
           cp -a asteria-chair-source/_site/3d-preview-v5-chair _site/3d-preview-v5-chair
+          # Apply narrow-screen-only UI CSS in the actual publishing folder.
+          # Original source and existing V1–V5 Pages files remain unchanged.
+          python - <<'PY'
+          from pathlib import Path
+          path=Path('_site/3d-preview-v5-chair/index.html')
+          original=path.read_text()
+          marker='</style>'
+          assert original.count(marker)==1
+          css=(
+            '@media(max-width:760px){'
+            '#topTitle{width:calc(100vw - 194px);max-width:210px}'
+            '#topTitle small{display:block;max-width:100%;white-space:normal;'
+            'letter-spacing:.12em;line-height:1.4;font-size:8px}'
+            '#topTitle h1{margin-top:7px;font-size:25px}'
+            '}'
+          )
+          path.write_text(original.replace(marker,css+'\n'+marker))
+          print('Asteria mobile heading injected only into isolated preview.')
+          PY
           python - <<'PY'
           import hashlib, json
           from pathlib import Path
