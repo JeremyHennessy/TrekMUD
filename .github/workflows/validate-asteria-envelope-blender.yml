@@ -51,10 +51,17 @@ jobs:
           ASTERIA_V3_CAPTURE_THREE_RIB_BAYS=1 \
           ASTERIA_V3_CAPTURE_ENVELOPE=1 \
             python scripts/extract_asteria_v3_for_v5.py
+      - name: Checkout frozen Stage04 comparison source into separate read-only sibling
+        uses: actions/checkout@v4
+        with:
+          repository: JeremyHennessy/TrekMUD
+          ref: 5066014473b143b66ef12d93121376f726d8b094
+          path: stage04-protected-source
+          persist-credentials: false
       - name: Assert *default* original V5 geometry stays byte identical to pinned Stage04 renderer
         run: |
           set -euo pipefail
-          git show 5066014473b143b66ef12d93121376f726d8b094:scripts/build_asteria_v5_assets.py > scripts/__stage04_protected_V5_builder.py
+          cp stage04-protected-source/scripts/build_asteria_v5_assets.py scripts/__stage04_protected_V5_builder.py
           mkdir -p _original_verification _candidate_default_verification
           ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 \
             ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
