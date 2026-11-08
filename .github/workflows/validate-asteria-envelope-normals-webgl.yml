@@ -38,6 +38,14 @@ jobs:
           python -m py_compile scripts/test_asteria_envelope_browser.py \
             scripts/asteria_envelope_blender.py scripts/asteria_envelope_scanned_pbr.py \
             scripts/build_asteria_v5_assets.py
+      - name: Install known good three.js, original V3, actual Chromium and Blender runtime
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          npm ci --prefix ui/3d-preview-v5 --no-audit --no-fund
+          sudo apt-get update
+          sudo apt-get install -y blender
+          command -v google-chrome || command -v chromium
       - name: Assert only inward wall winding was modified from the original scan shell
         run: |
           python - <<'PY'
@@ -60,14 +68,6 @@ jobs:
           assert min(vals)>.985, min(vals)
           print("CORRECTED_INWARD_112_PANEL_WINDING",min(vals),max(vals))
           PY
-      - name: Install known good three.js, original V3, actual Chromium and Blender runtime
-        run: |
-          python -m pip install --disable-pip-version-check \
-            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
-          npm ci --prefix ui/3d-preview-v5 --no-audit --no-fund
-          sudo apt-get update
-          sudo apt-get install -y blender
-          command -v google-chrome || command -v chromium
       - name: Capture immutable all original source-face boundaries, in memory only
         run: |
           ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 \
