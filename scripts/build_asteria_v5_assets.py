@@ -29,6 +29,7 @@ drop_captain=os.environ.get('ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR')=='1'
 drop_command=os.environ.get('ASTERIA_V5_EXCLUDE_COMMAND_SECTION')=='1'
 drop_rib_bay=os.environ.get('ASTERIA_V5_EXCLUDE_RIB_FIN_BAY')=='1'
 drop_three_bays=os.environ.get('ASTERIA_V5_EXCLUDE_THREE_RIB_BAYS')=='1'
+drop_envelope=os.environ.get('ASTERIA_V5_EXCLUDE_ENVELOPE')=='1'
 captain_removed=0
 command_removed=0
 command_spans=[]
@@ -36,13 +37,18 @@ rib_removed=0
 rib_spans=[]
 three_removed=0
 three_spans=[]
+envelope_removed=0
+envelope_spans=[]
+if drop_envelope:
+    assert drop_captain and drop_command and drop_three_bays and not drop_rib_bay, (
+      'Full envelope art is opt-in and requires proven exact original command/chair/three-bay extraction')
 if drop_three_bays:
     assert drop_captain and drop_command and not drop_rib_bay, 'Three-bay art candidate requires exact existing chair/command removal only'
 if drop_rib_bay:
     assert drop_captain and drop_command, 'Rib-fin bay only tested with proven independent chair and command'
 if drop_command:
     assert drop_captain, 'New command section is only reviewed with the proven independent hero chair'
-if drop_captain or drop_command or drop_rib_bay or drop_three_bays:
+if drop_captain or drop_command or drop_rib_bay or drop_three_bays or drop_envelope:
     assert os.environ.get('ASTERIA_V5_CHAIR_WINDING_REPAIR')!='1', (
       'Do not repair old chair faces that are being removed')
     keep=np.ones(original_triangle_count,dtype=bool)
@@ -110,12 +116,30 @@ if drop_captain or drop_command or drop_rib_bay or drop_three_bays:
             keep[first:last]=False
             three_removed+=segment['faces']
         assert three_removed==174==exact['removedFaces']
+    if drop_envelope:
+        proof=json.loads((SOURCE/'envelope-source-spans.json').read_text())
+        assert proof['sourceV3Blob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+        assert proof['totalOriginalTriangles']==original_triangle_count==106988
+        assert proof['exactSourceDrawingCalls'] and proof['sourceFilesUnmodified']
+        assert proof['floorCastRetained'] and proof['viewscreenAndStationMeshesRetained']
+        envelope_spans=proof['ranges']
+        assert [s['name'] for s in envelope_spans]==[
+          'originalWallEnclosure112','originalCeilingWedges96']
+        assert [s['faces'] for s in envelope_spans]==[672,192]
+        for segment in envelope_spans:
+            first,last=segment['start'],segment['end']
+            assert 0<=first<last<=106988 and last-first==segment['faces']
+            assert keep[first:last].all(),(
+              'Full surface excludes other furniture or protected game source',segment)
+            keep[first:last]=False
+            envelope_removed+=segment['faces']
+        assert envelope_removed==proof['removedFaces']==864
     def filter_faces(arr):
         shape=arr.shape[1:]
         return arr.reshape((-1,3)+shape)[keep].reshape((-1,)+shape)
     P=filter_faces(P);N=filter_faces(N);C=filter_faces(C)
     M=filter_faces(M);UV=filter_faces(UV)
-    assert len(P)//3==original_triangle_count-captain_removed-command_removed-rib_removed-three_removed
+    assert len(P)//3==original_triangle_count-captain_removed-command_removed-rib_removed-three_removed-envelope_removed
     print('Excluded frozen source face spans: captain',captain_removed,
           'command',command_removed,'remaining',len(P)//3,flush=True)
 # Identify exactly the two original forward starfield screen triangles. The PBR
@@ -123,7 +147,7 @@ if drop_captain or drop_command or drop_rib_bay or drop_three_bays:
 star=(M==7)&(np.abs(P[:,2]+6.06)<.0005)&(np.abs(P[:,0])<=3.101)
 assert int(star.sum())==6, f'V3 star-pane geometry drift: {star.sum()} vertices'
 M[star]=9
-assert len(P)==len(N)==len(C)==len(M)==len(UV)==3*(106988-captain_removed-command_removed-rib_removed-three_removed)
+assert len(P)==len(N)==len(C)==len(M)==len(UV)==3*(106988-captain_removed-command_removed-rib_removed-three_removed-envelope_removed)
 assert np.isfinite(P).all() and np.isfinite(N).all()
 assert len(P)%3==0 and (M.reshape(-1,3)==M.reshape(-1,3)[:,0:1]).all()
 print('Exact original V3:',len(P)//3,'triangles',flush=True)
@@ -337,6 +361,9 @@ if drop_rib_bay:
 if drop_three_bays:
     manifest['extras']['threeRibBaysRemovedFaces']=three_removed
     manifest['extras']['threeRibBaysSourceRanges']=three_spans
+if drop_envelope:
+    manifest['extras']['envelopeRemovedFaces']=envelope_removed
+    manifest['extras']['envelopeSourceRanges']=envelope_spans
 assert all(v.get('buffer',0)==0 for v in bufferViews)
 manifest['buffers'][0]['byteLength']=len(buf)
 js=json.dumps(manifest,separators=(',',':')).encode('utf-8');js+=b' '*((-len(js))%4)
@@ -356,5 +383,8 @@ if drop_rib_bay:
 if drop_three_bays:
     report['three_rib_bays_source_faces_removed']=three_removed
     report['three_rib_bays_source_ranges']=three_spans
+if drop_envelope:
+    report['envelope_source_faces_removed']=envelope_removed
+    report['envelope_source_ranges']=envelope_spans
 (OUT/'manifest.json').write_text(json.dumps(report,indent=2))
 print('REPORT',json.dumps(report,indent=2),flush=True)
