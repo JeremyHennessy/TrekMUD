@@ -1,0 +1,112 @@
+{
+  "id": "ASTERIA_ENVELOPE_SCANNED_PBR_08",
+  "originalV3Source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "scanProvider": "Poly Haven",
+  "scanAsset": "painted_plaster_wall",
+  "scanPage": "https://polyhaven.com/a/painted_plaster_wall",
+  "license": "CC0",
+  "licenseSource": "https://polyhaven.com/license",
+  "mapsProvenance": {
+    "diff": {
+      "apiMap": "Diffuse",
+      "originUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/painted_plaster_wall/painted_plaster_wall_diff_1k.png",
+      "apiMd5": "a579bdf62c32e5d8ada9b167da322416",
+      "rawSha256": "3a4516b94c7072b201c0423811d709ed955230114d9319888a9850ee64453d71",
+      "derivedFile": "scan_diff.png",
+      "derivedSha256": "695d6e12241d2d95b5990baf5f71332945804df2562a261b3b23569429527068",
+      "resolution": [
+        1024,
+        1024
+      ],
+      "rawBytes": 5617058
+    },
+    "normal": {
+      "apiMap": "nor_gl",
+      "originUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/painted_plaster_wall/painted_plaster_wall_nor_gl_1k.png",
+      "apiMd5": "a040e68bcbc18ce5f9bb84649c877d01",
+      "rawSha256": "dfc363188b3290091601337dc1041e491b3fee5becab82f21ea219b783f12e67",
+      "derivedFile": "scan_normal.png",
+      "derivedSha256": "74e33c59944bb41f24f3210a7c12c4add396c683d6c44a1e411566790bf859f5",
+      "resolution": [
+        1024,
+        1024
+      ],
+      "rawBytes": 5688118
+    },
+    "rough": {
+      "apiMap": "Rough",
+      "originUrl": "https://dl.polyhaven.org/file/ph-assets/Textures/png/1k/painted_plaster_wall/painted_plaster_wall_rough_1k.png",
+      "apiMd5": "d83a79ebf1c0a51f83c032a9ec87d435",
+      "rawSha256": "b8a994488c9d868fb007340492fe654596d10d79c9cda27fe679965b056fdbe1",
+      "derivedFile": "scan_rough.png",
+      "derivedSha256": "c98a86e4558781ad0abe9c23ea463ac000cf38d25f2db7860e73661a1224ff46",
+      "resolution": [
+        1024,
+        1024
+      ],
+      "rawBytes": 1678277
+    }
+  },
+  "derived": {
+    "wall": {
+      "baseTint": [
+        211,
+        201,
+        187
+      ],
+      "roughness": 0.67,
+      "metallic": 0.025,
+      "scanDetailMuted": true,
+      "textures": {
+        "base": {
+          "file": "architectural_wall_base.png",
+          "sha256": "f9983442f9178337db21b5e7f66ae06fc3e413a52cf601cdac69b0aad6e35659",
+          "bytes": 675414
+        },
+        "normal": {
+          "file": "architectural_wall_normal.png",
+          "sha256": "e147d3db689b25478c45ae62feafd583c186b04575369133fadfbea6806dca80",
+          "bytes": 1321833
+        },
+        "orm": {
+          "file": "architectural_wall_orm.png",
+          "sha256": "e810abd220fdd6eccc02f32f2d31d319da1f749375e36e7c3113a465db793055",
+          "bytes": 4548
+        }
+      }
+    },
+    "ceiling": {
+      "baseTint": [
+        211,
+        201,
+        190
+      ],
+      "roughness": 0.8,
+      "metallic": 0.0,
+      "scanDetailMuted": true,
+      "textures": {
+        "base": {
+          "file": "architectural_ceiling_base.png",
+          "sha256": "427c749a3d2ad8aae4f0384a96aa07fbc182a1f26c426439799f998676cffb84",
+          "bytes": 580574
+        },
+        "normal": {
+          "file": "architectural_ceiling_normal.png",
+          "sha256": "e147d3db689b25478c45ae62feafd583c186b04575369133fadfbea6806dca80",
+          "bytes": 1321833
+        },
+        "orm": {
+          "file": "architectural_ceiling_orm.png",
+          "sha256": "16f572d1efc877e8ebb166b112be37e230af9e9cc6b7f12b1ae11ba39eab408e",
+          "bytes": 4545
+        }
+      }
+    }
+  },
+  "photoBasedNormalAndRoughness": true,
+  "recoloredFromPhotographicBase": true,
+  "indoorWearAndDirtMuted": true,
+  "doesNotProveOriginalStarshipSurfaceMeasurements": true,
+  "notCalibratedRealWorldColour": true,
+  "downloadOnlyAtAuthoringBuildTime": true
+}
