@@ -81,14 +81,30 @@ def build_wall(mat):
     (base,base+3,base+7),(base,base+7,base+4),
     (base+1,base+5,base+6),(base+1,base+6,base+2)
   ])
- # The wall's visible face MUST point into the room: the frozen V3 is
- # double-sided, but Cycles wall normals previously pointed OUTWARD and
- # self-occluded against the 1 cm backing shell, producing black AO. Flip
- # the entire manufactured wall shell only; source room untouched.
+ # Preserve the existing source-verified inward facing winding. The
+ # original 112 panel interior sheets are the ONLY AO receivers. Prior
+ # combined 12-face cartridges gave the exterior/cap triangles shared
+ # UV1 coordinates (or 2,2 sentinel), creating giant invalid UV triangles
+ # that overwrote the wall AO atlas, making a false near-black bake.
  faces=[(first,third,second) for first,second,third in faces]
- ob=make("Architecture / exact 112 laminated manufactured perimeter wall panels",
-         pos,faces,mat,uv,ao)
+ assert len(faces)==112*12
+ interior=[];backing=[]
+ for k in range(112):
+  group=faces[k*12:(k+1)*12]
+  interior.extend(group[:2])  # original inner visible rectangle
+  backing.extend(group[2:])   # exact same physical exterior and caps
+ assert len(interior)==224 and len(backing)==1120
+ ob=make("Architecture / 112 source-fit interior acoustic wall AO receivers",
+         pos,interior,mat,uv,ao)
+ # The backing still renders with the same CC0 PBR maps and precisely the
+ # same faces, but has a SEPARATE material, so its exterior/cap UVs cannot
+ # influence the interior AO or sample an unrelated baked occlusion atlas.
+ outer_mat=mat.copy()
+ outer_mat.name="Architecture / original 112 exterior shell and capped edges / PBR no AO"
+ shell=make("Architecture / 112 exact outer wall shell and manufactured caps",
+           pos,backing,outer_mat,uv,None)
  MESHES['wall']=ob
+ MESHES['wallBacking']=shell
  # Modular horizontal joint relief is deliberately subtle. The far
  # acoustic/gallery equipment from V3 remains in front at original positions.
  for y,r,rad in ((.49,.991,.007),(3.12,.991,.007),(3.65,.991,.009)):
