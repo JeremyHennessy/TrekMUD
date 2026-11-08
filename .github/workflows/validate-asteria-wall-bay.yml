@@ -1,0 +1,139 @@
+name: Asteria one-bay geometry study - independent Cycles review
+
+on:
+  push:
+    branches: [experiment/asteria-wall-ceiling-bay-01]
+    paths:
+      - 'scripts/asteria_wall_ceiling_bay_blender.py'
+      - '.github/workflows/validate-asteria-wall-bay.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: asteria-wall-bay-stage01
+  cancel-in-progress: false
+
+jobs:
+  isolated-wall-bay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 44
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Confirm protected campaign and original bridge remain valid
+        run: |
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+          python -m py_compile scripts/asteria_wall_ceiling_bay_blender.py
+      - name: Install pinned geometry/rendering dependencies
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          sudo apt-get update
+          sudo apt-get install -y blender
+          blender --version
+      - name: Recover exact frozen V3 material atlas without editing original source
+        run: |
+          python scripts/extract_asteria_v3_for_v5.py
+          python scripts/asteria_command_pbr_maps.py \
+            --out _asteria_command_maps --v3-atlas _v5_mesh_capture/atlas.png
+      - name: Render isolated real Cycles wall and ceiling bay views
+        run: |
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_wall_ceiling_bay_blender.py -- \
+            --materials _asteria_command_maps --out _asteria_wall_bay_study \
+            --samples 20 --resolution 900 600
+      - name: Independently verify geometry bounds, actual image pixels and PBR
+        run: |
+          python - <<'PY'
+          import json,struct
+          from pathlib import Path
+          import numpy as np
+          from PIL import Image
+          import trimesh
+          root=Path('_asteria_wall_bay_study')
+          report=json.loads((root/'bay-report.json').read_text())
+          assert report['id']=='ASTERIA_WALL_CEILING_BAY_01'
+          assert report['roomId']=='AST-D01-BRIDGE'
+          assert report['sourceV3Blob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+          assert report['frozenSourceUnmodified'] and report['gameAndUiUnchanged']
+          assert not report['existingGeometryReplaced']
+          assert report['numberOfWallBays']==1
+          assert report['wallBlockedRadiusThreshold']==.919
+          assert min(report['panelRadiusRange'])>.919
+          assert report['renderViews']==['wall','ceiling','commandSightline']
+          assert report['meshObjects']>35
+          assert (root/'asteria-wall-ceiling-bay-candidate.blend').stat().st_size>100000
+          glb=root/'asteria-wall-ceiling-bay-candidate.glb'
+          assert glb.stat().st_size>100000
+          scene=trimesh.load(glb,force='scene',process=False)
+          faces=sum(len(m.faces) for m in scene.geometry.values())
+          bounds=scene.bounds
+          assert 1000<faces<60000,faces
+          assert bounds[0][0]>2 and bounds[1][0]<6.5,bounds
+          assert bounds[0][1]>.4 and bounds[1][1]<4.7,bounds
+          assert bounds[0][2]>-6.1 and bounds[1][2]<-1,bounds
+          raw=glb.read_bytes()
+          n=struct.unpack_from('<I',raw,12)[0]
+          gltf=json.loads(raw[20:20+n])
+          assert len(gltf.get('images',[]))>=12
+          assert any(m.get('normalTexture') for m in gltf['materials'])
+          stats={}
+          for view in report['renderViews']:
+              im=np.asarray(Image.open(root/f'asteria-bay-{view}.png').convert('RGB'))
+              assert im.shape==(600,900,3)
+              sigma=float(im.std(axis=(0,1)).mean())
+              assert sigma>9,(view,sigma)
+              stats[view]=round(sigma,3)
+          proof={'faces':faces,'meshObjects':report['meshObjects'],
+                 'bounds':bounds.tolist(),'pbrImages':len(gltf['images']),
+                 'cyclesPixelVariation':stats,'originalRoomModified':False,
+                 'inContextComparisonDone':False,'photorealismApproved':False}
+          (root/'technical-proof.json').write_text(json.dumps(proof,indent=2)+'\n')
+          print('BAY_STUDY_ENGINEERING_PASS',json.dumps(proof))
+          PY
+      - name: Preserve editable Blender source, model and actual Cycles renders
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-one-bay-cycles-visual-study
+          path: |
+            _asteria_wall_bay_study/*.blend
+            _asteria_wall_bay_study/*.glb
+            _asteria_wall_bay_study/*.png
+            _asteria_wall_bay_study/*.json
+            _asteria_command_maps/material-provenance.json
+          if-no-files-found: ignore
+          retention-days: 14
+      - name: Archive actual passed screenshot pixels on experimental branch only
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p docs/asteria-wall-bay-stage01
+          cp _asteria_wall_bay_study/asteria-bay-*.png docs/asteria-wall-bay-stage01/
+          cp _asteria_wall_bay_study/bay-report.json docs/asteria-wall-bay-stage01/
+          cp _asteria_wall_bay_study/technical-proof.json docs/asteria-wall-bay-stage01/
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          root=Path('docs/asteria-wall-bay-stage01')
+          files=['asteria-bay-wall.png','asteria-bay-ceiling.png',
+                 'asteria-bay-commandSightline.png']
+          canvas=Image.new('RGB',(900,3*640),(18,20,28))
+          for i,name in enumerate(files):
+              canvas.paste(Image.open(root/name).convert('RGB'),(0,i*640))
+              ImageDraw.Draw(canvas).text((16,i*640+608),name,fill=(230,230,230))
+          canvas.save(root/'visual-contact-sheet.jpg',quality=88,optimize=True)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/asteria-wall-bay-stage01/
+          git diff --cached --quiet && exit 0
+          git commit -m 'QA-only: archive actual isolated wall-bay Cycles render pixels'
+          git push origin HEAD:experiment/asteria-wall-ceiling-bay-01
