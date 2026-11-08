@@ -202,6 +202,11 @@ def main():
     sc=bpy.context.scene
     sc.render.engine="CYCLES"
     sc.cycles.samples=a.samples
+    # Ubuntu Blender 4.0.2 is built without OpenImageDenoiser; use the same
+    # explicit non-denoised Cycles path as the already verified command asset.
+    sc.cycles.use_denoising=False
+    for layer in sc.view_layers:
+        if hasattr(layer,"cycles"):layer.cycles.use_denoising=False
     sc.cycles.max_bounces=5
     sc.cycles.diffuse_bounces=3
     sc.render.resolution_x=a.resolution[0]
