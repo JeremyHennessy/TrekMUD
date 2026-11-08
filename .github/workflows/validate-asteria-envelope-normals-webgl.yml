@@ -1,0 +1,370 @@
+name: Asteria Stage09 wall-normal-corrected full-room scanned PBR real browser A/B
+
+on:
+  push:
+    branches: [experiment/asteria-envelope-normals-webgl-09]
+    paths:
+      - scripts/test_asteria_envelope_browser.py
+      - scripts/asteria_envelope_blender.py
+      - .github/workflows/validate-asteria-envelope-normals-webgl.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: asteria-stage09-inward-wall-fullroom-browser
+  cancel-in-progress: false
+
+jobs:
+  real-browser-envelope:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 58
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protect frozen V3, player, and unchanged default geometry
+        run: |
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
+          python -m py_compile scripts/test_asteria_envelope_browser.py \
+            scripts/asteria_envelope_blender.py scripts/asteria_envelope_scanned_pbr.py \
+            scripts/build_asteria_v5_assets.py
+      - name: Assert only inward wall winding was modified from the original scan shell
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import numpy as np,math
+          text=Path("scripts/asteria_envelope_blender.py").read_text()
+          assert text.count("(base,base+2,base+1),(base,base+3,base+2)")==1
+          assert text.count("(base+4,base+5,base+6),(base+4,base+6,base+7)")==1
+          p=lambda angle,r,y:np.array([7.55*math.sin(angle)*r,y,6.55*math.cos(angle)*r])
+          vals=[]
+          for k in range(112):
+            a=k*2*math.pi/112
+            b=(k+1)*2*math.pi/112
+            p0,p1,p2=p(a,.997,.015),p(b,.997,.015),p(b,.997,3.745)
+            n=np.cross(p2-p0,p1-p0);n=n/np.linalg.norm(n)
+            centroid=(p0+p1+p2)/3
+            inward=np.array([-centroid[0],0,-centroid[2]])
+            inward/=np.linalg.norm(inward)
+            vals.append(float(np.dot(n,inward)))
+          assert min(vals)>.985, min(vals)
+          print("CORRECTED_INWARD_112_PANEL_WINDING",min(vals),max(vals))
+          PY
+      - name: Install known good three.js, original V3, actual Chromium and Blender runtime
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          npm ci --prefix ui/3d-preview-v5 --no-audit --no-fund
+          sudo apt-get update
+          sudo apt-get install -y blender
+          command -v google-chrome || command -v chromium
+      - name: Capture immutable all original source-face boundaries, in memory only
+        run: |
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+            ASTERIA_V3_CAPTURE_INLAID_BAY=1 \
+            ASTERIA_V3_CAPTURE_THREE_RIB_BAYS=1 \
+            ASTERIA_V3_CAPTURE_ENVELOPE=1 \
+            python scripts/extract_asteria_v3_for_v5.py
+      - name: Create byte-identical three-bay control and optional wall/ceiling source-exact variant
+        run: |
+          set -euo pipefail
+          mkdir -p _site/3d-preview-v5-command-three-bays/models
+          ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
+            ASTERIA_V5_EXCLUDE_THREE_RIB_BAYS=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5-command-three-bays/models" \
+            python scripts/build_asteria_v5_assets.py
+          cp ui/3d-preview-v5-command/src/index.html \
+             _site/3d-preview-v5-command-three-bays/index.html
+          mkdir -p _site/3d-preview-v5-command-envelope
+          cp -a _site/3d-preview-v5-command-three-bays/. \
+             _site/3d-preview-v5-command-envelope/
+          ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
+            ASTERIA_V5_EXCLUDE_THREE_RIB_BAYS=1 \
+            ASTERIA_V5_EXCLUDE_ENVELOPE=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5-command-envelope/models" \
+            python scripts/build_asteria_v5_assets.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('_site')
+          a=json.loads((p/'3d-preview-v5-command-three-bays/models/manifest.json').read_text())
+          b=json.loads((p/'3d-preview-v5-command-envelope/models/manifest.json').read_text())
+          assert a['triangles']==81914 and b['triangles']==81050
+          assert 'envelope_source_faces_removed' not in a
+          assert b['envelope_source_faces_removed']==864
+          assert [row['faces'] for row in b['envelope_source_ranges']]==[672,192]
+          assert a['three_rib_bays_source_faces_removed']==b['three_rib_bays_source_faces_removed']==174
+          assert a['captain_chair_source_faces_removed']==b['captain_chair_source_faces_removed']==16272
+          assert a['command_section_source_faces_removed']==b['command_section_source_faces_removed']==8628
+          assert a['source_git_blob']==b['source_git_blob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+          print('EXACT_FULL_ARCHITECTURAL_ENVELOPE_864_REMOVED_SOURCE_FACES')
+          PY
+      - name: Build proven same chair, command and original triple-fin decoration once
+        run: |
+          python scripts/asteria_fetch_cc0_velour.py --out _cc0_chair
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_hero_chair_blender.py -- \
+            --out _stage08_chair --texture-dir _cc0_chair \
+            --samples 24 --no-render --integrated-back
+          python scripts/asteria_command_pbr_maps.py \
+            --out _command_maps --v3-atlas _v5_mesh_capture/atlas.png
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_command_blender.py -- \
+            --materials _command_maps --out _stage08_command \
+            --samples 24 --no-render --bake-ao --correct-screen-uv
+          python scripts/asteria_rib_fin_maps.py --out _rib_fin_maps
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_three_rib_bays_blender.py -- \
+            --out _stage08_threebays --materials _rib_fin_maps \
+            --command-materials _command_maps \
+            --source-report _v5_mesh_capture/three-rib-bays-source-spans.json \
+            --samples 20 --no-render
+          for route in 3d-preview-v5-command-three-bays 3d-preview-v5-command-envelope; do
+            root="_site/$route/models"
+            cp _stage08_chair/asteria-hero-chair-candidate.glb "$root/"
+            cp _stage08_command/asteria-command-set-candidate.glb "$root/"
+            cp _stage08_threebays/asteria-three-original-pitch-rib-bays-04.glb "$root/"
+          done
+      - name: Build whole-room scanned CC0 envelope with corrected local-ray Cycles AO
+        run: |
+          python scripts/asteria_envelope_scanned_pbr.py \
+            --out _envelope_scanned_maps
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_envelope_blender.py -- \
+            --out _stage08_envelope \
+            --materials _envelope_scanned_maps \
+            --command-materials _command_maps \
+            --source-report _v5_mesh_capture/envelope-source-spans.json \
+            --samples 20 --resolution 960 640 --bake-ao --no-render
+          cp _stage08_envelope/asteria-realistic-architectural-envelope-08.glb \
+            _site/3d-preview-v5-command-envelope/models/
+          python - <<'PY'
+          from pathlib import Path
+          import json,struct,trimesh,numpy as np
+          from PIL import Image
+          p=Path('_stage08_envelope')
+          scene=trimesh.load(p/'asteria-realistic-architectural-envelope-08.glb',
+                             force='scene',process=False)
+          tri=sum(len(mesh.faces) for mesh in scene.geometry.values())
+          glb=(p/'asteria-realistic-architectural-envelope-08.glb').read_bytes()
+          data=json.loads(glb[20:20+struct.unpack_from('<I',glb,12)[0]])
+          aos=[m for m in data['materials'] if m.get('occlusionTexture',{}).get('texCoord')==1]
+          assert 1000<tri<50000
+          assert len(aos)>=2
+          assert len(data.get('images',[]))>=12
+          results={}
+          for name in ('wall','ceiling'):
+            pixels=np.asarray(Image.open(p/f'asteria-envelope-{name}-real-cycles-ao.png').convert('RGB'))[:,:,0]
+            mean=float(pixels.mean());std=float(pixels.std())
+            assert mean>145,(name,mean,'Cannot publish nearly black AO')
+            assert std>2,(name,std,'Cannot fake AO with solid white')
+            results[name]={'mean':mean,'std':std,'minimum':int(pixels.min())}
+          proof={'newEnvelopeTriangles':tri,'meshObjects':53,'sourceRemovedFaces':864,
+                 'pbrImages':len(data['images']),'aoMaterialCount':len(aos),
+                 'realCyclesAORanges':results,'ownerVisualApproval':False}
+          path=Path('_site/3d-preview-v5-command-envelope/models/envelope-manifest.json')
+          path.write_text(json.dumps(proof,indent=2)+'\n')
+          print('WHOLE_ROOM_SCANNED_AO_ENVELOPE',json.dumps(proof))
+          PY
+      - name: Assemble both same-source original command/three-bay user interfaces with hidden QA cameras
+        run: |
+          set -euo pipefail
+          cp ui/3d-preview-v5-command/src/main.js \
+            ui/3d-preview-v5/src/__stage08_control_source.js
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('ui/3d-preview-v5/src/__stage08_control_source.js')
+          s=p.read_text()
+          views='  const views={'
+          assert s.count(views)==1
+          s=s.replace(views,views+
+             "\n    envelopeWall:{x:-2.6,z:-.5,yaw:-1.18,label:'QA WHOLE WALL ONLY'},"
+             "\n    envelopeCeiling:{x:-2.32,z:2.15,yaw:.22,label:'QA CEILING ONLY'},")
+          anchor="Object.assign(pos,{x:p.x,z:p.z,yaw:p.yaw,pitch:-.14});active=name;"
+          assert s.count(anchor)==1
+          s=s.replace(anchor,anchor+
+             "if(name==='envelopeCeiling')pos.pitch=.58;")
+          original='triangles!==106988-removed-commandRemoved||missing'
+          assert s.count(original)==1
+          s=s.replace(original,
+             'triangles!==106988-removed-commandRemoved-174||'+
+             'meta.threeRibBaysRemovedFaces!==174||'+
+             '(meta.threeRibBaysSourceRanges||[]).length!==3||missing')
+          anchor='    scene.add(room,hero,command);'
+          assert s.count(anchor)==1
+          triple="""    scene.add(room,hero,command);
+             loader.loadAsync('./models/asteria-three-original-pitch-rib-bays-04.glb')
+               .then(({scene:triple})=>{
+                 let faces=0,meshes=0,missing=0;
+                 triple.traverse(o=>{
+                   if(!o.isMesh)return;
+                   meshes++;
+                   faces+=o.geometry.index?o.geometry.index.count/3:
+                             o.geometry.attributes.position.count/3;
+                   if(!o.material)missing++;
+                   else o.material.side=THREE.DoubleSide;
+                   o.castShadow=!mobile;
+                   o.receiveShadow=true;
+                 });
+                 if(faces!==13098||meshes!==105||missing){
+                   fail('Frozen V3 three-bay source set is invalid');return;
+                 }
+                 scene.add(triple);
+                 document.body.dataset.threeBayFaces=String(faces);
+                 document.body.dataset.threeBayMeshes=String(meshes);
+                 document.body.dataset.threeBayLoaded='true';
+                 window.__asteriaThreeBayReview={excludedOriginalFaces:174,
+                     noGameWrites:true};
+               }).catch(e=>fail('QA original three-bay model failed: '+String(e.message||e)));
+          """
+          s=s.replace(anchor,triple)
+          assert s.count("threeBayLoaded")==1
+          p.write_text(s)
+          PY
+          ui/3d-preview-v5/node_modules/.bin/esbuild \
+            ui/3d-preview-v5/src/__stage08_control_source.js \
+            --bundle --platform=browser --target=es2021 --format=iife --minify \
+            --outfile=_site/3d-preview-v5-command-three-bays/app.js
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('_site/3d-preview-v5-command-envelope/models')
+          report=json.loads((root/'envelope-manifest.json').read_text())
+          expected=report['newEnvelopeTriangles']
+          s=Path('ui/3d-preview-v5/src/__stage08_control_source.js').read_text()
+          anchor='triangles!==106988-removed-commandRemoved-174||'
+          assert s.count(anchor)==1
+          s=s.replace(anchor,
+            'triangles!==106988-removed-commandRemoved-174-864||'+
+            'meta.envelopeRemovedFaces!==864||'+
+            '(meta.envelopeSourceRanges||[]).length!==2||')
+          anchor='    scene.add(room,hero,command);'
+          assert s.count(anchor)==1
+          extra="""    scene.add(room,hero,command);
+          loader.loadAsync('./models/asteria-realistic-architectural-envelope-08.glb')
+            .then(({scene:architecture})=>{
+               let faces=0,meshes=0,missing=0,ao=0;
+               architecture.traverse(o=>{
+                 if(!o.isMesh)return;
+                 meshes++;
+                 faces+=o.geometry.index?o.geometry.index.count/3:
+                           o.geometry.attributes.position.count/3;
+                 if(!o.material)missing++;
+                 if(o.material?.aoMap)ao++;
+                 if(o.material)o.material.side=THREE.DoubleSide;
+                 o.receiveShadow=true;
+                 o.castShadow=false;
+               });
+               if(faces!==EXPECTED_ARCH_FACES||meshes<50||missing||ao<2){
+                 fail('Scanned architectural envelope failed geometry, PBR or UV1 AO verification');return;
+               }
+               scene.add(architecture);
+               document.body.dataset.envelopeFaces=String(faces);
+               document.body.dataset.envelopeMeshes=String(meshes);
+               document.body.dataset.envelopeAOMaterials=String(ao);
+               document.body.dataset.envelopeOriginalRemoved='864';
+               document.body.dataset.envelopeLoaded='true';
+               window.__asteriaEnvelopeReview={originalRemoved:864,
+                    bakedCyclesAO:true,photographicPBR:true,
+                    originalPlayerUnchanged:true,notArtApproved:true};
+            }).catch(e=>fail('Scanned architectural envelope failed to load: '+String(e.message||e)));
+          """
+          extra=extra.replace("EXPECTED_ARCH_FACES",str(expected))
+          s=s.replace(anchor,extra)
+          assert s.count("envelopeLoaded")==1
+          Path('ui/3d-preview-v5/src/__stage08_candidate_source.js').write_text(s)
+          PY
+          ui/3d-preview-v5/node_modules/.bin/esbuild \
+            ui/3d-preview-v5/src/__stage08_candidate_source.js \
+            --bundle --platform=browser --target=es2021 --format=iife --minify \
+            --outfile=_site/3d-preview-v5-command-envelope/app.js
+          rm ui/3d-preview-v5/src/__stage08_control_source.js \
+             ui/3d-preview-v5/src/__stage08_candidate_source.js
+      - name: Independently prove the chair, command, original fins and UI are byte-identical
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import trimesh
+          root=Path('_site')
+          control=root/'3d-preview-v5-command-three-bays'
+          candidate=root/'3d-preview-v5-command-envelope'
+          assert (control/'index.html').read_bytes()==(candidate/'index.html').read_bytes()
+          for file in ('asteria-hero-chair-candidate.glb',
+                       'asteria-command-set-candidate.glb',
+                       'asteria-three-original-pitch-rib-bays-04.glb'):
+            assert (control/'models'/file).read_bytes()==(candidate/'models'/file).read_bytes(),file
+          assert (control/'app.js').read_bytes()!=(candidate/'app.js').read_bytes()
+          faces=lambda p:sum(len(g.faces) for g in trimesh.load(p,force='scene',process=False).geometry.values())
+          assert faces(control/'models/asteria-v3-restored-pbr.glb')==81914
+          assert faces(candidate/'models/asteria-v3-restored-pbr.glb')==81050
+          assert faces(control/'models/asteria-hero-chair-candidate.glb')==31484
+          assert faces(control/'models/asteria-command-set-candidate.glb')==16292
+          assert faces(control/'models/asteria-three-original-pitch-rib-bays-04.glb')==13098
+          print('ENVELOPE_QA_PROTECTED_APP_MODELS_EQUAL')
+          PY
+      - name: Verify 14 real matched Chromium screenshots including wall, ceiling and mobile movement
+        run: |
+          CHROME="$(command -v google-chrome || command -v chromium)" \
+            python scripts/test_asteria_envelope_browser.py _site _stage08_browser
+      - name: Confirm no user UI/game/old V3 or other published source changed
+        run: |
+          git diff --exit-code -- ui/3d/ ui/3d-preview/ ui/3d-preview-v3/ \
+            ui/3d-preview-v4/ ui/3d-preview-v5/ ui/3d-preview-v5-chair/ \
+            ui/3d-preview-v5-command/ campaign/ world/asteria/
+      - name: Preserve real browser image/geometry evidence regardless of result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-stage09-inward-wall-real-architecture-browser
+          path: |
+            _stage08_browser/*.png
+            _stage08_browser/*.json
+            _stage08_envelope/architectural-report.json
+            _site/3d-preview-v5-command-envelope/models/envelope-manifest.json
+          if-no-files-found: ignore
+          retention-days: 30
+      - name: Archive actual WebGL images only on isolated QA experiment branch
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p docs/asteria-envelope-stage09-webgl
+          cp _stage08_browser/*.png docs/asteria-envelope-stage09-webgl/
+          cp _stage08_browser/*.json docs/asteria-envelope-stage09-webgl/
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          p=Path('docs/asteria-envelope-stage09-webgl')
+          controls=['3d-preview-v5-command-three-bays','3d-preview-v5-command-envelope']
+          for name,views in [
+              ('full-bridge-overview-ab.jpg',['aft','command']),
+              ('full-architectural-detail-ab.jpg',['envelopeWall','envelopeCeiling'])]:
+            image=Image.new('RGB',(2560,1680),(20,20,30))
+            for y,view in enumerate(views):
+              for x,route in enumerate(controls):
+                f=p/f'{route}-{view}-1280x800.png'
+                image.paste(Image.open(f).convert('RGB'),(x*1280,y*840))
+                ImageDraw.Draw(image).text((x*1280+14,y*840+812),
+                   f'{view}: '+('protected Stage04' if x==0 else 'Stage09 corrected wall normals'),
+                   fill=(250,250,250))
+            image.save(p/name,quality=88,optimize=True)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/asteria-envelope-stage09-webgl/
+          git diff --cached --quiet && exit 0
+          git commit -m 'QA Stage09: 14 actual original vs inward-corrected whole-bridge WebGL screenshots'
+          git push origin HEAD:experiment/asteria-envelope-normals-webgl-09
