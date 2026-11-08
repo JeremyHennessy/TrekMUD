@@ -1,0 +1,50 @@
+{
+  "id": "ASTERIA_ARCHITECTURAL_ENVELOPE_08",
+  "sourceV3Blob": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "roomId": "AST-D01-BRIDGE",
+  "exactOriginalWallFacesRemoved": 672,
+  "exactOriginalRoofFacesRemoved": 192,
+  "originalFloorViewscreensAndFurniturePreserved": true,
+  "originalThreeBaysPreserved": true,
+  "newWallPanels": 112,
+  "roofWedges": 96,
+  "formedRoofBandsPerWedge": 3,
+  "physicalPracticalHousings": 12,
+  "originalPbrScan": "https://polyhaven.com/a/painted_plaster_wall",
+  "pbrLicense": "CC0",
+  "PBRScanPhotoBased": true,
+  "architecturalBakedAO": {
+    "wall": {
+      "file": "_stage08_envelope_model/asteria-envelope-wall-real-cycles-ao.png",
+      "textureSize": [
+        1536,
+        1536
+      ],
+      "source": "real Blender Cycles Ambient Occlusion node baked to UV1 using 0.32m ray distance",
+      "rayRadiusMeters": 0.32,
+      "notIndirectGI": true
+    },
+    "ceiling": {
+      "file": "_stage08_envelope_model/asteria-envelope-ceiling-real-cycles-ao.png",
+      "textureSize": [
+        1536,
+        1536
+      ],
+      "source": "real Blender Cycles Ambient Occlusion node baked to UV1 using 0.32m ray distance",
+      "rayRadiusMeters": 0.32,
+      "notIndirectGI": true
+    }
+  },
+  "fullIndirectLightmapYetUnproven": true,
+  "meshObjects": 54,
+  "renderedViewNames": [
+    "aft",
+    "forward",
+    "wall",
+    "ceiling"
+  ],
+  "noGameWrites": true,
+  "visualApproved": false,
+  "noPhysicalIphoneVerification": true,
+  "stage": "isolated candidate, independent browser comparison required"
+}

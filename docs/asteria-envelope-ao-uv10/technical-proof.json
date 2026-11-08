@@ -1,0 +1,64 @@
+{
+  "meshTriangles": 10464,
+  "meshObjects": 54,
+  "bounds": [
+    [
+      -7.602849960327148,
+      0.014999999664723873,
+      -6.595849990844727
+    ],
+    [
+      7.602849960327148,
+      4.380000114440918,
+      6.595849990844727
+    ]
+  ],
+  "embeddedPBRImages": 14,
+  "actualAO2UV1Materials": 2,
+  "renderPixelStats": {
+    "baked_wall": {
+      "extrema": [
+        [
+          0,
+          255
+        ],
+        [
+          0,
+          255
+        ],
+        [
+          0,
+          255
+        ]
+      ],
+      "mean": 241.94,
+      "stddev": 45.61
+    },
+    "baked_ceiling": {
+      "extrema": [
+        [
+          0,
+          255
+        ],
+        [
+          0,
+          255
+        ],
+        [
+          0,
+          255
+        ]
+      ],
+      "mean": 248.13,
+      "stddev": 32.86
+    },
+    "aft": 30.08,
+    "forward": 26.15,
+    "wall": 15.37,
+    "ceiling": 12.69
+  },
+  "sourceRemovedFaces": 864,
+  "originalMeshesUnchangedOutsideSpans": true,
+  "artApproved": false,
+  "inContextBrowserPending": true
+}
