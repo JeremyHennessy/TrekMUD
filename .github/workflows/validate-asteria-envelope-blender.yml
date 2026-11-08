@@ -173,9 +173,19 @@ jobs:
               path=p/f'asteria-envelope-{label}-real-cycles-ao.png'
               img=Image.open(path).convert('RGB')
               assert img.size==(1536,1536)
+              import numpy as np
+              px=np.asarray(img,dtype=np.uint8)
               extrema=img.getextrema()
-              assert extrema[0][0]<250,(label,extrema,'AO cannot be uniform white')
-              stats['baked_'+label]=extrema
+              mean=float(px[:,:,0].mean())
+              std=float(px[:,:,0].std())
+              # The previous global-distance AO was near BLACK (max only
+              # 58/147). Accept only predominantly bright local AO with real
+              # nearby-contact variation and a true original white background.
+              assert mean>145,(label,mean,'Local AO must not blacken whole room')
+              assert float(px[:,:,0].min())<248,(label,extrema,'Need actual contact variation')
+              assert std>2.0,(label,std,'Must not be a uniform fake AO image')
+              stats['baked_'+label]={'extrema':extrema,'mean':round(mean,2),
+                                      'stddev':round(std,2)}
           for label in ('aft','forward','wall','ceiling'):
               img=Image.open(p/f'asteria-envelope-{label}.png').convert('RGB')
               assert img.size==(960,640)
