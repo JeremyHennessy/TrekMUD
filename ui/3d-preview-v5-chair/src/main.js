@@ -201,7 +201,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     hero.updateMatrixWorld(true);
     const bounds=new THREE.Box3().setFromObject(hero);
     // These are physical room coordinates, not camera coordinates.
-    if(chairFaces!==26908||chairMeshes<20||chairMissing||
+    if(chairFaces!==31484||chairMeshes<20||chairMissing||
        bounds.min.x< -1.1||bounds.max.x>1.1||
        bounds.min.y< -.1||bounds.max.y>2.1||
        bounds.min.z<.45||bounds.max.z>2.5){
