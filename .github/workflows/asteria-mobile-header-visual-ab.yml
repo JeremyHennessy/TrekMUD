@@ -1,0 +1,37 @@
+name: Asteria live mobile header collision A/B screenshots
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/qa_asteria_mobile_header_ab.py
+      - .github/workflows/asteria-mobile-header-visual-ab.yml
+
+permissions:
+  contents: read
+
+jobs:
+  mobile-visual:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify read-only source and original campaign
+        run: |
+          python -m py_compile scripts/qa_asteria_mobile_header_ab.py
+          python scripts/validate_campaign.py
+      - name: Install Playwright screenshot dependencies
+        run: python -m pip install --disable-pip-version-check Pillow==12.3.0 playwright==1.56.0
+      - name: Capture actual live mobile title before and trial CSS after
+        run: python scripts/qa_asteria_mobile_header_ab.py _asteria_mobile_hud_ab
+      - name: Save original and candidate screenshot evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-mobile-header-before-after
+          path: _asteria_mobile_hud_ab/*
+          if-no-files-found: ignore
+          retention-days: 14
