@@ -1,0 +1,81 @@
+name: Asteria Stage04 measure exactly three original wall modules
+
+on:
+  push:
+    branches: [experiment/asteria-three-rib-bays-04]
+    paths:
+      - scripts/extract_asteria_v3_for_v5.py
+      - .github/workflows/validate-asteria-three-rib-source.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-boundaries:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prove frozen original game and source unaffected
+        run: |
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+          python -m py_compile scripts/extract_asteria_v3_for_v5.py
+          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
+      - name: Install exact established source-capture dependencies
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 playwright==1.56.0
+          command -v google-chrome || command -v chromium
+      - name: Instrument original three drawing calls in memory
+        run: |
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+            ASTERIA_V3_CAPTURE_INLAID_BAY=1 \
+            ASTERIA_V3_CAPTURE_THREE_RIB_BAYS=1 \
+            python scripts/extract_asteria_v3_for_v5.py
+      - name: Independent strict source-range and unchanged other-module checks
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import numpy as np
+          p=Path('_v5_mesh_capture')
+          x=json.loads((p/'three-rib-bays-source-spans.json').read_text())
+          old=json.loads((p/'inlaid-bay-source-spans.json').read_text())
+          chair=json.loads((p/'captain-chair-source-span.json').read_text())
+          command=json.loads((p/'command-section-source-spans.json').read_text())
+          assert x['sourceV3Blob']==old['sourceV3Blob']==chair['sourceV3Blob']==command['sourceV3Blob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+          assert x['selectedWallDecorK']==[22,23,24]
+          assert [r['faces'] for r in x['ranges']]==[58,58,58]
+          assert x['removedFaces']==174
+          assert x['ceilingWedgesRetained'] and x['otherGeometryUntouched'] and not x['sourceFilesModified']
+          single=next(q for q in old['ranges'] if q['name']=='wallBayDecor24')
+          assert x['ranges'][-1]['start']==single['start']
+          assert x['ranges'][-1]['end']==single['end']
+          mask=np.ones(106988,dtype=bool)
+          for r in ([{'start':chair['firstFaceIncluded'],'end':chair['lastFaceExcluded']}] +
+                    command['ranges'] + x['ranges']):
+            a,b=r['start'],r['end']
+            assert 0<=a<b<=106988 and mask[a:b].all(),r
+            mask[a:b]=False
+          assert mask.sum()==106988-16272-8628-174==81914
+          assert np.load(p/'positions.npy').size==106988*9
+          print('THREE_SOURCE_WALL_BAYS_EXACT_PASSED',json.dumps(x))
+          PY
+      - name: Preserve exact original V3 provenance as runner artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-three-source-wall-bays-stage04
+          path: |
+            _v5_mesh_capture/three-rib-bays-source-spans.json
+            _v5_mesh_capture/inlaid-bay-source-spans.json
+            _v5_mesh_capture/captain-chair-source-span.json
+            _v5_mesh_capture/command-section-source-spans.json
+          if-no-files-found: ignore
+          retention-days: 30
