@@ -27,12 +27,17 @@ assert original_triangle_count==106988,"Frozen V3 geometry count changed"
 # frozen-V3 generator draw-call indices, never proximity or guessed rectangles.
 drop_captain=os.environ.get('ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR')=='1'
 drop_command=os.environ.get('ASTERIA_V5_EXCLUDE_COMMAND_SECTION')=='1'
+drop_bay=os.environ.get('ASTERIA_V5_EXCLUDE_INLAID_BAY')=='1'
 captain_removed=0
 command_removed=0
 command_spans=[]
+bay_removed=0
+bay_spans=[]
+if drop_bay:
+    assert drop_captain and drop_command, 'Inlaid bay only tested alongside source-measured chair and command removal'
 if drop_command:
     assert drop_captain, 'New command section is only reviewed with the proven independent hero chair'
-if drop_captain or drop_command:
+if drop_captain or drop_command or drop_bay:
     assert os.environ.get('ASTERIA_V5_CHAIR_WINDING_REPAIR')!='1', (
       'Do not repair old chair faces that are being removed')
     keep=np.ones(original_triangle_count,dtype=bool)
@@ -62,12 +67,28 @@ if drop_captain or drop_command:
             command_removed+=segment['faces']
         assert 3000<command_removed<35000
         assert command_removed==report['commandFaces']
+    if drop_bay:
+        bay=json.loads((SOURCE/'inlaid-bay-source-spans.json').read_text())
+        assert bay['sourceV3Blob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+        assert bay['totalFaces']==original_triangle_count
+        assert bay['structuralWallSubstrateRetained'] and bay['neighborRibsAndConsolesRetained']
+        bay_spans=bay['ranges']
+        assert {r['name'] for r in bay_spans}=={
+            'wallBayDecor24','ceilingWedge36','ceilingWedge37'}
+        for segment in bay_spans:
+            first,last=segment['start'],segment['end']
+            assert 0<first<last<original_triangle_count
+            assert last-first==segment['faces']
+            assert keep[first:last].all(),f'Bay cannot remove chair, command or neighboring geometry: {segment}'
+            keep[first:last]=False
+            bay_removed+=segment['faces']
+        assert bay_removed==bay['removedFaces']==62
     def filter_faces(arr):
         shape=arr.shape[1:]
         return arr.reshape((-1,3)+shape)[keep].reshape((-1,)+shape)
     P=filter_faces(P);N=filter_faces(N);C=filter_faces(C)
     M=filter_faces(M);UV=filter_faces(UV)
-    assert len(P)//3==original_triangle_count-captain_removed-command_removed
+    assert len(P)//3==original_triangle_count-captain_removed-command_removed-bay_removed
     print('Excluded frozen source face spans: captain',captain_removed,
           'command',command_removed,'remaining',len(P)//3,flush=True)
 # Identify exactly the two original forward starfield screen triangles. The PBR
@@ -75,7 +96,7 @@ if drop_captain or drop_command:
 star=(M==7)&(np.abs(P[:,2]+6.06)<.0005)&(np.abs(P[:,0])<=3.101)
 assert int(star.sum())==6, f'V3 star-pane geometry drift: {star.sum()} vertices'
 M[star]=9
-assert len(P)==len(N)==len(C)==len(M)==len(UV)==3*(106988-captain_removed-command_removed)
+assert len(P)==len(N)==len(C)==len(M)==len(UV)==3*(106988-captain_removed-command_removed-bay_removed)
 assert np.isfinite(P).all() and np.isfinite(N).all()
 assert len(P)%3==0 and (M.reshape(-1,3)==M.reshape(-1,3)[:,0:1]).all()
 print('Exact original V3:',len(P)//3,'triangles',flush=True)
@@ -280,6 +301,8 @@ manifest={
           'captainChairRemovedFaces':captain_removed,
           'commandSectionRemovedFaces':command_removed,
           'commandSourceRanges':command_spans,
+          'inlaidBayRemovedFaces':bay_removed,
+          'inlaidBaySourceRanges':bay_spans,
           'remainingV3Triangles':len(P)//3,
           'physicalSize':[15.1,4.46,13.12], 'simulationWrites':False}
 }
@@ -295,6 +318,8 @@ report={'path':str(out),'sha256':hashlib.sha256(glb).hexdigest(),'bytes':len(glb
         'captain_chair_source_faces_removed':captain_removed,
         'command_section_source_faces_removed':command_removed,
         'command_source_ranges':command_spans,
+        'inlaid_bay_source_faces_removed':bay_removed,
+        'inlaid_bay_source_ranges':bay_spans,
         'chair_winding_faces_reordered':chair_winding_faces_reordered,'material_groups':len(MATS),'position_bounds':{'min':P.min(0).tolist(),'max':P.max(0).tolist()},'source_git_blob':'74a154ae62bccb0c16d03c2ecf791a64ab19ce81'}
 (OUT/'manifest.json').write_text(json.dumps(report,indent=2))
 print('REPORT',json.dumps(report,indent=2),flush=True)
