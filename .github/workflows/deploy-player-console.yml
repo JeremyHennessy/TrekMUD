@@ -2,6 +2,10 @@ name: Deploy TrekMUD player console
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/deploy-player-console.yml'
   push:
     branches:
       - main
@@ -22,13 +26,17 @@ permissions:
   id-token: write
 
 concurrency:
-  group: trek-player-console-pages
+  # PR preflights must not block or cancel production Pages deployments.
+  # Identical main refs still serialize all live Pages publishes.
+  group: trek-player-console-pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+    # Match the verified Blender 4.0.2 CI environment (Ubuntu 24.04).
+    # Newer ubuntu-latest installed Blender 5.0 without bundled NumPy.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -65,15 +73,112 @@ jobs:
           cp ui/3d-preview-v4/node_modules/three/LICENSE _site/3d-preview-v4/THREE-LICENSE.txt
           python scripts/verify_asteria_v4_assets.py _site/3d-preview-v4
 
+      # Read-only checkout of the exact previously verified art/renderer source.
+      # It is a sibling checkout, NOT a merge into the approved PADD, game, or V1–V4 routes.
+      - name: Checkout pinned independently tested Asteria hero-chair scene source
+        uses: actions/checkout@v4
+        with:
+          repository: JeremyHennessy/TrekMUD
+          ref: dd371561f2fc26d3601ede367d82e2898b6205da
+          path: asteria-chair-source
+          persist-credentials: false
+
+      - name: Publish opt-in chair preview into its own Pages folder only
+        run: |
+          set -euo pipefail
+          # Record the already-built public site. Any change outside the new
+          # preview path must fail the build before Pages deployment.
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          site=Path('_site')
+          files={str(f.relative_to(site)):hashlib.sha256(f.read_bytes()).hexdigest()
+                 for f in site.rglob('*') if f.is_file()}
+          Path('_site-original-file-hashes.json').write_text(json.dumps(files,sort_keys=True))
+          print('Original preexisting Pages assets:',len(files))
+          PY
+
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          npm ci --prefix asteria-chair-source/ui/3d-preview-v5 --no-audit --no-fund
+          sudo apt-get update
+          sudo apt-get install -y blender
+
+          (
+            cd asteria-chair-source
+            ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 python scripts/extract_asteria_v3_for_v5.py
+            mkdir -p _site/3d-preview-v5-chair/models
+            ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 \
+              ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5-chair/models" \
+              python scripts/build_asteria_v5_assets.py
+
+            cp ui/3d-preview-v5-chair/src/index.html _site/3d-preview-v5-chair/index.html
+            cp ui/3d-preview-v5/node_modules/three/LICENSE _site/3d-preview-v5-chair/THREE-LICENSE.txt
+            cp ui/3d-preview-v5-chair/src/main.js \
+              ui/3d-preview-v5/src/__temporary_pages_preview.js
+            trap 'rm -f ui/3d-preview-v5/src/__temporary_pages_preview.js' EXIT
+            ui/3d-preview-v5/node_modules/.bin/esbuild \
+              ui/3d-preview-v5/src/__temporary_pages_preview.js \
+              --bundle --platform=browser --target=es2021 --format=iife --minify \
+              --outfile=_site/3d-preview-v5-chair/app.js
+            rm ui/3d-preview-v5/src/__temporary_pages_preview.js
+            trap - EXIT
+
+            python scripts/asteria_fetch_cc0_velour.py --out _asteria_cc0_fabric
+            blender -b -t 4 --python-exit-code 1 \
+              --python scripts/asteria_hero_chair_blender.py -- \
+              --out _hero_chair_pages_preview \
+              --texture-dir _asteria_cc0_fabric \
+              --samples 24 --no-render --integrated-back
+            cp _hero_chair_pages_preview/asteria-hero-chair-candidate.glb \
+              _site/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb
+          )
+
+          cp -a asteria-chair-source/_site/3d-preview-v5-chair _site/3d-preview-v5-chair
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          import trimesh
+          site=Path('_site')
+          before=json.loads(Path('_site-original-file-hashes.json').read_text())
+          for path,original_sha in before.items():
+              source=site/path
+              assert source.is_file() and hashlib.sha256(source.read_bytes()).hexdigest()==original_sha, \
+                  f'Published approved site asset changed: {path}'
+          route=site/'3d-preview-v5-chair'
+          html=(route/'index.html').read_text()
+          assert 'REVIEW ONLY · HERO CHAIR TEST' in html
+          assert (route/'app.js').stat().st_size>200_000
+          base=route/'models/asteria-v3-restored-pbr.glb'
+          hero=route/'models/asteria-hero-chair-candidate.glb'
+          assert 3_000_000<base.stat().st_size<24_000_000
+          assert 100_000<hero.stat().st_size<16_000_000
+          room_manifest=json.loads((route/'models/manifest.json').read_text())
+          assert room_manifest['original_triangles']==106988
+          assert room_manifest['captain_chair_source_faces_removed']==16272
+          assert room_manifest['triangles']==90716
+          room=trimesh.load(base,force='scene',process=False)
+          chair=trimesh.load(hero,force='scene',process=False)
+          assert sum(len(g.faces) for g in room.geometry.values())==90716
+          assert sum(len(g.faces) for g in chair.geometry.values())==31484
+          assert 'AST-D01-BRIDGE' in (route/'app.js').read_text()
+          assert (site/'index.html').is_file() and (site/'3d-preview-v3/index.html').is_file()
+          assert (site/'3d-preview-v4/index.html').is_file()
+          print('Verified isolated publishing route, 90,716+31,484 triangles; approved Pages assets unchanged.')
+          PY
+
       - name: Configure GitHub Pages
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v4
         with:
           path: _site
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -84,3 +189,84 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  verify-hosted-preview:
+    # A successful Pages deploy alone is not proof that a link opens.
+    if: github.event_name != 'pull_request'
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    permissions:
+      contents: read
+    steps:
+      - name: Verify public Pages URLs and the actual hosted model files
+        run: |
+          python - <<'PY'
+          import time
+          import urllib.request
+          from urllib.error import HTTPError, URLError
+
+          root='https://jeremyhennessy.github.io/TrekMUD/'
+          files=[
+            ('',b'USS Asteria',2000),
+            ('3d-preview-v3/',b'asteria',1000),
+            ('3d-preview-v4/',b'asteria',1000),
+            ('3d-preview-v5-chair/',b'REVIEW ONLY',1000),
+            ('3d-preview-v5-chair/app.js',b'AST-D01-BRIDGE',200_000),
+            ('3d-preview-v5-chair/models/asteria-v3-restored-pbr.glb',b'glTF',3_000_000),
+            ('3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb',b'glTF',100_000),
+          ]
+          # GitHub Pages CDN can take a short time to update after deployment.
+          for attempt in range(1,16):
+              try:
+                  for name,marker,minimum in files:
+                      url=root+name
+                      request=urllib.request.Request(url,headers={'User-Agent':'Asteria-Preview-Healthcheck/1.0'})
+                      with urllib.request.urlopen(request,timeout=45) as response:
+                          assert response.status==200,(name,response.status)
+                          data=response.read(24_000_001)
+                      assert len(data)>=minimum,(name,len(data))
+                      assert marker.lower() in data.lower(),(name,'expected marker missing')
+                      print('PUBLIC_HTTP_OK',response.status,len(data),url,flush=True)
+                  break
+              except Exception as error:
+                  print('Remote Pages smoke attempt',attempt,'failed:',str(error),flush=True)
+                  if attempt==15:raise
+                  time.sleep(12)
+          print('PUBLIC_URL_CONFIRMED',root+'3d-preview-v5-chair/',flush=True)
+          PY
+      - name: Verify the hosted scene actually renders in remote Chromium
+        run: |
+          python -m pip install --disable-pip-version-check playwright==1.56.0
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+          import shutil
+          url='https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/?studioCapture=aft'
+          with sync_playwright() as p:
+              browser=p.chromium.launch(headless=True,executable_path=shutil.which('google-chrome'),
+                  args=['--no-sandbox','--disable-dev-shm-usage','--enable-webgl',
+                        '--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+              page=browser.new_page(viewport={'width':1024,'height':720})
+              errors=[]
+              page.on('pageerror',lambda e:errors.append(str(e)))
+              response=page.goto(url,wait_until='domcontentloaded',timeout=60000)
+              assert response is not None and response.status==200
+              page.wait_for_function(
+                  "document.body.dataset.rendererReady === 'true' || document.body.dataset.rendererReady === 'error'",
+                  timeout=120000)
+              data=page.evaluate("""() => ({
+                  ready:document.body.dataset.rendererReady,
+                  hero:document.body.dataset.heroChairFaces,
+                  removed:document.body.dataset.captainChairFacesRemoved,
+                  materials:document.body.dataset.missingMaterials,
+                  source:window.__asteriaV5?.sourceV3Sha,
+                  frames:document.body.dataset.renderedFrames
+              })""")
+              print('REMOTE_WEBGL',data,errors,flush=True)
+              assert data['ready']=='true' and data['hero']=='31484',data
+              assert data['removed']=='16272' and data['materials']=='0',data
+              assert data['source']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+              assert int(data['frames'])>=1 and not errors
+              browser.close()
+          print('REMOTE_INTERACTIVE_URL_VERIFIED',url,flush=True)
+          PY
