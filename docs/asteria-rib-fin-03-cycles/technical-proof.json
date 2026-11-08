@@ -1,0 +1,27 @@
+{
+  "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "originalWallFacesRemoved": 58,
+  "originalCeilingFacesRemoved": 0,
+  "newMeshFaces": 4366,
+  "meshObjects": 35,
+  "bounds": [
+    [
+      4.601677894592285,
+      0.8019999861717224,
+      -4.857390403747559
+    ],
+    [
+      5.0833940505981445,
+      2.8450000286102295,
+      -4.412306785583496
+    ]
+  ],
+  "PBRImages": 15,
+  "realCyclesPixelVariation": {
+    "grazing": 66.617,
+    "front": 63.578,
+    "detail": 69.398
+  },
+  "photorealismNotDemonstrated": true,
+  "inContextQARequired": true
+}

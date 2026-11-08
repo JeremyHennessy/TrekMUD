@@ -23,16 +23,21 @@ M=np.load(SOURCE/'materials.npy').astype('u1')
 UV=np.load(SOURCE/'uv.npy').reshape(-1,2).astype('<f4')
 original_triangle_count=len(P)//3
 assert original_triangle_count==106988,"Frozen V3 geometry count changed"
-# Optional independent art-review scene exclusions. Both use exact measured
+# Optional independent art-review scene exclusions. All use exact measured
 # frozen-V3 generator draw-call indices, never proximity or guessed rectangles.
 drop_captain=os.environ.get('ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR')=='1'
 drop_command=os.environ.get('ASTERIA_V5_EXCLUDE_COMMAND_SECTION')=='1'
+drop_rib_bay=os.environ.get('ASTERIA_V5_EXCLUDE_RIB_FIN_BAY')=='1'
 captain_removed=0
 command_removed=0
 command_spans=[]
+rib_removed=0
+rib_spans=[]
+if drop_rib_bay:
+    assert drop_captain and drop_command, 'Rib-fin bay only tested with proven independent chair and command'
 if drop_command:
     assert drop_captain, 'New command section is only reviewed with the proven independent hero chair'
-if drop_captain or drop_command:
+if drop_captain or drop_command or drop_rib_bay:
     assert os.environ.get('ASTERIA_V5_CHAIR_WINDING_REPAIR')!='1', (
       'Do not repair old chair faces that are being removed')
     keep=np.ones(original_triangle_count,dtype=bool)
@@ -62,12 +67,32 @@ if drop_captain or drop_command:
             command_removed+=segment['faces']
         assert 3000<command_removed<35000
         assert command_removed==report['commandFaces']
+    if drop_rib_bay:
+        bay=json.loads((SOURCE/'inlaid-bay-source-spans.json').read_text())
+        assert bay['sourceV3Blob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+        assert bay['totalFaces']==original_triangle_count
+        assert bay['structuralWallSubstrateRetained'] and bay['neighborRibsAndConsolesRetained']
+        assert {r['name'] for r in bay['ranges']}=={
+            'wallBayDecor24','ceilingWedge36','ceilingWedge37'}
+        # Precisely 58 faces of the old wall decoration ONLY.
+        # Keep both ORIGINAL ceiling wedges byte-identical after the previous
+        # experiment showed that changing roof geometry added little realism.
+        rib_spans=[r for r in bay['ranges'] if r['name']=='wallBayDecor24']
+        assert len(rib_spans)==1 and rib_spans[0]['faces']==58
+        for segment in rib_spans:
+            first,last=segment['start'],segment['end']
+            assert 0<first<last<original_triangle_count
+            assert last-first==segment['faces']
+            assert keep[first:last].all(),f'Bay cannot remove chair, command or neighboring geometry: {segment}'
+            keep[first:last]=False
+            rib_removed+=segment['faces']
+        assert rib_removed==58 and bay['removedFaces']==62
     def filter_faces(arr):
         shape=arr.shape[1:]
         return arr.reshape((-1,3)+shape)[keep].reshape((-1,)+shape)
     P=filter_faces(P);N=filter_faces(N);C=filter_faces(C)
     M=filter_faces(M);UV=filter_faces(UV)
-    assert len(P)//3==original_triangle_count-captain_removed-command_removed
+    assert len(P)//3==original_triangle_count-captain_removed-command_removed-rib_removed
     print('Excluded frozen source face spans: captain',captain_removed,
           'command',command_removed,'remaining',len(P)//3,flush=True)
 # Identify exactly the two original forward starfield screen triangles. The PBR
@@ -75,7 +100,7 @@ if drop_captain or drop_command:
 star=(M==7)&(np.abs(P[:,2]+6.06)<.0005)&(np.abs(P[:,0])<=3.101)
 assert int(star.sum())==6, f'V3 star-pane geometry drift: {star.sum()} vertices'
 M[star]=9
-assert len(P)==len(N)==len(C)==len(M)==len(UV)==3*(106988-captain_removed-command_removed)
+assert len(P)==len(N)==len(C)==len(M)==len(UV)==3*(106988-captain_removed-command_removed-rib_removed)
 assert np.isfinite(P).all() and np.isfinite(N).all()
 assert len(P)%3==0 and (M.reshape(-1,3)==M.reshape(-1,3)[:,0:1]).all()
 print('Exact original V3:',len(P)//3,'triangles',flush=True)
@@ -283,6 +308,9 @@ manifest={
           'remainingV3Triangles':len(P)//3,
           'physicalSize':[15.1,4.46,13.12], 'simulationWrites':False}
 }
+if drop_rib_bay:
+    manifest['extras']['ribFinBayRemovedFaces']=rib_removed
+    manifest['extras']['ribFinBaySourceRanges']=rib_spans
 assert all(v.get('buffer',0)==0 for v in bufferViews)
 manifest['buffers'][0]['byteLength']=len(buf)
 js=json.dumps(manifest,separators=(',',':')).encode('utf-8');js+=b' '*((-len(js))%4)
@@ -296,5 +324,8 @@ report={'path':str(out),'sha256':hashlib.sha256(glb).hexdigest(),'bytes':len(glb
         'command_section_source_faces_removed':command_removed,
         'command_source_ranges':command_spans,
         'chair_winding_faces_reordered':chair_winding_faces_reordered,'material_groups':len(MATS),'position_bounds':{'min':P.min(0).tolist(),'max':P.max(0).tolist()},'source_git_blob':'74a154ae62bccb0c16d03c2ecf791a64ab19ce81'}
+if drop_rib_bay:
+    report['rib_fin_bay_source_faces_removed']=rib_removed
+    report['rib_fin_bay_source_ranges']=rib_spans
 (OUT/'manifest.json').write_text(json.dumps(report,indent=2))
 print('REPORT',json.dumps(report,indent=2),flush=True)
