@@ -94,7 +94,14 @@ def main():
     assert 256 <= a.size <= 2048 and 8 <= a.samples <= 128
     scene = bpy.context.scene
     assert scene.render.engine == "CYCLES", "Stage12 saved scene must use Cycles"
-    receivers = {"wall": bpy.data.objects.get(WALL), "ceiling": bpy.data.objects.get(ROOF)}
+    # Blender limits object datablock names to 63 bytes; the original wall
+    # receiver name is truncated when the frozen Stage12 .blend is saved.
+    # Match its fixed authored prefix AND its exact 224 original faces/UV1.
+    wall_matches = [obj for obj in bpy.data.objects
+                    if obj.type == "MESH" and obj.name.startswith(WALL[:48])
+                    and len(obj.data.polygons) == 224 and obj.data.uv_layers.get(UV)]
+    assert len(wall_matches) == 1, [(o.name,len(o.data.polygons)) for o in wall_matches]
+    receivers = {"wall": wall_matches[0], "ceiling": bpy.data.objects.get(ROOF)}
     assert all(receivers.values()), receivers
     assert len(receivers["wall"].data.polygons) == 224
     assert len(receivers["ceiling"].data.polygons) == 576
