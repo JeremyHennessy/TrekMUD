@@ -180,10 +180,11 @@ def bake_felt_contact_ao(out,mats):
     local contact occlusion, NOT multi-bounce global illumination or a fake
     procedural grayscale shader.
     """
-    lanes=sorted(ob for ob in kit.COMMAND.objects
-                 if ob.type=="MESH" and
-                 ob.name.startswith("Acoustic lane ") and
-                 "woven material" in ob.name)
+    lanes=sorted((ob for ob in kit.COMMAND.objects
+                  if ob.type=="MESH" and
+                  ob.name.startswith("Acoustic lane ") and
+                  "woven material" in ob.name),
+                 key=lambda ob: ob.name)
     assert len(lanes)==12,[o.name for o in lanes]
     scene=bpy.context.scene
     assert scene.render.engine=="CYCLES"
