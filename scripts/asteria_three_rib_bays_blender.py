@@ -29,6 +29,8 @@ def parse():
     p.add_argument("--samples",type=int,default=28)
     p.add_argument("--resolution",type=int,nargs=2,default=[960,640])
     p.add_argument("--no-render",action="store_true")
+    p.add_argument("--without-side-fasteners",action="store_true",
+                   help="QA A/B only: omit floating diamond face fasteners, retain all other geometry")
     return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
 
 def wall(dx,y,r=.951):
@@ -130,10 +132,11 @@ def geometry(m):
         anchored_strip(f"Bay / restrained integrated horizontal end clamp {y:.3f}",
           [wall(x,y,.950) for x in (-.239,-.160,-.08,0.,.08,.16,.239)],
           .004,m["rose_bronze"])
-    for dx in (-.244,.244):
-        for y in (.87,1.82,2.76):
-            seated_recess(f"Bay / original-pitch captive fastener {dx:+.3f}/{y:.2f}",
-                          dx,y,m["satin_nickel"])
+    if not OMIT_SIDE_FASTENERS:
+        for dx in (-.244,.244):
+            for y in (.87,1.82,2.76):
+                seated_recess(f"Bay / original-pitch captive fastener {dx:+.3f}/{y:.2f}",
+                              dx,y,m["satin_nickel"])
 
 def three_bays(mats):
     # Reuse the exact validated Stage03 rib/lane geometry without spatial
@@ -197,6 +200,8 @@ def main():
       "rose_bronze":kit.build_material("Asteria V3 / barely warm face fastener","rose_bronze",.43,.56,a.command_materials),
       "console_gasket":kit.build_material("Asteria V3 / recessed neutral seal","console_gasket",.87,0,a.command_materials),
     }
+    global OMIT_SIDE_FASTENERS
+    OMIT_SIDE_FASTENERS=bool(a.without_side_fasteners)
     three_bays(mats)
     views=lights_cameras()
     scene=bpy.context.scene
@@ -223,7 +228,7 @@ def main():
         bpy.context.view_layer.objects.active=curve
         bpy.ops.object.convert(target="MESH")
     meshes=[ob for ob in kit.COMMAND.objects if ob.type=="MESH"]
-    assert len(meshes)==105,len(meshes)
+    assert len(meshes)==(87 if OMIT_SIDE_FASTENERS else 105),len(meshes)
     bpy.ops.object.select_all(action="DESELECT")
     for ob in meshes:ob.select_set(True)
     bpy.context.view_layer.objects.active=meshes[0]
@@ -248,6 +253,9 @@ def main():
         "numberOfCurvedManufacturedFins":15,
         "numberOfSeparateAcousticLanes":12,
         "meshObjects":len(meshes),
+        "fastenerTest":{"sideFastenersOmitted":OMIT_SIDE_FASTENERS,
+                        "sourceModelUnchangedWithoutFlag":True,
+                        "omittedOriginalModelTriangles":36 if OMIT_SIDE_FASTENERS else 0},
         "sourceMeasuredWallPitchMetres":.53,
         "selectedOriginalWallModules":list(BAY_IDS),
         "originalCeilingTrianglesRemoved":0,
