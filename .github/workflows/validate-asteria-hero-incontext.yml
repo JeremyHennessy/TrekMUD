@@ -1,0 +1,162 @@
+name: Asteria isolated hero chair in-context browser proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [experiment/asteria-v5-hero-chair-in-context-01]
+    paths:
+      - 'scripts/extract_asteria_v3_for_v5.py'
+      - 'scripts/build_asteria_v5_assets.py'
+      - 'scripts/test_asteria_hero_incontext_browser.py'
+      - 'scripts/asteria_hero_chair_blender.py'
+      - 'scripts/asteria_fetch_cc0_velour.py'
+      - 'ui/3d-preview-v5-chair/**'
+      - '.github/workflows/validate-asteria-hero-incontext.yml'
+  pull_request:
+    branches: [experiment/asteria-hero-chair-fabric-01]
+    paths:
+      - 'scripts/extract_asteria_v3_for_v5.py'
+      - 'scripts/build_asteria_v5_assets.py'
+      - 'scripts/test_asteria_hero_incontext_browser.py'
+      - 'scripts/asteria_hero_chair_blender.py'
+      - 'ui/3d-preview-v5-chair/**'
+      - '.github/workflows/validate-asteria-hero-incontext.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  isolated-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify unchanged campaign and build earlier V3 comparison site
+        run: |
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+          python scripts/validate_player_console.py --keep _site
+      - name: Install pinned offline source and browser dependencies
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          npm ci --prefix ui/3d-preview-v5 --no-audit --no-fund
+          python -m py_compile scripts/extract_asteria_v3_for_v5.py \
+            scripts/build_asteria_v5_assets.py \
+            scripts/asteria_hero_chair_blender.py \
+            scripts/test_asteria_hero_incontext_browser.py
+      - name: Capture exact V3 chair call span from original frozen model
+        run: |
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 python scripts/extract_asteria_v3_for_v5.py
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          s=json.loads(Path('_v5_mesh_capture/captain-chair-source-span.json').read_text())
+          assert s['sourceV3Blob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+          assert 1000<s['captainSeatFaces']<25000
+          assert s['lastFaceExcluded']-s['firstFaceIncluded']==s['captainSeatFaces']
+          print('Exact frozen source face span:',s['firstFaceIncluded'],s['lastFaceExcluded'])
+          PY
+      - name: Build unchanged V5 control and separate chair-free room geometry
+        run: |
+          mkdir -p _site/3d-preview-v5/models _site/3d-preview-v5-chair/models
+          ASTERIA_V5_CHAIR_WINDING_REPAIR=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5/models" \
+            python scripts/build_asteria_v5_assets.py
+          ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5-chair/models" \
+            python scripts/build_asteria_v5_assets.py
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import trimesh
+          a=Path('_site/3d-preview-v5/models')
+          b=Path('_site/3d-preview-v5-chair/models')
+          original=json.loads((a/'manifest.json').read_text())
+          candidate=json.loads((b/'manifest.json').read_text())
+          span=json.loads(Path('_v5_mesh_capture/captain-chair-source-span.json').read_text())
+          removed=span['captainSeatFaces']
+          assert original['triangles']==candidate['original_triangles']==106988
+          assert candidate['captain_chair_source_faces_removed']==removed
+          assert candidate['triangles']==106988-removed
+          assert original['captain_chair_source_faces_removed']==0
+          assert candidate['chair_winding_faces_reordered']==0
+          room=trimesh.load(b/'asteria-v3-restored-pbr.glb',force='scene',process=False)
+          assert sum(len(g.faces) for g in room.geometry.values())==106988-removed
+          assert room.bounds[0][0]<-7.5 and room.bounds[1][0]>7.5
+          print('TEST ROOM no overlap: room',candidate['triangles'],'removed',removed)
+          PY
+      - name: Compile separate V5 control and chair-review WebGL bundles
+        run: |
+          npm run build --prefix ui/3d-preview-v5
+          cp ui/3d-preview-v5/src/index.html _site/3d-preview-v5/index.html
+          cp ui/3d-preview-v5/dist/app.js _site/3d-preview-v5/app.js
+          python scripts/verify_asteria_v5.py _site/3d-preview-v5
+          cp ui/3d-preview-v5-chair/src/index.html _site/3d-preview-v5-chair/index.html
+          # Compile from a temporary sibling inside the existing pinned package
+          # so "three" resolves correctly; remove that temporary file afterward.
+          cp ui/3d-preview-v5-chair/src/main.js \
+             ui/3d-preview-v5/src/__temporary_chair_scene_review.js
+          ui/3d-preview-v5/node_modules/.bin/esbuild \
+             ui/3d-preview-v5/src/__temporary_chair_scene_review.js \
+             --bundle --platform=browser --target=es2021 --format=iife --minify \
+             --outfile=_site/3d-preview-v5-chair/app.js
+          rm ui/3d-preview-v5/src/__temporary_chair_scene_review.js
+          test -s _site/3d-preview-v5-chair/app.js
+      - name: Install Blender for reviewed hero chair artifact
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender
+          blender --version
+      - name: Build checksum-pinned scanned-fabric glTF chair
+        run: |
+          python scripts/asteria_fetch_cc0_velour.py --out _asteria_cc0_fabric
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_hero_chair_blender.py -- \
+            --out _hero_chair_incontext --texture-dir _asteria_cc0_fabric \
+            --samples 24 --no-render
+          cp _hero_chair_incontext/asteria-hero-chair-candidate.glb \
+             _site/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb
+          python - <<'PY'
+          import trimesh, pathlib, json
+          file=pathlib.Path('_site/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb')
+          assert 100000<file.stat().st_size<16000000,file.stat().st_size
+          hero=trimesh.load(file,force='scene',process=False)
+          assert sum(len(g.faces) for g in hero.geometry.values())==26908
+          b=hero.bounds
+          assert b[0][0]>-1.1 and b[1][0]<1.1
+          assert b[0][1]>-.1 and b[1][1]<2.1
+          assert b[0][2]>.45 and b[1][2]<2.5
+          metadata=json.loads(pathlib.Path('_hero_chair_incontext/hero-chair-report.json').read_text())
+          assert metadata['photoScannedFabric'] is True
+          print('Verified hero GLB faces, bounds and scanned fabric:',file.stat().st_size)
+          PY
+      - name: Real Chromium WebGL, no-overlap, keyboard, touch and screenshot QA
+        run: |
+          CHROME="$(command -v google-chrome || command -v chromium)" \
+            python scripts/test_asteria_hero_incontext_browser.py \
+            _site "$RUNNER_TEMP/asteria-hero-chair-incontext"
+      - name: Confirm previously approved source routes stayed unchanged
+        run: |
+          git diff --exit-code -- ui/3d/ ui/3d-preview/ ui/3d-preview-v3/ \
+            ui/3d-preview-v4/ ui/3d-preview-v5/ ui/index.html \
+            campaign/ world/asteria/
+      - name: Archive actual browser evidence and source integrity
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-hero-chair-incontext-review
+          path: |
+            ${{ runner.temp }}/asteria-hero-chair-incontext/**
+            _site/3d-preview-v5-chair/models/manifest.json
+            _v5_mesh_capture/captain-chair-source-span.json
+            _hero_chair_incontext/hero-chair-report.json
+            _asteria_cc0_fabric/fabric-provenance.json
+          if-no-files-found: ignore
+          retention-days: 7

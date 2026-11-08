@@ -17,6 +17,16 @@ current=subprocess.check_output(['git','hash-object',str(V3/'index.html')],cwd=R
 if current!=expected:
  raise RuntimeError(f'Original V3 geometry changed: {current} (expected {expected}); explicit revalidation required')
 html=(V3/'index.html').read_text()
+# Optional geometry provenance; never alter the frozen V3 source on disk.
+# Mark the exact authored captain's seat span (including its small under-seat
+# accent ellipse), not an arbitrary spatial crop that could delete consoles.
+capture_chair=os.environ.get("ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR")=="1"
+if capture_chair:
+ pedestal='ellipse(0,.297,1.14,.48,.55,0x554e5e,1,44);'
+ seat='chair(0,1.20,0,true);'
+ assert html.count(pedestal)==1 and html.count(seat)==1
+ html=html.replace(pedestal,"window.__v3ChairFirstFace=P.length/9;"+pedestal)
+ html=html.replace(seat,seat+"window.__v3ChairLastFace=P.length/9;")
 needle='window.__asteriaWalkthrough={roomId:'
 assert html.count(needle)==1
 html=html.replace(needle, "window.__captureV3={positions:P,normals:N,colors:C,materials:M,uv:UV,atlas:atlas.toDataURL('image/png')};"+needle)
@@ -48,6 +58,27 @@ with sync_playwright() as p:
  info=page.evaluate('''() => ({triangles:window.__asteriaWalkthrough.meshTriangles,
  counts:Object.fromEntries(Object.entries(window.__captureV3).filter(([k])=>k!=='atlas').map(([k,v])=>[k,v.length]))})''')
  assert info['triangles']==106988,info
+ if capture_chair:
+  span=page.evaluate('''() => ({
+   start:window.__v3ChairFirstFace,end:window.__v3ChairLastFace
+  })''')
+  assert all(isinstance(span.get(k),(float,int)) for k in ('start','end')),span
+  start,end=int(span['start']),int(span['end'])
+  assert start==span['start'] and end==span['end'] and 0<start<end<106988,span
+  removed=end-start
+  assert 1000<removed<25000, f"Unexpected V3 command seat span: {span}"
+  provenance={
+   'roomId':'AST-D01-BRIDGE',
+   'sourceV3Blob':expected,
+   'totalFaces':106988,
+   'firstFaceIncluded':start,'lastFaceExcluded':end,
+   'captainSeatFaces':removed,
+   'sourceCalls':[pedestal,seat],
+   'note':'The exact contiguous V3 draw-call range, not a spatial bounding-box crop'
+  }
+  (OUT/'captain-chair-source-span.json').write_text(
+    __import__('json').dumps(provenance,indent=2)+'\n')
+  print('V3 captain chair draw-call span',provenance,flush=True)
  assert not errors,errors
  for key in ['positions','normals','colors','materials','uv']:
   pieces=[];size=160000
