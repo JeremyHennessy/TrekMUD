@@ -1,0 +1,27 @@
+{
+  "originalSourceSha": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "removedWallTriangles": 174,
+  "ceilingTrianglesRemoved": 0,
+  "replacementTriangles": 13098,
+  "blenderMeshes": 105,
+  "PBRImages": 15,
+  "bounds": [
+    [
+      4.601677894592285,
+      0.8019999861717224,
+      -4.857390403747559
+    ],
+    [
+      6.01513147354126,
+      2.8450000286102295,
+      -3.4855105876922607
+    ]
+  ],
+  "realCyclesPixelVariation": {
+    "grazing": 67.823,
+    "front": 67.779,
+    "detail": 73.224
+  },
+  "viewerOrCampaignChanged": false,
+  "photoRealismUnproven": true
+}

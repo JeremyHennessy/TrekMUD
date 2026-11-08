@@ -1,0 +1,39 @@
+{
+  "roomId": "AST-D01-BRIDGE",
+  "sourceV3Blob": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "totalFaces": 106988,
+  "selectedWallDecorK": [
+    22,
+    23,
+    24
+  ],
+  "ranges": [
+    {
+      "name": "wallBayDecor22",
+      "bay": 22,
+      "start": 96850,
+      "end": 96908,
+      "faces": 58
+    },
+    {
+      "name": "wallBayDecor23",
+      "bay": 23,
+      "start": 96908,
+      "end": 96966,
+      "faces": 58
+    },
+    {
+      "name": "wallBayDecor24",
+      "bay": 24,
+      "start": 96966,
+      "end": 97024,
+      "faces": 58
+    }
+  ],
+  "removedFaces": 174,
+  "capturedBy": "exact adjacent frozen V3 set-details.js draw-call boundaries, in-memory only",
+  "singleBayCrossCheck": "k24 source spans exactly agree with established Stage03",
+  "ceilingWedgesRetained": true,
+  "otherGeometryUntouched": true,
+  "sourceFilesModified": false
+}
