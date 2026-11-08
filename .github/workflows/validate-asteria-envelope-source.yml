@@ -1,0 +1,89 @@
+name: Asteria Stage08 exact original whole-room wall ceiling source faces
+
+on:
+  push:
+    branches: [experiment/asteria-envelope-08]
+    paths:
+      - 'scripts/extract_asteria_v3_for_v5.py'
+      - '.github/workflows/validate-asteria-envelope-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  exact-source-envelope:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 17
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate immutable game and frozen V3 art source
+        run: |
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+          python -m py_compile scripts/extract_asteria_v3_for_v5.py
+          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
+      - name: Install pinned original source inspection runtime
+        run: python -m pip install --disable-pip-version-check numpy==2.3.5 playwright==1.56.0
+      - name: Recover true V3 wall roof and protected chair command bay face spans
+        run: |
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 \
+          ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+          ASTERIA_V3_CAPTURE_INLAID_BAY=1 \
+          ASTERIA_V3_CAPTURE_THREE_RIB_BAYS=1 \
+          ASTERIA_V3_CAPTURE_ENVELOPE=1 \
+            python scripts/extract_asteria_v3_for_v5.py
+      - name: Independently assert 864 envelope faces and zero protected overlap
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import numpy as np,json
+          src=Path('_v5_mesh_capture')
+          x=json.loads((src/'envelope-source-spans.json').read_text())
+          chair=json.loads((src/'captain-chair-source-span.json').read_text())
+          cmd=json.loads((src/'command-section-source-spans.json').read_text())
+          bay=json.loads((src/'three-rib-bays-source-spans.json').read_text())
+          assert x['totalOriginalTriangles']==106988
+          assert [r['name'] for r in x['ranges']]==[
+            'originalWallEnclosure112','originalCeilingWedges96']
+          assert [r['faces'] for r in x['ranges']]==[672,192]
+          assert x['removedFaces']==864
+          assert x['floorCastRetained'] and x['viewscreenAndStationMeshesRetained']
+          assert x['sourceV3Blob']==bay['sourceV3Blob']==cmd['sourceV3Blob']
+          occupied=np.zeros(106988,dtype=np.uint8)
+          allspans=[
+             {'start':chair['firstFaceIncluded'],'end':chair['lastFaceExcluded']},
+             *cmd['ranges'],*bay['ranges'],*x['ranges']]
+          for r in allspans:
+            a,b=r['start'],r['end']
+            assert 0<=a<b<=106988
+            assert np.count_nonzero(occupied[a:b])==0,r
+            occupied[a:b]=1
+          assert int(occupied.sum())==16272+8628+174+864
+          assert np.load(src/'positions.npy').shape[0]==106988*9
+          print('EXACT_SURGICAL_ENVELOPE_SOURCE_GATE_PASSED',x)
+          PY
+      - name: Archive separately measured original V3 geometry spans
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-stage08-original-envelope-geometry
+          path: |
+            _v5_mesh_capture/envelope-source-spans.json
+            _v5_mesh_capture/three-rib-bays-source-spans.json
+          if-no-files-found: ignore
+          retention-days: 21
+      - name: Preserve passing source metadata in experiment branch
+        if: success()
+        run: |
+          mkdir -p docs/asteria-envelope-stage08
+          cp _v5_mesh_capture/envelope-source-spans.json docs/asteria-envelope-stage08/original-exact-faces.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/asteria-envelope-stage08/original-exact-faces.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'QA: preserve exact frozen wall/ceiling drawing-call ranges'
+          git push origin HEAD:experiment/asteria-envelope-08
