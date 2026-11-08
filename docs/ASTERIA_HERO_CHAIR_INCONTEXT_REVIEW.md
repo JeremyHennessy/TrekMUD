@@ -1,6 +1,6 @@
 # USS Asteria — first full-bridge hero-chair integration: review record
 
-Status: **isolated experimental browser candidate, not a production release or photorealistic completion**.
+Status: **isolated browser engineering PASS (run 42446973684); visual fidelity NOT APPROVED; no production deployment**.
 
 ## Exact preservation
 
@@ -33,7 +33,9 @@ GitHub Actions run `42445854125` successfully built the scene and rendered actua
 
 The first browser QA workflow ended **red**, due to an over-broad whole-image threshold: the aft image difference averaged only about 0.989 over all 1280 × 800 pixels even though the chair changed visibly. A focused chair region (x 450–830, y 240–680) differs by about 5.09 per RGB channel; the central command scene region (x 400–900, y 150–650) did not differ. This observation supports replacing the test, not changing the chair geometry.
 
-A second CI run now evaluates the focused chair region, unchanged command region and actual WASD/touch interaction. Its result must be checked before declaring browser QA success.
+Subsequent controlled checks identified test-harness timing limitations instead of product defects. In run `42446246639`, targeted pixel checks passed (furniture-region difference 5.092, unrelated forward-command region 0.0), but a fixed 2.2-second key hold produced no movement because the software WebGL render loop was slow. In run `42446625438`, frame-gated keyboard movement **passed**, moving from (-1.23, 4.8) to approximately (-1.180, 4.694), and the command jump reached (-2.32, 2.15). The mobile test then timed out on a full-page load event while a desktop WebGL page was still open.
+
+The test harness now closes the desktop rendering context before the mobile test and waits for DOM readiness. Final run `42446973684` **passed every CI stage**, including full desktop/mobile-sized WebGL screenshots, materials and face-count integrity, frame-gated keyboard walking, command station jump, mobile-sized station-button interaction and confirmation of unchanged earlier source routes. The phone-sized station button reached flight coordinates (0, -1.32), yaw 0. This was a Playwright phone-sized browser test, **not physical iPhone testing or GPU frame-rate verification**.
 
 ## Visual acceptance
 
