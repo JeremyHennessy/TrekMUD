@@ -1,0 +1,302 @@
+{
+  "review": "QA-only actual software-WebGL comparison, not production",
+  "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "commandAndChairUnchanged": true,
+  "campaignAndUiUnchanged": true,
+  "originalSourceFaceSpansRemoved": 62,
+  "originalFacesBefore": 82088,
+  "originalFacesAfter": 82026,
+  "newInlaidTriangles": 3300,
+  "realScreenshots": [
+    {
+      "route": "3d-preview-v5-command",
+      "camera": "aft",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-aft-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82088,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "inlaidLoaded": "none",
+        "inlaidFaces": 0,
+        "inlaidMeshes": 0,
+        "sourceExclusions": 0,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-inlaid",
+      "camera": "aft",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-inlaid-aft-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82026,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "inlaidLoaded": "true",
+        "inlaidFaces": 3300,
+        "inlaidMeshes": 117,
+        "sourceExclusions": 62,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-inlaid-bay-stage02.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command",
+      "camera": "command",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-command-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82088,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "inlaidLoaded": "none",
+        "inlaidFaces": 0,
+        "inlaidMeshes": 0,
+        "sourceExclusions": 0,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-inlaid",
+      "camera": "command",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-inlaid-command-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82026,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "inlaidLoaded": "true",
+        "inlaidFaces": 3300,
+        "inlaidMeshes": 117,
+        "sourceExclusions": 62,
+        "renderedFrames": 5
+      },
+      "assetRequests": [
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-inlaid-bay-stage02.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command",
+      "camera": "science",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-science-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82088,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "inlaidLoaded": "none",
+        "inlaidFaces": 0,
+        "inlaidMeshes": 0,
+        "sourceExclusions": 0,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-inlaid",
+      "camera": "science",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-inlaid-science-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82026,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "inlaidLoaded": "true",
+        "inlaidFaces": 3300,
+        "inlaidMeshes": 117,
+        "sourceExclusions": 62,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-inlaid-bay-stage02.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command",
+      "camera": "aft",
+      "size": [
+        390,
+        844
+      ],
+      "screenshot": "3d-preview-v5-command-aft-390x844.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82088,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "inlaidLoaded": "none",
+        "inlaidFaces": 0,
+        "inlaidMeshes": 0,
+        "sourceExclusions": 0,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-inlaid",
+      "camera": "aft",
+      "size": [
+        390,
+        844
+      ],
+      "screenshot": "3d-preview-v5-command-inlaid-aft-390x844.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82026,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "inlaidLoaded": "true",
+        "inlaidFaces": 3300,
+        "inlaidMeshes": 117,
+        "sourceExclusions": 62,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-inlaid-bay-stage02.glb",
+        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    }
+  ],
+  "matchedDeltas": {
+    "aft/1280": {
+      "meanAbsoluteRgb": 0.45842,
+      "changedPixelFraction": 0.01327
+    },
+    "command/1280": {
+      "meanAbsoluteRgb": 0.61408,
+      "changedPixelFraction": 0.017991
+    },
+    "science/1280": {
+      "meanAbsoluteRgb": 0.0,
+      "changedPixelFraction": 0.0
+    },
+    "aft/390": {
+      "meanAbsoluteRgb": 0.82194,
+      "changedPixelFraction": 0.025049
+    }
+  },
+  "walkingAndCommandWaypointsPass": true,
+  "artApproved": false,
+  "photorealismProven": false,
+  "physicalIphoneGpuVerified": false
+}
