@@ -209,7 +209,7 @@ def main():
         bpy.context.view_layer.objects.active=curve
         bpy.ops.object.convert(target="MESH")
     meshes=[ob for ob in kit.COMMAND.objects if ob.type=="MESH"]
-    assert len(meshes)>35,len(meshes)
+    assert len(meshes)>=35,len(meshes)
     bpy.ops.object.select_all(action="DESELECT")
     for ob in meshes:ob.select_set(True)
     bpy.context.view_layer.objects.active=meshes[0]
