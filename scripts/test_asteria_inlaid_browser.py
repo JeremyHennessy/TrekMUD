@@ -25,7 +25,7 @@ server=http.server.ThreadingHTTPServer(("127.0.0.1",0),
 threading.Thread(target=server.serve_forever,daemon=True).start()
 origin=f"http://127.0.0.1:{server.server_port}"
 shots=[("aft",1280,800),("command",1280,800),("science",1280,800),
-       ("aft",390,844)]
+       ("bayDetail",960,720),("aft",390,844)]
 items=[]
 try:
  with sync_playwright() as playwright:
