@@ -1,0 +1,239 @@
+name: Asteria exact inlay real WebGL before and after - unpublished QA
+
+on:
+  push:
+    branches: [experiment/asteria-inlaid-bay-02]
+    paths:
+      - scripts/test_asteria_inlaid_browser.py
+      - scripts/build_asteria_v5_assets.py
+      - .github/workflows/validate-asteria-inlaid-browser.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: asteria-inlaid-bay-browser-stage02
+  cancel-in-progress: false
+
+jobs:
+  real-browser-exact-source-ab:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirm immutable campaign, original V3 and QA syntax
+        run: |
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+          python -m py_compile scripts/test_asteria_inlaid_browser.py \
+            scripts/build_asteria_v5_assets.py scripts/asteria_inlaid_bay_blender.py
+          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
+      - name: Install same Chromium, Blender, Three.js and PBR dependency versions
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          npm ci --prefix ui/3d-preview-v5 --no-audit --no-fund
+          sudo apt-get update
+          sudo apt-get install -y blender
+          command -v google-chrome || command -v chromium
+      - name: Recover original source face ranges and build both exact rooms
+        run: |
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+            ASTERIA_V3_CAPTURE_INLAID_BAY=1 \
+            python scripts/extract_asteria_v3_for_v5.py
+          mkdir -p _site/3d-preview-v5-command/models
+          ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5-command/models" \
+            python scripts/build_asteria_v5_assets.py
+          cp ui/3d-preview-v5-command/src/index.html _site/3d-preview-v5-command/index.html
+          mkdir -p _site/3d-preview-v5-command-inlaid
+          cp -a _site/3d-preview-v5-command/. _site/3d-preview-v5-command-inlaid/
+          ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
+            ASTERIA_V5_EXCLUDE_INLAID_BAY=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5-command-inlaid/models" \
+            python scripts/build_asteria_v5_assets.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('_site')
+          before=json.loads((root/'3d-preview-v5-command/models/manifest.json').read_text())
+          after=json.loads((root/'3d-preview-v5-command-inlaid/models/manifest.json').read_text())
+          assert before['triangles']==82088 and after['triangles']==82026
+          assert 'inlaid_bay_source_faces_removed' not in before
+          assert after['inlaid_bay_source_faces_removed']==62
+          assert {r['name'] for r in after['inlaid_bay_source_ranges']}=={
+            'wallBayDecor24','ceilingWedge36','ceilingWedge37'}
+          assert before['source_git_blob']==after['source_git_blob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+          assert before['captain_chair_source_faces_removed']==after['captain_chair_source_faces_removed']==16272
+          assert before['command_section_source_faces_removed']==after['command_section_source_faces_removed']==8628
+          print('EXACT_SOURCE_REMOVAL_82088_TO_82026_PASSED')
+          PY
+      - name: Rebuild known-good command and upholstered chair models unchanged
+        run: |
+          python scripts/asteria_fetch_cc0_velour.py --out _asteria_cc0_fabric
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_hero_chair_blender.py -- \
+            --out _inlaid_chair --texture-dir _asteria_cc0_fabric \
+            --samples 24 --no-render --integrated-back
+          python scripts/asteria_command_pbr_maps.py \
+            --out _asteria_command_maps --v3-atlas _v5_mesh_capture/atlas.png
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_command_blender.py -- \
+            --materials _asteria_command_maps --out _inlaid_command \
+            --samples 24 --no-render --bake-ao --correct-screen-uv
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_inlaid_bay_blender.py -- \
+            --materials _asteria_command_maps \
+            --source-report _v5_mesh_capture/inlaid-bay-source-spans.json \
+            --out _inlaid_bay --samples 20 --no-render
+          for route in 3d-preview-v5-command 3d-preview-v5-command-inlaid; do
+            cp _inlaid_chair/asteria-hero-chair-candidate.glb \
+              "_site/$route/models/asteria-hero-chair-candidate.glb"
+            cp _inlaid_command/asteria-command-set-candidate.glb \
+              "_site/$route/models/asteria-command-set-candidate.glb"
+          done
+          cp _inlaid_bay/asteria-inlaid-bay-stage02.glb \
+            _site/3d-preview-v5-command-inlaid/models/asteria-inlaid-bay-stage02.glb
+      - name: Bundle original control renderer and QA-only source-inlay renderer
+        run: |
+          set -euo pipefail
+          cp ui/3d-preview-v5-command/src/main.js \
+            ui/3d-preview-v5/src/__temp_inlaid_unmodified.js
+          ui/3d-preview-v5/node_modules/.bin/esbuild \
+            ui/3d-preview-v5/src/__temp_inlaid_unmodified.js \
+            --bundle --platform=browser --target=es2021 --format=iife --minify \
+            --outfile=_site/3d-preview-v5-command/app.js
+          python - <<'PY'
+          from pathlib import Path
+          src=Path('ui/3d-preview-v5-command/src/main.js').read_text()
+          check='triangles!==106988-removed-commandRemoved||missing'
+          assert src.count(check)==1
+          src=src.replace(check,
+           'triangles!==106988-removed-commandRemoved-62||'+
+           'meta.inlaidBayRemovedFaces!==62||'+
+           '(meta.inlaidBaySourceRanges||[]).length!==3||missing')
+          anchor='    scene.add(room,hero,command);'
+          assert src.count(anchor)==1
+          patch="""    scene.add(room,hero,command);
+            // Non-production source-exact wall and roof replacement.
+            // Never alter original controls, camera, UI, or game state.
+            loader.loadAsync('./models/asteria-inlaid-bay-stage02.glb')
+              .then(({scene:inlay})=>{
+                let triangles=0,meshes=0,missing=0;
+                inlay.traverse(o=>{
+                  if(!o.isMesh)return;
+                  meshes++;
+                  triangles+=o.geometry.index?o.geometry.index.count/3:
+                             o.geometry.attributes.position.count/3;
+                  if(!o.material)missing++;
+                  else o.material.side=THREE.DoubleSide;
+                  o.castShadow=!mobile;
+                  o.receiveShadow=true;
+                });
+                if(triangles!==3300||meshes!==117||missing){
+                  fail('Measured original bay replacement did not match verified Blender geometry.');
+                  return;
+                }
+                inlay.updateMatrixWorld(true);
+                scene.add(inlay);
+                document.body.dataset.inlaidBayFaces=String(triangles);
+                document.body.dataset.inlaidBayMeshes=String(meshes);
+                document.body.dataset.inlaidBayLoaded='true';
+                window.__asteriaInlaidReview={excludedOriginalFaces:62,
+                  replacementTriangles:triangles,sourceV3Frozen:true,
+                  noGameWrites:true,photorealismApproved:false};
+              }).catch(err=>fail('QA-only inlaid bay GLB failed to load: '+String(err.message||err)));
+          """
+          out=src.replace(anchor,patch)
+          assert out!=src and out.count("inlaidBayLoaded") == 1
+          Path('ui/3d-preview-v5/src/__temp_inlaid_candidate.js').write_text(out)
+          PY
+          ui/3d-preview-v5/node_modules/.bin/esbuild \
+            ui/3d-preview-v5/src/__temp_inlaid_candidate.js \
+            --bundle --platform=browser --target=es2021 --format=iife --minify \
+            --outfile=_site/3d-preview-v5-command-inlaid/app.js
+          rm ui/3d-preview-v5/src/__temp_inlaid_unmodified.js \
+             ui/3d-preview-v5/src/__temp_inlaid_candidate.js
+      - name: Independently verify only exact room mesh + candidate JS differ
+        run: |
+          python - <<'PY'
+          import hashlib,json,struct
+          from pathlib import Path
+          import trimesh
+          root=Path('_site')
+          base=root/'3d-preview-v5-command'
+          new=root/'3d-preview-v5-command-inlaid'
+          assert (base/'index.html').read_bytes()==(new/'index.html').read_bytes()
+          for file in ('asteria-command-set-candidate.glb','asteria-hero-chair-candidate.glb'):
+            assert (base/'models'/file).read_bytes()==(new/'models'/file).read_bytes()
+          assert (base/'app.js').read_bytes()!=(new/'app.js').read_bytes()
+          assert (base/'models/asteria-v3-restored-pbr.glb').read_bytes()!=(
+            new/'models/asteria-v3-restored-pbr.glb').read_bytes()
+          def faces(file):
+            s=trimesh.load(file,force='scene',process=False)
+            return sum(len(g.faces) for g in s.geometry.values())
+          assert faces(base/'models/asteria-v3-restored-pbr.glb')==82088
+          assert faces(new/'models/asteria-v3-restored-pbr.glb')==82026
+          assert faces(new/'models/asteria-inlaid-bay-stage02.glb')==3300
+          assert faces(base/'models/asteria-hero-chair-candidate.glb')==31484
+          assert faces(base/'models/asteria-command-set-candidate.glb')==16292
+          assert not (base/'models/asteria-inlaid-bay-stage02.glb').exists()
+          print('BYTE_IDENTICAL_CHAIR_AND_COMMAND_MODELS_AND_UI_CONFIRMED')
+          PY
+      - name: Render actual same-camera Chromium A/B and untouched walking controls
+        run: |
+          CHROME="$(command -v google-chrome || command -v chromium)" \
+            python scripts/test_asteria_inlaid_browser.py _site _inlaid_browser_qa
+      - name: Assert no original V3, chair, command, UI, PADD or game files mutated
+        run: |
+          git diff --exit-code -- ui/3d/ ui/3d-preview/ ui/3d-preview-v3/ \
+            ui/3d-preview-v4/ ui/3d-preview-v5/ ui/3d-preview-v5-chair/ \
+            ui/3d-preview-v5-command/ campaign/ world/asteria/
+      - name: Preserve actual browser screenshots and metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-source-inlaid-real-webgl-ab
+          path: |
+            _inlaid_browser_qa/*.png
+            _inlaid_browser_qa/*.json
+            _inlaid_bay/inlaid-bay-report.json
+            _v5_mesh_capture/inlaid-bay-source-spans.json
+          if-no-files-found: ignore
+          retention-days: 30
+      - name: Archive passing actual A/B screenshot pixels on experiment branch only
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p docs/asteria-inlaid-stage02-webgl
+          cp _inlaid_browser_qa/*.png docs/asteria-inlaid-stage02-webgl/
+          cp _inlaid_browser_qa/*.json docs/asteria-inlaid-stage02-webgl/
+          python - <<'PY'
+          from PIL import Image,ImageDraw
+          from pathlib import Path
+          root=Path('docs/asteria-inlaid-stage02-webgl')
+          canvas=Image.new('RGB',(2560,1680),(20,22,31))
+          for y,view in enumerate(('aft','command')):
+            for x,route in enumerate(('3d-preview-v5-command','3d-preview-v5-command-inlaid')):
+              file=root/f'{route}-{view}-1280x800.png'
+              canvas.paste(Image.open(file).convert('RGB'),(x*1280,y*840))
+              ImageDraw.Draw(canvas).text((x*1280+16,y*840+808),
+                f'{view} '+('before/frozen' if x==0 else 'after/exact source replacement'),
+                fill=(245,245,245))
+          canvas.save(root/'matched-inlaid-ab.jpg',quality=88,optimize=True)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/asteria-inlaid-stage02-webgl/
+          git diff --cached --quiet && exit 0
+          git commit -m 'QA-only: archive actual browser comparison of source-replaced bay'
+          git push origin HEAD:experiment/asteria-inlaid-bay-02
