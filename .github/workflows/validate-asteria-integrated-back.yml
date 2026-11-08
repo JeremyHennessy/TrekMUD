@@ -1,0 +1,123 @@
+name: Asteria integrated upholstery sculpt A/B
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [experiment/asteria-chair-integrated-back-01]
+    paths:
+      - 'scripts/asteria_hero_chair_blender.py'
+      - '.github/workflows/validate-asteria-integrated-back.yml'
+  pull_request:
+    branches: [experiment/asteria-v5-hero-chair-in-context-01]
+    paths:
+      - 'scripts/asteria_hero_chair_blender.py'
+      - '.github/workflows/validate-asteria-integrated-back.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  integrated-back:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate original ship and changed modelling script
+        run: |
+          python -m py_compile scripts/asteria_hero_chair_blender.py
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+      - name: Install offline Blender/Cycles and geometry dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender
+          python -m pip install --disable-pip-version-check numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1
+          blender --version
+      - name: Acquire the identical checksum-pinned upholstery maps
+        run: python scripts/asteria_fetch_cc0_velour.py --out _asteria_cc0_fabric
+      - name: Render preserved chair baseline with original distinct inset pads
+        run: |
+          blender -b -t 4 --python-exit-code 1 --python scripts/asteria_hero_chair_blender.py -- \
+            --texture-dir _asteria_cc0_fabric --out _hero_integrated_control \
+            --samples 24 --resolution 900 800 --view front
+      - name: Render integrated-back candidate under identical lights and camera
+        run: |
+          blender -b -t 4 --python-exit-code 1 --python scripts/asteria_hero_chair_blender.py -- \
+            --texture-dir _asteria_cc0_fabric --out _hero_integrated_candidate \
+            --samples 24 --resolution 900 800 --view front --integrated-back
+      - name: Prove sculpt changes only the original upholstered chair back
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import numpy as np
+          from PIL import Image
+          import trimesh
+          a=Path('_hero_integrated_control')
+          b=Path('_hero_integrated_candidate')
+          old=json.loads((a/'hero-chair-report.json').read_text())
+          new=json.loads((b/'hero-chair-report.json').read_text())
+          assert old['integratedBackCandidate'] is False
+          assert new['integratedBackCandidate'] is True
+          assert old['photoScannedFabric'] is new['photoScannedFabric'] is True
+          before=trimesh.load(a/'asteria-hero-chair-candidate.glb',force='scene',process=False)
+          after=trimesh.load(b/'asteria-hero-chair-candidate.glb',force='scene',process=False)
+          faces=lambda s:sum(len(g.faces) for g in s.geometry.values())
+          assert faces(before)==26908 and len(before.geometry)==47
+          assert faces(after)==31484 and len(after.geometry)==40
+          assert np.allclose(before.bounds,after.bounds,atol=.008),(before.bounds,after.bounds)
+          old_names=set(before.geometry)
+          new_names=set(after.geometry)
+          assert new_names<=old_names,sorted(new_names-old_names)
+          removed=old_names-new_names
+          expected={
+              'Back / articulated lumbar cushion',
+              'Back / articulated lumbar cushion_1',
+              'Back / integrated shoulder bolster',
+              'Back / integrated shoulder bolster_1',
+              'Back / recessed seam 0.17',
+              'Back / recessed seam 0.66',
+              'Back / recessed seam 0.79',
+          }
+          assert removed==expected,sorted(removed)
+          modified=[]
+          for key in sorted(new_names):
+              x=before.geometry[key];y=after.geometry[key]
+              if x.vertices.shape!=y.vertices.shape or not np.allclose(x.vertices,y.vertices,atol=1.e-6):
+                  modified.append(key)
+          expected_modified={
+              'Back / curved upholstered seat-back and shell',
+              'Back / curved upholstered seat-back and shell_1',
+          }
+          assert set(modified)==expected_modified,modified
+          left=np.asarray(Image.open(a/'asteria-chair-front.png').convert('RGB'),dtype=np.int16)
+          right=np.asarray(Image.open(b/'asteria-chair-front.png').convert('RGB'),dtype=np.int16)
+          assert left.shape==right.shape==(800,900,3)
+          back_crop=(slice(120,495),slice(285,615))
+          difference=float(np.abs(left[back_crop]-right[back_crop]).mean())
+          assert difference>1.0,('The backrest image does not visibly change',difference)
+          print(json.dumps({
+            'baselineFaces':faces(before),'candidateFaces':faces(after),
+            'removedIndependentPanelPrimitives':sorted(removed),
+            'onlyChangedPrimitives':modified,
+            'matchedBackrestRgbMeanDiff':round(difference,3),
+            'restOfChairPreserved':True,'visualApproval':False
+          },indent=2))
+          PY
+      - name: Keep editable candidate, real Cycles images and geometry evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-integrated-back-ab-review
+          path: |
+            _hero_integrated_control/asteria-chair-front.png
+            _hero_integrated_control/hero-chair-report.json
+            _hero_integrated_candidate/asteria-chair-front.png
+            _hero_integrated_candidate/hero-chair-report.json
+            _hero_integrated_candidate/asteria-hero-chair-candidate.glb
+            _hero_integrated_candidate/asteria-hero-chair-candidate.blend
+          if-no-files-found: ignore
+          retention-days: 7
