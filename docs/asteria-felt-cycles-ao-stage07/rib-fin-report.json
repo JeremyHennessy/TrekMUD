@@ -1,0 +1,45 @@
+{
+  "assetId": "ASTERIA_THREE_ORIGINAL_RIB_FIN_BAYS_04",
+  "roomId": "AST-D01-BRIDGE",
+  "frozenSource": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "removedOriginalWallDecorFaces": 174,
+  "retainedOriginalCeilingWedgeFaces": 4,
+  "preservedOriginalWallSubstrate": true,
+  "originalAdjacentStructuralRibsUnmodified": true,
+  "noOpaqueDoorPanel": true,
+  "numberOfCurvedManufacturedFins": 15,
+  "numberOfSeparateAcousticLanes": 12,
+  "meshObjects": 105,
+  "sourceMeasuredWallPitchMetres": 0.53,
+  "selectedOriginalWallModules": [
+    22,
+    23,
+    24
+  ],
+  "originalCeilingTrianglesRemoved": 0,
+  "renderedViews": [],
+  "noGameOrPlayerUIWrites": true,
+  "noBakedGIClaim": true,
+  "visualApproval": false,
+  "knownLimits": [
+    "Material style is authored, not photography",
+    "Full room view not tested by this Blender script",
+    "Real iPhone GPU FPS unverified"
+  ],
+  "realBakedFeltContactAO": {
+    "texture": "_felt_baked/asteria-three-bays-cycles-felt-contact-ao.png",
+    "laneCount": 12,
+    "textureResolution": [
+      1024,
+      768
+    ],
+    "uvAtlasGrid": [
+      4,
+      3
+    ],
+    "source": "real Blender Cycles AO",
+    "notTrueGlobalIllumination": true
+  },
+  "preservedBaseNormalAndRoughness": true,
+  "bakedAOMaterials": "12 acoustic felt strips only"
+}

@@ -1,0 +1,34 @@
+{
+  "sameThreeBayTriangles": 13098,
+  "sameMeshObjects": 105,
+  "controlImages": 15,
+  "bakedImages": 16,
+  "actualUv1OcclusionMaterials": 1,
+  "atlasResolution": [
+    1024,
+    768
+  ],
+  "atlasRgbExtrema": [
+    [
+      0,
+      225
+    ],
+    [
+      0,
+      225
+    ],
+    [
+      0,
+      225
+    ]
+  ],
+  "atlasRgbStddev": [
+    55.94326883295124,
+    55.94326883295124,
+    55.94326883295124
+  ],
+  "sameGeometryHashCollection": true,
+  "actualCyclesAO": true,
+  "notRealIndirectMultiBounceGI": true,
+  "visualQualityNotApproved": true
+}
