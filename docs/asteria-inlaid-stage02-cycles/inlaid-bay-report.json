@@ -1,0 +1,33 @@
+{
+  "assetId": "ASTERIA_INLAID_WALL_CEILING_STAGE02",
+  "roomId": "AST-D01-BRIDGE",
+  "frozenV3SourceBlob": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "sourceFaceExclusionCount": 62,
+  "sourceWallBayK": 24,
+  "sourceCeilingIndices": [
+    36,
+    37
+  ],
+  "sourceWallAngle": 2.405281875404685,
+  "sourceRoofAngles": [
+    2.356194490192345,
+    2.4870941840919194
+  ],
+  "existingStructuralWallRetained": true,
+  "noGameUiOrWalkwayEdits": true,
+  "isAnExactFaceReplacement": true,
+  "meshObjects": 117,
+  "renderViews": [
+    "wall",
+    "ceiling",
+    "combined"
+  ],
+  "lighting": "Original editable Cycles multiple diffuse bounces in isolated scene only",
+  "notBakedGlobalIllumination": true,
+  "visualApproval": false,
+  "limitations": [
+    "Not in-context tested",
+    "No photorealism demonstrated",
+    "Physical iPhone GPU not tested"
+  ]
+}

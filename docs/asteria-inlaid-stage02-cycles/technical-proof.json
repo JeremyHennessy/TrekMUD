@@ -1,0 +1,24 @@
+{
+  "triangleFaces": 3300,
+  "meshObjects": 117,
+  "bounds": [
+    [
+      1.6546136140823364,
+      0.7300000190734863,
+      -5.1185173988342285
+    ],
+    [
+      5.258576393127441,
+      4.377999782562256,
+      -1.6673578023910522
+    ]
+  ],
+  "pbrImages": 12,
+  "realCycesPixels": {
+    "wall": 48.926,
+    "ceiling": 34.274,
+    "combined": 23.241
+  },
+  "reproducedFrom62SourceFaces": true,
+  "inContextVisualImprovementUnproven": true
+}
