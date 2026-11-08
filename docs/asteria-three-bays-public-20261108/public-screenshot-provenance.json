@@ -1,0 +1,146 @@
+{
+  "source": "real public GitHub Pages and Chromium screenshots",
+  "liveUrl": "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/",
+  "pinnedStage04Source": "5066014473b143b66ef12d93121376f726d8b094",
+  "mainWorkflowMerge": "399de4debfa202e29dbe9887cf11f82cbfbc5b3b",
+  "timestampUtc": "2026-11-08T18:28:33.095133+00:00",
+  "originalCommandAndChairPreserved": true,
+  "gameWrites": false,
+  "notPhysicalIphoneGpuMeasurement": true,
+  "userArtApproved": false,
+  "screenshots": [
+    {
+      "view": "aft",
+      "size": [
+        1280,
+        800
+      ],
+      "file": "public-aft-1280x800.png",
+      "sha256": "dde0538d0ee844d96a327e71e6b56fa63213d17eb493c9dd57dc591ef606ae1d",
+      "bytes": 883095,
+      "browser": {
+        "ready": "true",
+        "bay": "true",
+        "room": "AST-D01-BRIDGE",
+        "source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "noGameWrites": true,
+        "original": 81914,
+        "chair": 31484,
+        "command": 16292,
+        "commandAO": 1,
+        "ribFaces": 13098,
+        "ribMeshes": 105,
+        "removed": 174,
+        "frames": 4,
+        "mobileIntersection": 0
+      },
+      "glbUrls": [
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-command-set-candidate.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-hero-chair-candidate.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-v3-restored-pbr.glb"
+      ],
+      "errors": []
+    },
+    {
+      "view": "bayDetail",
+      "size": [
+        960,
+        720
+      ],
+      "file": "public-bayDetail-960x720.png",
+      "sha256": "2bcd5f7074d2fdcce223a94a72f29b76e76146815e8ed2e64721287a15cb0602",
+      "bytes": 706472,
+      "browser": {
+        "ready": "true",
+        "bay": "true",
+        "room": "AST-D01-BRIDGE",
+        "source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "noGameWrites": true,
+        "original": 81914,
+        "chair": 31484,
+        "command": 16292,
+        "commandAO": 1,
+        "ribFaces": 13098,
+        "ribMeshes": 105,
+        "removed": 174,
+        "frames": 6,
+        "mobileIntersection": 0
+      },
+      "glbUrls": [
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-command-set-candidate.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-hero-chair-candidate.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-v3-restored-pbr.glb"
+      ],
+      "errors": []
+    },
+    {
+      "view": "bayPanorama",
+      "size": [
+        960,
+        720
+      ],
+      "file": "public-bayPanorama-960x720.png",
+      "sha256": "a07bf84a3e06119688d03d8efd548d76abb2da0d4212399e5c38554d2188cdb7",
+      "bytes": 698917,
+      "browser": {
+        "ready": "true",
+        "bay": "true",
+        "room": "AST-D01-BRIDGE",
+        "source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "noGameWrites": true,
+        "original": 81914,
+        "chair": 31484,
+        "command": 16292,
+        "commandAO": 1,
+        "ribFaces": 13098,
+        "ribMeshes": 105,
+        "removed": 174,
+        "frames": 3,
+        "mobileIntersection": 0
+      },
+      "glbUrls": [
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-command-set-candidate.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-hero-chair-candidate.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-v3-restored-pbr.glb"
+      ],
+      "errors": []
+    },
+    {
+      "view": "aft",
+      "size": [
+        390,
+        844
+      ],
+      "file": "public-aft-390x844.png",
+      "sha256": "87142cc753e5b35faca47936c1f53b9946505e9156d54ab4f3b88d94d6ed448e",
+      "bytes": 281287,
+      "browser": {
+        "ready": "true",
+        "bay": "true",
+        "room": "AST-D01-BRIDGE",
+        "source": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "noGameWrites": true,
+        "original": 81914,
+        "chair": 31484,
+        "command": 16292,
+        "commandAO": 1,
+        "ribFaces": 13098,
+        "ribMeshes": 105,
+        "removed": 174,
+        "frames": 4,
+        "mobileIntersection": 0
+      },
+      "glbUrls": [
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-command-set-candidate.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-hero-chair-candidate.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/models/asteria-v3-restored-pbr.glb"
+      ],
+      "errors": []
+    }
+  ],
+  "contactSheetSha256": "117df818896adfed1f7f1a43bb496c5bfd4c029eb3db3bf005e6fb70f409d2e5"
+}
