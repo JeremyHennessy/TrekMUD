@@ -142,7 +142,10 @@ def build_ceiling(mat):
  # panel join, not fake white glow lines across the roof.
  for k in range(0,96,4):
   a=k*TAU/96
-  path=[wpos(a,r,roof_y(r)-.009)
+  # Stage11 controlled trial: recess the same 24 dark radial rail meshes
+  # 15 mm into the existing roof rather than showing long exposed spokes.
+  # Only the existing rail offset is changed, not panel/AO, fixtures or UI.
+  path=[wpos(a,r,roof_y(r)+.006)
         for r in (.40,.53,.62,.78,.89,.97)]
   kit.pipe(f"Ceiling / captured perimeter cassette rail {k:02d}",
            path,.011,MATS["satin_nickel"],segments=2)
