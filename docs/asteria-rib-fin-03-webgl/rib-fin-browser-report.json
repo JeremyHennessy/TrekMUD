@@ -1,0 +1,373 @@
+{
+  "review": "QA-only actual software-WebGL comparison, not production",
+  "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "commandAndChairUnchanged": true,
+  "campaignAndUiUnchanged": true,
+  "originalSourceFaceSpansRemoved": 58,
+  "originalFacesBefore": 82088,
+  "originalFacesAfter": 82030,
+  "newRibFinTriangles": 4366,
+  "realScreenshots": [
+    {
+      "route": "3d-preview-v5-command",
+      "camera": "aft",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-aft-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82088,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "ribFinLoaded": "none",
+        "ribFinFaces": 0,
+        "ribFinMeshes": 0,
+        "sourceExclusions": 0,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-ribfin",
+      "camera": "aft",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-ribfin-aft-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82030,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "ribFinLoaded": "true",
+        "ribFinFaces": 4366,
+        "ribFinMeshes": 35,
+        "sourceExclusions": 58,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-original-pitch-rib-fin-bay-03.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command",
+      "camera": "command",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-command-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82088,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "ribFinLoaded": "none",
+        "ribFinFaces": 0,
+        "ribFinMeshes": 0,
+        "sourceExclusions": 0,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-ribfin",
+      "camera": "command",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-ribfin-command-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82030,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "ribFinLoaded": "true",
+        "ribFinFaces": 4366,
+        "ribFinMeshes": 35,
+        "sourceExclusions": 58,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-original-pitch-rib-fin-bay-03.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command",
+      "camera": "science",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-science-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82088,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "ribFinLoaded": "none",
+        "ribFinFaces": 0,
+        "ribFinMeshes": 0,
+        "sourceExclusions": 0,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-ribfin",
+      "camera": "science",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-ribfin-science-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82030,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "ribFinLoaded": "true",
+        "ribFinFaces": 4366,
+        "ribFinMeshes": 35,
+        "sourceExclusions": 58,
+        "renderedFrames": 5
+      },
+      "assetRequests": [
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-original-pitch-rib-fin-bay-03.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command",
+      "camera": "bayDetail",
+      "size": [
+        960,
+        720
+      ],
+      "screenshot": "3d-preview-v5-command-bayDetail-960x720.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82088,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "ribFinLoaded": "none",
+        "ribFinFaces": 0,
+        "ribFinMeshes": 0,
+        "sourceExclusions": 0,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-ribfin",
+      "camera": "bayDetail",
+      "size": [
+        960,
+        720
+      ],
+      "screenshot": "3d-preview-v5-command-ribfin-bayDetail-960x720.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82030,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "ribFinLoaded": "true",
+        "ribFinFaces": 4366,
+        "ribFinMeshes": 35,
+        "sourceExclusions": 58,
+        "renderedFrames": 5
+      },
+      "assetRequests": [
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-original-pitch-rib-fin-bay-03.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command",
+      "camera": "aft",
+      "size": [
+        390,
+        844
+      ],
+      "screenshot": "3d-preview-v5-command-aft-390x844.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82088,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "ribFinLoaded": "none",
+        "ribFinFaces": 0,
+        "ribFinMeshes": 0,
+        "sourceExclusions": 0,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-ribfin",
+      "camera": "aft",
+      "size": [
+        390,
+        844
+      ],
+      "screenshot": "3d-preview-v5-command-ribfin-aft-390x844.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82030,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "ribFinLoaded": "true",
+        "ribFinFaces": 4366,
+        "ribFinMeshes": 35,
+        "sourceExclusions": 58,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-original-pitch-rib-fin-bay-03.glb",
+        "http://127.0.0.1:44335/3d-preview-v5-command-ribfin/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    }
+  ],
+  "matchedDeltas": {
+    "aft/1280": {
+      "meanAbsoluteRgb": 0.12894,
+      "changedPixelFraction": 0.003881
+    },
+    "command/1280": {
+      "meanAbsoluteRgb": 0.23124,
+      "changedPixelFraction": 0.007856
+    },
+    "science/1280": {
+      "meanAbsoluteRgb": 0.0,
+      "changedPixelFraction": 0.0
+    },
+    "bayDetail/960": {
+      "meanAbsoluteRgb": 5.42958,
+      "changedPixelFraction": 0.152279
+    },
+    "aft/390": {
+      "meanAbsoluteRgb": 0.31073,
+      "changedPixelFraction": 0.009038
+    }
+  },
+  "walkingAndCommandWaypointsPass": true,
+  "artApproved": false,
+  "photorealismProven": false,
+  "physicalIphoneGpuVerified": false
+}
