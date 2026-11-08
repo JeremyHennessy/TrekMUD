@@ -80,7 +80,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     viewer:{x:0,z:-4.78,yaw:Math.PI,label:'FORWARD VIEWSCREEN'},
     // Off-UI QA camera only. This is NOT a new game location or station.
     chairReview:{x:0,z:-.85,yaw:Math.PI,label:'CHAIR REVIEW CAMERA ONLY'},
-    commandDetail:{x:-1.86,z:-.90,yaw:2.76,label:'COMMAND INSTRUMENT DETAIL · QA ONLY'}
+    commandDetail:{x:-1.75,z:2.10,yaw:.306,label:'COMMAND INSTRUMENT DETAIL · QA ONLY'}
   };
   const camera=new THREE.PerspectiveCamera(65,1,.07,70);
   camera.rotation.order='YXZ';
