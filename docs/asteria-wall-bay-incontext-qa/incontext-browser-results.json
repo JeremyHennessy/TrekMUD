@@ -1,0 +1,259 @@
+{
+  "qa": "real Chromium software-WebGL baseline-vs-bay",
+  "originalV3Triangles": 82088,
+  "heroTriangles": 31484,
+  "commandTriangles": 16292,
+  "wallBayTriangles": 1344,
+  "screenshots": [
+    {
+      "route": "3d-preview-v5-command",
+      "view": "aft",
+      "width": 1280,
+      "height": 800,
+      "image": "3d-preview-v5-command-aft-1280x800.png",
+      "observed": {
+        "ready": "true",
+        "error": "",
+        "original": 82088,
+        "hero": 31484,
+        "command": 16292,
+        "commandAO": 1,
+        "bayLoaded": "none",
+        "bayFaces": 0,
+        "bayMeshes": 0,
+        "campaign": false,
+        "room": "AST-D01-BRIDGE",
+        "frozen": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "renderedFrames": 4
+      },
+      "errors": [],
+      "assets": [
+        "http://127.0.0.1:37637/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+      ]
+    },
+    {
+      "route": "3d-preview-v5-command-bay",
+      "view": "aft",
+      "width": 1280,
+      "height": 800,
+      "image": "3d-preview-v5-command-bay-aft-1280x800.png",
+      "observed": {
+        "ready": "true",
+        "error": "",
+        "original": 82088,
+        "hero": 31484,
+        "command": 16292,
+        "commandAO": 1,
+        "bayLoaded": "true",
+        "bayFaces": 1344,
+        "bayMeshes": 46,
+        "campaign": false,
+        "room": "AST-D01-BRIDGE",
+        "frozen": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "renderedFrames": 4
+      },
+      "errors": [],
+      "assets": [
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-v3-restored-pbr.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-wall-ceiling-bay-candidate.glb"
+      ]
+    },
+    {
+      "route": "3d-preview-v5-command",
+      "view": "command",
+      "width": 1280,
+      "height": 800,
+      "image": "3d-preview-v5-command-command-1280x800.png",
+      "observed": {
+        "ready": "true",
+        "error": "",
+        "original": 82088,
+        "hero": 31484,
+        "command": 16292,
+        "commandAO": 1,
+        "bayLoaded": "none",
+        "bayFaces": 0,
+        "bayMeshes": 0,
+        "campaign": false,
+        "room": "AST-D01-BRIDGE",
+        "frozen": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "renderedFrames": 4
+      },
+      "errors": [],
+      "assets": [
+        "http://127.0.0.1:37637/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+      ]
+    },
+    {
+      "route": "3d-preview-v5-command-bay",
+      "view": "command",
+      "width": 1280,
+      "height": 800,
+      "image": "3d-preview-v5-command-bay-command-1280x800.png",
+      "observed": {
+        "ready": "true",
+        "error": "",
+        "original": 82088,
+        "hero": 31484,
+        "command": 16292,
+        "commandAO": 1,
+        "bayLoaded": "true",
+        "bayFaces": 1344,
+        "bayMeshes": 46,
+        "campaign": false,
+        "room": "AST-D01-BRIDGE",
+        "frozen": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "renderedFrames": 4
+      },
+      "errors": [],
+      "assets": [
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-v3-restored-pbr.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-wall-ceiling-bay-candidate.glb"
+      ]
+    },
+    {
+      "route": "3d-preview-v5-command",
+      "view": "science",
+      "width": 1280,
+      "height": 800,
+      "image": "3d-preview-v5-command-science-1280x800.png",
+      "observed": {
+        "ready": "true",
+        "error": "",
+        "original": 82088,
+        "hero": 31484,
+        "command": 16292,
+        "commandAO": 1,
+        "bayLoaded": "none",
+        "bayFaces": 0,
+        "bayMeshes": 0,
+        "campaign": false,
+        "room": "AST-D01-BRIDGE",
+        "frozen": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "renderedFrames": 4
+      },
+      "errors": [],
+      "assets": [
+        "http://127.0.0.1:37637/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+      ]
+    },
+    {
+      "route": "3d-preview-v5-command-bay",
+      "view": "science",
+      "width": 1280,
+      "height": 800,
+      "image": "3d-preview-v5-command-bay-science-1280x800.png",
+      "observed": {
+        "ready": "true",
+        "error": "",
+        "original": 82088,
+        "hero": 31484,
+        "command": 16292,
+        "commandAO": 1,
+        "bayLoaded": "true",
+        "bayFaces": 1344,
+        "bayMeshes": 46,
+        "campaign": false,
+        "room": "AST-D01-BRIDGE",
+        "frozen": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "renderedFrames": 4
+      },
+      "errors": [],
+      "assets": [
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-v3-restored-pbr.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-wall-ceiling-bay-candidate.glb"
+      ]
+    },
+    {
+      "route": "3d-preview-v5-command",
+      "view": "command",
+      "width": 390,
+      "height": 844,
+      "image": "3d-preview-v5-command-command-390x844.png",
+      "observed": {
+        "ready": "true",
+        "error": "",
+        "original": 82088,
+        "hero": 31484,
+        "command": 16292,
+        "commandAO": 1,
+        "bayLoaded": "none",
+        "bayFaces": 0,
+        "bayMeshes": 0,
+        "campaign": false,
+        "room": "AST-D01-BRIDGE",
+        "frozen": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "renderedFrames": 4
+      },
+      "errors": [],
+      "assets": [
+        "http://127.0.0.1:37637/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+      ]
+    },
+    {
+      "route": "3d-preview-v5-command-bay",
+      "view": "command",
+      "width": 390,
+      "height": 844,
+      "image": "3d-preview-v5-command-bay-command-390x844.png",
+      "observed": {
+        "ready": "true",
+        "error": "",
+        "original": 82088,
+        "hero": 31484,
+        "command": 16292,
+        "commandAO": 1,
+        "bayLoaded": "true",
+        "bayFaces": 1344,
+        "bayMeshes": 46,
+        "campaign": false,
+        "room": "AST-D01-BRIDGE",
+        "frozen": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "renderedFrames": 4
+      },
+      "errors": [],
+      "assets": [
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-v3-restored-pbr.glb",
+        "http://127.0.0.1:37637/3d-preview-v5-command-bay/models/asteria-wall-ceiling-bay-candidate.glb"
+      ]
+    }
+  ],
+  "matchedDifferences": {
+    "aft/1280": {
+      "meanAbsoluteRgb": 1.0941,
+      "changedPixelFraction": 0.019762
+    },
+    "command/1280": {
+      "meanAbsoluteRgb": 1.4344,
+      "changedPixelFraction": 0.032411
+    },
+    "science/1280": {
+      "meanAbsoluteRgb": 0.0,
+      "changedPixelFraction": 1e-06
+    },
+    "command/390": {
+      "meanAbsoluteRgb": 0.0,
+      "changedPixelFraction": 0.0
+    }
+  },
+  "walkTest": "passed",
+  "sourceAndCampaignUnchanged": true,
+  "visualApproval": false,
+  "notAQualityProof": true
+}
