@@ -1,0 +1,105 @@
+name: Asteria soft cushion inset A/B (Blender source only)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [experiment/asteria-chair-soft-insets-01]
+    paths:
+      - 'scripts/asteria_hero_chair_blender.py'
+      - '.github/workflows/validate-asteria-soft-insets.yml'
+  pull_request:
+    branches: [experiment/asteria-v5-hero-chair-in-context-01]
+    paths:
+      - 'scripts/asteria_hero_chair_blender.py'
+      - '.github/workflows/validate-asteria-soft-insets.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  cushion-ab:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 38
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check source syntax and unchanged campaign
+        run: |
+          python -m py_compile scripts/asteria_hero_chair_blender.py
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+      - name: Install isolated modelling and texture dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender
+          python -m pip install --disable-pip-version-check numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1
+          blender --version
+      - name: Acquire pinned CC0 scanned fabric
+        run: python scripts/asteria_fetch_cc0_velour.py --out _asteria_cc0_fabric
+      - name: Render untouched baseline front chair at matched lighting
+        run: |
+          blender -b -t 4 --python-exit-code 1 --python scripts/asteria_hero_chair_blender.py -- \
+            --texture-dir _asteria_cc0_fabric \
+            --out _hero_soft_inset_control --samples 24 --resolution 900 800 --view front
+      - name: Render only opt-in refined cushion geometry at identical camera
+        run: |
+          blender -b -t 4 --python-exit-code 1 --python scripts/asteria_hero_chair_blender.py -- \
+            --texture-dir _asteria_cc0_fabric --soft-insets \
+            --out _hero_soft_inset_candidate --samples 24 --resolution 900 800 --view front
+      - name: Verify unchanged GLB components and exact scoped cushion differences
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import numpy as np
+          from PIL import Image
+          import trimesh
+          a=Path('_hero_soft_inset_control');b=Path('_hero_soft_inset_candidate')
+          a_report=json.loads((a/'hero-chair-report.json').read_text())
+          b_report=json.loads((b/'hero-chair-report.json').read_text())
+          assert a_report['softInsetCandidate'] is False
+          assert b_report['softInsetCandidate'] is True
+          assert a_report['photoScannedFabric'] is b_report['photoScannedFabric'] is True
+          assert a_report['renderedViews']==b_report['renderedViews']==['front']
+          before=trimesh.load(a/'asteria-hero-chair-candidate.glb',force='scene',process=False)
+          after=trimesh.load(b/'asteria-hero-chair-candidate.glb',force='scene',process=False)
+          assert len(before.geometry)==len(after.geometry)==47
+          assert set(before.geometry)==set(after.geometry)
+          faces=lambda mesh:sum(len(g.faces) for g in mesh.geometry.values())
+          assert faces(before)==faces(after)==26908
+          assert np.allclose(before.bounds,after.bounds,atol=.005)
+          changed=[]
+          for key in sorted(before.geometry):
+              old=before.geometry[key];new=after.geometry[key]
+              assert len(old.faces)==len(new.faces),key
+              assert old.vertices.shape==new.vertices.shape,key
+              if not np.allclose(old.vertices,new.vertices,atol=1.e-6):
+                  changed.append(key)
+          assert len(changed)==2,changed
+          assert any('lumbar' in key.lower() for key in changed),changed
+          assert any('shoulder' in key.lower() for key in changed),changed
+          a_img=np.array(Image.open(a/'asteria-chair-front.png').convert('RGB'),dtype=np.int16)
+          b_img=np.array(Image.open(b/'asteria-chair-front.png').convert('RGB'),dtype=np.int16)
+          assert a_img.shape==b_img.shape==(800,900,3)
+          delta=float(np.abs(a_img-b_img).mean())
+          assert delta>.1,('No visible image change',delta)
+          print(json.dumps({'faces':faces(after),'objectCount':len(after.geometry),
+              'changedObjects':changed,'frontImageMeanDifference':round(delta,3),
+              'referenceGeometryUnchanged':True},indent=2))
+          print('Technical A/B passed. Artistic acceptance requires inspection of the actual frames.')
+          PY
+      - name: Archive real matched images and source/GLB review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-soft-cushion-inset-ab
+          path: |
+            _hero_soft_inset_control/asteria-chair-front.png
+            _hero_soft_inset_control/hero-chair-report.json
+            _hero_soft_inset_candidate/asteria-chair-front.png
+            _hero_soft_inset_candidate/hero-chair-report.json
+            _hero_soft_inset_candidate/asteria-hero-chair-candidate.glb
+          if-no-files-found: ignore
+          retention-days: 7
