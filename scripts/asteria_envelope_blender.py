@@ -30,6 +30,7 @@ def args():
  p.add_argument("--resolution",type=int,nargs=2,default=[960,640])
  p.add_argument("--bake-ao",action="store_true")
  p.add_argument("--omit-radial-rails",action="store_true",help="QA only: isolate roof radial rail shading without touching the ceiling panels")
+ p.add_argument("--qa-fixture-light-rig",action="store_true",help="Offline QA: compare Cycles indirect illumination from the exact 12 installed ceiling fixtures")
  p.add_argument("--no-render",action="store_true")
  return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
 
@@ -163,19 +164,32 @@ def build_ceiling(mat,omit_radial_rails=False):
            [across(-.185,-.033),across(.185,-.033)],.019,MATS['light'],segments=3)
  return ob
 
-def other_studio():
+def other_studio(fixture_light_rig=False):
  scene=bpy.context.scene
  world=bpy.data.worlds.new("USS Asteria Stage08 / warm studio GI test")
  scene.world=world;world.use_nodes=True
  bg=world.node_tree.nodes.get("Background")
  bg.inputs["Color"].default_value=(.21,.225,.245,1)
  bg.inputs["Strength"].default_value=.38
- kit.light("Overhead broad softbox",(-4.3,5.6,1.4),
-           (0,2,0),900,(1,.88,.76),(5.2,4.1))
- kit.light("Forward cool indirect proxy",(4.4,4.9,-3.9),
-           (0,2.4,-1.3),520,(.75,.88,1),(4.5,3.1))
- kit.light("Aft warm set rebound",(0,3.2,5.5),
-           (0,2,1),330,(1,.93,.86),(4.5,3.3))
+ if fixture_light_rig:
+  # Stage14 isolated Cycles lighting trial. These twelve measured emitter
+  # positions match the twelve already-modelled overhead practicals in
+  # build_ceiling() at sectors 0,8,...,88. Physically aimed area emitters
+  # produce actual three-bounce diffuse GI in the offline Cycles study.
+  # They are NOT exported as glTF lights or as an indirect lightmap.
+  for k in range(0,96,8):
+   a=(k+.5)*TAU/96
+   r=.77
+   x,y,z=wpos(a,r,roof_y(r)-.055)
+   kit.light(f"QA Stage14 / installed roof fixture {k:02d}",
+             (x,y,z),(x*.74,.80,z*.74),200,(1.,.845,.70),(.62,.27))
+ else:
+  kit.light("Overhead broad softbox",(-4.3,5.6,1.4),
+            (0,2,0),900,(1,.88,.76),(5.2,4.1))
+  kit.light("Forward cool indirect proxy",(4.4,4.9,-3.9),
+            (0,2.4,-1.3),520,(.75,.88,1),(4.5,3.1))
+  kit.light("Aft warm set rebound",(0,3.2,5.5),
+            (0,2,1),330,(1,.93,.86),(4.5,3.3))
  # The photographic floor reference is only a neutral Cycles light-bounce
  # surface and is NOT exported into the candidate as modified walking mesh.
  bpy.ops.mesh.primitive_cylinder_add(vertices=128,radius=6.3,depth=.08,
@@ -307,7 +321,7 @@ def main():
   "light":make_emissive(),
  }
  build_wall(MATS["wall"]);build_ceiling(MATS["ceiling"],a.omit_radial_rails)
- studio_floor=other_studio()
+ studio_floor=other_studio(a.qa_fixture_light_rig)
  cameras=studio_cameras()
  sc=bpy.context.scene
  sc.render.engine="CYCLES"
@@ -359,6 +373,9 @@ def main():
   "newWallPanels":112,"roofWedges":96,
   "formedRoofBandsPerWedge":3,"physicalPracticalHousings":12,
   "radialRailsEmitted":0 if a.omit_radial_rails else 24,
+  "qaFixtureLightingStudy":bool(a.qa_fixture_light_rig),
+  "qaFixtureStudyLightCount":12 if a.qa_fixture_light_rig else 0,
+  "qaLightingNotExportedAsGltfOrLightmap":True,
   "railIsolationExperiment":bool(a.omit_radial_rails),
   "originalPbrScan":pbr["scanPage"],
   "pbrLicense":pbr["license"],"PBRScanPhotoBased":True,
