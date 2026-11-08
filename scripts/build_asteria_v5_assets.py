@@ -301,11 +301,12 @@ manifest={
           'captainChairRemovedFaces':captain_removed,
           'commandSectionRemovedFaces':command_removed,
           'commandSourceRanges':command_spans,
-          'inlaidBayRemovedFaces':bay_removed,
-          'inlaidBaySourceRanges':bay_spans,
           'remainingV3Triangles':len(P)//3,
           'physicalSize':[15.1,4.46,13.12], 'simulationWrites':False}
 }
+if drop_bay:
+    manifest['extras']['inlaidBayRemovedFaces']=bay_removed
+    manifest['extras']['inlaidBaySourceRanges']=bay_spans
 assert all(v.get('buffer',0)==0 for v in bufferViews)
 manifest['buffers'][0]['byteLength']=len(buf)
 js=json.dumps(manifest,separators=(',',':')).encode('utf-8');js+=b' '*((-len(js))%4)
@@ -318,8 +319,9 @@ report={'path':str(out),'sha256':hashlib.sha256(glb).hexdigest(),'bytes':len(glb
         'captain_chair_source_faces_removed':captain_removed,
         'command_section_source_faces_removed':command_removed,
         'command_source_ranges':command_spans,
-        'inlaid_bay_source_faces_removed':bay_removed,
-        'inlaid_bay_source_ranges':bay_spans,
         'chair_winding_faces_reordered':chair_winding_faces_reordered,'material_groups':len(MATS),'position_bounds':{'min':P.min(0).tolist(),'max':P.max(0).tolist()},'source_git_blob':'74a154ae62bccb0c16d03c2ecf791a64ab19ce81'}
+if drop_bay:
+    report['inlaid_bay_source_faces_removed']=bay_removed
+    report['inlaid_bay_source_ranges']=bay_spans
 (OUT/'manifest.json').write_text(json.dumps(report,indent=2))
 print('REPORT',json.dumps(report,indent=2),flush=True)
