@@ -335,9 +335,20 @@ def actual_ao_bake(out):
   bpy.ops.object.select_all(action="DESELECT")
   ob.select_set(True);bpy.context.view_layer.objects.active=ob
   ob.data.uv_layers.active=uv
+  # Stage13 formed cassettes physically cover the original receiver roof.
+  # Baking AO on that HIDDEN substrate with the overlay visible yields a
+  # near-black atlas (confirmed 69.0/255). Only for the underlying ceiling
+  # receiver's bake, exclude the overlying shell from the rays; do NOT hide
+  # it for the final Cycles image, glTF model, or any other AO/material pass.
+  occluding_overlay=MESHES.get("roofCassettes") if key=="ceiling" else None
+  if occluding_overlay is not None:
+   assert not occluding_overlay.hide_render
+   occluding_overlay.hide_render=True
   try:
    bpy.ops.object.bake(type="EMIT")
   finally:
+   if occluding_overlay is not None:
+    occluding_overlay.hide_render=False
    # Restore the ORIGINAL physically scanned Principled shader. The
    # temporary AO emission nodes are not part of the published model.
    mat.node_tree.links.new(original_surface,output.inputs["Surface"])
