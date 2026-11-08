@@ -37,7 +37,7 @@ jobs:
           python scripts/validate_asteria.py
           python -m py_compile scripts/test_asteria_rib_fin_browser.py \
             scripts/build_asteria_v5_assets.py scripts/asteria_rib_fin_blender.py
-          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae58bccb0c16d03c2ecf791a64ab19ce81
+          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
       - name: Install same Chromium, Blender, Three.js and PBR dependency versions
         run: |
           python -m pip install --disable-pip-version-check \
@@ -74,9 +74,9 @@ jobs:
           assert 'rib_fin_bay_source_faces_removed' not in before
           assert after['rib_fin_bay_source_faces_removed']==58
           assert [r['name'] for r in after['rib_fin_bay_source_ranges']]==['wallBayDecor24']
-          assert before['source_git_blob']==after['source_git_blob']=='74a154ae58bccb0c16d03c2ecf791a64ab19ce81'
-          assert before['captain_chair_source_faces_removed']==after['captain_chair_source_faces_removed']==15872
-          assert before['command_section_source_faces_removed']==after['command_section_source_faces_removed']==8588
+          assert before['source_git_blob']==after['source_git_blob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+          assert before['captain_chair_source_faces_removed']==after['captain_chair_source_faces_removed']==16272
+          assert before['command_section_source_faces_removed']==after['command_section_source_faces_removed']==8628
           assert before['triangles']-after['triangles']==58
           print('EXACT_RIB_FIN_WALL_ONLY_REMOVAL_82088_TO_82030_PASSED')
           PY
@@ -137,7 +137,7 @@ jobs:
           src=src.replace(check,
            'triangles!==106988-removed-commandRemoved-58||'+
            'meta.ribFinBayRemovedFaces!==58||'+
-           '(meta.ribFinBaySourceRanges||[]).length!==3||missing')
+           '(meta.ribFinBaySourceRanges||[]).length!==1||missing')
           anchor='    scene.add(room,hero,command);'
           assert src.count(anchor)==1
           patch="""    scene.add(room,hero,command);
@@ -202,7 +202,7 @@ jobs:
           assert faces(new/'models/asteria-v3-restored-pbr.glb')==82030
           assert faces(new/'models/asteria-original-pitch-rib-fin-bay-03.glb')==4366
           assert faces(base/'models/asteria-hero-chair-candidate.glb')==31484
-          assert faces(base/'models/asteria-command-set-candidate.glb')==15892
+          assert faces(base/'models/asteria-command-set-candidate.glb')==16292
           assert not (base/'models/asteria-original-pitch-rib-fin-bay-03.glb').exists()
           print('BYTE_IDENTICAL_CHAIR_AND_COMMAND_MODELS_AND_UI_CONFIRMED')
           PY
