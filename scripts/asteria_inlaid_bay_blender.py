@@ -121,7 +121,7 @@ def roof_patch(m):
             points=[ceiling(a0,r0),ceiling(a1,r0),
                     ceiling(a1,r1),ceiling(a0,r1)]
             mesh(f"Ceiling / source-fit moulded radial section {j}-{k}",
-                 points,[(0,1,2),(0,2,3)],m["powder_ivory"],
+                 points,[(0,1,2),(0,2,3)],m["roof_matched_original"],
                  [(0,0),(1,0),(1,1),(0,1)])
     # Real very shallow trim at boundaries, warm ivory body remains the visual.
     # Avoid dark exterior rectangle seen in rejected first experiment.
@@ -179,6 +179,23 @@ def main():
              "rose_bronze":(.43,.56),"console_gasket":(.87,0)}
     m={n:kit.build_material("Asteria / source-fit bay / "+n,n,*p,a.materials)
        for n,p in presets.items()}
+    # Roof-only PBR calibration: the frozen original V3 wedge was colored
+    # 0xd3c9bd, then converted sRGB->linear and raised to .85 in the V5
+    # exporter. Retain the identical authored roughness/normal maps but use
+    # its measured original ceiling pigment instead of the darker procedural
+    # "powder_ivory" base scan. No shape or game/UI changes.
+    roof=kit.build_material("Asteria / roof / exact frozen V3 cream",
+                             "powder_ivory",.72,.16,a.materials)
+    bsdf=roof.node_tree.nodes.get("Principled BSDF")
+    original_links=list(bsdf.inputs["Base Color"].links)
+    assert len(original_links)==1
+    roof.node_tree.links.remove(original_links[0])
+    def source_v3_linear(byte):
+        v=byte/255.
+        return v/12.92 if v<=.04045 else ((v+.055)/1.055)**2.4
+    matched=tuple(source_v3_linear(v)**.85 for v in (0xd3,0xc9,0xbd))
+    bsdf.inputs["Base Color"].default_value=(*matched,1.)
+    m["roof_matched_original"]=roof
     wall_bay(m)
     roof_patch(m)
     scene=bpy.context.scene
