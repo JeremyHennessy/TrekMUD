@@ -226,7 +226,8 @@ with sync_playwright() as p:
     assert all(entry['end']<=start or entry['start']>=end for entry in rows)
    if capture_command:
     assert all(b['end']<=c['start'] or b['start']>=c['end']
-               for b in rows for c in ranges)
+               for b in rows for c in __import__('json').loads(
+                   (OUT/'command-section-source-spans.json').read_text())['ranges'])
    triple={'roomId':'AST-D01-BRIDGE','sourceV3Blob':expected,
     'totalFaces':106988,'selectedWallDecorK':[22,23,24],
     'ranges':rows,'removedFaces':sum(x['faces'] for x in rows),
