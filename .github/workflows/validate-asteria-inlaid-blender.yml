@@ -1,0 +1,138 @@
+name: Asteria exact-inlay bay Stage 02 - Blender/Cycles visual study
+
+on:
+  push:
+    branches: [experiment/asteria-inlaid-bay-02]
+    paths:
+      - scripts/asteria_inlaid_bay_blender.py
+      - .github/workflows/validate-asteria-inlaid-blender.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  source-fit-cycles:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 38
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Lock original ship and campaign geometry
+        run: |
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
+          python -m py_compile scripts/asteria_inlaid_bay_blender.py scripts/build_asteria_v5_assets.py
+      - name: Install frozen modeling dependencies
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          sudo apt-get update
+          sudo apt-get install -y blender
+          blender --version
+      - name: Re-capture exact source wall and roof faces and original palette
+        run: |
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+            ASTERIA_V3_CAPTURE_INLAID_BAY=1 \
+            python scripts/extract_asteria_v3_for_v5.py
+          python scripts/asteria_command_pbr_maps.py \
+            --out _asteria_command_maps --v3-atlas _v5_mesh_capture/atlas.png
+      - name: Render real 3-view isolated source-fitting model in Cycles
+        run: |
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_inlaid_bay_blender.py -- \
+            --materials _asteria_command_maps \
+            --source-report _v5_mesh_capture/inlaid-bay-source-spans.json \
+            --out _asteria_inlaid_stage02 --samples 20 \
+            --resolution 960 640
+      - name: Validate actual Blender GLB materials, face budget and real image pixels
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,struct
+          import numpy as np
+          from PIL import Image
+          import trimesh
+          p=Path('_asteria_inlaid_stage02')
+          report=json.loads((p/'inlaid-bay-report.json').read_text())
+          assert report['assetId']=='ASTERIA_INLAID_WALL_CEILING_STAGE02'
+          assert report['frozenV3SourceBlob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+          assert report['sourceFaceExclusionCount']==62
+          assert report['sourceWallBayK']==24 and report['sourceCeilingIndices']==[36,37]
+          assert report['existingStructuralWallRetained'] and report['noGameUiOrWalkwayEdits']
+          assert report['isAnExactFaceReplacement']
+          assert report['renderViews']==['wall','ceiling','combined']
+          assert report['visualApproval'] is False
+          assert report['meshObjects']>90
+          assert (p/'asteria-inlaid-bay-stage02.blend').stat().st_size>100000
+          glb=p/'asteria-inlaid-bay-stage02.glb'
+          assert glb.stat().st_size>100000
+          scene=trimesh.load(glb,force='scene',process=False)
+          faces=sum(len(g.faces) for g in scene.geometry.values())
+          assert 300<faces<18000,faces
+          bounds=scene.bounds
+          assert bounds[0][0]>1.1 and bounds[1][0]<6.3,bounds
+          assert bounds[0][1]>.60 and bounds[1][1]<4.5,bounds
+          assert bounds[0][2]>-5.8 and bounds[1][2]<-.9,bounds
+          raw=glb.read_bytes()
+          n=struct.unpack_from('<I',raw,12)[0]
+          gltf=json.loads(raw[20:20+n])
+          assert len(gltf.get('images',[]))>=9
+          assert any(m.get('normalTexture') for m in gltf['materials'])
+          actual={}
+          for view in report['renderViews']:
+            im=np.asarray(Image.open(p/f'asteria-inlaid-{view}.png').convert('RGB'))
+            assert im.shape==(640,960,3),view
+            contrast=round(float(im.std(axis=(0,1)).mean()),3)
+            assert contrast>7,(view,contrast)
+            actual[view]=contrast
+          proof={'triangleFaces':faces,'meshObjects':report['meshObjects'],
+                 'bounds':bounds.tolist(),'pbrImages':len(gltf['images']),
+                 'realCycesPixels':actual,
+                 'reproducedFrom62SourceFaces':True,
+                 'inContextVisualImprovementUnproven':True}
+          (p/'technical-proof.json').write_text(json.dumps(proof,indent=2)+'\n')
+          print('STAGE02_INLAID_CYCLES_QUALITY_GATE_1_PASSED',json.dumps(proof))
+          PY
+      - name: Preserve editable Blender source, GLB and actual screenshot pixels
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-inlaid-bay-stage02-cycles
+          path: |
+            _asteria_inlaid_stage02/*.blend
+            _asteria_inlaid_stage02/*.glb
+            _asteria_inlaid_stage02/*.png
+            _asteria_inlaid_stage02/*.json
+            _v5_mesh_capture/inlaid-bay-source-spans.json
+          if-no-files-found: ignore
+          retention-days: 30
+      - name: Preserve actual passing Cycles images in experiment only
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p docs/asteria-inlaid-stage02-cycles
+          cp _asteria_inlaid_stage02/*.png docs/asteria-inlaid-stage02-cycles/
+          cp _asteria_inlaid_stage02/*proof.json docs/asteria-inlaid-stage02-cycles/
+          cp _asteria_inlaid_stage02/*report.json docs/asteria-inlaid-stage02-cycles/
+          python - <<'PY'
+          from PIL import Image,ImageDraw
+          from pathlib import Path
+          p=Path('docs/asteria-inlaid-stage02-cycles')
+          out=Image.new('RGB',(960,3*680),(24,22,30))
+          for i,view in enumerate(('wall','ceiling','combined')):
+            name=f'asteria-inlaid-{view}.png'
+            out.paste(Image.open(p/name).convert('RGB'),(0,i*680))
+            ImageDraw.Draw(out).text((14,i*680+646),view,fill=(255,255,255))
+          out.save(p/'cycles-contact.jpg',quality=90,optimize=True)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/asteria-inlaid-stage02-cycles/
+          git diff --cached --quiet && exit 0
+          git commit -m 'QA-only: preserve three real source-fit Cycles renders and measured bounds'
+          git push origin HEAD:experiment/asteria-inlaid-bay-02
