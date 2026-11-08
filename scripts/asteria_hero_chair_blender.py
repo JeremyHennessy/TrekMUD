@@ -31,6 +31,7 @@ def parameters():
     p.add_argument("--samples",type=int,default=24)
     p.add_argument("--texture-dir",type=Path,default=None,help="Optional pinned CC0 scan input")
     p.add_argument("--no-render",action="store_true",help="Export model and source only for browser testing")
+    p.add_argument("--soft-insets",action="store_true",help="A/B test subtly bulged lumbar/shoulder cushions with flush edges")
     p.add_argument("--view",choices=["front","rear","quarter","detail","all"],default="all")
     p.add_argument("--resolution",nargs=2,type=int,default=[900,800])
     return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
@@ -102,6 +103,46 @@ def thick_pad(name,surface,rows,cols,front,rear,thickness=.115):
         for a,b in zip(edge,edge[1:]):
             add((a,b,a+off),1);add((b,b+off,a+off),1)
     return geometry(name,verts,faces,[front,rear],ids)
+
+def sculpted_inset(name, u_scale, t_start, t_span, bulge, rows, cols, front, rear):
+    """Closed, sewn-in upholstery insert that blends into the existing V3 back.
+
+    Geometry changes ONLY in an opt-in A/B run. The front is smoothly raised
+    toward the viewer at the middle, while the perimeter approaches the
+    underlying chair back instead of standing above it as a rigid plate.
+    A thin rear skin overlaps the original back shell, leaving no open edges.
+    """
+    first=[];second=[]
+    for j in range(rows+1):
+        t=j/rows
+        for i in range(cols+1):
+            u=-1+2*i/cols
+            x,y,z=back_surface(u*u_scale,t_start+t_span*t)
+            # Smooth falloff toward all four stitched boundaries.
+            envelope=max(0.0,1-u*u)**1.6*max(0.0,math.sin(PI*t))**1.6
+            first.append(tuple(coord(x,y,z-.0025-bulge*envelope)))
+            second.append(tuple(coord(x,y,z+.0025+.004*envelope)))
+    offset=len(first);verts=first+second
+    faces=[];indices=[];stride=cols+1
+    def add(face,material):
+        faces.append(face);indices.append(material)
+    for j in range(rows):
+        for i in range(cols):
+            a=j*stride+i;b=a+1;c=a+stride;d=c+1
+            add((a,c,b),0);add((b,c,d),0)
+            add((a+offset,b+offset,c+offset),1)
+            add((b+offset,d+offset,c+offset),1)
+    boundaries=(
+        [j*stride for j in range(rows+1)],
+        [j*stride+cols for j in range(rows+1)],
+        list(range(stride)),
+        [rows*stride+i for i in range(stride)]
+    )
+    for edge in boundaries:
+        for a,b in zip(edge,edge[1:]):
+            add((a,b,a+offset),1);add((b,b+offset,a+offset),1)
+    return geometry(name,verts,faces,[front,rear],indices)
+
 
 def pipe(name,points,radius,material):
     curve=bpy.data.curves.new(name,"CURVE")
@@ -197,7 +238,7 @@ def apply_cc0_material_scan(m,folder):
     attach("fabric","asteria_mauve_diffuse.png")
     attach("fabric_light","asteria_mauve_light_diffuse.png")
 
-def chair(m):
+def chair(m, soft_insets=False):
     # Weighted swivel construction, bearings and load-bearing collar.
     for name,y,r,h,material in [
         ("Weighted cast base",.080,.35,.095,"frame"),
@@ -237,11 +278,19 @@ def chair(m):
     def lumbar(u,t):
         x,y,z=back_surface(u*.74,.14+.49*t)
         return x,y,z-.025*(1-u*u)*math.sin(PI*t)
-    thick_pad("Back / articulated lumbar cushion",lumbar,20,30,m["fabric_light"],m["fabric"],.037)
+    if soft_insets:
+        sculpted_inset("Back / articulated lumbar cushion",.74,.14,.49,.032,
+                       20,30,m["fabric_light"],m["fabric"])
+    else:
+        thick_pad("Back / articulated lumbar cushion",lumbar,20,30,m["fabric_light"],m["fabric"],.037)
     def head(u,t):
         x,y,z=back_surface(u*.66,.76+.19*t)
         return x,y,z-.020*(1-u*u)*math.sin(PI*t)
-    thick_pad("Back / integrated shoulder bolster",head,12,30,m["fabric_light"],m["fabric"],.036)
+    if soft_insets:
+        sculpted_inset("Back / integrated shoulder bolster",.66,.76,.19,.020,
+                       12,30,m["fabric_light"],m["fabric"])
+    else:
+        thick_pad("Back / integrated shoulder bolster",head,12,30,m["fabric_light"],m["fabric"],.036)
     for s in (-1,1):
         pipe("Back / moulded welting "+str(s),
              [back_surface(s*.955,.045+.91*i/50) for i in range(51)],.009,m["thread"])
@@ -325,7 +374,7 @@ def main():
     }
     if a.texture_dir:
         apply_cc0_material_scan(m,a.texture_dir)
-    chair(m)
+    chair(m, soft_insets=a.soft_insets)
     cameras=studio()
     sc=bpy.context.scene;sc.render.engine="CYCLES";sc.cycles.samples=a.samples
     sc.cycles.use_denoising=False
@@ -370,6 +419,7 @@ def main():
       "cyclesExposureEV":-1.4,
       "renderedViews":[] if a.no_render else chosen,"separateFromBrowser":True,
       "photoScannedFabric":bool(a.texture_dir),
+      "softInsetCandidate":bool(a.soft_insets),
       "materialLimit":"Scanned albedo, roughness and normal embedded in candidate GLB when texture-dir is supplied",
       "visualApproved":False,
     }
