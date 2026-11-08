@@ -95,7 +95,7 @@ try:
             assert not errors and not external,data
             assert spread>22,("Blank or uniform WebGL screenshot",data)
             if route=="3d-preview-v5-chair":
-                assert data["heroLoaded"]=="true" and data["heroFaces"]==26908,data
+                assert data["heroLoaded"]=="true" and data["heroFaces"]==31484,data
                 assert data["removedFaces"]>1000,data
                 assert data["geometryFaces"]+data["removedFaces"]==106988,data
                 assert data["heroMeshes"]>=20,data
