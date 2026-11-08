@@ -1,0 +1,158 @@
+name: Asteria Stage07 actual Cycles AO on acoustic felt - isolated GLB A/B
+
+on:
+  push:
+    branches: [experiment/asteria-felt-cycles-ao-07]
+    paths:
+      - 'scripts/asteria_three_rib_bays_blender.py'
+      - '.github/workflows/validate-asteria-felt-ao-blender.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: asteria-felt-ao-cycles-stage07
+  cancel-in-progress: false
+
+jobs:
+  actual-ao-bake:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Lock previously verified world, V3, game and source syntax
+        run: |
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
+          python -m py_compile scripts/asteria_three_rib_bays_blender.py \
+            scripts/asteria_command_blender.py scripts/asteria_rib_fin_maps.py
+      - name: Install exactly the prior successful geometry, Cycles and atlas dependencies
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          sudo apt-get update
+          sudo apt-get install -y blender
+          blender --version
+      - name: Capture the exact original three-bay provenance and immutable source maps
+        run: |
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+            ASTERIA_V3_CAPTURE_INLAID_BAY=1 \
+            ASTERIA_V3_CAPTURE_THREE_RIB_BAYS=1 \
+            python scripts/extract_asteria_v3_for_v5.py
+          python scripts/asteria_command_pbr_maps.py \
+            --out _asteria_command_maps --v3-atlas _v5_mesh_capture/atlas.png
+          python scripts/asteria_rib_fin_maps.py --out _asteria_rib_fin_maps
+      - name: Build unchanged Stage04 control GLB without optional flags
+        run: |
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_three_rib_bays_blender.py -- \
+            --out _felt_control --materials _asteria_rib_fin_maps \
+            --command-materials _asteria_command_maps \
+            --source-report _v5_mesh_capture/three-rib-bays-source-spans.json \
+            --samples 24 --no-render
+      - name: Generate actual Cycles baked AO on the original 12 acoustic felt strips
+        run: |
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_three_rib_bays_blender.py -- \
+            --out _felt_baked \
+            --materials _asteria_rib_fin_maps \
+            --command-materials _asteria_command_maps \
+            --source-report _v5_mesh_capture/three-rib-bays-source-spans.json \
+            --samples 24 --no-render --bake-felt-ao
+      - name: Prove exact model geometry, genuine baked AO atlas, UV1 and glTF mapping
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageStat
+          import json,struct,numpy as np,trimesh,hashlib
+          control=Path('_felt_control')
+          trial=Path('_felt_baked')
+          a=json.loads((control/'rib-fin-report.json').read_text())
+          b=json.loads((trial/'rib-fin-report.json').read_text())
+          assert a['meshObjects']==b['meshObjects']==105
+          assert 'realBakedFeltContactAO' not in a
+          assert b['realBakedFeltContactAO']['laneCount']==12
+          assert b['realBakedFeltContactAO']['source']=='real Blender Cycles AO'
+          assert b['realBakedFeltContactAO']['notTrueGlobalIllumination']
+          assert b['preservedBaseNormalAndRoughness'] is True
+          assert a['removedOriginalWallDecorFaces']==b['removedOriginalWallDecorFaces']==174
+          assert a['originalCeilingTrianglesRemoved']==b['originalCeilingTrianglesRemoved']==0
+          assert a['frozenSource']==b['frozenSource']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+          m='asteria-three-original-pitch-rib-bays-04.glb'
+          def load(p):
+            scene=trimesh.load(p/m,force='scene',process=False)
+            faces=sum(len(mesh.faces) for mesh in scene.geometry.values())
+            sig=sorted(hashlib.sha256(
+              np.asarray(mesh.vertices,dtype='<f4').tobytes()+
+              np.asarray(mesh.faces,dtype='<i4').tobytes()).hexdigest()
+              for mesh in scene.geometry.values())
+            raw=(p/m).read_bytes()
+            n=struct.unpack_from('<I',raw,12)[0]
+            gltf=json.loads(raw[20:20+n])
+            return faces,sig,gltf
+          af,asig,ag=load(control);bf,bsig,bg=load(trial)
+          assert af==bf==13098,(af,bf)
+          assert asig==bsig,'Geometry itself drifted in a supposedly material-only study'
+          assert not any(m.get('occlusionTexture',{}).get('texCoord')==1 for m in ag['materials'])
+          baked=[m for m in bg['materials'] if m.get('occlusionTexture',{}).get('texCoord')==1]
+          assert len(baked)==1,baked
+          assert any('TEXCOORD_1' in p['attributes']
+                     for mesh in bg['meshes'] for p in mesh['primitives'])
+          assert len(bg.get('images',[]))>len(ag.get('images',[]))
+          tex=trial/'asteria-three-bays-cycles-felt-contact-ao.png'
+          im=Image.open(tex).convert('RGB')
+          assert im.size==(1024,768)
+          extrema=im.getextrema()
+          std=ImageStat.Stat(im).stddev
+          print('ACTUAL_CYCLES_FELT_ATLAS_PIXELS',extrema,std)
+          assert extrema[0][0]<250 and max(std)>1,(
+            'Bake uniform/white; cannot call visually useful AO',extrema,std)
+          proof={'sameThreeBayTriangles':af,'sameMeshObjects':105,
+                 'controlImages':len(ag.get('images',[])),
+                 'bakedImages':len(bg.get('images',[])),
+                 'actualUv1OcclusionMaterials':len(baked),
+                 'atlasResolution':[1024,768],
+                 'atlasRgbExtrema':extrema,
+                 'atlasRgbStddev':std,
+                 'sameGeometryHashCollection':True,
+                 'actualCyclesAO':True,
+                 'notRealIndirectMultiBounceGI':True,
+                 'visualQualityNotApproved':True}
+          (trial/'ao-technical-proof.json').write_text(json.dumps(proof,indent=2)+'\n')
+          print('ASTERIA_CYCLES_FELT_AO_A_B_TECHNICAL_PASS',json.dumps(proof))
+          PY
+      - name: Preserve Blender, GLB, PNG and provenance as short-lived independent artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-stage07-genuine-felt-cycles-ao-bake
+          path: |
+            _felt_baked/*.blend
+            _felt_baked/*.glb
+            _felt_baked/*.png
+            _felt_baked/*.json
+            _felt_control/rib-fin-report.json
+            _v5_mesh_capture/three-rib-bays-source-spans.json
+          retention-days: 30
+          if-no-files-found: ignore
+      - name: Preserve passing real AO texture evidence on experimental source branch only
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p docs/asteria-felt-cycles-ao-stage07
+          cp _felt_baked/asteria-three-bays-cycles-felt-contact-ao.png \
+            docs/asteria-felt-cycles-ao-stage07/
+          cp _felt_baked/ao-technical-proof.json docs/asteria-felt-cycles-ao-stage07/
+          cp _felt_baked/rib-fin-report.json docs/asteria-felt-cycles-ao-stage07/
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/asteria-felt-cycles-ao-stage07
+          git diff --cached --quiet && exit 0
+          git commit -m 'QA-only: archive genuinely baked 12-lane Cycles AO atlas and proof'
+          git push origin HEAD:experiment/asteria-felt-cycles-ao-07
