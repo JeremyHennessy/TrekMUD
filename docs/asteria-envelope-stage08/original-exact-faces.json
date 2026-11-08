@@ -1,0 +1,36 @@
+{
+  "roomId": "AST-D01-BRIDGE",
+  "sourceV3Blob": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "totalOriginalTriangles": 106988,
+  "ranges": [
+    {
+      "name": "originalWallEnclosure112",
+      "start": 848,
+      "end": 1520,
+      "faces": 672
+    },
+    {
+      "name": "originalCeilingWedges96",
+      "start": 6336,
+      "end": 6528,
+      "faces": 192
+    }
+  ],
+  "removedFaces": 864,
+  "exactSourceDrawingCalls": true,
+  "sourceFilesUnmodified": true,
+  "floorCastRetained": true,
+  "viewscreenAndStationMeshesRetained": true,
+  "originalOuterTrimAndSetDecorationRetained": true,
+  "measuredVerticalWallSegments": 112,
+  "measuredRoofWedges": 96,
+  "replacementNeedsSameWallEllipse": {
+    "xRadius": 7.55,
+    "zRadius": 6.55
+  },
+  "replacementNeedsSameCeilingHeights": {
+    "innerY": 4.38,
+    "outerY": 3.72
+  },
+  "notUserApproved": true
+}
