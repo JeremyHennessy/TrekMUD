@@ -11,7 +11,7 @@ import hashlib
 import json
 from pathlib import Path
 
-ANCHOR = "               document.body.dataset.envelopeLoaded='true';"
+ANCHOR = "document.body.dataset.envelopeLoaded='true';"
 PATCH = """               document.body.dataset.envelopeLoaded='true';
                // STAGE15 REVIEW-ONLY: real Cycles diffuse INDIRECT, not AO
                // or another direct-light proxy. Existing PBR + UV1 AO remain.
