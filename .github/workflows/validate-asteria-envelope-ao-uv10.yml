@@ -168,7 +168,7 @@ jobs:
           # that ONLY the 224 visible original inner wall triangles are
           # baked and that they all have valid, nondegenerate UV1.
           front=[m for m in gltf['meshes']
-                  if '112 source-fit interior acoustic wall AO receivers' in m.get('name','')]
+                  if m.get('name','').startswith('Architecture / 112 source-fit interior acoustic wall AO')]
           back=[m for m in gltf['meshes']
                  if '112 exact outer wall shell' in m.get('name','')]
           assert len(front)==len(back)==1
