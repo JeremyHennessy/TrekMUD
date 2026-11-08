@@ -1,0 +1,105 @@
+name: Preserve verified Asteria live visual screenshots on QA branch
+
+on:
+  push:
+    branches: [qa/asteria-live-visual-audit-20261108]
+    paths:
+      - '.github/workflows/publish-asteria-live-screenshots.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  archive-real-browser-captures:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: qa/asteria-live-visual-audit-20261108
+          persist-credentials: true
+      - name: Retrieve passing live screenshot artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download 42451937137 --repo JeremyHennessy/TrekMUD \
+            --name asteria-live-public-visual-screenshots \
+            --dir _qa_verified_live
+          test -s _qa_verified_live/visual-qa.json
+          test -s _qa_verified_live/asteria-live-contact-sheet.jpg
+      - name: Verify source integrity and archive representative actual PNGs
+        run: |
+          python -m pip install --disable-pip-version-check Pillow==12.3.0
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          p=Path('_qa_verified_live')
+          report=json.loads((p/'visual-qa.json').read_text())
+          assert report['liveSiteOnly'] and report['testsPassed']
+          assert report['screenshotCount']==10
+          assert len(list(p.glob('*.png')))==10
+          assert Image.open(p/'asteria-live-contact-sheet.jpg').size==(1300,2100)
+          for row in report['screenshots']:
+              assert Image.open(p/row['filename']).size==tuple(row['size'])
+              assert row['verified'] is True
+          print('Verified 10 actual live Chromium screenshot files.')
+          PY
+          target=docs/asteria-live-visual-qa-20261108
+          mkdir -p "$target"
+          cp _qa_verified_live/asteria-live-contact-sheet.jpg "$target/"
+          cp _qa_verified_live/live-aft-1280x800-clean.png "$target/"
+          cp _qa_verified_live/live-chairReview-1280x800-clean.png "$target/"
+          cp _qa_verified_live/live-aft-390x844-hud.png "$target/"
+          cp _qa_verified_live/live-command-390x844-hud.png "$target/"
+          cp _qa_verified_live/visual-qa.json "$target/"
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,json
+          root=Path('docs/asteria-live-visual-qa-20261108')
+          hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
+                  for p in root.iterdir() if p.is_file()}
+          (root/'sha256.json').write_text(json.dumps(hashes,indent=2)+'\n')
+          (root/'README.md').write_text(
+              '# USS Asteria actual live screenshots — November 8, 2026\n\n'
+              'These are genuine software-WebGL Chromium captures from the publicly '
+              'deployed https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/ '
+              'in passing audit run 42451937137, not generated art.\n\n'
+              'Ten original PNGs are kept in the workflow artifact; this QA-only '
+              'branch preserves a contact sheet and four selected frames.\n'
+              'The public walkthrough, game state, original Pages UI and art '
+              'were not changed by this archive.\n\n'
+              'A real screenshot does not imply photorealism or physical iPhone FPS.\n')
+          print('SHA-256:',hashes)
+          PY
+      - name: Commit screenshot evidence on this branch only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/asteria-live-visual-qa-20261108
+          git diff --cached --quiet && exit 0
+          git commit -m 'Store real public Asteria WebGL screenshot QA frames'
+          git push origin HEAD:refs/heads/qa/asteria-live-visual-audit-20261108
+      - name: Verify GitHub raw public screenshot link
+        run: |
+          python - <<'PY'
+          import hashlib,time,urllib.request
+          from pathlib import Path
+          filename='asteria-live-contact-sheet.jpg'
+          file=Path('docs/asteria-live-visual-qa-20261108')/filename
+          digest=hashlib.sha256(file.read_bytes()).hexdigest()
+          url='https://raw.githubusercontent.com/JeremyHennessy/TrekMUD/qa/asteria-live-visual-audit-20261108/docs/asteria-live-visual-qa-20261108/'+filename
+          for attempt in range(15):
+              try:
+                  with urllib.request.urlopen(url,timeout=30) as response:
+                      assert response.status==200
+                      data=response.read()
+                  assert hashlib.sha256(data).hexdigest()==digest
+                  print('LIVE_SCREENSHOT_PUBLIC_URL_VERIFIED',url,len(data),flush=True)
+                  break
+              except Exception as exc:
+                  print('Screenshot URL retry',attempt+1,str(exc),flush=True)
+                  if attempt==14:raise
+                  time.sleep(4)
+          PY
