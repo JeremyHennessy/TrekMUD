@@ -74,6 +74,27 @@ if capture_bay:
  html=html.replace(ceiling_end,ceiling_end.replace(");}",
    ");if(k===36||k===37)window.__v3BayCeilingRanges.push({name:'ceilingWedge'+k,start:window.__v3BayRoofStart,end:P.length/9});}"))
  html=html.replace(api_end,"wallPos,W,D,faceCount:()=>P.length/9}):{pieces:0};")
+# Whole-room original envelope: two measured generator ranges only.
+# These 112 wall modules and 96 roof wedges are the visually dominant,
+# flat procedural surfaces. Capture direct draw-call boundaries in memory,
+# never edit the approved V3 file, never crop another asset geometrically.
+capture_envelope=os.environ.get('ASTERIA_V3_CAPTURE_ENVELOPE')=='1'
+if capture_envelope:
+ wall_start="for(let k=0;k<112;k++){const a=k*2*Math.PI/112"
+ wall_end="arc(0,0,W*.99,D*.99,3.70"
+ roof_start="// Angular ceiling wedge segments and blue-white recessed perimeter luminaires."
+ roof_end="for(let k=0;k<16;k++){const a=k*2*Math.PI/16"
+ for label,token in (('wall start',wall_start),('wall end',wall_end),
+                     ('roof start',roof_start),('roof end',roof_end)):
+  assert html.count(token)==1,(label,html.count(token))
+ html=html.replace(wall_start,
+   "window.__v3EnvelopeWallBegin=P.length/9;"+wall_start)
+ html=html.replace(wall_end,
+   "window.__v3EnvelopeWallEnd=P.length/9;"+wall_end)
+ html=html.replace(roof_start,
+   "window.__v3EnvelopeCeilingBegin=P.length/9;"+roof_start)
+ html=html.replace(roof_end,
+   "window.__v3EnvelopeCeilingEnd=P.length/9;"+roof_end)
 needle='window.__asteriaWalkthrough={roomId:'
 assert html.count(needle)==1
 html=html.replace(needle, "window.__captureV3={positions:P,normals:N,colors:C,materials:M,uv:UV,atlas:atlas.toDataURL('image/png')};"+needle)
@@ -239,6 +260,51 @@ with sync_playwright() as p:
    (OUT/'three-rib-bays-source-spans.json').write_text(
       __import__('json').dumps(triple,indent=2)+'\n')
    print('MEASURED_THREE_ORIGINAL_WALL_BAYS',triple,flush=True)
+ if capture_envelope:
+  observed=page.evaluate("""() => ({
+    wall:[window.__v3EnvelopeWallBegin,window.__v3EnvelopeWallEnd],
+    ceiling:[window.__v3EnvelopeCeilingBegin,window.__v3EnvelopeCeilingEnd]
+  })""")
+  rows=[]
+  for name,lohi,expected_count in (
+   ('originalWallEnclosure112',observed['wall'],672),
+   ('originalCeilingWedges96',observed['ceiling'],192)):
+   first,last=lohi
+   assert isinstance(first,(float,int)) and isinstance(last,(float,int)),(name,lohi)
+   assert 0<=first==int(first)<last==int(last)<=106988,(name,lohi)
+   assert last-first==expected_count,(name,lohi,'Source drawing calls changed')
+   rows.append({'name':name,'start':int(first),'end':int(last),
+                'faces':int(last-first)})
+  assert rows[0]['end']<=rows[1]['start']
+  others=[]
+  if capture_chair:
+   others.append({'name':'chair','start':start,'end':end})
+  if capture_command:
+   others+=__import__('json').loads(
+     (OUT/'command-section-source-spans.json').read_text())['ranges']
+  if capture_three:
+   others+=__import__('json').loads(
+     (OUT/'three-rib-bays-source-spans.json').read_text())['ranges']
+  for outer in rows:
+   for other in others:
+    assert outer['end']<=other['start'] or outer['start']>=other['end'], \
+      (outer,other,'Overlapping original scene sections is unsafe')
+  report={
+   'roomId':'AST-D01-BRIDGE','sourceV3Blob':expected,
+   'totalOriginalTriangles':106988,
+   'ranges':rows,'removedFaces':sum(row['faces'] for row in rows),
+   'exactSourceDrawingCalls':True,'sourceFilesUnmodified':True,
+   'floorCastRetained':True,'viewscreenAndStationMeshesRetained':True,
+   'originalOuterTrimAndSetDecorationRetained':True,
+   'measuredVerticalWallSegments':112,'measuredRoofWedges':96,
+   'replacementNeedsSameWallEllipse':{'xRadius':7.55,'zRadius':6.55},
+   'replacementNeedsSameCeilingHeights':{'innerY':4.38,'outerY':3.72},
+   'notUserApproved':True
+  }
+  assert report['removedFaces']==864
+  (OUT/'envelope-source-spans.json').write_text(
+   __import__('json').dumps(report,indent=2)+'\n')
+  print('EXACT_V3_WALL_CEILING_ENVELOPE_RANGES',report,flush=True)
  assert not errors,errors
  for key in ['positions','normals','colors','materials','uv']:
   pieces=[];size=160000
