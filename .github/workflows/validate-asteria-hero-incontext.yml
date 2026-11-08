@@ -3,7 +3,7 @@ name: Asteria isolated hero chair in-context browser proof
 on:
   workflow_dispatch:
   push:
-    branches: [experiment/asteria-v5-hero-chair-in-context-01]
+    branches: [experiment/asteria-chair-integrated-back-01]
     paths:
       - 'scripts/extract_asteria_v3_for_v5.py'
       - 'scripts/build_asteria_v5_assets.py'
@@ -13,7 +13,7 @@ on:
       - 'ui/3d-preview-v5-chair/**'
       - '.github/workflows/validate-asteria-hero-incontext.yml'
   pull_request:
-    branches: [experiment/asteria-hero-chair-fabric-01]
+    branches: [experiment/asteria-v5-hero-chair-in-context-01]
     paths:
       - 'scripts/extract_asteria_v3_for_v5.py'
       - 'scripts/build_asteria_v5_assets.py'
@@ -120,7 +120,7 @@ jobs:
           blender -b -t 4 --python-exit-code 1 \
             --python scripts/asteria_hero_chair_blender.py -- \
             --out _hero_chair_incontext --texture-dir _asteria_cc0_fabric \
-            --samples 24 --no-render
+            --samples 24 --no-render --integrated-back
           cp _hero_chair_incontext/asteria-hero-chair-candidate.glb \
              _site/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb
           python - <<'PY'
@@ -128,13 +128,14 @@ jobs:
           file=pathlib.Path('_site/3d-preview-v5-chair/models/asteria-hero-chair-candidate.glb')
           assert 100000<file.stat().st_size<16000000,file.stat().st_size
           hero=trimesh.load(file,force='scene',process=False)
-          assert sum(len(g.faces) for g in hero.geometry.values())==26908
+          assert sum(len(g.faces) for g in hero.geometry.values())==31484
           b=hero.bounds
           assert b[0][0]>-1.1 and b[1][0]<1.1
           assert b[0][1]>-.1 and b[1][1]<2.1
           assert b[0][2]>.45 and b[1][2]<2.5
           metadata=json.loads(pathlib.Path('_hero_chair_incontext/hero-chair-report.json').read_text())
           assert metadata['photoScannedFabric'] is True
+          assert metadata['integratedBackCandidate'] is True
           print('Verified hero GLB faces, bounds and scanned fabric:',file.stat().st_size)
           PY
       - name: Real Chromium WebGL, no-overlap, keyboard, touch and screenshot QA
