@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#100e17"><title>USS Asteria · Command architecture realism review</title>
+<style>
+:root{--accent:#e9b992;--blue:#a8c0cb;--pale:#e9e5e5;--line:rgba(238,227,218,.24)}*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0e0b13;color:var(--pale);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overscroll-behavior:none}body{touch-action:none}
+button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid #e9b992;outline-offset:3px}
+#scene{position:absolute;inset:0;width:100%;height:100%;touch-action:none;background:radial-gradient(ellipse,#554e5a,#18111d)}
+#shade{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 46%,transparent 34%,rgba(8,8,16,.36) 100%)}
+#hud{position:absolute;inset:0;pointer-events:none;z-index:3}
+#mast{position:absolute;top:25px;left:28px;display:flex;align-items:center;gap:12px;text-shadow:0 2px 10px #000}
+#mark{width:37px;height:39px;border:1px solid rgba(248,213,188,.68);border-radius:10px 2px 10px 2px;color:#e7b98d;display:grid;place-items:center;font-size:24px;font-family:Georgia,serif}
+#mast strong{font-size:12px;font-weight:730;letter-spacing:.19em}#mast small{display:block;color:#bfb3ba;font-size:10px;letter-spacing:.14em;margin-top:4px}
+#phase{font-size:9px;letter-spacing:.16em;margin-left:8px;color:#f6d1b4;border:1px solid #e9b99266;padding:8px 13px;border-radius:25px;background:#1b1425a8}
+#topTitle{position:absolute;top:124px;left:30px;max-width:300px;text-shadow:0 2px 14px #080510}
+#topTitle small{color:#ecc2a3;font-size:9px;letter-spacing:.28em;font-weight:750}#topTitle h1{font:normal 38px/1.14 Georgia,serif;letter-spacing:-.035em;margin:9px 0}
+#topTitle p{margin:0;font-size:11px;line-height:1.7;color:#e1d8dd;max-width:260px}
+#panel{position:absolute;right:22px;top:22px;padding:13px;background:#10111cd9;border:1px solid var(--line);border-radius:11px;backdrop-filter:blur(12px);box-shadow:0 9px 40px #0007;pointer-events:auto}
+#panel .row{font-size:10px;font-weight:700;letter-spacing:.14em;display:flex;justify-content:space-between;gap:12px}#panel .row span{font-size:9px;font-weight:450;color:#d7bba7}#minimap{display:block;width:196px;height:155px}
+#tools{position:absolute;right:25px;top:245px;display:flex;gap:6px;pointer-events:auto}#tools button{font-size:9px;letter-spacing:.1em;border-radius:7px;border:1px solid #dcc6bb63;background:#14101cbb;color:#f4e9e5;padding:10px}
+#waypoints{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);max-width:85vw;display:flex;gap:5px;padding:6px;background:#0d0d19d9;border:1px solid var(--line);border-radius:12px;box-shadow:0 7px 30px #0008;backdrop-filter:blur(15px);pointer-events:auto}
+#waypoints button{border:0;border-radius:8px;background:transparent;color:#dbced6;font-size:11px;padding:10px 12px;white-space:nowrap}
+#waypoints button b{color:#dbab8e;margin-right:6px}#waypoints button:hover{background:#40303f}#waypoints button.active{background:#8f6a6750;color:#fff}
+#place{position:absolute;bottom:99px;left:50%;transform:translateX(-50%);background:#16121dcc;border:1px solid #f0d4c655;padding:8px 15px;border-radius:30px;font-size:10px;letter-spacing:.1em;opacity:0;transition:opacity .2s;white-space:nowrap}
+#help{position:absolute;bottom:34px;right:23px;text-align:right;font-size:10px;line-height:2;color:#e6dae0;text-shadow:0 2px 8px #000}kbd{border:1px solid #cfbbc6a1;border-radius:3px;background:#18152177;padding:2px 5px;font-size:10px}
+#notice{position:absolute;bottom:34px;left:26px;font-size:9px;max-width:245px;line-height:1.6;letter-spacing:.04em;color:#ded3d5;text-shadow:0 2px 10px #000}
+#splash{position:absolute;inset:0;z-index:9;display:flex;align-items:center;padding:clamp(26px,8vw,110px);background:linear-gradient(90deg,#120d19f5 0%,#130e1cde 30%,#140d1b45 74%,#100f180d);transition:opacity .4s}
+#splash.off{opacity:0;pointer-events:none}#splash .inner{max-width:490px}#splash .eyebrow{font-size:10px;letter-spacing:.29em;font-weight:780;color:#ecc1a4;margin:0 0 30px}
+#splash h2{font:normal clamp(45px,6.4vw,79px)/1.07 Georgia,serif;letter-spacing:-.042em;margin:0 0 20px}#splash h2 span{color:#e9ba9b}
+#splash p{font-size:14px;line-height:1.8;color:#ddd0d6;max-width:390px;margin:0 0 28px}
+#enter{background:#eabf9e;color:#22151e;border:0;padding:15px 26px;border-radius:6px;font-size:11px;font-weight:780;letter-spacing:.14em;box-shadow:0 10px 30px #0004}#enter:hover{background:#ffdec0}
+#splash .small{font-size:10px;color:#cdbfc9;line-height:1.8;margin-top:16px}
+#loading{position:absolute;inset:0;background:#100e17;z-index:15;display:grid;place-items:center;color:#f1c1a6;font-size:11px;letter-spacing:.22em}#loading.off{display:none}
+#error{position:absolute;inset:0;background:#13101c;z-index:16;display:none;place-items:center;padding:30px;text-align:center;line-height:1.6}
+#stick{display:none;position:absolute;z-index:5;left:22px;bottom:24px;width:118px;height:118px;border-radius:50%;border:1px solid #e6beaa99;background:#23162988;touch-action:none;pointer-events:auto}
+#stick:before{content:"";position:absolute;inset:23px;border:1px dashed #e6beaa66;border-radius:50%}#thumb{position:absolute;left:39px;top:39px;width:38px;height:38px;border-radius:50%;background:#e2af96d8;pointer-events:none}
+#touchHint{display:none;position:absolute;right:20px;bottom:166px;font-size:9px;letter-spacing:.08em;color:#eee7e5}
+@media(max-width:1120px){#help{display:none}#waypoints{max-width:calc(100vw - 40px);flex-wrap:wrap;justify-content:center}#waypoints button{padding:9px 10px}}
+@media(max-width:760px){#mast{left:17px;top:17px}#phase{display:none}#mast strong{font-size:10px}#mast small{font-size:8px}#topTitle{top:90px;left:18px}#topTitle h1{font-size:26px}#topTitle p{display:none}#panel{right:12px;top:12px;padding:8px}#minimap{width:113px;height:104px}#panel .row{font-size:8px}#panel .row span{display:none}#tools{right:13px;top:150px}#tools button{padding:8px;font-size:8px}#waypoints{bottom:20px;left:auto;right:13px;transform:none;max-width:59vw}#waypoints button{font-size:9px;padding:8px 7px}#waypoints button b{display:none}#stick,#touchHint{display:block}#notice{display:none}#place{bottom:148px}#splash{padding:25px;background:linear-gradient(90deg,#100d17f5,#100d17b9)}#splash h2{font-size:49px}#splash p{font-size:13px}}
+@media(max-width:385px){#minimap{width:91px;height:82px}#waypoints{max-width:53vw}}
+@media(max-width:760px){#topTitle{width:calc(100vw - 194px);max-width:210px}#topTitle small{display:block;max-width:100%;white-space:normal;letter-spacing:.12em;line-height:1.4;font-size:8px}#topTitle h1{margin-top:7px;font-size:25px}}
+</style>
+</head>
+<body>
+<canvas id="scene" aria-label="Walkable real-time 3D model of the original USS Asteria bridge"></canvas><div id="shade"></div>
+<div id="loading">LOADING COMMAND SET · DECK 01</div><div id="error"></div>
+<div id="hud">
+<div id="mast"><div id="mark">✧</div><div><strong>U.S.S. ASTERIA</strong><small>NCC-63542 · DECK 01</small></div><div id="phase">REVIEW ONLY · COMMAND PLATFORM</div></div>
+<div id="topTitle"><small>ORIGINAL NEBULA-CLASS INTERIOR</small><h1>Main Bridge</h1><p>An original 2372-era Starfleet-inspired command environment, created for the persistent TrekMUD ship.</p></div>
+<div id="panel"><div class="row">DECK 01 <span>AST-D01-BRIDGE</span></div><canvas id="minimap" width="392" height="310" aria-label="Top-down bridge navigation map"></canvas></div>
+<div id="tools"><button id="full">FULLSCREEN</button><button id="hide">HIDE HUD</button></div><div id="place"></div>
+<div id="waypoints"><button class="active" data-go="aft"><b>01</b>Aft access</button><button data-go="command"><b>02</b>Command</button><button data-go="flight"><b>03</b>Flight</button><button data-go="science"><b>04</b>Science</button><button data-go="viewer"><b>05</b>Forward view</button></div>
+<div id="help"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> WALK &nbsp;·&nbsp; DRAG TO LOOK<br><kbd>SHIFT</kbd> FASTER &nbsp;·&nbsp; <kbd>R</kbd> RESET</div>
+<div id="notice">ASTERIA STUDIO · ORIGINAL SET INTERPRETATION<br>Room geography follows the TrekMUD world ID. Not a canonical Enterprise deck plan.</div></div>
+<div id="stick"><div id="thumb"></div></div><div id="touchHint">DRAG TO LOOK · LEFT PAD TO WALK</div>
+<div id="splash"><div class="inner"><div class="eyebrow">TREKMUD · U.S.S. ASTERIA · 2372</div><h2>Come aboard<br>the <span>Asteria.</span></h2><p>Explore the first constructed room of your ship: an original, detailed, walkable bridge inspired by the practical set design of 1990s Star Trek. This is a real 3D space—not a rendered image.</p><button id="enter">ENTER THE BRIDGE &nbsp; →</button><div class="small">Desktop: WASD to move, drag to look. iPhone: left thumbpad to walk, swipe the scene to look. Choose a station to jump there.</div></div></div>
+<script src="app.js" defer></script>
+</body></html>

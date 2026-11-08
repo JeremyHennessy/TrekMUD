@@ -27,6 +27,34 @@ if capture_chair:
  assert html.count(pedestal)==1 and html.count(seat)==1
  html=html.replace(pedestal,"window.__v3ChairFirstFace=P.length/9;"+pedestal)
  html=html.replace(seat,seat+"window.__v3ChairLastFace=P.length/9;")
+# Optional exact draw-call provenance for a NEW isolated command-platform
+# architectural candidate. Do not crop a guessed 3D bounding box: that risks
+# deleting other consoles, cast floor, movement surfaces and captain's chair.
+capture_command=os.environ.get('ASTERIA_V3_CAPTURE_COMMAND_SECTION')=='1'
+if capture_command:
+ section_points=[
+  ("platformStart",
+   "if(window.AsteriaHero){window.AsteriaHero.commandPlatform({smoothSurface,box,cyl,ellipse,ring,tube});}",
+   "window.__v3CommandPlatformFirst=P.length/9;"),
+  ("platformEnd",
+   "const shadowCasterStart=P.length/3;",
+   "window.__v3CommandPlatformLast=P.length/9;"),
+  ("pylonsStart",
+   "if(window.AsteriaHero){window.AsteriaHero.commandPylons({smoothSurface,box,tube,surface});}",
+   "window.__v3CommandPylonsFirst=P.length/9;"),
+  ("pylonsEnd",
+   "// Forward continuous flight island, original crescent design with separate seats.",
+   "window.__v3CommandPylonsLast=P.length/9;"),
+  ("joineryStart",
+   "// Command plinth joinery: detailed brass edge lugs, inset upholstery seams and foot-level kick plates.",
+   "window.__v3CommandTrimFirst=P.length/9;"),
+  ("joineryEnd",
+   "const setDressing=(typeof window.AsteriaSetDetails==='function')?",
+   "window.__v3CommandTrimLast=P.length/9;"),
+ ]
+ for name,token,mark in section_points:
+  assert html.count(token)==1,(name,html.count(token))
+  html=html.replace(token,mark+token)
 needle='window.__asteriaWalkthrough={roomId:'
 assert html.count(needle)==1
 html=html.replace(needle, "window.__captureV3={positions:P,normals:N,colors:C,materials:M,uv:UV,atlas:atlas.toDataURL('image/png')};"+needle)
@@ -79,6 +107,41 @@ with sync_playwright() as p:
   (OUT/'captain-chair-source-span.json').write_text(
     __import__('json').dumps(provenance,indent=2)+'\n')
   print('V3 captain chair draw-call span',provenance,flush=True)
+ if capture_command:
+  span=page.evaluate("""() => ({
+    platform:[window.__v3CommandPlatformFirst,window.__v3CommandPlatformLast],
+    pylons:[window.__v3CommandPylonsFirst,window.__v3CommandPylonsLast],
+    trim:[window.__v3CommandTrimFirst,window.__v3CommandTrimLast]
+  })""")
+  ranges=[]
+  for name,positions in span.items():
+   a,b=positions
+   assert all(isinstance(v,(float,int)) for v in (a,b)),(name,positions)
+   assert a==int(a) and b==int(b) and 0<a<b<106988,(name,positions)
+   ranges.append({'name':name,'start':int(a),'end':int(b),
+                  'faces':int(b-a)})
+  ranges.sort(key=lambda row:row['start'])
+  assert len(ranges)==3
+  for before,after in zip(ranges,ranges[1:]):
+   assert before['end']<after['start'],(before,after)
+  if capture_chair:
+   assert ranges[0]['end']<=start or ranges[0]['start']>=end
+   for item in ranges:
+    assert item['end']<=start or item['start']>=end, \
+        'Command/podium face spans cannot overlap captain chair'
+  report={
+   'roomId':'AST-D01-BRIDGE',
+   'sourceV3Blob':expected,
+   'totalFaces':106988,
+   'ranges':ranges,
+   'commandFaces':sum(x['faces'] for x in ranges),
+   'captureMethod':'Exact sequential V3 drawing call boundaries, not spatial cropping',
+   'note':'Reference only; world and game collision geometry are not modified.'
+  }
+  assert 3000<report['commandFaces']<35000,report
+  (OUT/'command-section-source-spans.json').write_text(
+    __import__('json').dumps(report,indent=2)+'\n')
+  print('V3 command platform draw-call face spans',report,flush=True)
  assert not errors,errors
  for key in ['positions','normals','colors','materials','uv']:
   pieces=[];size=160000

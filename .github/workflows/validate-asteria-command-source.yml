@@ -1,0 +1,82 @@
+name: Asteria command-platform immutable-source provenance
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [experiment/asteria-chair-integrated-back-01]
+    paths:
+      - 'scripts/extract_asteria_v3_for_v5.py'
+      - 'scripts/build_asteria_v5_assets.py'
+      - '.github/workflows/validate-asteria-command-source.yml'
+  push:
+    branches: [experiment/asteria-command-platform-01]
+    paths:
+      - 'scripts/extract_asteria_v3_for_v5.py'
+      - 'scripts/build_asteria_v5_assets.py'
+      - '.github/workflows/validate-asteria-command-source.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  exact-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate no campaign mutation and Python syntax
+        run: |
+          python -m py_compile scripts/extract_asteria_v3_for_v5.py scripts/build_asteria_v5_assets.py
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+      - name: Install deterministic V3 source capture dependencies
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+      - name: Capture true V3 captain and command source drawing ranges
+        run: |
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+            python scripts/extract_asteria_v3_for_v5.py
+      - name: Create separate original-chair and command-platform-free GLB
+        run: |
+          ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5-command/models" \
+            python scripts/build_asteria_v5_assets.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import trimesh
+          p=Path('_v5_mesh_capture')
+          c=json.loads((p/'command-section-source-spans.json').read_text())
+          chair=json.loads((p/'captain-chair-source-span.json').read_text())
+          assert chair['captainSeatFaces']==16272
+          assert len(c['ranges'])==3
+          assert [r['name'] for r in c['ranges']]==['platform','pylons','trim']
+          count=sum(r['faces'] for r in c['ranges'])
+          assert count==c['commandFaces']
+          assert 3000<count<35000
+          print('ACTUAL_FROZEN_V3_COMMAND_RANGES',json.dumps(c,indent=2))
+          root=Path('_site/3d-preview-v5-command/models')
+          m=json.loads((root/'manifest.json').read_text())
+          assert m['original_triangles']==106988
+          assert m['captain_chair_source_faces_removed']==16272
+          assert m['command_section_source_faces_removed']==count
+          assert m['triangles']==106988-16272-count
+          scene=trimesh.load(root/'asteria-v3-restored-pbr.glb',force='scene',process=False)
+          assert sum(len(g.faces) for g in scene.geometry.values())==m['triangles']
+          print('EXACT_ART_REMOVAL_PROVEN; GAME_COLLISION_UNCHANGED',m['triangles'])
+          PY
+      - name: Archive measured source ranges and generated GLB manifest
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-command-exact-v3-provenance
+          path: |
+            _v5_mesh_capture/command-section-source-spans.json
+            _v5_mesh_capture/captain-chair-source-span.json
+            _site/3d-preview-v5-command/models/manifest.json
+          if-no-files-found: ignore
+          retention-days: 7

@@ -1,0 +1,122 @@
+name: Asteria command architecture Cycles/PBR/AO verification
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [experiment/asteria-chair-integrated-back-01]
+    paths:
+      - 'scripts/asteria_command_blender.py'
+      - 'scripts/asteria_command_pbr_maps.py'
+      - '.github/workflows/validate-asteria-command-blender.yml'
+  push:
+    branches: [experiment/asteria-command-platform-01]
+    paths:
+      - 'scripts/asteria_command_blender.py'
+      - 'scripts/asteria_command_pbr_maps.py'
+      - '.github/workflows/validate-asteria-command-blender.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  render-command:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate authoring script and immutable original game
+        run: |
+          python -m py_compile scripts/asteria_command_blender.py scripts/asteria_command_pbr_maps.py
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+      - name: Install frozen V3 capture, Blender and static model verification dependencies
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          sudo apt-get update
+          sudo apt-get install -y blender
+          blender --version
+      - name: Generate 1K original screen texture tiles and calibrated-style authored PBR
+        run: |
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+            python scripts/extract_asteria_v3_for_v5.py
+          python scripts/asteria_command_pbr_maps.py \
+            --out _asteria_command_maps --v3-atlas _v5_mesh_capture/atlas.png
+      - name: Render physically authored command platform and bake Cycles contact AO
+        run: |
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_command_blender.py -- \
+            --materials _asteria_command_maps --out _asteria_command_model \
+            --samples 24 --resolution 960 640 --view all --bake-ao --correct-screen-uv
+      - name: Verify actual built 3D model and real screenshot pixels
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,struct
+          import numpy as np
+          from PIL import Image,ImageStat
+          import trimesh
+          root=Path('_asteria_command_model')
+          report=json.loads((root/'command-report.json').read_text())
+          assert report['roomId']=='AST-D01-BRIDGE'
+          assert report['sourceV3Blob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+          assert report['sourceFrozen'] and report['cameraAndCampaignUnchanged']
+          assert report['realAOBakedFor']=='platform top only'
+          assert report['correctedOriginalScreenUv'] is True
+          assert report['renderViews']==['aft','command','console','overhead']
+          assert report['meshObjects']>30
+          blend=root/'asteria-command-set-candidate.blend'
+          glb=root/'asteria-command-set-candidate.glb'
+          assert blend.stat().st_size>100000
+          assert 250000<glb.stat().st_size<24000000
+          scene=trimesh.load(glb,force='scene',process=False)
+          triangles=sum(len(m.faces) for m in scene.geometry.values())
+          assert 4000<triangles<100000,triangles
+          bounds=scene.bounds
+          assert -2.10<bounds[0][0]<-1.60 and 1.60<bounds[1][0]<2.10,bounds
+          assert -0.1<bounds[0][1]<.10 and 1.15<bounds[1][1]<1.30,bounds
+          assert -.9<bounds[0][2]<-.2 and 2.2<bounds[1][2]<2.9,bounds
+          # Confirm actual glTF image-backed normal/metallic/textures and source
+          # original live-command displays, not flat primitive materials only.
+          raw=glb.read_bytes()
+          length=struct.unpack_from('<I',raw,12)[0]
+          gltf=json.loads(raw[20:20+length])
+          assert len(gltf.get('images',[]))>=18,len(gltf.get('images',[]))
+          names=[m['name'] for m in gltf.get('materials',[])]
+          assert any('command overview' in n.lower() for n in names)
+          assert any('systems screen' in n.lower() for n in names)
+          assert any(m.get('normalTexture') for m in gltf['materials'])
+          assert any(m.get('occlusionTexture',{}).get('texCoord')==1 for m in gltf['materials']), 'True UV1 Cycles AO not exported'
+          for view in ['aft','command','console','overhead']:
+              im=Image.open(root/f'asteria-command-{view}.png').convert('RGB')
+              assert im.size==(960,640)
+              assert max(ImageStat.Stat(im).stddev)>16,view
+          ao=Image.open(root/'asteria-command-platform-baked-ao.png').convert('RGB')
+          assert ao.size==(512,512)
+          # A valid but uniform white bake does not establish convincing AO.
+          print('AO_CHANNEL_RANGE',ao.getextrema())
+          assert ao.getextrema()[0][0]<250,ao.getextrema()
+          print('COMMAND_3D_RENDERED',json.dumps({
+              'triangles':triangles,'meshObjects':report['meshObjects'],
+              'bounds':bounds.tolist(),
+              'gltfImages':len(gltf.get('images',[])),
+              'aoBaked':True,'visualApproval':False
+          },indent=2))
+          PY
+      - name: Preserve actual Blender .blend / GLB / AO and four Cycles still images
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-command-architecture-cycles-review
+          path: |
+            _asteria_command_model/*.blend
+            _asteria_command_model/*.glb
+            _asteria_command_model/*.png
+            _asteria_command_model/command-report.json
+            _asteria_command_maps/material-provenance.json
+            _v5_mesh_capture/command-section-source-spans.json
+          if-no-files-found: ignore
+          retention-days: 14

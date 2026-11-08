@@ -1,0 +1,159 @@
+name: Asteria command realism complete WebGL screenshot acceptance
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [experiment/asteria-chair-integrated-back-01]
+    paths:
+      - 'scripts/asteria_command_blender.py'
+      - 'scripts/asteria_command_pbr_maps.py'
+      - 'scripts/test_asteria_command_incontext_browser.py'
+      - 'scripts/build_asteria_v5_assets.py'
+      - 'scripts/extract_asteria_v3_for_v5.py'
+      - 'ui/3d-preview-v5-command/**'
+      - '.github/workflows/validate-asteria-command-browser.yml'
+  push:
+    branches: [experiment/asteria-command-platform-01]
+    paths:
+      - 'scripts/asteria_command_blender.py'
+      - 'scripts/asteria_command_pbr_maps.py'
+      - 'scripts/test_asteria_command_incontext_browser.py'
+      - 'scripts/build_asteria_v5_assets.py'
+      - 'scripts/extract_asteria_v3_for_v5.py'
+      - 'ui/3d-preview-v5-command/**'
+      - '.github/workflows/validate-asteria-command-browser.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  real-3d-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 42
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check frozen game, original scene and independent source syntax
+        run: |
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+          python scripts/validate_player_console.py --keep _site
+          python -m py_compile scripts/asteria_command_blender.py \
+            scripts/test_asteria_command_incontext_browser.py \
+            scripts/asteria_command_pbr_maps.py \
+            scripts/extract_asteria_v3_for_v5.py \
+            scripts/build_asteria_v5_assets.py
+      - name: Install pinned 3D pipeline and browser dependencies
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          npm ci --prefix ui/3d-preview-v5 --no-audit --no-fund
+          sudo apt-get update
+          sudo apt-get install -y blender
+      - name: Capture immutable V3 original command and chair drawing ranges
+        run: |
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+            python scripts/extract_asteria_v3_for_v5.py
+      - name: Build original chair-only bridge control for honest A/B screenshots
+        run: |
+          mkdir -p _site/3d-preview-v5-chair/models _site/3d-preview-v5-command/models
+          ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5-chair/models" \
+            python scripts/build_asteria_v5_assets.py
+          cp ui/3d-preview-v5-chair/src/index.html _site/3d-preview-v5-chair/index.html
+          cp ui/3d-preview-v5-chair/src/main.js \
+            ui/3d-preview-v5/src/__temp_chair_command_control.js
+          ui/3d-preview-v5/node_modules/.bin/esbuild \
+            ui/3d-preview-v5/src/__temp_chair_command_control.js \
+            --bundle --platform=browser --target=es2021 --format=iife --minify \
+            --outfile=_site/3d-preview-v5-chair/app.js
+          rm ui/3d-preview-v5/src/__temp_chair_command_control.js
+      - name: Build independently isolated command-free frozen V3 room
+        run: |
+          ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5-command/models" \
+            python scripts/build_asteria_v5_assets.py
+          cp ui/3d-preview-v5-command/src/index.html _site/3d-preview-v5-command/index.html
+          cp ui/3d-preview-v5-command/src/main.js \
+            ui/3d-preview-v5/src/__temp_new_command_scene.js
+          ui/3d-preview-v5/node_modules/.bin/esbuild \
+            ui/3d-preview-v5/src/__temp_new_command_scene.js \
+            --bundle --platform=browser --target=es2021 --format=iife --minify \
+            --outfile=_site/3d-preview-v5-command/app.js
+          rm ui/3d-preview-v5/src/__temp_new_command_scene.js
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('_site/3d-preview-v5-command/models/manifest.json').read_text())
+          assert d['triangles']==82088
+          assert d['captain_chair_source_faces_removed']==16272
+          assert d['command_section_source_faces_removed']==8628
+          assert [v['faces'] for v in d['command_source_ranges']]==[1784,6428,416]
+          PY
+      - name: Generate proven textured chair and new real AO/PBR command asset
+        run: |
+          python scripts/asteria_fetch_cc0_velour.py --out _asteria_cc0_fabric
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_hero_chair_blender.py -- \
+            --out _chair_command_interop --texture-dir _asteria_cc0_fabric \
+            --samples 24 --no-render --integrated-back
+          for root in _site/3d-preview-v5-command/models _site/3d-preview-v5-chair/models; do
+            cp _chair_command_interop/asteria-hero-chair-candidate.glb \
+               "$root/asteria-hero-chair-candidate.glb"
+          done
+          python scripts/asteria_command_pbr_maps.py \
+            --out _asteria_command_maps --v3-atlas _v5_mesh_capture/atlas.png
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_command_blender.py -- \
+            --materials _asteria_command_maps --out _command_interop \
+            --samples 24 --no-render --bake-ao --correct-screen-uv
+          cp _command_interop/asteria-command-set-candidate.glb \
+             _site/3d-preview-v5-command/models/asteria-command-set-candidate.glb
+          python - <<'PY'
+          from pathlib import Path
+          import trimesh,json,struct
+          root=Path('_site/3d-preview-v5-command/models')
+          room=trimesh.load(root/'asteria-v3-restored-pbr.glb',force='scene',process=False)
+          chair=trimesh.load(root/'asteria-hero-chair-candidate.glb',force='scene',process=False)
+          command=trimesh.load(root/'asteria-command-set-candidate.glb',force='scene',process=False)
+          faces=lambda s:sum(len(g.faces) for g in s.geometry.values())
+          assert faces(room)==82088 and faces(chair)==31484 and faces(command)==16292
+          blob=(root/'asteria-command-set-candidate.glb').read_bytes()
+          size=struct.unpack_from('<I',blob,12)[0]
+          data=json.loads(blob[20:20+size])
+          assert any(m.get('occlusionTexture',{}).get('texCoord')==1
+                     for m in data['materials']),'Real UV1 baked AO missing'
+          assert any('TEXCOORD_1' in p['attributes']
+                     for m in data['meshes'] for p in m['primitives'])
+          assert len(data.get('images',[]))>=18
+          print('REAL_COMMAND_INTEROP_GLBS_VERIFIED',faces(room),faces(chair),faces(command))
+          PY
+      - name: Real Chromium desktop/mobile screenshot A/B and movement QA
+        run: |
+          CHROME="$(command -v google-chrome || command -v chromium)" \
+            python scripts/test_asteria_command_incontext_browser.py \
+            _site _command_qa
+      - name: Prove approved player UI, world and existing viewer source is untouched
+        run: |
+          git diff --exit-code -- ui/3d/ ui/3d-preview/ ui/3d-preview-v3/ \
+            ui/3d-preview-v4/ ui/3d-preview-v5/ ui/3d-preview-v5-chair/ \
+            campaign/ world/asteria/ scripts/build_player_console.py
+      - name: Keep real screenshot and command geometry evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-command-platform-webgl-screenshots
+          path: |
+            _command_qa/*.png
+            _command_qa/command-browser-results.json
+            _command_interop/command-report.json
+            _asteria_command_maps/material-provenance.json
+            _v5_mesh_capture/command-section-source-spans.json
+            _site/3d-preview-v5-command/models/manifest.json
+          if-no-files-found: ignore
+          retention-days: 14
