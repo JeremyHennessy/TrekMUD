@@ -1,0 +1,70 @@
+name: USS Asteria live visual screenshot audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [qa/asteria-live-visual-audit-20261108]
+    paths:
+      - 'scripts/qa_asteria_public_visual.py'
+      - '.github/workflows/asteria-live-visual-screenshots.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/qa_asteria_public_visual.py'
+      - '.github/workflows/asteria-live-visual-screenshots.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  live-browser-visual-proof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read-only audit code and campaign safety preflight
+        run: |
+          python -m py_compile scripts/qa_asteria_public_visual.py
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+      - name: Install screenshot verification libraries
+        run: |
+          python -m pip install --disable-pip-version-check \
+            Pillow==12.3.0 playwright==1.56.0
+          which google-chrome
+          google-chrome --version
+      - name: Screenshot the REAL PUBLIC deployed bridge from ten viewpoints
+        run: |
+          python scripts/qa_asteria_public_visual.py --out _asteria_qa_live
+      - name: Confirm full screenshot gallery and per-view machine evidence
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          root=Path('_asteria_qa_live')
+          report=json.loads((root/'visual-qa.json').read_text())
+          assert report['liveSiteOnly'] is True
+          assert report['screenshotCount']==10
+          assert report['testsPassed'] is True
+          assert (root/'asteria-live-contact-sheet.jpg').stat().st_size>100000
+          for item in report['screenshots']:
+              photo=Image.open(root/item['filename'])
+              assert photo.size==tuple(item['size']),item
+              assert item['verified'] is True
+          print('All 10 actual screenshot files verified with correct dimensions.')
+          PY
+      - name: Archive actual source screenshots, full contact sheet and metrics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-live-public-visual-screenshots
+          path: |
+            _asteria_qa_live/*.png
+            _asteria_qa_live/*.jpg
+            _asteria_qa_live/visual-qa.json
+          if-no-files-found: ignore
+          retention-days: 14
