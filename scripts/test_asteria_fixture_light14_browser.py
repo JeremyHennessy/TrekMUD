@@ -58,9 +58,8 @@ try:
           page.wait_for_function(
             "document.body.dataset.threeBayLoaded==='true'||document.body.dataset.rendererReady==='error'",
             timeout=120000)
-        if route==candidate:
-          page.wait_for_function("document.body.dataset.envelopeLoaded==='true'||document.body.dataset.rendererReady==='error'",
-                                 timeout=180000)
+        page.wait_for_function("document.body.dataset.envelopeLoaded==='true'||document.body.dataset.rendererReady==='error'",
+                               timeout=180000)
         page.wait_for_function("Number(document.body.dataset.renderedFrames||0)>=4",timeout=90000)
         obs=page.evaluate("""() => ({
           ready:document.body.dataset.rendererReady,
