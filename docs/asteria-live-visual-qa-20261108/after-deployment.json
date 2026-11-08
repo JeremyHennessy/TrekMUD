@@ -1,0 +1,40 @@
+{
+  "liveURL": "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/?studioCapture=aft",
+  "photos": [
+    {
+      "width": 390,
+      "height": 844,
+      "screenshot": "asteria-public-mobile-390x844.png",
+      "geometry": {
+        "intersection": 0,
+        "titleWidth": 196,
+        "titleRight": 214,
+        "mapLeft": 247,
+        "heroFaces": "31484",
+        "removed": "16272",
+        "ready": "true",
+        "pageErrors": ""
+      },
+      "javascriptErrors": []
+    },
+    {
+      "width": 375,
+      "height": 812,
+      "screenshot": "asteria-public-mobile-375x812.png",
+      "geometry": {
+        "intersection": 0,
+        "titleWidth": 181,
+        "titleRight": 199,
+        "mapLeft": 254,
+        "heroFaces": "31484",
+        "removed": "16272",
+        "ready": "true",
+        "pageErrors": ""
+      },
+      "javascriptErrors": []
+    }
+  ],
+  "mobileCSSActuallyDeployed": true,
+  "live3DUnmodified": true,
+  "physicalDeviceTest": false
+}
