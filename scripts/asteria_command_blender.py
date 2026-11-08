@@ -35,6 +35,7 @@ def args():
     p.add_argument("--view",choices=["aft","command","console","overhead","all"],default="all")
     p.add_argument("--resolution",nargs=2,type=int,default=[1000,700])
     p.add_argument("--bake-ao",action="store_true")
+    p.add_argument("--correct-screen-uv",action="store_true",help="A/B corrected V3 console text orientation")
     p.add_argument("--no-render",action="store_true")
     return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
 
@@ -186,7 +187,7 @@ def display_material(name,texture_file):
         bsdf.inputs["Emission Strength"].default_value=.4
     return m
 
-def make_pylon(side,mats):
+def make_pylon(side,mats,correct_screen_uv=False):
     """Exact-position closed composite electronics pedestal: ±1.27, z=.58."""
     x0=side*1.27;z0=.58;rot=side*.24
     co,si=math.cos(rot),math.sin(rot)
@@ -238,7 +239,7 @@ def make_pylon(side,mats):
     ]
     face=model(f"Command / {side} / original atlas screen",
        vertices,[(0,2,1),(0,3,2)],mats["screen_left" if side==-1 else "screen_right"],
-       [(0,0),(1,0),(1,1),(0,1)])
+       ([(0,1),(1,1),(1,0),(0,0)] if correct_screen_uv else [(0,0),(1,0),(1,1),(0,1)]))
     for poly in face.data.polygons:poly.use_smooth=False
     # A single physically mounted top lip and tactile control strips.
     trim=[P(-.302+i*.030,1.176,-.335) for i in range(21)]
@@ -257,7 +258,7 @@ def make_pylon(side,mats):
     pipe(f"Command / {side} / light-seam recess",
          [P(-.29,.38,-.386),P(.29,.38,-.386)],.008,mats["satin_nickel"])
 
-def build_command(mats):
+def build_command(mats,correct_screen_uv=False):
     # All geometry respects the measured V3 oval footprint and y=.28 top.
     lathe("Plinth / lower integrated side skirt",[
        (.018,1.72,1.42),(.055,1.80,1.49),(.185,1.85,1.54),
@@ -305,8 +306,8 @@ def build_command(mats):
         pipe(f"Rail {side} / hand-rest cast bronze tube",high,.022,mats["rose_bronze"])
         pipe(f"Rail {side} / lower structural cable",
              [(x,y+.10,z) for x,y,z in waypoints],.009,mats["satin_nickel"])
-    make_pylon(-1,mats)
-    make_pylon(1,mats)
+    make_pylon(-1,mats,correct_screen_uv)
+    make_pylon(1,mats,correct_screen_uv)
 
 def camera(name,position,aim,lens):
     data=bpy.data.cameras.new(name)
@@ -419,7 +420,7 @@ def main():
         a.materials/"v3_command_overview_screen.png")
     mats["screen_right"]=display_material("Asteria / V3 systems screen",
         a.materials/"v3_systems_control_screen.png")
-    build_command(mats)
+    build_command(mats,correct_screen_uv=a.correct_screen_uv)
     views=studio()
     scene=bpy.context.scene
     scene.render.engine="CYCLES"
@@ -476,6 +477,7 @@ def main():
       "realAOTexture":str(bake_path) if bake_path else None,
       "realAOBakedFor":"platform top only" if bake_path else "none",
       "notFullGlobalIllumination":True,
+      "correctedOriginalScreenUv":bool(a.correct_screen_uv),
       "artApproval":False,
       "renderViews":[] if a.no_render else names,
       "notes":"Original authored PBR and frozen source instrument atlas, no scan or photoreal claim."
