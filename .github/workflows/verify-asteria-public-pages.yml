@@ -24,7 +24,7 @@ jobs:
           import urllib.request
           root='https://jeremyhennessy.github.io/TrekMUD/'
           files=[
-              ('',2000,b'asteria'),
+              ('',500,b''),
               ('3d-preview-v3/',1000,b'asteria'),
               ('3d-preview-v4/',1000,b'asteria'),
               ('3d-preview-v5-chair/',1000,b'REVIEW ONLY'),
