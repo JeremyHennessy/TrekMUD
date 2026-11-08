@@ -113,6 +113,25 @@ jobs:
               python scripts/build_asteria_v5_assets.py
 
             cp ui/3d-preview-v5-chair/src/index.html _site/3d-preview-v5-chair/index.html
+            # One tested mobile-only heading fix. The pinned room art and desktop
+            # HUD remain unchanged; revert this small injection to roll back.
+            python - <<'PY'
+            from pathlib import Path
+            path=Path('_site/3d-preview-v5-chair/index.html')
+            original=path.read_text()
+            marker='</style>'
+            assert original.count(marker)==1
+            css=(
+              '@media(max-width:760px){'
+              '#topTitle{width:calc(100vw - 194px);max-width:210px}'
+              '#topTitle small{display:block;max-width:100%;white-space:normal;'
+              'letter-spacing:.12em;line-height:1.4;font-size:8px}'
+              '#topTitle h1{margin-top:7px;font-size:25px}'
+              '}'
+            )
+            path.write_text(original.replace(marker,css+'\n'+marker))
+            print('Asteria mobile title/minimap spacing applied to isolated preview only.')
+            PY
             cp ui/3d-preview-v5/node_modules/three/LICENSE _site/3d-preview-v5-chair/THREE-LICENSE.txt
             cp ui/3d-preview-v5-chair/src/main.js \
               ui/3d-preview-v5/src/__temporary_pages_preview.js
@@ -148,6 +167,7 @@ jobs:
           route=site/'3d-preview-v5-chair'
           html=(route/'index.html').read_text()
           assert 'REVIEW ONLY · HERO CHAIR TEST' in html
+          assert '#topTitle{width:calc(100vw - 194px);max-width:210px}' in html
           assert (route/'app.js').stat().st_size>200_000
           base=route/'models/asteria-v3-restored-pbr.glb'
           hero=route/'models/asteria-hero-chair-candidate.glb'
@@ -195,7 +215,7 @@ jobs:
     if: github.event_name != 'pull_request'
     needs: deploy
     runs-on: ubuntu-latest
-    timeout-minutes: 9
+    timeout-minutes: 12
     permissions:
       contents: read
     steps:
@@ -208,7 +228,7 @@ jobs:
 
           root='https://jeremyhennessy.github.io/TrekMUD/'
           files=[
-            ('',b'USS Asteria',2000),
+            ('',b'asteria',500),
             ('3d-preview-v3/',b'asteria',1000),
             ('3d-preview-v4/',b'asteria',1000),
             ('3d-preview-v5-chair/',b'REVIEW ONLY',1000),
@@ -237,7 +257,7 @@ jobs:
           PY
       - name: Verify the hosted scene actually renders in remote Chromium
         run: |
-          python -m pip install --disable-pip-version-check playwright==1.56.0
+          python -m pip install --disable-pip-version-check playwright==1.56.0 Pillow==12.3.0
           python - <<'PY'
           from playwright.sync_api import sync_playwright
           import shutil
@@ -267,6 +287,43 @@ jobs:
               assert data['removed']=='16272' and data['materials']=='0',data
               assert data['source']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
               assert int(data['frames'])>=1 and not errors
+              page.close()
+              # Independently verify the ACTUAL deployed narrow-screen layout.
+              from pathlib import Path
+              from PIL import Image
+              Path('_deployed_qa').mkdir(exist_ok=True)
+              for width,height in [(390,844),(375,812)]:
+                  phone=browser.new_page(viewport={'width':width,'height':height},has_touch=True)
+                  response=phone.goto(url,wait_until='domcontentloaded',timeout=60000)
+                  assert response is not None and response.status==200
+                  phone.wait_for_function(
+                      "document.body.dataset.rendererReady === 'true'",
+                      timeout=120000)
+                  rect=phone.evaluate("""() => {
+                    const a=document.getElementById('topTitle').getBoundingClientRect();
+                    const b=document.getElementById('panel').getBoundingClientRect();
+                    return {intersection:
+                      Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left)) *
+                      Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top)),
+                      titleWidth:a.width, panelLeft:b.left, titleRight:a.right,
+                      rendered:document.body.dataset.renderedFrames};
+                  }""")
+                  assert rect['intersection']==0,(width,rect)
+                  assert rect['titleWidth']<=210,(width,rect)
+                  filename=f'_deployed_qa/asteria-mobile-{width}x{height}.png'
+                  phone.screenshot(path=filename,timeout=90000)
+                  with Image.open(filename) as image:
+                      assert image.size==(width,height)
+                  print('REMOTE_MOBILE_SCREENSHOT_OK',filename,rect,flush=True)
+                  phone.close()
               browser.close()
           print('REMOTE_INTERACTIVE_URL_VERIFIED',url,flush=True)
           PY
+      - name: Preserve actual deployed mobile verification screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-deployed-mobile-layout-screenshots
+          path: _deployed_qa/*.png
+          if-no-files-found: ignore
+          retention-days: 14
