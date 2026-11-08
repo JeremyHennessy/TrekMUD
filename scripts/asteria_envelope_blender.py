@@ -70,7 +70,7 @@ def build_wall(mat):
     uv.append((t*(W+D)*.5/2.0,y/2.0))
     u=((k%cols)+(.03 if t==a else .97))/cols
     v=((k//cols)+(.025 if y==y0 else .975))/rows
-    ao.append((u,v))
+    ao.append((u,v) if rr<1 else (2.,2.))
   # Distinct physically shaded surface and four capped sides, closed geometry
   # with no width-wise gaps in the underlying original room silhouette.
   faces.extend([
@@ -81,6 +81,11 @@ def build_wall(mat):
     (base,base+3,base+7),(base,base+7,base+4),
     (base+1,base+5,base+6),(base+1,base+6,base+2)
   ])
+ # The wall's visible face MUST point into the room: the frozen V3 is
+ # double-sided, but Cycles wall normals previously pointed OUTWARD and
+ # self-occluded against the 1 cm backing shell, producing black AO. Flip
+ # the entire manufactured wall shell only; source room untouched.
+ faces=[(first,third,second) for first,second,third in faces]
  ob=make("Architecture / exact 112 laminated manufactured perimeter wall panels",
          pos,faces,mat,uv,ao)
  MESHES['wall']=ob
@@ -224,19 +229,41 @@ def actual_ao_bake(out):
   holder=mat.node_tree.nodes.new("ShaderNodeGroup")
   holder.node_tree=group
   mat.node_tree.links.new(tex.outputs["Color"],holder.inputs["Occlusion"])
+  # The global Cycles AO bake considers geometry across the whole enclosed
+  # ship. The earlier unbounded bake made the entire room BLACK. Instead
+  # render real local-ray AO with a measured 0.32 m spatial radius using
+  # Cycles' native Ambient Occlusion shader, then bake its emission output.
+  # This is still genuine ray-traced Cycles local AO, NOT indirect GI.
+  output=next(n for n in mat.node_tree.nodes if n.type=="OUTPUT_MATERIAL")
+  original_surface=output.inputs["Surface"].links[0].from_socket
+  occluder=mat.node_tree.nodes.new("ShaderNodeAmbientOcclusion")
+  occluder.inputs["Distance"].default_value=.32
+  occluder.inputs["Color"].default_value=(1.,1.,1.,1.)
+  occluder.samples=24
+  light=mat.node_tree.nodes.new("ShaderNodeEmission")
+  mat.node_tree.links.new(occluder.outputs["Color"],light.inputs["Color"])
+  mat.node_tree.links.new(light.outputs["Emission"],output.inputs["Surface"])
   for node in mat.node_tree.nodes:node.select=False
   tex.select=True;mat.node_tree.nodes.active=tex
   bpy.ops.object.select_all(action="DESELECT")
   ob.select_set(True);bpy.context.view_layer.objects.active=ob
   ob.data.uv_layers.active=uv
-  bpy.ops.object.bake(type="AO")
+  try:
+   bpy.ops.object.bake(type="EMIT")
+  finally:
+   # Restore the ORIGINAL physically scanned Principled shader. The
+   # temporary AO emission nodes are not part of the published model.
+   mat.node_tree.links.new(original_surface,output.inputs["Surface"])
+   mat.node_tree.nodes.remove(light)
+   mat.node_tree.nodes.remove(occluder)
   path=out/f"asteria-envelope-{key}-real-cycles-ao.png"
   bitmap.filepath_raw=str(path.resolve())
   bitmap.file_format="PNG"
   bitmap.save();bitmap.pack()
   ob.data.uv_layers.active_index=0
   proofs[key]={"file":str(path),"textureSize":[1536,1536],
-      "source":"real Cycles ambient occlusion on unique UV1","notIndirectGI":True}
+      "source":"real Blender Cycles Ambient Occlusion node baked to UV1 using 0.32m ray distance",
+      "rayRadiusMeters":.32,"notIndirectGI":True}
  return proofs
 
 def main():
