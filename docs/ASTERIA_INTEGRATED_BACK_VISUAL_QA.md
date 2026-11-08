@@ -25,8 +25,17 @@ The test confirmed:
 
 Actual images were inspected side-by-side. The new backrest is significantly less like rigid separate plates; lumbar and upper padding follow continuous sculpted contours, and seam depressions are modeled in the upholstery rather than stacked floating objects. It remains visibly clean CGI with simplified armrests and an overly basic surrounding practical set. **This is an improvement for the targeted defect, not final artistic approval.**
 
-## Pending complete-browser acceptance
+## In-context browser acceptance — completed
 
-The same isolated branch runs the verified full-bridge WebGL test with `--integrated-back` enabled and strict 31,484-face hero mesh checking. It must pass desktop/mobile-sized real Chromium screenshots, loaded/missing material checks, actual frame-gated keyboard movement, station jumps and the unchanged forward-bridge control-region check before it can be considered an integrated *technical* candidate.
+After the offline visual A/B review, the same branch enabled `--integrated-back` only in its independent chair-review build. **GitHub Actions run `42448065265` passed every stage** in real Chromium software-WebGL. The original room geometry was unchanged apart from the exact 16,272 original V3 captain-chair faces already excluded by the verified parent build. The new hero chair contains 31,484 faces and was loaded once with the scanned-fabric maps.
 
-Even green browser QA cannot prove a realistic photographed television set, mobile hardware FPS or a user-accessible hosted preview. Do not merge, publish or offer an unverified file or web link based on this experiment.
+Confirmed browser evidence:
+- Full desktop and 390×844 mobile-sized screenshots from aft, command, science, and an extra read-only chair camera. No JavaScript page errors or external runtime asset requests in the checked views.
+- Focused chair-area mean absolute RGB difference versus preserved V5 control: **5.38**. Unrelated central forward-command region difference: **0.00**.
+- Real frame-gated WASD movement from (-1.23, 4.80) to approximately (-1.163, 4.658), followed by exact command waypoint (-2.32, 2.15).
+- Mobile-sized browser station-button interaction successfully reached flight control at (0, -1.32), yaw 0.
+- Source check passed: original V1–V5 UI routes, game map, campaign files, and PADD unchanged. The candidate remains on a separate draft branch and is not deployed.
+
+I inspected the actual aft, chair-front, and mobile-sized images. The upholstery now reads as a continuous cushioned form, removing the old flat rectangular panels. The rear shell and chair mounting are still simplified, and the surrounding set's console, wall, texture, and indirect-lighting quality remains noticeably below photorealism. This is an **accepted technical integration and limited visual improvement, not final artistic or user approval**.
+
+No externally accessible preview has been verified. Do not merge, publish or offer a speculative file or web link based on this experiment. Physical iPhone interaction and GPU FPS remain untested.
