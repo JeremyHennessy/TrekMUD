@@ -59,6 +59,8 @@ if capture_command:
 # ceiling wedges, WITHOUT changing the frozen source bytes or replacing geometry
 # based on guessed radius/bounding boxes. Ordinary source builds are unaffected.
 capture_bay=os.environ.get('ASTERIA_V3_CAPTURE_INLAID_BAY')=='1'
+capture_three=os.environ.get('ASTERIA_V3_CAPTURE_THREE_RIB_BAYS')=='1'
+if capture_three:assert capture_bay,'Three-bay capture requires unchanged independent k24 source check'
 if capture_bay:
  ceiling_begin="for(let k=0;k<96;k++){const a=k*2*Math.PI/96"
  ceiling_end="k%12===0?0xbcb4ad:0xd3c9bd,2);}"
@@ -84,8 +86,10 @@ for filename in ['hero-v3.js','furniture.js','set-details.js']:
   end="  }\n  // Upright structural ribs"
   for label,token in [('bay decoration start',begin),('bay decoration end',end)]:
    assert raw.count(token)==1,(label,raw.count(token))
-  raw=raw.replace(begin,"if(k===24)window.__v3BayDecorStart=api.faceCount();"+begin)
-  raw=raw.replace(end,"    if(k===24)window.__v3BayDecorEnd=api.faceCount();\n"+end)
+  extra_start=("if([22,23,24].includes(k)){window.__v3TripleStarts=window.__v3TripleStarts||{};window.__v3TripleStarts[k]=api.faceCount();}" if capture_three else "")
+  raw=raw.replace(begin,"if(k===24)window.__v3BayDecorStart=api.faceCount();"+extra_start+begin)
+  extra_end=("    if([22,23,24].includes(k)){window.__v3TripleEnds=window.__v3TripleEnds||{};window.__v3TripleEnds[k]=api.faceCount();}\n" if capture_three else "")
+  raw=raw.replace(end,"    if(k===24)window.__v3BayDecorEnd=api.faceCount();\n"+extra_end+end)
  html=html.replace(tag,'<script>'+raw+'</script>')
 stub="""<script>(()=>{
   const fake=new Proxy({}, {get:(_,k)=>{
@@ -200,6 +204,41 @@ with sync_playwright() as p:
   (OUT/'inlaid-bay-source-spans.json').write_text(
      __import__('json').dumps(report,indent=2)+'\n')
   print('MEASURED_INLAID_V3_BAY',report,flush=True)
+  if capture_three:
+   expanded=page.evaluate("""() => ({
+    firsts:window.__v3TripleStarts,
+    ends:window.__v3TripleEnds
+   })""")
+   assert isinstance(expanded['firsts'],dict) and isinstance(expanded['ends'],dict),expanded
+   rows=[]
+   for k in (22,23,24):
+    first=expanded['firsts'].get(str(k))
+    last=expanded['ends'].get(str(k))
+    assert isinstance(first,(float,int)) and isinstance(last,(float,int)),(k,expanded)
+    assert 0<first==int(first)<last==int(last)<106988,(k,first,last)
+    assert last-first==58,(k,first,last,'Unexpected original V3 bay size, do not guess')
+    rows.append({'name':f'wallBayDecor{k}','bay':k,'start':int(first),
+                 'end':int(last),'faces':int(last-first)})
+   assert rows[0]['end']==rows[1]['start'] and rows[1]['end']==rows[2]['start'],rows
+   single=next(x for x in report['ranges'] if x['name']=='wallBayDecor24')
+   assert rows[2]['start']==single['start'] and rows[2]['end']==single['end'],rows
+   if capture_chair:
+    assert all(entry['end']<=start or entry['start']>=end for entry in rows)
+   if capture_command:
+    assert all(b['end']<=c['start'] or b['start']>=c['end']
+               for b in rows for c in __import__('json').loads(
+                   (OUT/'command-section-source-spans.json').read_text())['ranges'])
+   triple={'roomId':'AST-D01-BRIDGE','sourceV3Blob':expected,
+    'totalFaces':106988,'selectedWallDecorK':[22,23,24],
+    'ranges':rows,'removedFaces':sum(x['faces'] for x in rows),
+    'capturedBy':'exact adjacent frozen V3 set-details.js draw-call boundaries, in-memory only',
+    'singleBayCrossCheck':'k24 source spans exactly agree with established Stage03',
+    'ceilingWedgesRetained':True,'otherGeometryUntouched':True,
+    'sourceFilesModified':False}
+   assert triple['removedFaces']==174
+   (OUT/'three-rib-bays-source-spans.json').write_text(
+      __import__('json').dumps(triple,indent=2)+'\n')
+   print('MEASURED_THREE_ORIGINAL_WALL_BAYS',triple,flush=True)
  assert not errors,errors
  for key in ['positions','normals','colors','materials','uv']:
   pieces=[];size=160000

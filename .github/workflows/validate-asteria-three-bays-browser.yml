@@ -1,0 +1,274 @@
+name: Asteria Stage04 three-bay real WebGL, visual A/B and navigation QA
+
+on:
+  push:
+    branches: [experiment/asteria-three-rib-bays-04]
+    paths:
+      - scripts/test_asteria_three_bays_browser.py
+      - scripts/build_asteria_v5_assets.py
+      - .github/workflows/validate-asteria-three-bays-browser.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: asteria-three-bays-webgl-stage04
+  cancel-in-progress: false
+
+jobs:
+  real-browser-before-after:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 54
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Protect frozen original bridge, campaign and QA source
+        run: |
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
+          python -m py_compile scripts/test_asteria_three_bays_browser.py \
+            scripts/build_asteria_v5_assets.py scripts/asteria_three_rib_bays_blender.py
+      - name: Install pinned full Asteria WebGL, PBR and Blender tools
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          npm ci --prefix ui/3d-preview-v5 --no-audit --no-fund
+          sudo apt-get update
+          sudo apt-get install -y blender
+          command -v google-chrome || command -v chromium
+      - name: Capture immutable V3, chair, command and three contiguous acoustic bays
+        run: |
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+            ASTERIA_V3_CAPTURE_INLAID_BAY=1 \
+            ASTERIA_V3_CAPTURE_THREE_RIB_BAYS=1 \
+            python scripts/extract_asteria_v3_for_v5.py
+      - name: Build byte-preserved original V3 command room control and opt-in triple-bay model
+        run: |
+          set -euo pipefail
+          mkdir -p _site/3d-preview-v5-command/models
+          ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5-command/models" \
+            python scripts/build_asteria_v5_assets.py
+          cp ui/3d-preview-v5-command/src/index.html _site/3d-preview-v5-command/index.html
+          mkdir -p _site/3d-preview-v5-command-three-bays
+          cp -a _site/3d-preview-v5-command/. _site/3d-preview-v5-command-three-bays/
+          ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
+            ASTERIA_V5_EXCLUDE_THREE_RIB_BAYS=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5-command-three-bays/models" \
+            python scripts/build_asteria_v5_assets.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('_site')
+          a=json.loads((root/'3d-preview-v5-command/models/manifest.json').read_text())
+          b=json.loads((root/'3d-preview-v5-command-three-bays/models/manifest.json').read_text())
+          assert a['triangles']==82088 and b['triangles']==81914
+          assert 'three_rib_bays_source_faces_removed' not in a
+          assert b['three_rib_bays_source_faces_removed']==174
+          assert [r['name'] for r in b['three_rib_bays_source_ranges']]==[
+             'wallBayDecor22','wallBayDecor23','wallBayDecor24']
+          assert [r['faces'] for r in b['three_rib_bays_source_ranges']]==[58,58,58]
+          assert a['source_git_blob']==b['source_git_blob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+          assert a['captain_chair_source_faces_removed']==b['captain_chair_source_faces_removed']==16272
+          assert a['command_section_source_faces_removed']==b['command_section_source_faces_removed']==8628
+          print('SOURCE_EXACT_THREE_BAYS_MODEL_PASS',a['triangles'],b['triangles'])
+          PY
+      - name: Reproduce identical verified command architecture and captain's chair
+        run: |
+          python scripts/asteria_fetch_cc0_velour.py --out _asteria_cc0_fabric
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_hero_chair_blender.py -- \
+            --out _three_chair --texture-dir _asteria_cc0_fabric \
+            --samples 24 --no-render --integrated-back
+          python scripts/asteria_command_pbr_maps.py \
+            --out _asteria_command_maps --v3-atlas _v5_mesh_capture/atlas.png
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_command_blender.py -- \
+            --materials _asteria_command_maps --out _three_command \
+            --samples 24 --no-render --bake-ao --correct-screen-uv
+          python scripts/asteria_rib_fin_maps.py --out _asteria_rib_fin_maps
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_three_rib_bays_blender.py -- \
+            --out _three_bays \
+            --materials _asteria_rib_fin_maps \
+            --command-materials _asteria_command_maps \
+            --source-report _v5_mesh_capture/three-rib-bays-source-spans.json \
+            --samples 20 --no-render
+          for name in 3d-preview-v5-command 3d-preview-v5-command-three-bays; do
+            cp _three_chair/asteria-hero-chair-candidate.glb \
+               "_site/$name/models/asteria-hero-chair-candidate.glb"
+            cp _three_command/asteria-command-set-candidate.glb \
+               "_site/$name/models/asteria-command-set-candidate.glb"
+          done
+          cp _three_bays/asteria-three-original-pitch-rib-bays-04.glb \
+             _site/3d-preview-v5-command-three-bays/models/asteria-three-original-pitch-rib-bays-04.glb
+      - name: Bundle original command code and matched QA-only target viewpoints
+        run: |
+          set -euo pipefail
+          cp ui/3d-preview-v5-command/src/main.js \
+             ui/3d-preview-v5/src/__stage04_control.js
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('ui/3d-preview-v5/src/__stage04_control.js')
+          s=p.read_text()
+          anchor='  const views={'
+          assert s.count(anchor)==1
+          qa_views=(
+            "\n    bayDetail:{x:3.7,z:-3.2,yaw:.69,label:'BAY DETAIL CAMERA · QA ONLY'},"
+            "\n    bayPanorama:{x:3.25,z:-2.85,yaw:.70,label:'THREE-BAY PANORAMA · QA ONLY'},")
+          p.write_text(s.replace(anchor,anchor+qa_views))
+          PY
+          ui/3d-preview-v5/node_modules/.bin/esbuild \
+             ui/3d-preview-v5/src/__stage04_control.js \
+             --bundle --platform=browser --target=es2021 --format=iife --minify \
+             --outfile=_site/3d-preview-v5-command/app.js
+          python - <<'PY'
+          from pathlib import Path
+          src=Path('ui/3d-preview-v5/src/__stage04_control.js').read_text()
+          anchor='triangles!==106988-removed-commandRemoved||missing'
+          assert src.count(anchor)==1
+          src=src.replace(anchor,
+            'triangles!==106988-removed-commandRemoved-174||'+
+            'meta.threeRibBaysRemovedFaces!==174||'+
+            '(meta.threeRibBaysSourceRanges||[]).length!==3||missing')
+          place='    scene.add(room,hero,command);'
+          assert src.count(place)==1
+          patch="""    scene.add(room,hero,command);
+            // Source-measured 3 acoustic-bay QA only. The published bridge,
+            // MUD campaign, controls and UI are never written to.
+            loader.loadAsync('./models/asteria-three-original-pitch-rib-bays-04.glb')
+              .then(({scene:replacement})=>{
+                let triangles=0,meshes=0,missing=0;
+                replacement.traverse(o=>{
+                  if(!o.isMesh)return;
+                  meshes++;
+                  triangles+=o.geometry.index?o.geometry.index.count/3:
+                             o.geometry.attributes.position.count/3;
+                  if(!o.material)missing++;
+                  else o.material.side=THREE.DoubleSide;
+                  o.castShadow=!mobile;
+                  o.receiveShadow=true;
+                });
+                if(triangles!==13098||meshes!==105||missing){
+                  fail('Stage04 source-exact acoustic bay mesh failed QA geometry validation.');
+                  return;
+                }
+                replacement.updateMatrixWorld(true);
+                scene.add(replacement);
+                document.body.dataset.threeBayFaces=String(triangles);
+                document.body.dataset.threeBayMeshes=String(meshes);
+                document.body.dataset.threeBayLoaded='true';
+                window.__asteriaThreeBayReview={excludedOriginalFaces:174,
+                  selectedOriginalBays:[22,23,24],
+                  ceilingTrianglesRemoved:0,
+                  replacementTriangles:triangles,noGameWrites:true,
+                  visualApproved:false};
+              }).catch(err=>fail('Three-bay QA GLB failed to load: '+String(err.message||err)));
+          """
+          out=src.replace(place,patch)
+          assert out!=src and out.count('threeBayLoaded')==1
+          Path('ui/3d-preview-v5/src/__stage04_candidate.js').write_text(out)
+          PY
+          ui/3d-preview-v5/node_modules/.bin/esbuild \
+             ui/3d-preview-v5/src/__stage04_candidate.js \
+             --bundle --platform=browser --target=es2021 --format=iife --minify \
+             --outfile=_site/3d-preview-v5-command-three-bays/app.js
+          rm ui/3d-preview-v5/src/__stage04_control.js \
+             ui/3d-preview-v5/src/__stage04_candidate.js
+      - name: Verify byte-identical protected assets and isolated expanded room
+        run: |
+          python - <<'PY'
+          import json,hashlib,struct
+          from pathlib import Path
+          import trimesh
+          root=Path('_site')
+          control=root/'3d-preview-v5-command'
+          candidate=root/'3d-preview-v5-command-three-bays'
+          assert (control/'index.html').read_bytes()==(candidate/'index.html').read_bytes()
+          for filename in ('asteria-command-set-candidate.glb',
+                           'asteria-hero-chair-candidate.glb'):
+              a=(control/'models'/filename).read_bytes()
+              b=(candidate/'models'/filename).read_bytes()
+              assert a==b,filename
+          assert (control/'app.js').read_bytes()!=(candidate/'app.js').read_bytes()
+          def faces(path):
+              s=trimesh.load(path,force='scene',process=False)
+              return sum(len(g.faces) for g in s.geometry.values())
+          assert faces(control/'models/asteria-v3-restored-pbr.glb')==82088
+          assert faces(candidate/'models/asteria-v3-restored-pbr.glb')==81914
+          assert faces(control/'models/asteria-hero-chair-candidate.glb')==31484
+          assert faces(control/'models/asteria-command-set-candidate.glb')==16292
+          assert faces(candidate/'models/asteria-three-original-pitch-rib-bays-04.glb')==13098
+          assert not (control/'models/asteria-three-original-pitch-rib-bays-04.glb').exists()
+          print('STAGE04_PROTECTED_ORIGINAL_MODEL_PRESERVATION_PASSED')
+          PY
+      - name: Generate 12 real software-WebGL A/B screenshots and exercise walking
+        run: |
+          CHROME="$(command -v google-chrome || command -v chromium)" \
+            python scripts/test_asteria_three_bays_browser.py _site _three_bays_browser
+      - name: Confirm frozen V3, visual UI and player campaign files not modified
+        run: |
+          git diff --exit-code -- ui/3d/ ui/3d-preview/ ui/3d-preview-v3/ \
+            ui/3d-preview-v4/ ui/3d-preview-v5/ ui/3d-preview-v5-chair/ \
+            ui/3d-preview-v5-command/ campaign/ world/asteria/
+      - name: Preserve actual screenshot evidence as run artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-three-bays-real-webgl-stage04
+          path: |
+            _three_bays_browser/*.png
+            _three_bays_browser/*.json
+            _three_bays/rib-fin-report.json
+            _v5_mesh_capture/three-rib-bays-source-spans.json
+          retention-days: 30
+          if-no-files-found: ignore
+      - name: Archive passing desktop, close-up and phone screenshots to experiment only
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p docs/asteria-three-bays-stage04-webgl
+          cp _three_bays_browser/*.png docs/asteria-three-bays-stage04-webgl/
+          cp _three_bays_browser/*.json docs/asteria-three-bays-stage04-webgl/
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          root=Path('docs/asteria-three-bays-stage04-webgl')
+          names=['3d-preview-v5-command','3d-preview-v5-command-three-bays']
+          image=Image.new('RGB',(2560,1680),(21,22,32))
+          for y,view in enumerate(('aft','command')):
+            for x,route in enumerate(names):
+              path=root/f'{route}-{view}-1280x800.png'
+              image.paste(Image.open(path).convert('RGB'),(x*1280,y*840))
+              ImageDraw.Draw(image).text((x*1280+15,y*840+810),
+                  f'{view}: '+('verified original' if x==0 else 'three source-fit bays'),
+                  fill=(240,240,240))
+          image.save(root/'actual-full-bridge-ab.jpg',quality=88,optimize=True)
+          image=Image.new('RGB',(1920,1520),(21,22,32))
+          for y,view in enumerate(('bayDetail','bayPanorama')):
+            for x,route in enumerate(names):
+              path=root/f'{route}-{view}-960x720.png'
+              image.paste(Image.open(path).convert('RGB'),(x*960,y*760))
+              ImageDraw.Draw(image).text((x*960+14,y*760+730),
+                  f'{view}: '+('original' if x==0 else 'new three-bay module'),
+                  fill=(240,240,240))
+          image.save(root/'actual-matched-wall-closeups.jpg',quality=90,optimize=True)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/asteria-three-bays-stage04-webgl/
+          git diff --cached --quiet && exit 0
+          git commit -m 'QA: actual measured Stage04 three-bay Chromium screenshots'
+          git push origin HEAD:experiment/asteria-three-rib-bays-04
