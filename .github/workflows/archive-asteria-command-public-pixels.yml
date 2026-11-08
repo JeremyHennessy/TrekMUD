@@ -1,0 +1,132 @@
+name: Preserve real PUBLIC Asteria command screenshots as verifiable GitHub images
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/archive-asteria-command-public-pixels.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: asteria-command-public-qa-screens
+  cancel-in-progress: true
+
+jobs:
+  preserve-pixels:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: qa/asteria-command-public-screens-20261108
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Acquire actual independently verified PUBLIC WebGL screenshot artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download 42498524646 \
+            --repo JeremyHennessy/TrekMUD \
+            --name asteria-command-actual-public-webgl-screenshots \
+            --dir _command_public_actual_pixels
+          test -s _command_public_actual_pixels/public-command-qa.json
+      - name: Verify actual browser screen pixels and assemble contact sheet
+        run: |
+          python -m pip install --disable-pip-version-check Pillow==12.3.0
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from PIL import Image,ImageOps,ImageDraw
+          p=Path('_command_public_actual_pixels')
+          report=json.loads((p/'public-command-qa.json').read_text())
+          assert report['sourceVerified'] is True and len(report['images'])==4
+          assert report['url']=='https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-command/'
+          target=Path('docs/asteria-command-public-20261108')
+          target.mkdir(parents=True,exist_ok=True)
+          labels=['Aft / desktop','Aft / mobile','Command / desktop','Operator-side detail / desktop']
+          expected={
+            'asteria-command-live-aft-1280x800.png':(1280,800),
+            'asteria-command-live-aft-390x844.png':(390,844),
+            'asteria-command-live-command-1280x800.png':(1280,800),
+            'asteria-command-live-commandDetail-1280x800.png':(1280,800)
+          }
+          assert {x['capture'] for x in report['images']}==set(expected)
+          for item in report['images']:
+              src=p/item['capture']
+              assert src.is_file() and item['actualWebGLPixels'] is True
+              state=item['browser']
+              assert state['ready']=='true' and state['roomFaces']==82088
+              assert state['chairFaces']==31484 and state['commandFaces']==16292
+              assert state['changesCampaign'] is False
+              assert state['materialErrors']=='0' and state['bakedAoMaterials']>=1
+              assert not item['pageErrors']
+              with Image.open(src) as im:
+                  assert im.size==expected[item['capture']]
+              (target/item['capture']).write_bytes(src.read_bytes())
+          names=list(expected)
+          sheet=Image.new('RGB',(1440,1020),(19,20,29))
+          draw=ImageDraw.Draw(sheet)
+          for i,name in enumerate(names):
+              im=ImageOps.contain(Image.open(p/name).convert('RGB'),
+                                  (690,455),method=Image.Resampling.LANCZOS)
+              x=(i%2)*720+(720-im.width)//2
+              y=(i//2)*510+12
+              sheet.paste(im,(x,y))
+              draw.text(((i%2)*720+15,(i//2+1)*510-31),
+                        labels[i],fill=(232,225,221))
+          sheet.save(target/'command-contact-sheet.jpg',quality=90,optimize=True)
+          (target/'public-command-qa.json').write_text(json.dumps(report,indent=2)+'\n')
+          (target/'README.md').write_text(
+              '# USS Asteria command-platform public browser screenshots\n\n'
+              'Actual screenshots from the deployed public GitHub Pages walkthrough, '
+              'captured and verified in CI run 42498524646 on November 8, 2026. '
+              'These are not image-generation mock-ups.\n\n'
+              'The new command platform and updated material geometry were '
+              'tested in 11 prior local Chromium screenshots, then 4 actual public '
+              'screenshots from the remote site. The original V3/Player Console and '
+              'chair-only route remain available.\n\n'
+              'This QA branch does not change or deploy the live site. '
+              'Photorealism and physical iPhone GPU performance remain unverified.\n')
+          hashes={x.name:hashlib.sha256(x.read_bytes()).hexdigest()
+                  for x in target.iterdir() if x.is_file()}
+          (target/'sha256.json').write_text(json.dumps(hashes,indent=2)+'\n')
+          print('FOUR_ORIGINAL_PUBLIC_PIXEL_CAPTURES_PRESERVED',hashes,flush=True)
+          PY
+      - name: Commit image evidence to this QA branch only, never to production
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/asteria-command-public-20261108
+          if git diff --cached --quiet; then
+              echo 'Exact screenshot artifacts already preserved.'
+          else
+              git commit -m 'Preserve live Asteria command-platform screenshot evidence'
+              git push origin HEAD:refs/heads/qa/asteria-command-public-screens-20261108
+          fi
+      - name: Verify public GitHub screenshot URL against recorded image hash
+        run: |
+          python - <<'PY'
+          import hashlib,time,urllib.request
+          from pathlib import Path
+          name='command-contact-sheet.jpg'
+          expected=hashlib.sha256(
+              (Path('docs/asteria-command-public-20261108')/name).read_bytes()).hexdigest()
+          url='https://raw.githubusercontent.com/JeremyHennessy/TrekMUD/qa/asteria-command-public-screens-20261108/docs/asteria-command-public-20261108/'+name
+          for attempt in range(1,16):
+              try:
+                  with urllib.request.urlopen(url,timeout=30) as response:
+                      assert response.status==200
+                      content=response.read()
+                  assert hashlib.sha256(content).hexdigest()==expected
+                  print('PUBLIC_ACTUAL_SCREENSHOT_URL_VERIFIED',url,len(content),flush=True)
+                  break
+              except Exception as error:
+                  print('URL_RETRY',attempt,str(error),flush=True)
+                  if attempt==15:raise
+                  time.sleep(4)
+          PY
