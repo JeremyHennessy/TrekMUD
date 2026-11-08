@@ -1,8 +1,8 @@
-name: Asteria Stage10 isolate interior wall AO receiver UV1 - Cycles and GLB validation
+name: Asteria Stage11 isolate interior wall AO receiver UV1 - Cycles and GLB validation
 
 on:
   push:
-    branches: [experiment/asteria-envelope-ao-uv10]
+    branches: [experiment/asteria-recessed-roof-rails-11]
     paths:
       - 'scripts/asteria_envelope_blender.py'
       - 'scripts/asteria_envelope_scanned_pbr.py'
@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: asteria-stage10-separate-interior-ao-uv1
+  group: asteria-stage11-separate-interior-ao-uv1
   cancel-in-progress: false
 
 jobs:
@@ -242,7 +242,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: asteria-stage10-uv1-isolated-architectural-envelope
+          name: asteria-stage11-uv1-isolated-architectural-envelope
           path: |
             _stage08_envelope_model/*.blend
             _stage08_envelope_model/*.glb
@@ -278,4 +278,4 @@ jobs:
           git add docs/asteria-envelope-ao-uv10/
           git diff --cached --quiet && exit 0
           git commit -m 'Stage10 QA: real Cycles architecture with isolated valid interior-wall UV1 receiver'
-          git push origin HEAD:experiment/asteria-envelope-ao-uv10
+          git push origin HEAD:experiment/asteria-recessed-roof-rails-11
