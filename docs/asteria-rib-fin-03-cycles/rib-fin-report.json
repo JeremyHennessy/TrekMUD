@@ -1,0 +1,27 @@
+{
+  "assetId": "ASTERIA_ORIGINAL_RIB_FIN_BAY_03",
+  "roomId": "AST-D01-BRIDGE",
+  "frozenSource": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "removedOriginalWallDecorFaces": 58,
+  "retainedOriginalCeilingWedgeFaces": 4,
+  "preservedOriginalWallSubstrate": true,
+  "originalAdjacentStructuralRibsUnmodified": true,
+  "noOpaqueDoorPanel": true,
+  "numberOfCurvedManufacturedFins": 5,
+  "numberOfSeparateAcousticLanes": 4,
+  "meshObjects": 35,
+  "sourceMeasuredWallPitchMetres": 0.53,
+  "renderedViews": [
+    "grazing",
+    "front",
+    "detail"
+  ],
+  "noGameOrPlayerUIWrites": true,
+  "noBakedGIClaim": true,
+  "visualApproval": false,
+  "knownLimits": [
+    "Material style is authored, not photography",
+    "Full room view not tested by this Blender script",
+    "Real iPhone GPU FPS unverified"
+  ]
+}
