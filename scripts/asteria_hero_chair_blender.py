@@ -31,6 +31,7 @@ def parameters():
     p.add_argument("--samples",type=int,default=24)
     p.add_argument("--texture-dir",type=Path,default=None,help="Optional pinned CC0 scan input")
     p.add_argument("--no-render",action="store_true",help="Export model and source only for browser testing")
+    p.add_argument("--integrated-back",action="store_true",help="A/B sculpt continuous backrest rather than separate stiff insert plates")
     p.add_argument("--view",choices=["front","rear","quarter","detail","all"],default="all")
     p.add_argument("--resolution",nargs=2,type=int,default=[900,800])
     return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
@@ -151,6 +152,27 @@ def back_surface(u,t):
     z-=.012*(1-u*u)*math.sin(PI*t)**2
     return x,y,z
 
+def integrated_back_surface(u,t):
+    """One continuous upholstered front, with soft internal foam contours.
+
+    Preserve frozen V3 exterior side/height silhouette: only the inner front
+    relief is altered, with no detached lumbar/shoulder plates. The seam
+    depressions are actual surface geometry, not floating tube decorations.
+    """
+    x,y,z=back_surface(u,t)
+    width_falloff=max(0.,1-u*u)**1.45
+    # Smooth volumetric foam support areas, fading toward the same shell edge.
+    lumbar=.052*math.exp(-((t-.38)/.22)**4)
+    shoulders=.033*math.exp(-((t-.83)/.12)**4)
+    side_support=.016*math.exp(-((abs(u)-.72)/.19)**2)*math.sin(PI*t)**2
+    z-=(lumbar+shoulders)*width_falloff+side_support
+    # Three shallow recessed stitched channels; the front surface recedes into
+    # the cushion, rather than an extra tube hovering in front of the fabric.
+    for location in (.16,.65,.79):
+        z+=.011*math.exp(-((t-location)/.021)**2)*width_falloff
+    return x,y,z
+
+
 def seat_surface(u,v):
     x=.54*u;z=-.42+.76*v
     y=.702+.065*(1-u*u)+.018*math.sin(PI*v)-.025*(v-.5)**2
@@ -197,7 +219,7 @@ def apply_cc0_material_scan(m,folder):
     attach("fabric","asteria_mauve_diffuse.png")
     attach("fabric_light","asteria_mauve_light_diffuse.png")
 
-def chair(m):
+def chair(m, integrated_back=False):
     # Weighted swivel construction, bearings and load-bearing collar.
     for name,y,r,h,material in [
         ("Weighted cast base",.080,.35,.095,"frame"),
@@ -232,22 +254,30 @@ def chair(m):
         pipe("Seat / side welt "+str(s),[seat_surface(s*.98,j/32) for j in range(33)],.007,m["thread"])
     pipe("Seat / curved front welt",[seat_surface(-.94+1.88*i/46,.027) for i in range(47)],.008,m["thread"])
 
-    # Physical double-wall chair back, rounded side wrap and nested cushions.
-    thick_pad("Back / curved upholstered seat-back and shell",back_surface,44,48,m["fabric"],m["shell"])
-    def lumbar(u,t):
-        x,y,z=back_surface(u*.74,.14+.49*t)
-        return x,y,z-.025*(1-u*u)*math.sin(PI*t)
-    thick_pad("Back / articulated lumbar cushion",lumbar,20,30,m["fabric_light"],m["fabric"],.037)
-    def head(u,t):
-        x,y,z=back_surface(u*.66,.76+.19*t)
-        return x,y,z-.020*(1-u*u)*math.sin(PI*t)
-    thick_pad("Back / integrated shoulder bolster",head,12,30,m["fabric_light"],m["fabric"],.036)
+    # Physical double-wall chair back. A/B alternative: sculpt padding into a
+    # single continuous upholstered front so there are no squared-off pads.
+    if integrated_back:
+        thick_pad("Back / curved upholstered seat-back and shell",
+                  integrated_back_surface,80,60,m["fabric"],m["shell"])
+    else:
+        thick_pad("Back / curved upholstered seat-back and shell",
+                  back_surface,44,48,m["fabric"],m["shell"])
+        def lumbar(u,t):
+            x,y,z=back_surface(u*.74,.14+.49*t)
+            return x,y,z-.025*(1-u*u)*math.sin(PI*t)
+        thick_pad("Back / articulated lumbar cushion",lumbar,20,30,m["fabric_light"],m["fabric"],.037)
+        def head(u,t):
+            x,y,z=back_surface(u*.66,.76+.19*t)
+            return x,y,z-.020*(1-u*u)*math.sin(PI*t)
+        thick_pad("Back / integrated shoulder bolster",head,12,30,m["fabric_light"],m["fabric"],.036)
     for s in (-1,1):
         pipe("Back / moulded welting "+str(s),
              [back_surface(s*.955,.045+.91*i/50) for i in range(51)],.009,m["thread"])
-    for t in (.17,.66,.79):
-        pipe("Back / recessed seam %.2f"%t,
-             [back_surface(-.75+1.5*i/36,t) for i in range(37)],.0035,m["thread"])
+    if not integrated_back:
+        # Old raised seams are a deliberate part of the control image.
+        for t in (.17,.66,.79):
+            pipe("Back / recessed seam %.2f"%t,
+                 [back_surface(-.75+1.5*i/36,t) for i in range(37)],.0035,m["thread"])
 
     # Cantilever support arms, rounded fabric, black inset control glass,
     # separate physical button geometry, and forged rear struts.
@@ -325,7 +355,7 @@ def main():
     }
     if a.texture_dir:
         apply_cc0_material_scan(m,a.texture_dir)
-    chair(m)
+    chair(m, integrated_back=a.integrated_back)
     cameras=studio()
     sc=bpy.context.scene;sc.render.engine="CYCLES";sc.cycles.samples=a.samples
     sc.cycles.use_denoising=False
@@ -370,6 +400,7 @@ def main():
       "cyclesExposureEV":-1.4,
       "renderedViews":[] if a.no_render else chosen,"separateFromBrowser":True,
       "photoScannedFabric":bool(a.texture_dir),
+      "integratedBackCandidate":bool(a.integrated_back),
       "materialLimit":"Scanned albedo, roughness and normal embedded in candidate GLB when texture-dir is supplied",
       "visualApproved":False,
     }
