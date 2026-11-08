@@ -1,0 +1,119 @@
+name: Verify deployed Asteria mobile layout and real screenshots
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-asteria-mobile-live.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-mobile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read actual public HTML until CDN serves tested mobile-only CSS
+        run: |
+          python - <<'PY'
+          import urllib.request,time
+          root='https://jeremyhennessy.github.io/TrekMUD/'
+          target=root+'3d-preview-v5-chair/'
+          marker=b'#topTitle{width:calc(100vw - 194px);max-width:210px}'
+          for attempt in range(20):
+              with urllib.request.urlopen(target,timeout=30) as response:
+                  html=response.read()
+                  assert response.status==200
+              if marker in html:
+                  print('PUBLIC_MOBILE_CSS_DEPLOYED',target,len(html),flush=True)
+                  break
+              if attempt==19:
+                  raise RuntimeError('Public CDN does not contain the approved mobile-only fix')
+              print('Waiting for GitHub Pages updated HTML',attempt+1,flush=True)
+              time.sleep(10)
+          for path in ('','3d-preview-v3/','3d-preview-v4/'):
+              with urllib.request.urlopen(root+path,timeout=30) as resp:
+                  assert resp.status==200,path
+              print('PRIOR_PUBLIC_ROUTE_PRESERVED',path,flush=True)
+          PY
+      - name: Install real browser and image QA dependencies
+        run: python -m pip install --disable-pip-version-check playwright==1.56.0 Pillow==12.3.0
+      - name: Capture both deployed phone-sized pages and verify actual DOM geometry
+        run: |
+          python - <<'PY'
+          import json,shutil
+          from pathlib import Path
+          from PIL import Image,ImageDraw,ImageOps,ImageStat
+          from playwright.sync_api import sync_playwright
+          url='https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-chair/?studioCapture=aft'
+          root=Path('_asteria_public_mobile_after')
+          root.mkdir(exist_ok=True)
+          results=[]
+          with sync_playwright() as p:
+              browser=p.chromium.launch(executable_path=shutil.which('google-chrome'),
+                headless=True,args=['--no-sandbox','--disable-dev-shm-usage',
+                    '--enable-webgl','--use-gl=angle','--use-angle=swiftshader',
+                    '--enable-unsafe-swiftshader'])
+              for width,height in ((390,844),(375,812)):
+                  page=browser.new_page(viewport={'width':width,'height':height},has_touch=True)
+                  errors=[]
+                  page.on('pageerror',lambda err:errors.append(str(err)))
+                  response=page.goto(url,wait_until='domcontentloaded',timeout=60000)
+                  assert response and response.status==200
+                  page.wait_for_function("document.body.dataset.rendererReady==='true'",
+                     timeout=120000)
+                  bounds=page.evaluate("""() => {
+                    const title=document.getElementById('topTitle').getBoundingClientRect();
+                    const map=document.getElementById('panel').getBoundingClientRect();
+                    return {
+                      intersection:Math.max(0,Math.min(title.right,map.right)-Math.max(title.left,map.left))*
+                                   Math.max(0,Math.min(title.bottom,map.bottom)-Math.max(title.top,map.top)),
+                      titleWidth:title.width,
+                      titleRight:title.right,
+                      mapLeft:map.left,
+                      heroFaces:document.body.dataset.heroChairFaces,
+                      removed:document.body.dataset.captainChairFacesRemoved,
+                      ready:document.body.dataset.rendererReady,
+                      pageErrors:document.getElementById('error')?.textContent || ''
+                    };
+                  }""")
+                  assert bounds['intersection']==0,bounds
+                  assert bounds['titleWidth']<=210,bounds
+                  assert bounds['heroFaces']=='31484' and bounds['removed']=='16272',bounds
+                  assert bounds['ready']=='true' and not bounds['pageErrors'],bounds
+                  assert not errors,errors
+                  path=root/f'asteria-public-mobile-{width}x{height}.png'
+                  page.screenshot(path=str(path),timeout=90000)
+                  im=Image.open(path).convert('RGB')
+                  assert im.size==(width,height)
+                  assert min(ImageStat.Stat(im).stddev)>18
+                  results.append({'width':width,'height':height,'screenshot':path.name,
+                                  'geometry':bounds,'javascriptErrors':errors})
+                  print('DEPLOYED_PHONE_SCREENSHOT_VERIFIED',json.dumps(results[-1]),flush=True)
+                  page.close()
+              browser.close()
+          canvas=Image.new('RGB',(830,900),(22,24,30))
+          for i,data in enumerate(results):
+              im=Image.open(root/data['screenshot']).convert('RGB')
+              canvas.paste(im,(20+i*415,30))
+          canvas.save(root/'asteria-public-mobile-fixed-comparison.jpg',quality=90)
+          (root/'after-deployment.json').write_text(json.dumps({
+              'liveURL':url,'photos':results,'mobileCSSActuallyDeployed':True,
+              'live3DUnmodified':True,'physicalDeviceTest':False
+          },indent=2)+'\n')
+          print('ACTUAL_POST_DEPLOY_MOBILE_VISUAL_PASS',len(results),flush=True)
+          PY
+      - name: Archive actual deployed mobile screenshot evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-public-mobile-fixed-actual-screenshots
+          path: _asteria_public_mobile_after/*
+          if-no-files-found: ignore
+          retention-days: 14
