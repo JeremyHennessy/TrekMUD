@@ -30,6 +30,7 @@ def parameters():
     p.add_argument("--out",type=Path,required=True)
     p.add_argument("--samples",type=int,default=24)
     p.add_argument("--texture-dir",type=Path,default=None,help="Optional pinned CC0 scan input")
+    p.add_argument("--no-render",action="store_true",help="Export model and source only for browser testing")
     p.add_argument("--view",choices=["front","rear","quarter","detail","all"],default="all")
     p.add_argument("--resolution",nargs=2,type=int,default=[900,800])
     return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
@@ -356,17 +357,18 @@ def main():
     bpy.ops.export_scene.gltf(filepath=str((a.out/"asteria-hero-chair-candidate.glb").resolve()),
                               export_format="GLB",**{select_arg:True})
     chosen=list(cameras) if a.view=="all" else [a.view]
-    for name in chosen:
-        sc.camera=cameras[name]
-        sc.render.filepath=str((a.out/("asteria-chair-"+name+".png")).resolve())
-        bpy.ops.render.render(write_still=True)
+    if not a.no_render:
+        for name in chosen:
+            sc.camera=cameras[name]
+            sc.render.filepath=str((a.out/("asteria-chair-"+name+".png")).resolve())
+            bpy.ops.render.render(write_still=True)
     report={
       "assetId":"ASTERIA-HERO-CHAIR-CANDIDATE-01",
       "roomId":"AST-D01-BRIDGE","originalChairAnchor":[0,ANCHOR_Z],
       "frozenV3Blob":V3_BLOB,"meshObjects":len(mesh_objects),
       "renderer":"Blender Cycles","samples":a.samples,
       "cyclesExposureEV":-1.4,
-      "renderedViews":chosen,"separateFromBrowser":True,
+      "renderedViews":[] if a.no_render else chosen,"separateFromBrowser":True,
       "photoScannedFabric":bool(a.texture_dir),
       "materialLimit":"Scanned albedo, roughness and normal embedded in candidate GLB when texture-dir is supplied",
       "visualApproved":False,
