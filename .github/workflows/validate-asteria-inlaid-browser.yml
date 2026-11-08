@@ -6,6 +6,7 @@ on:
     paths:
       - scripts/test_asteria_inlaid_browser.py
       - scripts/build_asteria_v5_assets.py
+      - scripts/asteria_inlaid_bay_blender.py
       - .github/workflows/validate-asteria-inlaid-browser.yml
   workflow_dispatch:
 
@@ -108,13 +109,25 @@ jobs:
           set -euo pipefail
           cp ui/3d-preview-v5-command/src/main.js \
             ui/3d-preview-v5/src/__temp_inlaid_unmodified.js
+          # Add this identical QA-only camera to both test pages, never the
+          # source viewer or Pages. This is physically closer to target bay.
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('ui/3d-preview-v5/src/__temp_inlaid_unmodified.js')
+          source=p.read_text()
+          anchor='  const views={'
+          assert source.count(anchor)==1
+          source=source.replace(anchor,anchor+
+            "\n    bayDetail:{x:3.7,z:-3.2,yaw:.69,label:'BAY DETAIL CAMERA · QA ONLY'},")
+          p.write_text(source)
+          PY
           ui/3d-preview-v5/node_modules/.bin/esbuild \
             ui/3d-preview-v5/src/__temp_inlaid_unmodified.js \
             --bundle --platform=browser --target=es2021 --format=iife --minify \
             --outfile=_site/3d-preview-v5-command/app.js
           python - <<'PY'
           from pathlib import Path
-          src=Path('ui/3d-preview-v5-command/src/main.js').read_text()
+          src=Path('ui/3d-preview-v5/src/__temp_inlaid_unmodified.js').read_text()
           check='triangles!==106988-removed-commandRemoved||missing'
           assert src.count(check)==1
           src=src.replace(check,
@@ -230,6 +243,14 @@ jobs:
                 f'{view} '+('before/frozen' if x==0 else 'after/exact source replacement'),
                 fill=(245,245,245))
           canvas.save(root/'matched-inlaid-ab.jpg',quality=88,optimize=True)
+          detail=Image.new('RGB',(1920,760),(20,22,31))
+          for x,route in enumerate(('3d-preview-v5-command','3d-preview-v5-command-inlaid')):
+            f=root/f'{route}-bayDetail-960x720.png'
+            detail.paste(Image.open(f).convert('RGB'),(x*960,0))
+            ImageDraw.Draw(detail).text((x*960+16,731),
+              'QA bay close-up: '+('original' if x==0 else 'inlaid variant'),
+              fill=(245,245,245))
+          detail.save(root/'inlaid-bay-detail-ab.jpg',quality=90,optimize=True)
           PY
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
