@@ -107,12 +107,23 @@ try:
         # proposed chair affects actual rendered pixels (not just JSON counters).
         def image(name):
             return np.asarray(Image.open(out/name).convert("RGB"),dtype=np.int16)
-        for view in ("aft","command"):
-            changed=image(f"3d-preview-v5-chair-{view}-1280.png")
-            baseline=image(f"3d-preview-v5-{view}-1280.png")
-            difference=float(np.abs(changed-baseline).mean())
-            assert difference>2,("Hero chair render indistinguishable from original",view,difference)
-            print(f"PIXEL_COMPARE_{view.upper()} mean_abs_difference={difference:.3f}",flush=True)
+        # The chair occupies only a small fraction of the whole aft frame.
+        # A whole-image average obscures a genuinely different furniture asset.
+        # Judge the chair area, and separately ensure forward/command geometry
+        # remains visually unaffected except for the QA-only title label.
+        aft=image("3d-preview-v5-chair-aft-1280.png")
+        reference=image("3d-preview-v5-aft-1280.png")
+        aft_changed=np.abs(aft-reference)
+        chair_region=(slice(240,680),slice(450,830))
+        chair_difference=float(aft_changed[chair_region].mean())
+        assert chair_difference>3,("Captain chair did not visibly change",chair_difference)
+        command=image("3d-preview-v5-chair-command-1280.png")
+        control_command=image("3d-preview-v5-command-1280.png")
+        command_forward=(slice(150,650),slice(400,900))
+        command_difference=float(np.abs(command-control_command)[command_forward].mean())
+        assert command_difference<.5,("Unrelated forward command set changed",command_difference)
+        print("FURNITURE_REGION_DIFFERENCE",round(chair_difference,3),flush=True)
+        print("UNMODIFIED_COMMAND_REGION_DIFFERENCE",round(command_difference,3),flush=True)
         page=browser.new_page(viewport={"width":860,"height":560})
         page.goto(f"{origin}/3d-preview-v5-chair/?studioCapture=aft",
                   wait_until="domcontentloaded")
