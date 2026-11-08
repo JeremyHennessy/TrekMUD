@@ -77,7 +77,9 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     command:{x:-2.32,z:2.15,yaw:.22,label:'COMMAND PLATFORM'},
     flight:{x:0,z:-1.32,yaw:0,label:'FLIGHT CONTROL'},
     science:{x:-3.70,z:2.76,yaw:2.8,label:'SCIENCE GALLERY'},
-    viewer:{x:0,z:-4.78,yaw:Math.PI,label:'FORWARD VIEWSCREEN'}
+    viewer:{x:0,z:-4.78,yaw:Math.PI,label:'FORWARD VIEWSCREEN'},
+    // Off-UI QA camera only. This is NOT a new game location or station.
+    chairReview:{x:0,z:-.85,yaw:Math.PI,label:'CHAIR REVIEW CAMERA ONLY'}
   };
   const camera=new THREE.PerspectiveCamera(65,1,.07,70);
   camera.rotation.order='YXZ';
