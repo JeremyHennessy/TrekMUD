@@ -1,0 +1,226 @@
+name: Asteria Stage08 source-fit full wall and ceiling Cycles/PBR/AO study
+
+on:
+  push:
+    branches: [experiment/asteria-envelope-08]
+    paths:
+      - 'scripts/asteria_envelope_blender.py'
+      - 'scripts/asteria_envelope_scanned_pbr.py'
+      - '.github/workflows/validate-asteria-envelope-blender.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: asteria-stage08-whole-architectural-envelope
+  cancel-in-progress: false
+
+jobs:
+  full-wall-and-ceiling:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 48
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Protect game and freeze exact original wall and roof generator
+        run: |
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
+          python -m py_compile scripts/asteria_envelope_blender.py \
+            scripts/asteria_envelope_scanned_pbr.py \
+            scripts/build_asteria_v5_assets.py \
+            scripts/extract_asteria_v3_for_v5.py
+      - name: Install previously verified geometry and Cycles runtime
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          sudo apt-get update
+          sudo apt-get install -y blender
+          blender --version
+      - name: Reproduce original measured V3 wall roof and exact three-bay source
+        run: |
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 \
+          ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+          ASTERIA_V3_CAPTURE_INLAID_BAY=1 \
+          ASTERIA_V3_CAPTURE_THREE_RIB_BAYS=1 \
+          ASTERIA_V3_CAPTURE_ENVELOPE=1 \
+            python scripts/extract_asteria_v3_for_v5.py
+      - name: Assert *default* original V5 geometry stays byte identical to pinned Stage04 renderer
+        run: |
+          set -euo pipefail
+          git show 5066014473b143b66ef12d93121376f726d8b094:scripts/build_asteria_v5_assets.py > scripts/__stage04_protected_V5_builder.py
+          mkdir -p _original_verification _candidate_default_verification
+          ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
+            ASTERIA_V5_EXCLUDE_THREE_RIB_BAYS=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_original_verification" \
+            python scripts/__stage04_protected_V5_builder.py
+          ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
+            ASTERIA_V5_EXCLUDE_THREE_RIB_BAYS=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_candidate_default_verification" \
+            python scripts/build_asteria_v5_assets.py
+          sha256sum _original_verification/asteria-v3-restored-pbr.glb \
+                    _candidate_default_verification/asteria-v3-restored-pbr.glb
+          cmp _original_verification/asteria-v3-restored-pbr.glb \
+              _candidate_default_verification/asteria-v3-restored-pbr.glb
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          a=json.loads(Path('_original_verification/manifest.json').read_text())
+          b=json.loads(Path('_candidate_default_verification/manifest.json').read_text())
+          a.pop('path',None);b.pop('path',None)
+          assert a==b,(a,b)
+          assert a['triangles']==81914
+          print('PROTECTED_STAGE04_RENDERER_BYTE_IDENTICAL_WITH_NEW_OPT_IN_BUILD')
+          PY
+          rm scripts/__stage04_protected_V5_builder.py
+      - name: Verify optional exact wall and roof removal is 864 faces, no accidental source deletion
+        run: |
+          mkdir -p _stage08_room
+          ASTERIA_V5_EXCLUDE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
+            ASTERIA_V5_EXCLUDE_THREE_RIB_BAYS=1 \
+            ASTERIA_V5_EXCLUDE_ENVELOPE=1 \
+            ASTERIA_V5_OUT_DIR="$PWD/_stage08_room" \
+            python scripts/build_asteria_v5_assets.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('_stage08_room/manifest.json').read_text())
+          assert a['triangles']==81050,a
+          assert a['captain_chair_source_faces_removed']==16272
+          assert a['command_section_source_faces_removed']==8628
+          assert a['three_rib_bays_source_faces_removed']==174
+          assert a['envelope_source_faces_removed']==864
+          assert [r['faces'] for r in a['envelope_source_ranges']]==[672,192]
+          print('EXACT_OPTIONAL_ENVELOPE_864_FACE_REPLACEMENT_PASSED')
+          PY
+      - name: Fetch checksummed Poly Haven photographic CC0 texture at authoring time
+        run: |
+          python scripts/asteria_command_pbr_maps.py \
+            --out _asteria_command_maps --v3-atlas _v5_mesh_capture/atlas.png
+          python scripts/asteria_envelope_scanned_pbr.py \
+            --out _asteria_envelope_scanned_maps
+      - name: Render 3D envelope with actual Cycles ambient-occlusion UV1 maps
+        run: |
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_envelope_blender.py -- \
+            --out _stage08_envelope_model \
+            --materials _asteria_envelope_scanned_maps \
+            --command-materials _asteria_command_maps \
+            --source-report _v5_mesh_capture/envelope-source-spans.json \
+            --samples 20 --resolution 960 640 --bake-ao
+      - name: Measure genuine Blender GLB and inspect source material/textures/UV1
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageStat
+          import json,struct
+          import trimesh,numpy as np
+          p=Path('_stage08_envelope_model')
+          j=json.loads((p/'architectural-report.json').read_text())
+          assert j['id']=='ASTERIA_ARCHITECTURAL_ENVELOPE_08'
+          assert j['sourceV3Blob']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+          assert j['exactOriginalWallFacesRemoved']==672
+          assert j['exactOriginalRoofFacesRemoved']==192
+          assert j['originalFloorViewscreensAndFurniturePreserved']
+          assert j['originalThreeBaysPreserved']
+          assert j['newWallPanels']==112 and j['roofWedges']==96
+          assert j['physicalPracticalHousings']==12
+          assert j['architecturalBakedAO'] and len(j['architecturalBakedAO'])==2
+          assert j['pbrLicense']=='CC0' and j['PBRScanPhotoBased']
+          assert j['meshObjects']>=50
+          assert (p/'asteria-realistic-architectural-envelope-08.blend').stat().st_size>100000
+          glb=p/'asteria-realistic-architectural-envelope-08.glb'
+          assert glb.stat().st_size>150000
+          scene=trimesh.load(glb,force='scene',process=False)
+          triangles=sum(len(mesh.faces) for mesh in scene.geometry.values())
+          assert 1000<triangles<50000,triangles
+          bounds=scene.bounds
+          assert bounds[0][0]<-7 and bounds[1][0]>7,bounds
+          assert bounds[0][2]<-6 and bounds[1][2]>6,bounds
+          assert bounds[0][1]<=.03 and bounds[1][1]>4.35,bounds
+          data=glb.read_bytes()
+          gltf=json.loads(data[20:20+struct.unpack_from('<I',data,12)[0]])
+          assert len(gltf.get('images',[]))>=12
+          aos=[m for m in gltf['materials']
+               if m.get('occlusionTexture',{}).get('texCoord')==1]
+          assert len(aos)>=2,('Need actual UV1 AO on both roof and wall',aos)
+          assert any('TEXCOORD_1' in prim.get('attributes',{})
+               for mesh in gltf['meshes'] for prim in mesh['primitives'])
+          assert any(m.get('normalTexture') for m in gltf['materials'])
+          # Do not confuse photographic scan with a renderer-authored image.
+          proven=json.loads(Path('_asteria_envelope_scanned_maps/envelope-material-provenance.json').read_text())
+          assert proven['scanAsset']=='painted_plaster_wall'
+          assert proven['photoBasedNormalAndRoughness']
+          assert all(v['rawSha256'] for v in proven['mapsProvenance'].values())
+          stats={}
+          for label in ('wall','ceiling'):
+              path=p/f'asteria-envelope-{label}-real-cycles-ao.png'
+              img=Image.open(path).convert('RGB')
+              assert img.size==(1536,1536)
+              extrema=img.getextrema()
+              assert extrema[0][0]<250,(label,extrema,'AO cannot be uniform white')
+              stats['baked_'+label]=extrema
+          for label in ('aft','forward','wall','ceiling'):
+              img=Image.open(p/f'asteria-envelope-{label}.png').convert('RGB')
+              assert img.size==(960,640)
+              dev=float(np.asarray(img).std(axis=(0,1)).mean())
+              assert dev>10,(label,dev)
+              stats[label]=round(dev,2)
+          proof={'meshTriangles':triangles,'meshObjects':j['meshObjects'],
+                 'bounds':bounds.tolist(),'embeddedPBRImages':len(gltf['images']),
+                 'actualAO2UV1Materials':len(aos),'renderPixelStats':stats,
+                 'sourceRemovedFaces':864,'originalMeshesUnchangedOutsideSpans':True,
+                 'artApproved':False,'inContextBrowserPending':True}
+          (p/'technical-proof.json').write_text(json.dumps(proof,indent=2)+'\n')
+          print('STAGE08_REAL_ENVELOPE_PBR_AO_CYCLES_PASSED',json.dumps(proof))
+          PY
+      - name: Preserve editable Blender and CC0 source/GI evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-stage08-whole-room-envelope
+          path: |
+            _stage08_envelope_model/*.blend
+            _stage08_envelope_model/*.glb
+            _stage08_envelope_model/*.png
+            _stage08_envelope_model/*.json
+            _asteria_envelope_scanned_maps/envelope-material-provenance.json
+            _v5_mesh_capture/envelope-source-spans.json
+          if-no-files-found: ignore
+          retention-days: 30
+      - name: Archive actual rendered wall and roof evidence to QA branch, not to main
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p docs/asteria-envelope-stage08
+          cp _stage08_envelope_model/*.png docs/asteria-envelope-stage08/
+          cp _stage08_envelope_model/technical-proof.json docs/asteria-envelope-stage08/
+          cp _stage08_envelope_model/architectural-report.json docs/asteria-envelope-stage08/
+          cp _asteria_envelope_scanned_maps/envelope-material-provenance.json docs/asteria-envelope-stage08/
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          root=Path('docs/asteria-envelope-stage08')
+          image=Image.new('RGB',(1920,1360),(21,22,28))
+          for i,name in enumerate(('aft','forward','wall','ceiling')):
+              x=i%2;y=i//2
+              image.paste(Image.open(root/f'asteria-envelope-{name}.png').convert('RGB'),(x*960,y*680))
+              ImageDraw.Draw(image).text((x*960+14,y*680+646),
+                       f'Cycles actual: {name}',fill=(235,235,235))
+          image.save(root/'actual-architectural-cycles-contact.jpg',quality=86,optimize=True)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/asteria-envelope-stage08/
+          git diff --cached --quiet && exit 0
+          git commit -m 'QA only: source-matched 112-wall/96-roof real Cycles screenshot evidence'
+          git push origin HEAD:experiment/asteria-envelope-08
