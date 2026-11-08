@@ -73,9 +73,14 @@ def build_wall(mat):
     ao.append((u,v) if rr<1 else (2.,2.))
   # Distinct physically shaded surface and four capped sides, closed geometry
   # with no width-wise gaps in the underlying original room silhouette.
+  # This is an INTERIOR space. Original trial front/outer winding was
+  # reversed: the inner shell's normals faced the outer layer just 7cm
+  # behind it. Cycles AO rays then hit their own exterior wall, producing
+  # an almost-black false occlusion map. Orient inner faces toward the
+  # room and outer faces away from it; keep ALL vertices and UVs identical.
   faces.extend([
-    (base,base+1,base+2),(base,base+2,base+3),
-    (base+4,base+6,base+5),(base+4,base+7,base+6),
+    (base,base+2,base+1),(base,base+3,base+2),
+    (base+4,base+5,base+6),(base+4,base+6,base+7),
     (base,base+4,base+5),(base,base+5,base+1),
     (base+3,base+2,base+6),(base+3,base+6,base+7),
     (base,base+3,base+7),(base,base+7,base+4),
