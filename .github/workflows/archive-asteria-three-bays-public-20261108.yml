@@ -1,0 +1,151 @@
+name: Archive genuine public USS Asteria three-bay browser screenshots
+
+on:
+  push:
+    branches: [qa/asteria-three-bays-public-20261108]
+    paths:
+      - '.github/workflows/archive-asteria-three-bays-public-20261108.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  public-screenshot-proof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact verified remote Chromium screenshot dependencies
+        run: |
+          python -m pip install --disable-pip-version-check \
+            playwright==1.56.0 Pillow==12.3.0
+          command -v google-chrome || command -v chromium
+      - name: Capture four ACTUAL public WebGL frames from live Pages site
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          from PIL import Image,ImageStat,ImageDraw
+          import shutil,json,hashlib,datetime
+          root=Path('docs/asteria-three-bays-public-20261108')
+          root.mkdir(parents=True,exist_ok=True)
+          url='https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-three-bays/'
+          captures=[('aft',1280,800),('bayDetail',960,720),
+                    ('bayPanorama',960,720),('aft',390,844)]
+          evidence=[]
+          with sync_playwright() as p:
+              browser=p.chromium.launch(
+                headless=True,executable_path=shutil.which('google-chrome'),
+                args=['--no-sandbox','--disable-dev-shm-usage',
+                      '--enable-webgl','--use-gl=angle','--use-angle=swiftshader',
+                      '--enable-unsafe-swiftshader'])
+              for view,width,height in captures:
+                  page=browser.new_page(viewport={'width':width,'height':height},
+                     device_scale_factor=1,has_touch=width<500)
+                  errors=[];requests=[]
+                  page.on('pageerror',lambda e:errors.append(str(e)))
+                  page.on('response',lambda r:errors.append(f'HTTP_{r.status} {r.url}')
+                     if r.status>=400 else None)
+                  page.on('request',lambda req:requests.append(req.url))
+                  response=page.goto(url+'?studioCapture='+view,
+                      wait_until='domcontentloaded',timeout=60000)
+                  assert response and response.status==200,(view,response.status if response else None)
+                  page.wait_for_function(
+                    "document.body.dataset.threeBayLoaded==='true' || document.body.dataset.rendererReady==='error'",
+                    timeout=120000)
+                  page.wait_for_function(
+                    "Number(document.body.dataset.renderedFrames||0)>=3",timeout=90000)
+                  state=page.evaluate("""() => ({
+                    ready:document.body.dataset.rendererReady,
+                    bay:document.body.dataset.threeBayLoaded,
+                    room:window.__asteriaV5?.roomId,
+                    source:window.__asteriaV5?.sourceV3Sha,
+                    noGameWrites:window.__asteriaV5?.changesCampaign===false,
+                    original:Number(document.body.dataset.geometryTriangles),
+                    chair:Number(document.body.dataset.heroChairFaces),
+                    command:Number(document.body.dataset.commandMeshFaces),
+                    commandAO:Number(document.body.dataset.commandBakedAoMaterials),
+                    ribFaces:Number(document.body.dataset.threeBayFaces),
+                    ribMeshes:Number(document.body.dataset.threeBayMeshes),
+                    removed:window.__asteriaThreeBayReview?.excludedOriginalFaces,
+                    frames:Number(document.body.dataset.renderedFrames),
+                    mobileIntersection:(() => {
+                      const a=document.getElementById('topTitle').getBoundingClientRect();
+                      const b=document.getElementById('panel').getBoundingClientRect();
+                      return Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left)) *
+                             Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));
+                    })()
+                  })""")
+                  assert state['ready']=='true' and state['bay']=='true',(view,state)
+                  assert state['source']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+                  assert state['room']=='AST-D01-BRIDGE' and state['noGameWrites']
+                  assert (state['original'],state['chair'],state['command'])==(81914,31484,16292)
+                  assert (state['ribFaces'],state['ribMeshes'],state['removed'])==(13098,105,174)
+                  assert state['commandAO']>=1
+                  assert width>=500 or state['mobileIntersection']==0
+                  assert not errors,(view,errors)
+                  glbs=sorted(set(url for url in requests if url.endswith('.glb')))
+                  assert len(glbs)==4,(view,glbs)
+                  name=f'public-{view}-{width}x{height}.png'
+                  file=root/name
+                  page.screenshot(path=str(file),timeout=90000)
+                  im=Image.open(file).convert('RGB')
+                  assert im.size==(width,height)
+                  assert min(ImageStat.Stat(im).stddev)>17
+                  digest=hashlib.sha256(file.read_bytes()).hexdigest()
+                  evidence.append({'view':view,'size':[width,height],'file':name,
+                      'sha256':digest,'bytes':file.stat().st_size,
+                      'browser':state,'glbUrls':glbs,'errors':errors})
+                  print('PUBLIC_SCREENSHOT_PIXELS_PRESERVED',name,digest,flush=True)
+                  page.close()
+              browser.close()
+          # Contact sheet is composed only from the four genuine pixel images.
+          # Original PNGs are archived unchanged next to it.
+          sheet=Image.new('RGB',(1600,1280),(20,20,30))
+          labels=['Public aft / desktop','Public fin detail / desktop',
+                  'Public three-bay panorama','Public aft / phone viewport']
+          for i,entry in enumerate(evidence):
+              original=Image.open(root/entry['file']).convert('RGB')
+              original.thumbnail((760,570),Image.Resampling.LANCZOS)
+              x=(i%2)*800+(800-original.width)//2
+              y=(i//2)*640+16
+              sheet.paste(original,(x,y))
+              ImageDraw.Draw(sheet).text(((i%2)*800+18,(i//2)*640+599),
+                labels[i],fill=(245,245,245))
+          jpeg=root/'public-four-view-contact-sheet.jpg'
+          sheet.save(jpeg,quality=90,optimize=True)
+          assert jpeg.stat().st_size>50000
+          report={'source':'real public GitHub Pages and Chromium screenshots',
+             'liveUrl':url,'pinnedStage04Source':'5066014473b143b66ef12d93121376f726d8b094',
+             'mainWorkflowMerge':'399de4debfa202e29dbe9887cf11f82cbfbc5b3b',
+             'timestampUtc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+             'originalCommandAndChairPreserved':True,'gameWrites':False,
+             'notPhysicalIphoneGpuMeasurement':True,'userArtApproved':False,
+             'screenshots':evidence,
+             'contactSheetSha256':hashlib.sha256(jpeg.read_bytes()).hexdigest()}
+          (root/'public-screenshot-provenance.json').write_text(json.dumps(report,indent=2)+'\n')
+          print('ACTUAL_PUBLIC_STAGE04_SCREENSHOT_ARCHIVE_READY',len(evidence),flush=True)
+          PY
+      - name: Commit public screenshots ONLY to separate QA evidence branch
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/asteria-three-bays-public-20261108/
+          git diff --cached --quiet && exit 1
+          git commit -m 'QA-only: publicly archive four real deployed Asteria three-bay browser screenshots'
+          git push origin HEAD:qa/asteria-three-bays-public-20261108
+      - name: Independently preserve original four screenshots in run artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-three-bays-live-screenshots-qa
+          path: docs/asteria-three-bays-public-20261108/
+          if-no-files-found: ignore
+          retention-days: 30
