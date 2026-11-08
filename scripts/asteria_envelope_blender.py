@@ -30,6 +30,7 @@ def args():
  p.add_argument("--resolution",type=int,nargs=2,default=[960,640])
  p.add_argument("--bake-ao",action="store_true")
  p.add_argument("--omit-radial-rails",action="store_true",help="QA only: isolate roof radial rail shading without touching the ceiling panels")
+ p.add_argument("--roof-coffers",action="store_true",help="QA only: 24 physically formed inset ceiling cassettes, requiring rail omission")
  p.add_argument("--no-render",action="store_true")
  return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
 
@@ -162,6 +163,75 @@ def build_ceiling(mat,omit_radial_rails=False):
   kit.pipe(f"Ceiling / {k:02d} / diffuse built-in practical",
            [across(-.185,-.033),across(.185,-.033)],.019,MATS['light'],segments=3)
  return ob
+
+
+def build_formed_roof_cassettes(ceiling_material):
+ """Single-variable Stage13 art trial: 24 curved, recessed 3D ceiling cassettes.
+
+ Each cassette has a 55 mm molded depth change, an 8x8 quad front surface,
+ and actual manufactured return walls at the outside perimeter. No radial
+ pipes or artificially drawn seams. The entire assembly sits below the
+ original 96-wedge scanned roof; thus the exact underlying shell, AO receiver,
+ lights and V3 exclusions are all retained unchanged for A/B testing.
+ """
+ assert 'roofCassettes' not in MESHES
+ verts=[];faces=[];uvs=[]
+ sectors=24;cells=8;pitch=TAU/sectors
+ r0,r1=.460,.947
+ for k in range(sectors):
+  first=len(verts)
+  a0=(k+.005)*pitch;a1=(k+.995)*pitch
+  for j in range(cells+1):
+   t=j/cells
+   r=r0+(r1-r0)*t
+   for i in range(cells+1):
+    u=i/cells
+    a=a0+(a1-a0)*u
+    # Central liner recessed 53 mm from its formed perimeter. Both the
+    # liner and lip remain in front of the frozen ceiling, avoiding z-fight.
+    distance=min(u,1-u,t,1-t)
+    q=max(0.,min(1.,distance/.17))
+    roundover=q*q*(3.-2.*q)
+    y=roof_y(r)-.074+.053*roundover
+    x,yy,z=wpos(a,r,y)
+    verts.append((x,yy,z))
+    uvs.append((x/1.9,z/1.9))
+  n=cells+1
+  for j in range(cells):
+   for i in range(cells):
+    p=first+j*n+i
+    faces.extend(((p,p+1,p+n+1),(p,p+n+1,p+n)))
+  # A real return flange, not a line shader or flat overlay. Its rear edge
+  # is buried by 6 mm into the original roof, making an actual closed lip
+  # along the four sides with no open silhouette at grazing angles.
+  border=[]
+  border.extend(first+i for i in range(cells+1))
+  border.extend(first+j*n+cells for j in range(1,cells+1))
+  border.extend(first+cells*n+i for i in range(cells-1,-1,-1))
+  border.extend(first+j*n for j in range(cells-1,0,-1))
+  assert len(border)==4*cells
+  back=[]
+  for front in border:
+   x,_,z=verts[front]
+   a=math.atan2(x/W,z/D)
+   r=math.hypot(x/W,z/D)
+   back.append(len(verts))
+   verts.append((x,roof_y(r)+.006,z))
+   uvs.append((x/1.9,z/1.9))
+  for index in range(len(border)):
+   nxt=(index+1)%len(border)
+   p,q=border[index],border[nxt]
+   a,b=back[index],back[nxt]
+   faces.extend(((p,q,b),(p,b,a)))
+ assert len(faces)==sectors*(cells*cells*2+4*cells*2)
+ liner=ceiling_material.copy()
+ liner.name="Asteria / photographed ceiling surface / 24 formed inset coffer cassettes"
+ ob=make("Ceiling / 24 source-aligned formed inset cassettes and return flanges",
+         verts,faces,liner,uvs,flat=False)
+ MESHES["roofCassettes"]=ob
+ return {"cassetteCount":sectors,"panelDepthMeters":.053,
+         "panelTriangles":len(faces),"frontGridQuads":sectors*cells*cells,
+         "returnFlanges":sectors*4}
 
 def other_studio():
  scene=bpy.context.scene
@@ -306,7 +376,10 @@ def main():
   "gasket":kit.build_material("Asteria / captured neutral gasket","console_gasket",.87,0,a.command_materials),
   "light":make_emissive(),
  }
+ if a.roof_coffers and not a.omit_radial_rails:
+  raise ValueError("QA formed roof cassettes require omission of the 24 protruding radial rail meshes")
  build_wall(MATS["wall"]);build_ceiling(MATS["ceiling"],a.omit_radial_rails)
+ roof_coffer_evidence=build_formed_roof_cassettes(MATS["ceiling"]) if a.roof_coffers else None
  studio_floor=other_studio()
  cameras=studio_cameras()
  sc=bpy.context.scene
@@ -335,7 +408,7 @@ def main():
   obj.select_set(True);bpy.context.view_layer.objects.active=obj
   bpy.ops.object.convert(target="MESH")
  meshes=[ob for ob in kit.COMMAND.objects if ob.type=="MESH"]
- assert len(meshes)==(30 if a.omit_radial_rails else 54),len(meshes)
+ assert len(meshes)==(30 if a.omit_radial_rails else 54)+(1 if a.roof_coffers else 0),len(meshes)
  bpy.ops.object.select_all(action="DESELECT")
  for ob in meshes:ob.select_set(True)
  bpy.context.view_layer.objects.active=meshes[0]
@@ -360,6 +433,7 @@ def main():
   "formedRoofBandsPerWedge":3,"physicalPracticalHousings":12,
   "radialRailsEmitted":0 if a.omit_radial_rails else 24,
   "railIsolationExperiment":bool(a.omit_radial_rails),
+  "formedRoofCoffers":roof_coffer_evidence,
   "originalPbrScan":pbr["scanPage"],
   "pbrLicense":pbr["license"],"PBRScanPhotoBased":True,
   "architecturalBakedAO":ao,"fullIndirectLightmapYetUnproven":True,
