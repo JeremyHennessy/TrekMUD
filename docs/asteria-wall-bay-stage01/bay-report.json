@@ -1,0 +1,32 @@
+{
+  "id": "ASTERIA_WALL_CEILING_BAY_01",
+  "roomId": "AST-D01-BRIDGE",
+  "sourceV3Blob": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "frozenSourceUnmodified": true,
+  "gameAndUiUnchanged": true,
+  "existingGeometryReplaced": false,
+  "visualApproval": false,
+  "targetSectorRadians": [
+    2.315,
+    2.525
+  ],
+  "panelRadiusRange": [
+    0.929,
+    0.954
+  ],
+  "wallBlockedRadiusThreshold": 0.919,
+  "ceilingMatchesFrozenSlope": true,
+  "numberOfWallBays": 1,
+  "meshObjects": 46,
+  "renderViews": [
+    "wall",
+    "ceiling",
+    "commandSightline"
+  ],
+  "lightingClaim": "Cycles still-render direct and indirect bounce only; no baked GI or live bridge integration yet",
+  "limitations": [
+    "Not yet rendered in context",
+    "No user visual approval",
+    "Original V3 room is unchanged"
+  ]
+}

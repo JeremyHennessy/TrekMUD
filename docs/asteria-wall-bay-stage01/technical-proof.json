@@ -1,0 +1,25 @@
+{
+  "faces": 1344,
+  "meshObjects": 46,
+  "bounds": [
+    [
+      2.139267683029175,
+      0.5799999944865704,
+      -5.156729440700049
+    ],
+    [
+      5.352124583071079,
+      4.177720069885254,
+      -2.1740710735321045
+    ]
+  ],
+  "pbrImages": 15,
+  "cyclesPixelVariation": {
+    "wall": 52.066,
+    "ceiling": 22.079,
+    "commandSightline": 22.143
+  },
+  "originalRoomModified": false,
+  "inContextComparisonDone": false,
+  "photorealismApproved": false
+}
