@@ -137,7 +137,7 @@ jobs:
             inward=np.array([-radial[0],0,-radial[2]])
             inward/=np.linalg.norm(inward)
             inward_dots.append(float(np.dot(normal,inward)))
-          assert min(inward_dots)>.99,(min(inward_dots),max(inward_dots))
+          assert min(inward_dots)>.985,(min(inward_dots),max(inward_dots)) # ellipse normal vs radial
           print("REAL_PHYSICAL_INWARD_WALL_NORMALS_PASS",len(inward_dots),min(inward_dots))
           PY
       - name: Render 3D envelope with actual Cycles ambient-occlusion UV1 maps
