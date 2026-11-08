@@ -29,6 +29,8 @@ def parse():
     p.add_argument("--samples",type=int,default=28)
     p.add_argument("--resolution",type=int,nargs=2,default=[960,640])
     p.add_argument("--no-render",action="store_true")
+    p.add_argument("--bake-felt-ao",action="store_true",
+                   help="QA-only: actual Cycles contact AO on 12 acoustic lanes, unique UV1 atlas")
     return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
 
 def wall(dx,y,r=.951):
@@ -169,6 +171,86 @@ def lights_cameras():
                    (4.30,1.85,-3.56),wall(.02,1.9,.946),65),
     }
 
+
+def bake_felt_contact_ao(out,mats):
+    """Actual Cycles AO bake on all 12 original-geometry acoustic lanes.
+
+    Geometry, PBR base/normal/roughness maps and UV0 remain unchanged. Only
+    the acoustic material receives ONE added UV1 AO texture. This is real
+    local contact occlusion, NOT multi-bounce global illumination or a fake
+    procedural grayscale shader.
+    """
+    lanes=sorted(ob for ob in kit.COMMAND.objects
+                 if ob.type=="MESH" and
+                 ob.name.startswith("Acoustic lane ") and
+                 "woven material" in ob.name)
+    assert len(lanes)==12,[o.name for o in lanes]
+    scene=bpy.context.scene
+    assert scene.render.engine=="CYCLES"
+    scene.render.bake.margin=3
+    # Keep the original untouched textile on the control route. Blender
+    # instances a new material only for the flagged experiment.
+    baked_mat=mats["acoustic_linen"].copy()
+    baked_mat.name="ASTERIA / Cycles baked 12-lane acoustic felt AO"
+    bitmap=bpy.data.images.new("ASTERIA_ACTUAL_CYCLES_FELT_CONTACT_AO",
+                               width=1024,height=768,alpha=False,float_buffer=False)
+    bitmap.generated_color=(1,1,1,1)
+    tree=baked_mat.node_tree
+    target=tree.nodes.new("ShaderNodeTexImage")
+    target.image=bitmap
+    target.label="Actual Cycles baked felt contact AO"
+    # Each lane is mapped onto a distinct 256x256 atlas tile, preventing
+    # overlaid bakes. Four strips across each of three measured V3 bays.
+    uv_node=tree.nodes.new("ShaderNodeUVMap")
+    uv_node.uv_map="AST_BAKED_FELT_AO_UV"
+    tree.links.new(uv_node.outputs["UV"],target.inputs["Vector"])
+    group=bpy.data.node_groups.get("glTF Settings")
+    if group is None:
+        group=bpy.data.node_groups.new("glTF Settings","ShaderNodeTree")
+    if "Occlusion" not in [t.name for t in group.interface.items_tree]:
+        group.interface.new_socket(name="Occlusion",in_out="INPUT",
+                                   socket_type="NodeSocketColor")
+    holder=tree.nodes.new("ShaderNodeGroup")
+    holder.node_tree=group
+    tree.links.new(target.outputs["Color"],holder.inputs["Occlusion"])
+    for node in tree.nodes:node.select=False
+    target.select=True
+    tree.nodes.active=target
+    bpy.ops.object.select_all(action="DESELECT")
+    for i,ob in enumerate(lanes):
+        assert len(ob.data.vertices)==4,ob.name
+        assert len(ob.data.polygons)==2,ob.name
+        assert len(ob.data.uv_layers)==1,ob.name
+        ob.data.materials[0]=baked_mat
+        atlas=ob.data.uv_layers.new(name="AST_BAKED_FELT_AO_UV")
+        # Keep an 8 pixel padding boundary within every 256x256 cell.
+        x=i%4
+        y=i//4
+        mapping=((0,0),(1,0),(1,1),(0,1))
+        for poly in ob.data.polygons:
+            for li in poly.loop_indices:
+                k=ob.data.loops[li].vertex_index
+                a,b=mapping[k]
+                atlas.data[li].uv=((x+(8/256 if a==0 else 1-8/256))/4,
+                                   (y+(8/256 if b==0 else 1-8/256))/3)
+        ob.data.uv_layers.active=atlas
+        ob.select_set(True)
+    bpy.context.view_layer.objects.active=lanes[0]
+    bpy.ops.object.bake(type="AO")
+    image=out/"asteria-three-bays-cycles-felt-contact-ao.png"
+    bitmap.filepath_raw=str(image.resolve())
+    bitmap.file_format="PNG"
+    bitmap.save()
+    bitmap.pack()
+    # Crucial: revert UV0 as the active base-color/normal mapping before
+    # exporting, while the AO shader references UV1 explicitly by name.
+    for ob in lanes:
+        ob.data.uv_layers.active_index=0
+    return {"texture":str(image),"laneCount":len(lanes),
+            "textureResolution":[1024,768],
+            "uvAtlasGrid":[4,3],"source":"real Blender Cycles AO",
+            "notTrueGlobalIllumination":True}
+
 def main():
     a=parse()
     if a.samples<8 or min(a.resolution)<200:
@@ -215,6 +297,7 @@ def main():
     scene.render.resolution_percentage=100
     scene.render.image_settings.file_format="PNG"
     scene.camera=views["front"]
+    bakedAO=bake_felt_contact_ao(a.out,mats) if a.bake_felt_ao else None
     bpy.ops.wm.save_as_mainfile(
         filepath=str((a.out/"asteria-three-original-pitch-rib-bays-04.blend").resolve()))
     for curve in [ob for ob in kit.COMMAND.objects if ob.type=="CURVE"]:
@@ -258,6 +341,10 @@ def main():
                        "Full room view not tested by this Blender script",
                        "Real iPhone GPU FPS unverified"]
     }
+    if bakedAO:
+        report["realBakedFeltContactAO"]=bakedAO
+        report["preservedBaseNormalAndRoughness"]=True
+        report["bakedAOMaterials"]="12 acoustic felt strips only"
     (a.out/"rib-fin-report.json").write_text(json.dumps(report,indent=2)+"\n")
     print("ASTERIA_RIB_FIN_SOURCE_FITTED_REPORT",json.dumps(report))
 if __name__=="__main__":
