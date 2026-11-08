@@ -215,7 +215,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     document.body.dataset.geometryTriangles=String(triangles);
     document.body.dataset.sceneVersion='v5-chair-replacement-review-01';
     document.body.dataset.missingMaterials=String(missing);
-    window.__asteriaV5={roomId:'AST-D01-BRIDGE',sourceV3Sha:'74a154ae62bccb0c16d03c2ec791a64ab19ce81',meshTriangles:triangles,getPosition:()=>({...pos}),resetAt,collision:blocked,ready:true,changesCampaign:false};
+    window.__asteriaV5={roomId:'AST-D01-BRIDGE',sourceV3Sha:'74a154ae62bccb0c16d03c2ecf791a64ab19ce81',meshTriangles:triangles,getPosition:()=>({...pos}),resetAt,collision:blocked,ready:true,changesCampaign:false};
     window.__asteriaChairReview={removedFaces:removed,heroFaces:chairFaces,heroBounds:{min:bounds.min.toArray(),max:bounds.max.toArray()},noGameWrites:true,sceneVersion:'review-only'};
     ready=true;
     const choice=params.get('studioCapture');
