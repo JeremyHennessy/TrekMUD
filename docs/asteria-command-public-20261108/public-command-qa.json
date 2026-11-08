@@ -1,0 +1,108 @@
+{
+  "url": "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-command/",
+  "sourceVerified": true,
+  "images": [
+    {
+      "url": "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-command/",
+      "view": "aft",
+      "size": [
+        1280,
+        800
+      ],
+      "capture": "asteria-command-live-aft-1280x800.png",
+      "browser": {
+        "ready": "true",
+        "originalSource": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "changesCampaign": false,
+        "roomFaces": 82088,
+        "chairFaces": 31484,
+        "commandFaces": 16292,
+        "removedOriginalChair": 16272,
+        "removedOriginalCommand": 8628,
+        "bakedAoMaterials": 1,
+        "materialErrors": "0",
+        "frames": 2,
+        "titlePanelOverlap": 0
+      },
+      "pageErrors": [],
+      "actualWebGLPixels": true
+    },
+    {
+      "url": "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-command/",
+      "view": "commandDetail",
+      "size": [
+        1280,
+        800
+      ],
+      "capture": "asteria-command-live-commandDetail-1280x800.png",
+      "browser": {
+        "ready": "true",
+        "originalSource": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "changesCampaign": false,
+        "roomFaces": 82088,
+        "chairFaces": 31484,
+        "commandFaces": 16292,
+        "removedOriginalChair": 16272,
+        "removedOriginalCommand": 8628,
+        "bakedAoMaterials": 1,
+        "materialErrors": "0",
+        "frames": 2,
+        "titlePanelOverlap": 0
+      },
+      "pageErrors": [],
+      "actualWebGLPixels": true
+    },
+    {
+      "url": "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-command/",
+      "view": "command",
+      "size": [
+        1280,
+        800
+      ],
+      "capture": "asteria-command-live-command-1280x800.png",
+      "browser": {
+        "ready": "true",
+        "originalSource": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "changesCampaign": false,
+        "roomFaces": 82088,
+        "chairFaces": 31484,
+        "commandFaces": 16292,
+        "removedOriginalChair": 16272,
+        "removedOriginalCommand": 8628,
+        "bakedAoMaterials": 1,
+        "materialErrors": "0",
+        "frames": 2,
+        "titlePanelOverlap": 0
+      },
+      "pageErrors": [],
+      "actualWebGLPixels": true
+    },
+    {
+      "url": "https://jeremyhennessy.github.io/TrekMUD/3d-preview-v5-command/",
+      "view": "aft",
+      "size": [
+        390,
+        844
+      ],
+      "capture": "asteria-command-live-aft-390x844.png",
+      "browser": {
+        "ready": "true",
+        "originalSource": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "changesCampaign": false,
+        "roomFaces": 82088,
+        "chairFaces": 31484,
+        "commandFaces": 16292,
+        "removedOriginalChair": 16272,
+        "removedOriginalCommand": 8628,
+        "bakedAoMaterials": 1,
+        "materialErrors": "0",
+        "frames": 2,
+        "titlePanelOverlap": 0
+      },
+      "pageErrors": [],
+      "actualWebGLPixels": true
+    }
+  ],
+  "visualAcceptance": false,
+  "notPhysicalIPhoneTest": true
+}
