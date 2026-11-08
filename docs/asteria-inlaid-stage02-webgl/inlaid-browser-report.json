@@ -35,9 +35,9 @@
         "renderedFrames": 4
       },
       "assetRequests": [
-        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
       ],
       "pageErrors": []
     },
@@ -65,13 +65,13 @@
         "inlaidFaces": 3300,
         "inlaidMeshes": 117,
         "sourceExclusions": 62,
-        "renderedFrames": 4
+        "renderedFrames": 6
       },
       "assetRequests": [
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-command-set-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-hero-chair-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-inlaid-bay-stage02.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-v3-restored-pbr.glb"
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-inlaid-bay-stage02.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-v3-restored-pbr.glb"
       ],
       "pageErrors": []
     },
@@ -102,9 +102,9 @@
         "renderedFrames": 4
       },
       "assetRequests": [
-        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
       ],
       "pageErrors": []
     },
@@ -132,13 +132,13 @@
         "inlaidFaces": 3300,
         "inlaidMeshes": 117,
         "sourceExclusions": 62,
-        "renderedFrames": 5
+        "renderedFrames": 6
       },
       "assetRequests": [
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-command-set-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-hero-chair-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-inlaid-bay-stage02.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-v3-restored-pbr.glb"
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-inlaid-bay-stage02.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-v3-restored-pbr.glb"
       ],
       "pageErrors": []
     },
@@ -169,9 +169,9 @@
         "renderedFrames": 4
       },
       "assetRequests": [
-        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
       ],
       "pageErrors": []
     },
@@ -202,10 +202,77 @@
         "renderedFrames": 4
       },
       "assetRequests": [
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-command-set-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-hero-chair-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-inlaid-bay-stage02.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-v3-restored-pbr.glb"
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-inlaid-bay-stage02.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command",
+      "camera": "bayDetail",
+      "size": [
+        960,
+        720
+      ],
+      "screenshot": "3d-preview-v5-command-bayDetail-960x720.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82088,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "inlaidLoaded": "none",
+        "inlaidFaces": 0,
+        "inlaidMeshes": 0,
+        "sourceExclusions": 0,
+        "renderedFrames": 4
+      },
+      "assetRequests": [
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-inlaid",
+      "camera": "bayDetail",
+      "size": [
+        960,
+        720
+      ],
+      "screenshot": "3d-preview-v5-command-inlaid-bayDetail-960x720.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 82026,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "inlaidLoaded": "true",
+        "inlaidFaces": 3300,
+        "inlaidMeshes": 117,
+        "sourceExclusions": 62,
+        "renderedFrames": 6
+      },
+      "assetRequests": [
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-inlaid-bay-stage02.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-v3-restored-pbr.glb"
       ],
       "pageErrors": []
     },
@@ -236,9 +303,9 @@
         "renderedFrames": 4
       },
       "assetRequests": [
-        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command/models/asteria-v3-restored-pbr.glb"
       ],
       "pageErrors": []
     },
@@ -266,33 +333,37 @@
         "inlaidFaces": 3300,
         "inlaidMeshes": 117,
         "sourceExclusions": 62,
-        "renderedFrames": 4
+        "renderedFrames": 5
       },
       "assetRequests": [
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-command-set-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-hero-chair-candidate.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-inlaid-bay-stage02.glb",
-        "http://127.0.0.1:39481/3d-preview-v5-command-inlaid/models/asteria-v3-restored-pbr.glb"
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-inlaid-bay-stage02.glb",
+        "http://127.0.0.1:44883/3d-preview-v5-command-inlaid/models/asteria-v3-restored-pbr.glb"
       ],
       "pageErrors": []
     }
   ],
   "matchedDeltas": {
     "aft/1280": {
-      "meanAbsoluteRgb": 0.45842,
-      "changedPixelFraction": 0.01327
+      "meanAbsoluteRgb": 0.35668,
+      "changedPixelFraction": 0.010692
     },
     "command/1280": {
-      "meanAbsoluteRgb": 0.61408,
-      "changedPixelFraction": 0.017991
+      "meanAbsoluteRgb": 0.56731,
+      "changedPixelFraction": 0.017215
     },
     "science/1280": {
       "meanAbsoluteRgb": 0.0,
       "changedPixelFraction": 0.0
     },
+    "bayDetail/960": {
+      "meanAbsoluteRgb": 11.29803,
+      "changedPixelFraction": 0.29478
+    },
     "aft/390": {
-      "meanAbsoluteRgb": 0.82194,
-      "changedPixelFraction": 0.025049
+      "meanAbsoluteRgb": 0.56801,
+      "changedPixelFraction": 0.018283
     }
   },
   "walkingAndCommandWaypointsPass": true,
