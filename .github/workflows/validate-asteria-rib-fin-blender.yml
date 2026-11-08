@@ -1,0 +1,169 @@
+name: Asteria source-fit rib and acoustic-fin one-bay Cycles QA
+
+on:
+  push:
+    branches: [experiment/asteria-rib-fin-bay-03]
+    paths:
+      - 'scripts/asteria_rib_fin_blender.py'
+      - 'scripts/asteria_rib_fin_maps.py'
+      - '.github/workflows/validate-asteria-rib-fin-blender.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: asteria-rib-fin-one-bay-cycles-03
+  cancel-in-progress: false
+
+jobs:
+  one-bay-original-pitch:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 44
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Preserve frozen room, game and standalone source syntax
+        run: |
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
+          python -m py_compile scripts/asteria_rib_fin_blender.py \
+            scripts/asteria_rib_fin_maps.py scripts/extract_asteria_v3_for_v5.py \
+            scripts/build_asteria_v5_assets.py
+      - name: Install pinned, prior-tested Blender and source-capture dependencies
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          sudo apt-get update
+          sudo apt-get install -y blender
+          blender --version
+      - name: Independently reconstruct original frozen wall-only draw-call boundaries
+        run: |
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR=1 \
+            ASTERIA_V3_CAPTURE_COMMAND_SECTION=1 \
+            ASTERIA_V3_CAPTURE_INLAID_BAY=1 \
+            python scripts/extract_asteria_v3_for_v5.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('_v5_mesh_capture')
+          bay=json.loads((p/'inlaid-bay-source-spans.json').read_text())
+          named={x['name']:x for x in bay['ranges']}
+          assert named['wallBayDecor24']['start']==96966
+          assert named['wallBayDecor24']['end']==97024
+          assert named['wallBayDecor24']['faces']==58
+          assert named['ceilingWedge36']['faces']==2
+          assert named['ceilingWedge37']['faces']==2
+          assert bay['removedFaces']==62
+          print('SOURCE_PROVEN_WALL_ONLY_58_KEEP_CEILING_4')
+          PY
+      - name: Generate the original Asteria command PBR and the new independent textile maps
+        run: |
+          python scripts/asteria_command_pbr_maps.py \
+            --out _asteria_command_maps --v3-atlas _v5_mesh_capture/atlas.png
+          python scripts/asteria_rib_fin_maps.py --out _asteria_rib_fin_maps
+      - name: Render three real Blender Cycles views of exactly one sculpted acoustic-fin bay
+        run: |
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_rib_fin_blender.py -- \
+            --out _asteria_rib_fin_model \
+            --materials _asteria_rib_fin_maps \
+            --command-materials _asteria_command_maps \
+            --source-report _v5_mesh_capture/inlaid-bay-source-spans.json \
+            --samples 24 --resolution 960 640
+      - name: Verify actual exported GLB and real image pixels, not code-only claims
+        run: |
+          python - <<'PY'
+          import json,struct
+          from pathlib import Path
+          import numpy as np
+          from PIL import Image
+          import trimesh
+          d=Path('_asteria_rib_fin_model')
+          r=json.loads((d/'rib-fin-report.json').read_text())
+          assert r['assetId']=='ASTERIA_ORIGINAL_RIB_FIN_BAY_03'
+          assert r['frozenSource']=='74a154ae62bccb0c16d03c2ecf791a64ab19ce81'
+          assert r['removedOriginalWallDecorFaces']==58
+          assert r['retainedOriginalCeilingWedgeFaces']==4
+          assert r['preservedOriginalWallSubstrate']
+          assert r['originalAdjacentStructuralRibsUnmodified']
+          assert r['noOpaqueDoorPanel']
+          assert r['numberOfCurvedManufacturedFins']==5
+          assert r['numberOfSeparateAcousticLanes']==4
+          assert r['renderedViews']==['grazing','front','detail']
+          assert r['meshObjects']>=35 and r['visualApproval'] is False
+          assert (d/'asteria-original-pitch-rib-fin-bay-03.blend').stat().st_size>100000
+          glb=d/'asteria-original-pitch-rib-fin-bay-03.glb'
+          assert glb.stat().st_size>120000
+          scene=trimesh.load(glb,force='scene',process=False)
+          faces=sum(len(g.faces) for g in scene.geometry.values())
+          assert 1000<faces<50000,faces
+          bounds=scene.bounds
+          assert 3.5<bounds[0][0]<bounds[1][0]<6.,bounds
+          assert .75<bounds[0][1]<bounds[1][1]<3.1,bounds
+          assert -5.7<bounds[0][2]<bounds[1][2]<-3.5,bounds
+          raw=glb.read_bytes()
+          n=struct.unpack_from('<I',raw,12)[0]
+          gltf=json.loads(raw[20:20+n])
+          assert len(gltf.get('images',[]))>=12,len(gltf.get('images',[]))
+          assert any(m.get('normalTexture') for m in gltf.get('materials',[]))
+          assert any('acoustic' in m.get('name','').lower() for m in gltf['materials'])
+          assert any('rib' in x.get('name','').lower() for x in gltf['nodes'])
+          pixel_std={}
+          for view in r['renderedViews']:
+            im=np.asarray(Image.open(d/f'asteria-rib-fin-{view}.png').convert('RGB'))
+            assert im.shape==(640,960,3),view
+            std=float(im.std(axis=(0,1)).mean())
+            assert std>10,(view,std)
+            pixel_std[view]=round(std,3)
+          proof={
+            'sourceV3':'74a154ae62bccb0c16d03c2ecf791a64ab19ce81',
+            'originalWallFacesRemoved':58,'originalCeilingFacesRemoved':0,
+            'newMeshFaces':faces,'meshObjects':r['meshObjects'],
+            'bounds':bounds.tolist(),'PBRImages':len(gltf['images']),
+            'realCyclesPixelVariation':pixel_std,
+            'photorealismNotDemonstrated':True,'inContextQARequired':True
+          }
+          (d/'technical-proof.json').write_text(json.dumps(proof,indent=2)+'\n')
+          print('RIB_FIN_CYCLES_AND_EXPORT_PASSED',json.dumps(proof))
+          PY
+      - name: Preserve source, real Cycles PNGs and PBR evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-source-fit-rib-fin-cycles-stage03
+          path: |
+            _asteria_rib_fin_model/*.blend
+            _asteria_rib_fin_model/*.glb
+            _asteria_rib_fin_model/*.png
+            _asteria_rib_fin_model/*.json
+            _asteria_rib_fin_maps/material-provenance.json
+            _v5_mesh_capture/inlaid-bay-source-spans.json
+          if-no-files-found: ignore
+          retention-days: 30
+      - name: Archive exact three real Cycles renders on experiment branch only
+        if: success()
+        run: |
+          set -euo pipefail
+          mkdir -p docs/asteria-rib-fin-03-cycles
+          cp _asteria_rib_fin_model/asteria-rib-fin-*.png docs/asteria-rib-fin-03-cycles/
+          cp _asteria_rib_fin_model/*.json docs/asteria-rib-fin-03-cycles/
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image,ImageDraw
+          root=Path('docs/asteria-rib-fin-03-cycles')
+          output=Image.new('RGB',(960,3*680),(22,22,30))
+          for i,view in enumerate(('grazing','front','detail')):
+            output.paste(Image.open(root/f'asteria-rib-fin-{view}.png').convert('RGB'),(0,i*680))
+            ImageDraw.Draw(output).text((14,i*680+648),view,fill=(245,245,245))
+          output.save(root/'cycles-contact-sheet.jpg',quality=88,optimize=True)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/asteria-rib-fin-03-cycles
+          git diff --cached --quiet && exit 0
+          git commit -m 'QA-only: preserve three actual Cycles rib-and-acoustic-fin views'
+          git push origin HEAD:experiment/asteria-rib-fin-bay-03
