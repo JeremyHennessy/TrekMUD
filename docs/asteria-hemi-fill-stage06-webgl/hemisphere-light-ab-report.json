@@ -1,0 +1,466 @@
+{
+  "review": "QA-only actual software-WebGL comparison, not production",
+  "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+  "commandAndChairUnchanged": true,
+  "campaignAndUiUnchanged": true,
+  "originalSourceFaceSpansRemoved": 174,
+  "originalFacesBefore": 81914,
+  "originalFacesAfter": 81914,
+  "sameThreeBaysTriangles": 13098,
+  "controlHemisphereIntensity": 0.7,
+  "candidateHemisphereIntensity": 0.48,
+  "actualGIorLightmapBake": false,
+  "realScreenshots": [
+    {
+      "route": "3d-preview-v5-command-three-bays",
+      "camera": "aft",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-three-bays-aft-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 81914,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "threeBayLoaded": "true",
+        "threeBayFaces": 13098,
+        "threeBayMeshes": 105,
+        "sourceExclusions": 174,
+        "renderedFrames": 4,
+        "hemisphereStudy": "baseline"
+      },
+      "assetRequests": [
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-three-bays-fill-audit",
+      "camera": "aft",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-three-bays-fill-audit-aft-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 81914,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "threeBayLoaded": "true",
+        "threeBayFaces": 13098,
+        "threeBayMeshes": 105,
+        "sourceExclusions": 174,
+        "renderedFrames": 4,
+        "hemisphereStudy": "reduced-0.48"
+      },
+      "assetRequests": [
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-three-bays",
+      "camera": "command",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-three-bays-command-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 81914,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "threeBayLoaded": "true",
+        "threeBayFaces": 13098,
+        "threeBayMeshes": 105,
+        "sourceExclusions": 174,
+        "renderedFrames": 4,
+        "hemisphereStudy": "baseline"
+      },
+      "assetRequests": [
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-three-bays-fill-audit",
+      "camera": "command",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-three-bays-fill-audit-command-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 81914,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "threeBayLoaded": "true",
+        "threeBayFaces": 13098,
+        "threeBayMeshes": 105,
+        "sourceExclusions": 174,
+        "renderedFrames": 4,
+        "hemisphereStudy": "reduced-0.48"
+      },
+      "assetRequests": [
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-three-bays",
+      "camera": "bayDetail",
+      "size": [
+        960,
+        720
+      ],
+      "screenshot": "3d-preview-v5-command-three-bays-bayDetail-960x720.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 81914,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "threeBayLoaded": "true",
+        "threeBayFaces": 13098,
+        "threeBayMeshes": 105,
+        "sourceExclusions": 174,
+        "renderedFrames": 6,
+        "hemisphereStudy": "baseline"
+      },
+      "assetRequests": [
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-three-bays-fill-audit",
+      "camera": "bayDetail",
+      "size": [
+        960,
+        720
+      ],
+      "screenshot": "3d-preview-v5-command-three-bays-fill-audit-bayDetail-960x720.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 81914,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "threeBayLoaded": "true",
+        "threeBayFaces": 13098,
+        "threeBayMeshes": 105,
+        "sourceExclusions": 174,
+        "renderedFrames": 6,
+        "hemisphereStudy": "reduced-0.48"
+      },
+      "assetRequests": [
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-three-bays",
+      "camera": "bayPanorama",
+      "size": [
+        960,
+        720
+      ],
+      "screenshot": "3d-preview-v5-command-three-bays-bayPanorama-960x720.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 81914,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "threeBayLoaded": "true",
+        "threeBayFaces": 13098,
+        "threeBayMeshes": 105,
+        "sourceExclusions": 174,
+        "renderedFrames": 6,
+        "hemisphereStudy": "baseline"
+      },
+      "assetRequests": [
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-three-bays-fill-audit",
+      "camera": "bayPanorama",
+      "size": [
+        960,
+        720
+      ],
+      "screenshot": "3d-preview-v5-command-three-bays-fill-audit-bayPanorama-960x720.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 81914,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "threeBayLoaded": "true",
+        "threeBayFaces": 13098,
+        "threeBayMeshes": 105,
+        "sourceExclusions": 174,
+        "renderedFrames": 6,
+        "hemisphereStudy": "reduced-0.48"
+      },
+      "assetRequests": [
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-three-bays",
+      "camera": "viewer",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-three-bays-viewer-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 81914,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "threeBayLoaded": "true",
+        "threeBayFaces": 13098,
+        "threeBayMeshes": 105,
+        "sourceExclusions": 174,
+        "renderedFrames": 4,
+        "hemisphereStudy": "baseline"
+      },
+      "assetRequests": [
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-three-bays-fill-audit",
+      "camera": "viewer",
+      "size": [
+        1280,
+        800
+      ],
+      "screenshot": "3d-preview-v5-command-three-bays-fill-audit-viewer-1280x800.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 81914,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "threeBayLoaded": "true",
+        "threeBayFaces": 13098,
+        "threeBayMeshes": 105,
+        "sourceExclusions": 174,
+        "renderedFrames": 4,
+        "hemisphereStudy": "reduced-0.48"
+      },
+      "assetRequests": [
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-three-bays",
+      "camera": "aft",
+      "size": [
+        390,
+        844
+      ],
+      "screenshot": "3d-preview-v5-command-three-bays-aft-390x844.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 81914,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "threeBayLoaded": "true",
+        "threeBayFaces": 13098,
+        "threeBayMeshes": 105,
+        "sourceExclusions": 174,
+        "renderedFrames": 4,
+        "hemisphereStudy": "baseline"
+      },
+      "assetRequests": [
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    },
+    {
+      "route": "3d-preview-v5-command-three-bays-fill-audit",
+      "camera": "aft",
+      "size": [
+        390,
+        844
+      ],
+      "screenshot": "3d-preview-v5-command-three-bays-fill-audit-aft-390x844.png",
+      "observation": {
+        "ready": "true",
+        "error": "",
+        "room": "AST-D01-BRIDGE",
+        "sourceV3": "74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
+        "writes": false,
+        "originalFaces": 81914,
+        "chairFaces": 31484,
+        "removedCaptain": 16272,
+        "removedCommand": 8628,
+        "commandFaces": 16292,
+        "commandAO": 1,
+        "threeBayLoaded": "true",
+        "threeBayFaces": 13098,
+        "threeBayMeshes": 105,
+        "sourceExclusions": 174,
+        "renderedFrames": 4,
+        "hemisphereStudy": "reduced-0.48"
+      },
+      "assetRequests": [
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-command-set-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-hero-chair-candidate.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-three-original-pitch-rib-bays-04.glb",
+        "http://127.0.0.1:36889/3d-preview-v5-command-three-bays-fill-audit/models/asteria-v3-restored-pbr.glb"
+      ],
+      "pageErrors": []
+    }
+  ],
+  "matchedDeltas": {
+    "aft/1280": {
+      "meanAbsoluteRgb": 3.01438,
+      "changedPixelFraction": 3e-06
+    },
+    "command/1280": {
+      "meanAbsoluteRgb": 3.21948,
+      "changedPixelFraction": 0.0
+    },
+    "bayDetail/960": {
+      "meanAbsoluteRgb": 4.11333,
+      "changedPixelFraction": 0.0
+    },
+    "bayPanorama/960": {
+      "meanAbsoluteRgb": 3.97821,
+      "changedPixelFraction": 0.0
+    },
+    "viewer/1280": {
+      "meanAbsoluteRgb": 3.09235,
+      "changedPixelFraction": 0.002846
+    },
+    "aft/390": {
+      "meanAbsoluteRgb": 2.30108,
+      "changedPixelFraction": 6e-06
+    }
+  },
+  "controlledExperiment": "HemisphereLight intensity only; all GLBs, UI and cameras byte-identical",
+  "walkingAndCommandWaypointsPass": true,
+  "artApproved": false,
+  "photorealismProven": false,
+  "physicalIphoneGpuVerified": false
+}
