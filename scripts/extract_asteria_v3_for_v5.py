@@ -77,7 +77,7 @@ with sync_playwright() as p:
    'note':'The exact contiguous V3 draw-call range, not a spatial bounding-box crop'
   }
   (OUT/'captain-chair-source-span.json').write_text(
-    __import__('json').dumps(provenance,indent=2)+'\\n')
+    __import__('json').dumps(provenance,indent=2)+'\n')
   print('V3 captain chair draw-call span',provenance,flush=True)
  assert not errors,errors
  for key in ['positions','normals','colors','materials','uv']:
