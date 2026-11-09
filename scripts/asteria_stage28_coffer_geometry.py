@@ -31,47 +31,78 @@ def point(a, r, shift):
 
 
 def surface(name, mat, a0, a1, r0, r1, shift, na=8, nr=5,
-            thickness=.012, cup=0.0):
-    """Solid double-skin curved panel with four physical edge returns.
+            thickness=.012, cup=0.0, aperture=None, outer_return=False):
+    """Watertight physical two-skin coffer with real cut-through fixture apertures.
 
-    Front skin faces downward into the bridge. Back skin and side returns close
-    its volume. UV0 is scan-scale world-planar, never a synthetic grayscale.
+    For a lit 12x7 bay, knot both faces at its physical opening, remove the
+    front AND back cells, then form actual returns on every exposed opening
+    edge. This replaces the previous false 'recess' sitting below an intact
+    solid roof. Outer edge may be bent to land inside the original wall crown.
     """
     assert 0 < a1-a0 < TAU and .35 < r0 < r1 < 1.02
     assert thickness > .003 and na >= 1 and nr >= 1
-    v, uv, faces = [], [], []
-    stride = na + 1
-    count = (nr+1)*stride
-    for layer in (0, 1):
+    angles=[a0+(a1-a0)*i/na for i in range(na+1)]
+    radii=[r0+(r1-r0)*j/nr for j in range(nr+1)]
+    hole=None
+    if aperture:
+        assert na==12 and nr==7, (name,na,nr)
+        a_min,a_max,r_min,r_max=aperture
+        assert a0<a_min<a_max<a1 and r0<r_min<r_max<r1
+        # The cutout consumes two physical radial grid courses and six
+        # angular courses; no cap face is allowed across the luminous opening.
+        left_i,right_i,low_j,high_j=3,9,4,6
+        angles[left_i],angles[right_i]=a_min,a_max
+        radii[low_j],radii[high_j]=r_min,r_max
+        assert all(b>a for a,b in zip(angles,angles[1:]))
+        assert all(b>a for a,b in zip(radii,radii[1:]))
+        hole=(left_i,right_i,low_j,high_j)
+    verts=[];uv=[];faces=[];front=[]
+    stride=na+1
+    layer_offset=(nr+1)*stride
+    for layer in (0,1):
         for j in range(nr+1):
-            r = r0+(r1-r0)*j/nr
+            r=radii[j]
             for i in range(na+1):
-                a = a0+(a1-a0)*i/na
-                # Press-formed shallow upward dish; the surrounding continuous
-                # structural members project 110-155 mm below its surface.
-                lift = cup*sin(pi*i/na)**2*sin(pi*j/nr)**2
-                x,y,z = point(a,r,shift+lift+layer*thickness)
-                v.append((x,y,z))
+                a=angles[i]
+                lift=cup*sin(pi*i/na)**2*sin(pi*j/nr)**2
+                crown=0.
+                if outer_return:
+                    # Material actually curves UP into the perimeter wall,
+                    # rather than ending as a floating slab above the screen.
+                    t=max(0.,min(1.,(r-.918)/(.089)))
+                    crown=.123*t*t*(3.-2.*t)
+                x,y,z=point(a,r,shift+lift+crown+layer*thickness)
+                verts.append((x,y,z))
                 uv.append((x/1.9,z/1.9))
     for j in range(nr):
         for i in range(na):
-            n = j*stride+i
-            faces.extend([(n,n+1,n+stride+1),
-                          (n,n+stride+1,n+stride)])
-            back=n+count
-            faces.extend([(back,back+stride+1,back+1),
-                          (back,back+stride,back+stride+1)])
-    perimeter = (
-        list(range(na+1))
-        + [j*stride+na for j in range(1,nr+1)]
-        + [nr*stride+i for i in range(na-1,-1,-1)]
-        + [j*stride for j in range(nr-1,0,-1)]
-    )
-    for i,n in enumerate(perimeter):
-        m = perimeter[(i+1)%len(perimeter)]
-        faces.extend([(n,m+count,m), (n,n+count,m+count)])
-    return dict(name=name, material=mat, vertices=v, uv=uv, faces=faces)
-
+            if hole and hole[0]<=i<hole[1] and hole[2]<=j<hole[3]:
+                continue
+            n=j*stride+i
+            pair=((n,n+1,n+stride+1),(n,n+stride+1,n+stride))
+            front.extend(pair)
+            faces.extend(pair)
+            back=n+layer_offset
+            faces.extend(((back,back+stride+1,back+1),
+                          (back,back+stride,back+stride+1)))
+    # All exposed front-side boundaries include the outer four edges AND
+    # the inner four sides of a real aperture. Exactly two oriented triangles
+    # connect the front lip to the corresponding back lip of each boundary.
+    edge_count=Counter(); oriented={}
+    for tri in front:
+        for n,m in zip(tri,tri[1:]+tri[:1]):
+            key=(min(n,m),max(n,m))
+            edge_count[key]+=1
+            if key not in oriented:
+                oriented[key]=(n,m)
+    for key,number in edge_count.items():
+        if number==1:
+            n,m=oriented[key]
+            faces.extend(((n,m+layer_offset,m),
+                          (n,n+layer_offset,m+layer_offset)))
+        else:
+            assert number==2,(name,key,number)
+    return dict(name=name,material=mat,vertices=verts,uv=uv,faces=faces)
 
 def swept_section(name, mat, profiles, closed=False):
     """Closed solid beam with a four-point cross section sampled on the arc."""
@@ -103,13 +134,15 @@ def longitudinal_beam(bay):
     a=bay*TAU/BAYS
     profiles=[]
     for i in range(18):
-        r=.405+(.981-.405)*i/17
+        r=.405+(1.005-.405)*i/17
         half_width=.0145
+        landing=max(0.,min(1.,(r-.880)/.125))
+        landing=landing*landing*(3.-2.*landing)
         profiles.append((
             point(a-half_width,r,-.252+.151*max(0.,min(1.,(r-.80)/.175))),
             point(a+half_width,r,-.252+.151*max(0.,min(1.,(r-.80)/.175))),
-            point(a+half_width,r,-.068),
-            point(a-half_width,r,-.068)
+            point(a+half_width,r,-.068+.070*landing),
+            point(a-half_width,r,-.068+.070*landing)
         ))
     return swept_section(
         "ceiling / structural continuous radial spine %02d"%bay,
@@ -149,14 +182,14 @@ def light_well(bay):
     a0=(k+2.30)*STEP;a1=(k+5.70)*STEP
     r0,r1=.789,.886
     back=surface("light well %02d / closed recessed backing"%bay,
-                 "structural",a0,a1,r0,r1,-.148,10,3)
+                 "structural",a0,a1,r0,r1,-.048,10,3)
     opal=surface("light well %02d / opal diffuser behind raised frame"%bay,
-                 "opal",a0+.027,a1-.027,r0+.018,r1-.018,-.187,10,3)
+                 "opal",a0+.027,a1-.027,r0+.018,r1-.018,-.086,10,3)
     border=[
-        surface("trim", "structural", a0, a0+.030, r0, r1,-.226,1,3),
-        surface("trim", "structural", a1-.030, a1, r0, r1,-.226,1,3),
-        surface("trim", "structural", a0+.028, a1-.028, r0, r0+.021,-.226,8,1),
-        surface("trim", "structural", a0+.028, a1-.028, r1-.021, r1,-.226,8,1),
+        surface("trim", "structural", a0, a0+.030, r0, r1,-.132,1,3),
+        surface("trim", "structural", a1-.030, a1, r0, r1,-.132,1,3),
+        surface("trim", "structural", a0+.028, a1-.028, r0, r0+.021,-.132,8,1),
+        surface("trim", "structural", a0+.028, a1-.028, r1-.021, r1,-.132,8,1),
     ]
     bezel=combined("light well %02d / manufactured four-sided dark bezel"%bay,
                    "structural",border)
@@ -172,7 +205,9 @@ def generate():
         panel=surface(
             "ceiling / curved scanned acoustic coffer %02d"%bay,
             "wall" if bay%4==2 else "ceiling",
-            a0,a1,.443,.948,-.125,12,7,thickness=.020,cup=.049)
+            a0,a1,.443,1.007,-.125,12,7,thickness=.020,cup=.049,
+            aperture=((k+2.30)*STEP,(k+5.70)*STEP,.789,.886)
+                     if bay%2==0 else None, outer_return=True)
         objects.append(panel)
     for bay in range(BAYS):
         objects.append(longitudinal_beam(bay))
@@ -211,6 +246,11 @@ def preflight():
             assert sum(n*n for n in normal)>1e-13,(obj["name"],tri)
         invalid=[(edge,n) for edge,n in edges.items() if n!=2]
         assert not invalid,(obj["name"],invalid[:3])
+        if obj["name"].startswith("ceiling / curved scanned acoustic coffer"):
+            bay=int(obj["name"].rsplit(" ",1)[1])
+            # 396 faces prove that both panel skins are actually cut through;
+            # otherwise a 412-face fully solid pane would falsely hide the well.
+            assert len(faces)==(396 if bay%2==0 else 412),obj["name"]
         triangles+=len(faces)
         report.append((obj["name"],len(v),len(faces)))
     assert 10000<=triangles<=15000,triangles
@@ -221,6 +261,8 @@ def preflight():
             "UV0Present":True,"retainedSourceFaceRemovals":864,
             "originalGameSourceUnchanged":True,
             "components":[12,12,3,18],
+            "actualWatertightThroughCutLuminaireApertures":6,
+            "integratedOriginalWallLandings":12,
             "sectionExtentMeters":[.388,1.011],"parts":report}
 
 
