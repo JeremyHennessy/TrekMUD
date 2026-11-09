@@ -1,12 +1,13 @@
-name: Asteria Stage23 forward command flank architecture - real Cycles Chromium A/B NO DEPLOY
+name: Asteria Stage28 full structural ceiling macro - real Cycles Chromium A/B NO DEPLOY
 
 on:
   push:
-    branches: [experiment/asteria-stage23-command-flank-zones-ab]
+    branches: [experiment/asteria-stage28-integrated-command-ceiling-sprint]
     paths:
       - scripts/test_asteria_zone20_ab.py
       - scripts/asteria_stage20_furnished_cycles.py
       - scripts/asteria_envelope_blender.py
+      - scripts/asteria_stage28_coffer_geometry.py
       - .github/workflows/validate-asteria-zone20-ab.yml
   workflow_dispatch:
 
@@ -15,7 +16,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: asteria-stage23-forward-command-flanks-a-b
+  group: asteria-stage28-joined-ceiling-a-b
   cancel-in-progress: false
 
 jobs:
@@ -63,7 +64,17 @@ jobs:
           python -m py_compile scripts/test_asteria_zone20_ab.py \
             scripts/asteria_envelope_blender.py scripts/asteria_envelope_scanned_pbr.py \
             scripts/asteria_stage20_furnished_cycles.py \
+            scripts/asteria_stage28_coffer_geometry.py \
             scripts/build_asteria_v5_assets.py
+          python scripts/asteria_stage28_coffer_geometry.py > /tmp/asteria-stage28-preflight.json
+          python - <<'PY'
+          import json
+          r=json.load(open('/tmp/asteria-stage28-preflight.json'))
+          assert r['meshCount']==45 and r['allMeshesClosed']
+          assert r['allFacesNondegenerate'] and r['UV0Present']
+          assert r['components']==[12,12,3,18] and r['retainedSourceFaceRemovals']==864
+          print('STAGE28_WATERTIGHT_ARCHITECTURAL_PREFLIGHT',r['triangles'])
+          PY
       - name: Install known good three.js, original V3, actual Chromium and Blender runtime
         run: |
           python -m pip install --disable-pip-version-check \
@@ -178,9 +189,10 @@ jobs:
             assert std>2,(name,std,'Cannot fake AO with solid white')
             results[name]={'mean':mean,'std':std,'minimum':int(pixels.min())}
           report=json.loads((p/'architectural-report.json').read_text())
-          assert report['meshObjects']==74 and report['radialRailsEmitted']==0 and report['stage20ManufacturedZone']['zoneMeshCount']==44 and report['stage20ManufacturedZone']['bayCount']==6,report
+          assert report['meshObjects']==119 and report['radialRailsEmitted']==0 and report['stage20ManufacturedZone']['zoneMeshCount']==44 and report['stage20ManufacturedZone']['bayCount']==6,report
+          assert report['stage28CeilingSystem']['meshCount']==45 and report['stage28CeilingSystem']['cofferCount']==12 and report['stage28CeilingSystem']['continuousClosedHoops']==3,report
           assert report['stage20ManufacturedZone']['originalSectors']==[[36,45],[67,76]] and len(report['stage20ManufacturedZone']['lightingPositions'])==6,report
-          proof={'newEnvelopeTriangles':tri,'meshObjects':74,'sourceRemovedFaces':864,
+          proof={'newEnvelopeTriangles':tri,'meshObjects':119,'sourceRemovedFaces':864,
                  'pbrImages':len(data['images']),'aoMaterialCount':len(aos),
                  'realCyclesAORanges':results,'ownerVisualApproval':False}
           path=Path('_site/3d-preview-v5-command-envelope/models/envelope-manifest.json')
@@ -276,7 +288,7 @@ jobs:
                  o.receiveShadow=true;
                  o.castShadow=false;
                });
-               if(faces!==EXPECTED_ARCH_FACES||meshes!==74||missing||ao<2){
+               if(faces!==EXPECTED_ARCH_FACES||meshes!==119||missing||ao<2){
                  fail('Scanned architectural envelope failed geometry, PBR or UV1 AO verification');return;
                }
                scene.add(architecture);
@@ -322,7 +334,7 @@ jobs:
           from pathlib import Path
           p=Path('_stage20_furnished')
           result=json.loads((p/'stage20-furnished-cycles-report.json').read_text())
-          assert result['renderCount']==4 and result['stage20ZoneMeshes']>=44
+          assert result['renderCount']==4 and result['stage20ZoneMeshes']==44 and result['stage28RoofMeshes']==45 and result['onlyRoof28VisibilityChangesBetweenCyclesShots']
           for mode in ('baseline','zone20'):
             for camera in ('wall','aft'):
               q=p/f'stage20-furnished-cycles-{mode}-{camera}.png'
