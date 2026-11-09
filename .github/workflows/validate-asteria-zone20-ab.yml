@@ -298,7 +298,7 @@ jobs:
           """
           extra=extra.replace("EXPECTED_ARCH_FACES",str(expected))
           extra=extra.replace("STAGE20_LIGHT_POSITIONS",
-                              json.dumps(report["stage20ManufacturedZone"]["lightingPositions"]))
+                              json.dumps(json.loads(Path("_stage08_envelope/architectural-report.json").read_text())["stage20ManufacturedZone"]["lightingPositions"]))
           s=s.replace(anchor,extra)
           assert s.count("envelopeLoaded")==1
           Path('ui/3d-preview-v5/src/__stage08_candidate_source.js').write_text(s)
