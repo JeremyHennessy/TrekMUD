@@ -41,9 +41,16 @@ def run(*argv: str, env: dict[str, str] | None = None) -> None:
 
 
 def assert_original_pages(expected: dict[str, str]) -> None:
+    # GitHub Pages' .nojekyll marker is an empty hosting directive, not an
+    # authored site asset in the archived 51-file Pages payload.
+    marker = SITE / ".nojekyll"
+    if marker.exists():
+        assert marker.is_file() and marker.stat().st_size == 0, (
+            "Unexpected Pages hosting marker content", marker)
     actual = {
         str(f.relative_to(SITE)): sha(f)
         for f in SITE.rglob("*") if f.is_file() and not f.is_symlink()
+        and str(f.relative_to(SITE)) != ".nojekyll"
         and not str(f.relative_to(SITE)).startswith("3d-preview-v5-stage28-review/")
     }
     assert len(expected) == 51, ("Expected 51 frozen published Pages assets", len(expected))
