@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/deploy-player-console.yml'
+      - 'scripts/publish_asteria_stage28_review.py'
+      - 'scripts/verify_asteria_stage28_hosted.py'
   push:
     branches:
       - main
@@ -19,6 +21,8 @@ on:
       - scripts/build_asteria_v4_assets.py
       - scripts/verify_asteria_v4_assets.py
       - .github/workflows/deploy-player-console.yml
+      - scripts/publish_asteria_stage28_review.py
+      - scripts/verify_asteria_stage28_hosted.py
 
 permissions:
   contents: read
