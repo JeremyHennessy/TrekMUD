@@ -355,7 +355,7 @@ jobs:
           path=Path('_stage22_hatch/stage22-hatch-report.json')
           report=json.loads(path.read_text())
           assert report['replacedOriginalSourceFaces']==240 and report['meshCount']>=80
-          anchor="               scene.add(architecture);"
+          anchor="     scene.add(architecture);"
           assert source.count(anchor)==1
           extra="""               scene.add(architecture);
                loader.loadAsync('./models/asteria-stage22-formed-side-hatches.glb')
