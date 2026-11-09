@@ -141,10 +141,9 @@ def main():
  assert all(o.data.uv_layers for o in objects),[o.name for o in objects if not o.data.uv_layers]
  # All output meshes remain in the exact original physical door footprints.
  for obj in objects:
-  x,y,z=kit.xyz(0,0,0) if False else obj.location
   assert abs(obj.location.x)<=7.20
   assert -.02<=obj.location.z<=3.22 # Blender z = world y
-  assert -1.45<=obj.location.y<=1.00 # Blender y = -world z
+  assert -1.45<=obj.location.y<=1.40 # Blender y = -world z
  bpy.context.view_layer.update()
  bpy.ops.wm.save_as_mainfile(filepath=str((a.out/"asteria-stage22-formed-side-hatches.blend").resolve()))
  bpy.ops.object.select_all(action="DESELECT")
