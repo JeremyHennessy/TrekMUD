@@ -1,0 +1,87 @@
+name: Asteria Stage21 read-only retained-V3 source-face camera occlusion probe (NO DEPLOY)
+
+on:
+  push:
+    branches: [experiment/asteria-stage21-frontage-occlusion-probe]
+    paths:
+      - scripts/asteria_stage21_frontage_occlusion.py
+      - scripts/extract_asteria_v3_for_v5.py
+      - .github/workflows/validate-asteria-stage21-frontage-occlusion.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: asteria-stage21-read-only-frontage-occlusion
+  cancel-in-progress: false
+
+jobs:
+  source-geometry-provenance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Protect exactly frozen V3 source and player/campaign
+        run: |
+          set -euo pipefail
+          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
+          python scripts/validate_campaign.py
+          python scripts/validate_asteria.py
+          python -m py_compile scripts/asteria_stage21_frontage_occlusion.py scripts/extract_asteria_v3_for_v5.py
+          python - <<'PY'
+          import subprocess
+          expected={
+            "scripts/asteria_stage21_frontage_occlusion.py",
+            "scripts/extract_asteria_v3_for_v5.py",
+            ".github/workflows/validate-asteria-stage21-frontage-occlusion.yml"
+          }
+          changed=set(subprocess.check_output(
+              ["git","diff","--name-only",
+               "e5b5a58fbd284fac98e4f1e367a3b9cb0a86811b","HEAD"],
+              text=True).splitlines())
+          assert changed==expected,(changed,expected)
+          print("STAGE21_FROZEN_BASELINE_AND_TWO_QA_FILES_ONE_OPT_IN_EXTRACTOR_PASS")
+          PY
+      - name: Install pinned offline source extractor dependencies
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 playwright==1.56.0
+          command -v google-chrome || command -v chromium
+      - name: Capture real V3 authoring face ranges without modifying its files
+        env:
+          ASTERIA_V3_CAPTURE_CAPTAIN_CHAIR: "1"
+          ASTERIA_V3_CAPTURE_COMMAND_SECTION: "1"
+          ASTERIA_V3_CAPTURE_INLAID_BAY: "1"
+          ASTERIA_V3_CAPTURE_THREE_RIB_BAYS: "1"
+          ASTERIA_V3_CAPTURE_ENVELOPE: "1"
+          ASTERIA_V3_CAPTURE_SIDE_HATCHES: "1"
+        run: python scripts/extract_asteria_v3_for_v5.py
+      - name: Raycast frozen V5 primary camera projections against retained V3 source faces
+        run: |
+          set -euo pipefail
+          python scripts/asteria_stage21_frontage_occlusion.py \
+            --source _v5_mesh_capture --out _stage21_occlusion
+          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
+          git diff --exit-code -- ui/3d/ ui/3d-preview/ ui/3d-preview-v3/ \
+            ui/3d-preview-v4/ ui/3d-preview-v5/ ui/3d-preview-v5-command/ \
+            campaign/ world/asteria/
+      - name: Preserve source-face hit maps and original drawcall evidence regardless of test outcome
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-stage21-original-source-face-occlusion-evidence
+          retention-days: 30
+          if-no-files-found: warn
+          path: |
+            _stage21_occlusion/*.json
+            _stage21_occlusion/*.png
+            _v5_mesh_capture/*-source-span*.json
+            _v5_mesh_capture/envelope-source-spans.json
+            _v5_mesh_capture/side-hatches-source-spans.json
