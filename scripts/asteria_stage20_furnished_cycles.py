@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Real fully furnished Cycles Stage20 A/B, not an empty envelope studio.
+"""Real furnished Cycles Stage23-vs-Stage28 roof macro A/B, not an empty studio.
 
 Loads all five exact source-protected GLBs. Renders before/after by changing
-only the visibility of physically added ZONE20 architectural objects.
+only the visibility of the new 45 physically formed ROOF28 objects.
 Never exports, writes, or changes the persistent game or walkable meshes.
 """
 from __future__ import annotations
@@ -59,8 +59,10 @@ def main():
   new=set(bpy.data.objects.keys())-before
   counts[name]=len(new)
   assert len(new)>0,(name,"GLB did not import geometry")
- zone=[obj for obj in bpy.data.objects if obj.type=="MESH" and "ZONE20" in obj.name]
- assert len(zone)>=44,("Missing real modeled Stage23 forward-command flank geometry",len(zone))
+ stage23=[obj for obj in bpy.data.objects if obj.type=="MESH" and "ZONE20" in obj.name]
+ roof28=[obj for obj in bpy.data.objects if obj.type=="MESH" and "ROOF28" in obj.name]
+ assert len(stage23)==44,("Stage23 unchanged source control missing",len(stage23))
+ assert len(roof28)==45,("Stage28 macro ceiling missing",len(roof28))
  sc=bpy.context.scene
  sc.render.engine="CYCLES"
  sc.cycles.samples=a.samples
@@ -99,18 +101,20 @@ def main():
   "aft":cam("QA real furnished aft",(-1.23,1.67,4.8),(0,.68,.73),37),
  }
  for mode in ("baseline","zone20"):
-  for obj in zone:obj.hide_render=(mode=="baseline")
+  for obj in roof28:obj.hide_render=(mode=="baseline")
   for name,camera in cameras.items():
    sc.camera=camera
    sc.render.filepath=str((a.out/f"stage20-furnished-cycles-{mode}-{name}.png").resolve())
    bpy.ops.render.render(write_still=True)
- for obj in zone:obj.hide_render=False
- report={"id":"ASTERIA_STAGE20_FURNISHED_REAL_CYCLES_AB",
+ for obj in roof28:obj.hide_render=False
+ report={"id":"ASTERIA_STAGE28_CYCLES_TRUE_STAGE23_AB",
          "loadedFiveOriginalAndCandidateGLBs":list(counts),
-         "importedObjectCounts":counts,"stage20ZoneMeshes":len(zone),
+         "importedObjectCounts":counts,"stage20ZoneMeshes":len(stage23),
+          "stage28RoofMeshes":len(roof28),"stage23WallAssembliesSameInBoth":True,
          "cameras":list(cameras),"modes":["baseline","zone20"],
          "renderCount":4,"resolution":a.resolution,"samples":a.samples,
          "originalAssetsAndCameraIdentical":True,
+          "onlyRoof28VisibilityChangesBetweenCyclesShots":True,
          "fullFurnishedStudioNotEmptyEnvelope":True,
          "browserLightingAndCyclesMayDiffer":True,
          "ownerArtApproved":False}
