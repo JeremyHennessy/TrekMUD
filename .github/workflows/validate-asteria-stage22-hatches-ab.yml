@@ -389,7 +389,8 @@ jobs:
           assert source.count('hatchLoaded')==1
           Path('_stage22_hatch_candidate_source.js').write_text(source)
           PY
-          ui/3d-preview-v5/node_modules/.bin/esbuild \
+          NODE_PATH="$PWD/ui/3d-preview-v5/node_modules" \
+            ui/3d-preview-v5/node_modules/.bin/esbuild \
             _stage22_hatch_candidate_source.js --bundle --platform=browser \
             --target=es2021 --format=iife --minify \
             --outfile=_site/3d-preview-v5-command-envelope-hatches/app.js
