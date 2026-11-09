@@ -13,6 +13,8 @@ import json
 import sys
 from pathlib import Path
 import bpy
+# Blender's --python entrypoint does not add the script folder to sys.path.
+sys.path.insert(0,str(Path(__file__).resolve().parent))
 import asteria_command_blender as kit
 
 FROZEN="74a154ae62bccb0c16d03c2ecf791a64ab19ce81"
