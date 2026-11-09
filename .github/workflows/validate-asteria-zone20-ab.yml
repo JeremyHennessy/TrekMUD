@@ -1,10 +1,11 @@
-name: Asteria Stage23 forward command flank architecture - real Cycles Chromium A/B NO DEPLOY
+name: Asteria Stage24 fixture intensity control - source-identical Cycles Chromium A/B NO DEPLOY
 
 on:
   push:
-    branches: [experiment/asteria-stage23-command-flank-zones-ab]
+    branches: [experiment/asteria-stage24-fixture-luminance-ab]
     paths:
       - scripts/test_asteria_zone20_ab.py
+      - scripts/test_asteria_stage24_fixture_ab.py
       - scripts/asteria_stage20_furnished_cycles.py
       - scripts/asteria_envelope_blender.py
       - .github/workflows/validate-asteria-zone20-ab.yml
@@ -15,7 +16,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: asteria-stage23-forward-command-flanks-a-b
+  group: asteria-stage24-fixture-intensity-a-b
   cancel-in-progress: false
 
 jobs:
@@ -60,7 +61,7 @@ jobs:
           python scripts/validate_campaign.py
           python scripts/validate_asteria.py
           test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
-          python -m py_compile scripts/test_asteria_zone20_ab.py \
+          python -m py_compile scripts/test_asteria_zone20_ab.py scripts/test_asteria_stage24_fixture_ab.py \
             scripts/asteria_envelope_blender.py scripts/asteria_envelope_scanned_pbr.py \
             scripts/asteria_stage20_furnished_cycles.py \
             scripts/build_asteria_v5_assets.py
@@ -308,6 +309,38 @@ jobs:
             ui/3d-preview-v5/src/__stage08_candidate_source.js \
             --bundle --platform=browser --target=es2021 --format=iife --minify \
             --outfile=_site/3d-preview-v5-command-envelope/app.js
+          # Stage23 baseline has the *same generated GLBs, cameras and UI* as
+          # Stage24. Preserve exact original runtime before changing one lumen
+          # setting. These directories live only in this NO-DEPLOY Actions job.
+          cp -a _site/3d-preview-v5-command-envelope _site/3d-preview-v5-command-stage23
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('ui/3d-preview-v5/src/__stage08_candidate_source.js')
+          old='new THREE.PointLight(0xffddbc,1.85,2.7,2)'
+          new='new THREE.PointLight(0xffddbc,0.45,2.7,2)'
+          s=p.read_text()
+          assert s.count(old)==1,'Stage23 fixture intensity expression changed; abort'
+          assert s.count(new)==0
+          p.write_text(s.replace(old,new))
+          print('STAGE24_SINGLE_WEBGL_VARIABLE',old,'=>',new)
+          PY
+          ui/3d-preview-v5/node_modules/.bin/esbuild \
+            ui/3d-preview-v5/src/__stage08_candidate_source.js \
+            --bundle --platform=browser --target=es2021 --format=iife --minify \
+            --outfile=_site/3d-preview-v5-command-envelope/app.js
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          a=Path('_site/3d-preview-v5-command-stage23')
+          b=Path('_site/3d-preview-v5-command-envelope')
+          for p in a.rglob('*'):
+            if not p.is_file():continue
+            q=b/p.relative_to(a)
+            assert q.is_file(),q
+            if p.name=='app.js':assert p.read_bytes()!=q.read_bytes()
+            else:assert sha256(p.read_bytes()).digest()==sha256(q.read_bytes()).digest(),str(p)
+          print('STAGE24_STAGE23_IDENTICAL_ASSETS_HTML_CAMERAS_AND_GEOMETRY')
+          PY
           rm ui/3d-preview-v5/src/__stage08_control_source.js \
              ui/3d-preview-v5/src/__stage08_candidate_source.js
       - name: Genuine Cycles all-five-model furnished A/B before and after
@@ -322,12 +355,12 @@ jobs:
           from pathlib import Path
           p=Path('_stage20_furnished')
           result=json.loads((p/'stage20-furnished-cycles-report.json').read_text())
-          assert result['renderCount']==4 and result['stage20ZoneMeshes']>=44
-          for mode in ('baseline','zone20'):
+          assert result['renderCount']==6 and result['stage20ZoneMeshes']>=44
+          for mode in ('baseline','zone20','zone24'):
             for camera in ('wall','aft'):
               q=p/f'stage20-furnished-cycles-{mode}-{camera}.png'
               assert q.is_file() and q.stat().st_size>5000,q
-          print('STAGE20_REAL_FURNISHED_CYCLES_A_B_PASS')
+          print('STAGE24_SAME_FURNISHED_CYCLES_THREE_LIGHTING_MODES_PASS')
           PY
       - name: Independently prove the chair, command, original fins and UI are byte-identical
         run: |
@@ -356,6 +389,10 @@ jobs:
         run: |
           CHROME="$(command -v google-chrome || command -v chromium)" \
             python scripts/test_asteria_zone20_ab.py _site _stage08_browser
+      - name: Real Chromium Stage23 versus Stage24 same-geometry lighting and HUD A/B
+        run: |
+          CHROME="$(command -v google-chrome || command -v chromium)" \
+            python scripts/test_asteria_stage24_fixture_ab.py _site _stage24_browser
       - name: Confirm no user UI/game/old V3 or other published source changed
         run: |
           git diff --exit-code -- ui/3d/ ui/3d-preview/ ui/3d-preview-v3/ \
@@ -365,11 +402,14 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: asteria-stage23-forward-command-flanks-cycles-chromium-a-b
+          name: asteria-stage24-fixture-luminance-cycles-chromium-a-b
           path: |
             _stage08_browser/*.png
             _stage08_browser/*.jpg
             _stage08_browser/*.json
+            _stage24_browser/*.png
+            _stage24_browser/*.jpg
+            _stage24_browser/*.json
             _stage08_envelope/*.png
             _stage20_furnished/*.png
             _stage20_furnished/*.json
