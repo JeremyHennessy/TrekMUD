@@ -107,6 +107,18 @@ def main():
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     keep, removed = ranges_from_source(args.source)
+    hatch_proof = json.loads((args.source / "side-hatches-source-spans.json").read_text())
+    assert hatch_proof["sourceV3Blob"] == FROZEN
+    assert hatch_proof["originalV3FilesUnmodified"] is True
+    assert hatch_proof["sourceAuthoringFunction"] == "sideHatch"
+    port, starboard = hatch_proof["ranges"]
+    assert port["name"] == "port" and starboard["name"] == "starboard"
+    assert 0 < port["start"] < port["end"] == starboard["start"] < starboard["end"] < N_FACES
+    # Exact original source callback proves both dominant near-wall facets
+    # belong to the authored port-hatch call, not the overlay material.
+    assert port["start"] <= 92848 < port["end"]
+    assert port["start"] <= 92849 < port["end"]
+    assert bool(keep[92848]) and bool(keep[92849])
     original = np.load(args.source / "positions.npy").astype(np.float32).reshape(-1, 3, 3)
     assert len(original) == N_FACES
     retained = original[keep]
@@ -130,6 +142,7 @@ def main():
         "stage12Baseline": "e5b5a58fbd284fac98e4f1e367a3b9cb0a86811b",
         "retainedOriginalSourceFaces": int(keep.sum()),
         "preciseExcludedSourceRanges": removed,
+        "exactOriginalSideHatchAuthoringRanges": hatch_proof,
         "originalRoomCollisionAndUIChanged": False,
         "pixelGrid": [GRID_W, GRID_H],
         "cameraProjection": {"verticalFovDegrees": 65, "aspect": ASPECT,
@@ -162,6 +175,10 @@ def main():
             "sourceSampleCount": len(records),
             "retainedSourceVisibleHits": len(hits),
             "sourceNoHitCount": len(records)-len(hits),
+            "portHatchSourceVisibleSamples": sum(
+                port["start"] <= r["sourceFace"] < port["end"] for r in hits),
+            "starboardHatchSourceVisibleSamples": sum(
+                starboard["start"] <= r["sourceFace"] < starboard["end"] for r in hits),
             "sourceMaterialSampleCounts": dict(material_counts.most_common()),
             "largestSampledSourceTriangles": details,
             "centerSample": records[(GRID_H//2)*GRID_W+(GRID_W//2)],
@@ -183,6 +200,9 @@ def main():
             args.out / ("SOURCE_ONLY_NOT_BROWSER_" + name + ".png"))
         print("SOURCE_RAYCAST_VIEW", name, "hits", len(hits), "by_material",
               json.dumps(dict(material_counts.most_common())), flush=True)
+    assert report["views"]["envelopeWall"]["portHatchSourceVisibleSamples"] >= 75, (
+        report["views"]["envelopeWall"]["portHatchSourceVisibleSamples"])
+    assert report["views"]["aft"]["sourceSampleCount"] == GRID_W * GRID_H
     (args.out / "stage21-source-face-occlusion-report.json").write_text(
         json.dumps(report, indent=2) + "\n")
     assert all(v["retainedSourceVisibleHits"] > 0 for v in report["views"].values())
