@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import struct
@@ -53,6 +54,30 @@ def assert_original_pages(expected: dict[str, str]) -> None:
                           if expected[k] != actual[k]),
     }
     print("STAGE28_PRIOR_PUBLISHED_PAGES_SHA256_MATCH", len(actual), flush=True)
+
+
+def preserve_historical_runtime_snapshot(expected: dict[str, str]) -> None:
+    """Normalize ONLY the time-varying build timestamp to last approved Pages.
+
+    The last published 2026-11-08 artifact is an immutable baseline.
+    Fail closed if ANY OTHER data payload content changed.
+    """
+    frozen = "2026-11-08T18:19:09.530785+00:00"
+    for name in ("data/build.json", "data/player-console.json"):
+        f = SITE / name
+        data = f.read_text()
+        pattern = r'("generatedAt": ")[^"]+(")'
+        assert len(re.findall(pattern, data)) == 1, name
+        fixed = re.sub(pattern, lambda m: m.group(1) + frozen + m.group(2),
+                       data, count=1)
+        assert json.loads(fixed)["generatedAt"] == frozen
+        # Only a formatting-preserving, single-value temporal normalization.
+        # Do not rewrite or reinterpret any player campaign payload.
+        f.write_text(fixed)
+        assert sha(f) == expected[name], (
+            "Published player data has changed beyond its generation timestamp",
+            name, sha(f), expected[name])
+    print("STAGE28_PUBLISHED_PLAYER_PAYLOAD_RESTORED_EXACT_SHA256", flush=True)
 
 
 def safe_replacement(s: str, old: str, new: str) -> str:
@@ -164,6 +189,7 @@ def main() -> None:
     assert frozen["base_main_sha"] == PINNED_MAIN
     assert frozen["source_actions_run"] == 42509385166
     original = frozen["original_files"]
+    preserve_historical_runtime_snapshot(original)
     assert_original_pages(original)
     assert not NEW.exists(), "Refuse to overwrite a previously built review route"
     assert subprocess.check_output(
