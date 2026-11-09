@@ -22,6 +22,7 @@ on:
 
 permissions:
   contents: read
+  actions: read # read-only access to the archived proven Pages artifact
   pages: write
   id-token: write
 
@@ -479,6 +480,8 @@ jobs:
           persist-credentials: false
 
       - name: Build ONLY isolated Stage28 public review with frozen Pages SHA integrity
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           npm ci --prefix asteria-stage28-reviewed-source/ui/3d-preview-v5 --no-audit --no-fund
