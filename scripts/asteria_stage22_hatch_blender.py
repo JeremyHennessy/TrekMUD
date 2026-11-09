@@ -148,6 +148,26 @@ def main():
   assert -1.45<=obj.location.y<=1.40 # Blender y = -world z
  bpy.context.view_layer.update()
  bpy.ops.wm.save_as_mainfile(filepath=str((a.out/"asteria-stage22-formed-side-hatches.blend").resolve()))
+ # The glTF exporter on Ubuntu Blender 4.0 can export unevaluated cubes.
+ # Preserve the editable .blend above, then BURN real bevel surfaces into
+ # the GLB-only representation. Otherwise 86 "bevelled" objects = only
+ # 86*12=1,032 box triangles, a clear art regression.
+ bpy.ops.object.select_all(action="DESELECT")
+ for ob in objects:
+  bpy.context.view_layer.objects.active=ob
+  ob.select_set(True)
+  if hasattr(ob.data,"use_auto_smooth"):
+   ob.data.use_auto_smooth=True
+  for polygon in ob.data.polygons:polygon.use_smooth=True
+  for modifier in tuple(ob.modifiers):
+   if modifier.type=="BEVEL":
+    bpy.ops.object.modifier_apply(modifier=modifier.name)
+   elif modifier.type=="WEIGHTED_NORMAL":
+    # Blender 4.0 requires auto-smooth. The original modifier is an
+    # optional normal polish, but the actual bevel polygons are not.
+    try:bpy.ops.object.modifier_apply(modifier=modifier.name)
+    except RuntimeError:ob.modifiers.remove(modifier)
+  ob.select_set(False)
  bpy.ops.object.select_all(action="DESELECT")
  for ob in objects: ob.select_set(True)
  bpy.context.view_layer.objects.active=objects[0]
