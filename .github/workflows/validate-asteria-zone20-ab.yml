@@ -1,8 +1,8 @@
-name: Asteria Stage23 forward command flank architecture - real Cycles Chromium A/B NO DEPLOY
+name: Asteria Stage26 continuous bridge soffit - real Cycles Chromium A/B NO DEPLOY
 
 on:
   push:
-    branches: [experiment/asteria-stage23-command-flank-zones-ab]
+    branches: [experiment/asteria-stage26-continuous-soffit-ab]
     paths:
       - scripts/test_asteria_zone20_ab.py
       - scripts/asteria_stage20_furnished_cycles.py
@@ -15,7 +15,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: asteria-stage23-forward-command-flanks-a-b
+  group: asteria-stage26-continuous-soffit-a-b
   cancel-in-progress: false
 
 jobs:
@@ -178,9 +178,10 @@ jobs:
             assert std>2,(name,std,'Cannot fake AO with solid white')
             results[name]={'mean':mean,'std':std,'minimum':int(pixels.min())}
           report=json.loads((p/'architectural-report.json').read_text())
-          assert report['meshObjects']==74 and report['radialRailsEmitted']==0 and report['stage20ManufacturedZone']['zoneMeshCount']==44 and report['stage20ManufacturedZone']['bayCount']==6,report
+          assert report['meshObjects']==72 and report['radialRailsEmitted']==0 and report['stage20ManufacturedZone']['zoneMeshCount']==42 and report['stage20ManufacturedZone']['bayCount']==6,report
+          assert report['stage20ManufacturedZone']['continuousJoinedSoffitSpans']==2 and report['stage20ManufacturedZone']['physicalCapturedShadowJointSpans']==2 and report['stage20ManufacturedZone']['discreteRoofUnderpanelsReplaced']==6,report
           assert report['stage20ManufacturedZone']['originalSectors']==[[36,45],[67,76]] and len(report['stage20ManufacturedZone']['lightingPositions'])==6,report
-          proof={'newEnvelopeTriangles':tri,'meshObjects':74,'sourceRemovedFaces':864,
+          proof={'newEnvelopeTriangles':tri,'meshObjects':72,'sourceRemovedFaces':864,
                  'pbrImages':len(data['images']),'aoMaterialCount':len(aos),
                  'realCyclesAORanges':results,'ownerVisualApproval':False}
           path=Path('_site/3d-preview-v5-command-envelope/models/envelope-manifest.json')
@@ -276,7 +277,7 @@ jobs:
                  o.receiveShadow=true;
                  o.castShadow=false;
                });
-               if(faces!==EXPECTED_ARCH_FACES||meshes!==74||missing||ao<2){
+               if(faces!==EXPECTED_ARCH_FACES||meshes!==72||missing||ao<2){
                  fail('Scanned architectural envelope failed geometry, PBR or UV1 AO verification');return;
                }
                scene.add(architecture);
@@ -322,7 +323,7 @@ jobs:
           from pathlib import Path
           p=Path('_stage20_furnished')
           result=json.loads((p/'stage20-furnished-cycles-report.json').read_text())
-          assert result['renderCount']==4 and result['stage20ZoneMeshes']>=44
+          assert result['renderCount']==4 and result['stage20ZoneMeshes']==42
           for mode in ('baseline','zone20'):
             for camera in ('wall','aft'):
               q=p/f'stage20-furnished-cycles-{mode}-{camera}.png'
@@ -365,7 +366,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: asteria-stage23-forward-command-flanks-cycles-chromium-a-b
+          name: asteria-stage26-continuous-soffit-cycles-chromium-a-b
           path: |
             _stage08_browser/*.png
             _stage08_browser/*.jpg
