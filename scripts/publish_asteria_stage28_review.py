@@ -142,8 +142,8 @@ def generate_verified_client(tris: int, lights: list[list[float]]) -> None:
         "\n    envelopeCeiling:{x:-2.32,z:2.15,yaw:.22,label:'QA CEILING ONLY'},"
     )
     source = safe_replacement(
-        source, "Object.assign(pos,{x:p.x,z:p.z,yaw:p.y,pitch:-.14});active=name;",
-        "Object.assign(pos,{x:p.x,z:p.z,yaw:p.y,pitch:-.14});active=name;"
+        source, "Object.assign(pos,{x:p.x,z:p.z,yaw:p.yaw,pitch:-.14});active=name;",
+        "Object.assign(pos,{x:p.x,z:p.z,yaw:p.yaw,pitch:-.14});active=name;"
         "if(name==='envelopeCeiling')pos.pitch=.58;"
     )
     source = safe_replacement(
@@ -246,6 +246,18 @@ def main() -> None:
     assert subprocess.check_output(
         ["git", "hash-object", "ui/3d-preview-v3/index.html"], cwd=SOURCE, text=True
     ).strip() == V3_BLOB
+    # Validate pinned JS injection anchors BEFORE costly six-minute AO bake.
+    # A previous otherwise complete model build failed on a typo in this
+    # exact command-view camera anchor; fail early instead.
+    js = (SOURCE / "ui/3d-preview-v5-command/src/main.js").read_text()
+    for marker in (
+        "  const views={",
+        "Object.assign(pos,{x:p.x,z:p.z,yaw:p.yaw,pitch:-.14});active=name;",
+        "triangles!==106988-removed-commandRemoved||missing",
+        "    scene.add(room,hero,command);",
+    ):
+        assert js.count(marker) == 1, ("Pinned renderer has changed", marker)
+    print("STAGE28_RENDERER_SOURCE_ANCHOR_PREFLIGHT_PASS", flush=True)
     shutil.copytree(PREVIOUS, NEW)
     models = NEW / "models"
     capture = {
