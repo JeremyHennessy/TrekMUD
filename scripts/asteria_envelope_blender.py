@@ -165,27 +165,33 @@ def build_ceiling(mat,omit_radial_rails=False):
  return ob
 
 def stage20_zone():
- """Six connected, broadly visible forward-command flank architectural bays.
- Stage23 only: repeat precisely the Stage20 validated mesh/material method on
- two arcs beside the forward screen. No original gameplay/collisions altered.
+ """Stage27: one physically coherent forward bridge bulkhead and roof assembly.
+
+ Exact frozen original V3 physical screen bounds are
+ box(0,2.04,-6.38,7.2,3.15,.24), source blob 74a154ae...
+ (x +-3.60; y .465..3.615); black viewport is narrower (6.43 m).
+ Architectural trims stay outside the original black display. The
+ Stage26 two-soffit trial is NOT inherited; this starts from Stage23.
+ No user collision/UI/camera/command or original-face changes.
  """
  assert "stage20Objects" not in MESHES
  objects=[];lights=[]
- graphite=bpy.data.materials.new("ZONE20 / engineered matte graphite hardware")
+ graphite=bpy.data.materials.new("FORWARD27 / graphite architectural reveal")
  graphite.use_nodes=True
  bsdf=graphite.node_tree.nodes.get("Principled BSDF")
- bsdf.inputs["Base Color"].default_value=(.09,.078,.085,1)
- bsdf.inputs["Metallic"].default_value=.26
- bsdf.inputs["Roughness"].default_value=.59
+ bsdf.inputs["Base Color"].default_value=(.12,.115,.122,1)
+ bsdf.inputs["Metallic"].default_value=.32
+ bsdf.inputs["Roughness"].default_value=.55
  def p(a,y,d):
   x=W*math.sin(a);z=D*math.cos(a)
   nx=-math.sin(a)/W;nz=-math.cos(a)/D
   scale=d/math.hypot(nx,nz)
   return (x+nx*scale,y,z+nz*scale)
  def add(name,verts,faces,uvs,mat):
-  ob=kit.model("ZONE20 / "+name,verts,faces,mat,uvs)
+  assert verts and faces and len(uvs)==len(verts),(name,len(verts),len(faces))
+  ob=kit.model("ZONE20 / FORWARD27 / "+name,verts,faces,mat,uvs)
   objects.append(ob)
- def wall(name,k0,k1,y0,y1,mat,rim,core,cols=16,rows=9):
+ def wall(name,k0,k1,y0,y1,mat,rim,core,cols=36,rows=12):
   a0=k0*TAU/112;a1=k1*TAU/112
   verts=[];uv=[];faces=[]
   for j in range(rows+1):
@@ -193,7 +199,7 @@ def stage20_zone():
    for i in range(cols+1):
     q=i/cols;a=a0+(a1-a0)*q
     edge=min(t,1-t,q,1-q)
-    blend=min(1.,edge/.17);blend=blend*blend*(3-2*blend)
+    blend=min(1.,edge/.16);blend=blend*blend*(3-2*blend)
     verts.append(p(a,y,rim+(core-rim)*blend))
     uv.append((a*(W+D)*.5/1.6,y/1.65))
   stride=cols+1
@@ -201,7 +207,6 @@ def stage20_zone():
    for i in range(cols):
     n=j*stride+i
     faces.extend(((n,n+1,n+stride+1),(n,n+stride+1,n+stride)))
-  # Closed physical metal/composite returns to the original scanned wall.
   edge=([i for i in range(cols+1)]+
         [j*stride+cols for j in range(1,rows+1)]+
         [rows*stride+i for i in range(cols-1,-1,-1)]+
@@ -231,42 +236,134 @@ def stage20_zone():
     n=j*stride+i
     faces.extend(((n,n+1,n+stride+1),(n,n+stride+1,n+stride)))
   add(name,verts,faces,uv,mat)
+ def formed_roof(name,k0,k1,profile,mat,steps=96,thickness=.028):
+  """Watertight, physically capped, UV-mapped panoramic front ceiling."""
+  assert len(profile)>=3 and steps>=40 and thickness>0
+  a0=k0*TAU/112;a1=k1*TAU/112
+  width=steps+1;band=len(profile);layer=width*band
+  verts=[];uv=[];faces=[]
+  for side in range(2):
+   for rr,yy in profile:
+    for i in range(width):
+     a=a0+(a1-a0)*i/steps
+     verts.append((W*math.sin(a)*rr,yy+side*thickness,D*math.cos(a)*rr))
+     uv.append((a*W/1.8,yy/1.8))
+  for j in range(band-1):
+   for i in range(steps):
+    n=j*width+i;m=n+width
+    faces.extend(((n,n+1,m+1),(n,m+1,m)))
+    faces.extend(((layer+n,layer+m+1,layer+n+1),
+                  (layer+n,layer+m,layer+m+1)))
+  edge=([i for i in range(width)]+
+        [j*width+steps for j in range(1,band)]+
+        [(band-1)*width+i for i in range(steps-1,-1,-1)]+
+        [j*width for j in range(band-2,0,-1)])
+  for i,n in enumerate(edge):
+   m=edge[(i+1)%len(edge)]
+   faces.extend(((n,m,layer+m),(n,layer+m,layer+n)))
+  add(name,verts,faces,uv,mat)
+ def screen_prism(name,x0,x1,yz_profile,mat):
+  """Closed manufactured section extruded on exact preserved screen bounds."""
+  assert x1>x0 and len(yz_profile)>=4
+  n=len(yz_profile)
+  verts=[];uv=[];faces=[]
+  for x in (x0,x1):
+   for zz,yy in yz_profile:
+    verts.append((x,yy,zz))
+    uv.append((x/1.55,yy/1.55))
+  for i in range(n):
+   k=(i+1)%n
+   faces.extend(((i,k,n+k),(i,n+k,n+i)))
+  for i in range(1,n-1):
+   faces.append((0,i+1,i))
+   faces.append((n,n+i,n+i+1))
+  add(name,verts,faces,uv,mat)
+ # Two broad formed sidewall fields replace SIX disconnected field,
+ # fascia and plinth modules. The same architectural millimeter depth
+ # is measured along the true 112-segment source ellipse.
+ for k0,k1 in ((36,45),(67,76)):
+  wall(f"one continuous PBR sidewall bulkhead / arc {k0}-{k1}",
+       k0+.04,k1-.04,.68,3.07,MATS["wall"],.164,.073)
+  wall(f"joined graphite service sill / arc {k0}-{k1}",
+       k0+.04,k1-.04,.16,.55,graphite,.240,.208,cols=36,rows=4)
+  wall(f"continuous scan-textured upper return / arc {k0}-{k1}",
+       k0+.04,k1-.04,3.14,3.61,MATS["wall"],.162,.130,cols=36,rows=5)
+ # All six original fixtures retain exact Stage23 measured placement and
+ # intensity; making integrated geometry (not lighting tweaks) is the test.
  for idx,(k0,k1) in enumerate(((36,39),(39,42),(42,45),
                                (67,70),(70,73),(73,76))):
-  # Broad physically formed wall shells with 100mm depth, not Stage13
-  # fan-shaped bright roof ribs or paper-thin painted outlines.
-  wall(f"bay {idx+1} / photographed recessed wall and return flanges",
-       k0+.06,k1-.06,.68,3.07,MATS["wall"],.170,.070)
-  wall(f"bay {idx+1} / dark built-in lower service plinth",
-       k0+.04,k1-.04,.15,.55,graphite,.245,.220,cols=12,rows=4)
-  wall(f"bay {idx+1} / framed upper scanned fascia",
-       k0+.04,k1-.04,3.14,3.61,MATS["wall"],.166,.132,cols=12,rows=4)
-  roof(f"bay {idx+1} / molded wall-to-roof underside",
-       k0+.03,k1-.03,.859,.984,.075,MATS["ceiling"])
   mid=(k0+k1)/2.
-  roof(f"bay {idx+1} / recessed real graphite light housing",
+  roof(f"recessed physical fixture housing {idx+1}",
        mid-.42,mid+.42,.89,.959,.118,graphite,cols=8,rows=3)
-  roof(f"bay {idx+1} / inset opal light diffuser",
+  roof(f"inset milky diffuser {idx+1}",
        mid-.31,mid+.31,.905,.945,.143,MATS["light"],cols=8,rows=2)
   a=mid*TAU/112;r=.922
   lights.append([round(W*math.sin(a)*r,5),round(roof_y(r)-.16,5),
                  round(D*math.cos(a)*r,5)])
- # At both ends, tall actual closed steel members bridge the new bays to
- # the unchanged original shell; no game collision or walk floor changes.
+ # Unlike the rejected Stage26 local cove, this is ONE entire forward
+ # panoramic 40-sector formed ceiling reaching ACROSS the screen crown.
+ formed_roof("panoramic ceiling-to-frontage formed acoustic shell",
+             36.03,75.97,
+             [(.985,roof_y(.985)-.104),(.974,roof_y(.974)-.105),
+              (.955,roof_y(.955)-.097),(.935,roof_y(.935)-.097),
+              (.910,roof_y(.910)-.099),(.883,roof_y(.883)-.105),
+              (.852,roof_y(.852)-.108),(.825,roof_y(.825)-.108)],
+             MATS["ceiling"])
+ formed_roof("continuous physically captured narrow ceiling reveal",
+             36.03,75.97,
+             [(.979,roof_y(.979)-.129),(.975,roof_y(.975)-.130),
+              (.971,roof_y(.971)-.132),(.966,roof_y(.966)-.130)],
+             graphite,steps=96,thickness=.009)
+ # Exact 2372-era V3 authored external viewscreen box centre and dimensions:
+ # x[-3.6,3.6], y[.465,3.615], z[-6.5,-6.26]. Do not move or remove it.
+ # New fitted manufacturing trims surround but never cross the preserved
+ # dark display x[-3.215,3.215], y[.755,3.285] z~-6.115.
+ screen_prism("full-width sculpted forward screen upper crown",
+              -3.77,3.77,
+              [(-6.55,3.47),(-6.54,3.56),(-6.48,3.655),
+               (-6.38,3.686),(-6.27,3.679),(-6.15,3.615),
+               (-6.14,3.53),(-6.36,3.47)],MATS["wall"])
+ screen_prism("full-width integrated equipment/screen lower sill",
+              -3.77,3.77,
+              [(-6.54,.43),(-6.54,.53),(-6.47,.63),
+               (-6.30,.67),(-6.17,.58),(-6.17,.43)],MATS["wall"])
+ for side in (-1,1):
+  x0,x1=(-3.82,-3.62) if side==-1 else (3.62,3.82)
+  screen_prism(f"screen side-fitted full-height standing reveal {side}",
+              x0,x1,
+              [(-6.55,.55),(-6.55,3.55),(-6.47,3.62),
+               (-6.29,3.62),(-6.21,3.53),(-6.21,.55)],
+              MATS["satin_nickel"])
+  x0,x1=(-3.59,-3.55) if side==-1 else (3.55,3.59)
+  screen_prism(f"screen internal retained-margin shadowline {side}",
+              x0,x1,
+              [(-6.23,.66),(-6.23,3.49),
+               (-6.17,3.49),(-6.17,.66)],graphite)
+ screen_prism("screen crown lower captured black shadow joint",
+              -3.62,3.62,
+              [(-6.23,3.47),(-6.23,3.50),
+               (-6.15,3.50),(-6.15,3.47)],graphite)
+ # Connect outer flank edges to the original wall/backing in two height
+ # segments, preserving the old geometry and surrounding walk paths.
  for k in (36,45,67,76):
-  a=k*TAU/112
   for y0,y1 in ((.16,1.65),(1.65,3.61)):
-   wall(f"architectural boundary column {k}-{y0}",k-.035,k+.035,
+   wall(f"architectural edge column {k}-{y0}",k-.035,k+.035,
         y0,y1,MATS["satin_nickel"],.187,.176,cols=2,rows=4)
- assert len(objects)==44,len(objects)
+ assert len(objects)==35,len(objects)
  MESHES["stage20Objects"]=objects
  return {"bayCount":6,"originalSectors":[[36,45],[67,76]],
-         "realManufacturedReturnedWallShells":6,"physicalSoffits":6,
+         "realManufacturedReturnedWallShells":2,"physicalSoffits":1,
          "integratedPracticalFixtures":6,"lightingPositions":lights,
-         "maxInwardProjectionMeters":.245,"wallInsetDepthMeters":.100,
+         "maxInwardProjectionMeters":.24,"wallInsetDepthMeters":.091,
+         "screenReference":{"outerCentre":[0,2.04,-6.38],
+                            "outerSize":[7.2,3.15,.24],
+                            "blackDisplayWidth":6.43},
          "sourceScan":"Poly Haven painted_plaster_wall CC0",
-         "zoneMeshCount":len(objects),"noGameOrCollisionWrites":True,
-         "notVisualApproved":True}
+         "zoneMeshCount":len(objects),
+         "continuousForwardSoffitSpans":1,
+         "screenCrownAndBezelPieces":7,
+         "rejectedStage26CoveNotInherited":True,
+         "noGameOrCollisionWrites":True,"notVisualApproved":True}
 
 def other_studio():
  scene=bpy.context.scene
