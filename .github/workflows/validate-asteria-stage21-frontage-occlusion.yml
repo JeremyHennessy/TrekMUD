@@ -5,6 +5,7 @@ on:
     branches: [experiment/asteria-stage21-frontage-occlusion-probe]
     paths:
       - scripts/asteria_stage21_frontage_occlusion.py
+      - scripts/extract_asteria_v3_for_v5.py
       - .github/workflows/validate-asteria-stage21-frontage-occlusion.yml
   workflow_dispatch:
 
@@ -33,11 +34,12 @@ jobs:
           test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
           python scripts/validate_campaign.py
           python scripts/validate_asteria.py
-          python -m py_compile scripts/asteria_stage21_frontage_occlusion.py
+          python -m py_compile scripts/asteria_stage21_frontage_occlusion.py scripts/extract_asteria_v3_for_v5.py
           python - <<'PY'
           import subprocess
           expected={
             "scripts/asteria_stage21_frontage_occlusion.py",
+            "scripts/extract_asteria_v3_for_v5.py",
             ".github/workflows/validate-asteria-stage21-frontage-occlusion.yml"
           }
           changed=set(subprocess.check_output(
@@ -45,7 +47,7 @@ jobs:
                "e5b5a58fbd284fac98e4f1e367a3b9cb0a86811b","HEAD"],
               text=True).splitlines())
           assert changed==expected,(changed,expected)
-          print("STAGE21_FROZEN_BASELINE_AND_TWO_NEW_FILES_ONLY_PASS")
+          print("STAGE21_FROZEN_BASELINE_AND_TWO_QA_FILES_ONE_OPT_IN_EXTRACTOR_PASS")
           PY
       - name: Install pinned offline source extractor dependencies
         run: |
@@ -59,6 +61,7 @@ jobs:
           ASTERIA_V3_CAPTURE_INLAID_BAY: "1"
           ASTERIA_V3_CAPTURE_THREE_RIB_BAYS: "1"
           ASTERIA_V3_CAPTURE_ENVELOPE: "1"
+          ASTERIA_V3_CAPTURE_SIDE_HATCHES: "1"
         run: python scripts/extract_asteria_v3_for_v5.py
       - name: Raycast frozen V5 primary camera projections against retained V3 source faces
         run: |
@@ -81,3 +84,4 @@ jobs:
             _stage21_occlusion/*.png
             _v5_mesh_capture/*-source-span*.json
             _v5_mesh_capture/envelope-source-spans.json
+            _v5_mesh_capture/side-hatches-source-spans.json
