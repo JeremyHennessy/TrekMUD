@@ -67,7 +67,7 @@ def main():
  opal_mats={mat.name:mat for ob in opal_users for mat in ob.data.materials}
  assert len(opal_mats)==1 and next(iter(opal_mats)).startswith("ZONE20 / isolated six-only opal emission"),list(opal_mats)
  opal=next(iter(opal_mats.values()))
- assert not any(opal in ob.data.materials for ob in zone if ob not in opal_users)
+ assert not any(any(mat == opal for mat in ob.data.materials) for ob in zone if ob not in opal_users)
  bsdf=next(node for node in opal.node_tree.nodes if node.type=="BSDF_PRINCIPLED")
  emission=bsdf.inputs.get("Emission Strength")
  assert emission is not None and float(emission.default_value)>0
