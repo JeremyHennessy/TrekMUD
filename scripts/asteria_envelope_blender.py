@@ -318,8 +318,19 @@ def stage29_forward_portal():
  objects=[]
  for form in portal29.generate():
   ob=kit.model('PORTAL29 / '+form['name'],form['vertices'],form['faces'],
-               material_map[form['material']],form['uv'])
-  for polygon in ob.data.polygons:polygon.use_smooth=False
+               material_map[form['material']])
+  # Preserve the welded eight-corner solid and project photographic PBR per
+  # face loop: Blender's glTF exporter performs UV seam splitting as needed.
+  layer=ob.data.uv_layers.new(name='AST_PBR_UV')
+  assert len(ob.data.polygons)==len(form['face_uv'])==12
+  for polygon, triangle_uv in zip(ob.data.polygons,form['face_uv']):
+   polygon.use_smooth=False
+   assert len(polygon.loop_indices)==len(triangle_uv)==3
+   for corner,loop_index in enumerate(polygon.loop_indices):
+    layer.data[loop_index].uv=triangle_uv[corner]
+   a,b,c=(layer.data[i].uv for i in polygon.loop_indices)
+   signed_area=(b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x)
+   assert abs(signed_area)>1e-10,('PORTAL29 exported Blender UV0 collapsed',form['name'],polygon.index)
   objects.append(ob)
  assert len(objects)==16
  MESHES['forwardPortalObjects']=objects
@@ -330,7 +341,8 @@ def stage29_forward_portal():
   'additionalSourceFacesRemoved':204,'originalWallRoofFacesRemovedSeparately':864,
   'starfieldAndActiveDisplayGeometryPreserved':True,'allMeshesClosed':True,
   'PBRProvenance':'existing Poly Haven CC0 scanned architecture maps',
-  'UV0Present':True,'UV1ContactAOStillPending':True,'artApproved':False}
+  'UV0Present':True,'UV0All192TrianglesNondegenerate':True,
+  'UV1ContactAOStillPending':True,'artApproved':False}
 
 def other_studio():
  scene=bpy.context.scene

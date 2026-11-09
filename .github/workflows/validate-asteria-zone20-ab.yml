@@ -83,6 +83,8 @@ jobs:
           p=json.load(open('/tmp/asteria-stage29-preflight.json'))
           assert p['meshCount']==16 and p['triangles']==192 and p['allMeshesClosed']
           assert p['originalScreenAndStarfieldRetained'] and p['noGameOrControlsWrites']
+          assert p['UV0PerFaceLoopMapped'] and p['UV0DegenerateTriangles']==0
+          assert p['UV0NondegenerateTriangles']==192
           print('STAGE29_FORWARD_PORTAL_PREFLIGHT',p['triangles'])
           PY
       - name: Install known good three.js, original V3, actual Chromium and Blender runtime
@@ -206,6 +208,7 @@ jobs:
           assert report['meshObjects']==135 and report['radialRailsEmitted']==0 and report['stage20ManufacturedZone']['zoneMeshCount']==44 and report['stage20ManufacturedZone']['bayCount']==6,report
           assert report['stage28CeilingSystem']['meshCount']==45 and report['stage28CeilingSystem']['cofferCount']==12 and report['stage28CeilingSystem']['continuousClosedHoops']==3,report
           assert report['forwardPortal29']['meshCount']==16 and report['forwardPortal29']['additionalSourceFacesRemoved']==204,report
+          assert report['forwardPortal29']['UV0All192TrianglesNondegenerate'],report
           assert report['stage20ManufacturedZone']['originalSectors']==[[36,45],[67,76]] and len(report['stage20ManufacturedZone']['lightingPositions'])==6,report
           proof={'newEnvelopeTriangles':tri,'meshObjects':135,'sourceRemovedFaces':1068,
                  'originalEnclosureRemovedFaces':864,'forwardPortalRemovedFaces':204,

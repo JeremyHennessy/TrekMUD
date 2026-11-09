@@ -5,8 +5,37 @@ Sixteen closed real supports, sidewall returns and roof landings. The frozen V3
 starbase screen picture, player movement, HUD, source and production never change.
 Only provenance-checked old trim boxes/posts are excluded in the opt-in build.
 """
-from math import isfinite
+from math import isfinite, hypot
 from collections import Counter
+
+def per_face_scanned_uv(vertices, faces):
+    """Metric PBR UV0 for face corners; retains shared 3D mesh topology.
+
+    Front/top/raked planes cannot use one 2D mapping at shared corner vertices.
+    Blender glTF exporter splits only the UV seams, not the authored 3D faces.
+    """
+    texel_meters=1.9
+    mapped=[]
+    for face in faces:
+        a,b,c=(vertices[k] for k in face)
+        ab=tuple(b[i]-a[i] for i in range(3))
+        ac=tuple(c[i]-a[i] for i in range(3))
+        normal=(ab[1]*ac[2]-ab[2]*ac[1],
+                ab[2]*ac[0]-ab[0]*ac[2],
+                ab[0]*ac[1]-ab[1]*ac[0])
+        horizontal=hypot(normal[0],normal[2])
+        if abs(normal[1])>=horizontal:
+            uv=[(p[0]/texel_meters,p[2]/texel_meters) for p in (a,b,c)]
+        else:
+            # Vertically aligned, metric texel scale on raked wall facets.
+            tangent=(normal[2]/horizontal,-normal[0]/horizontal)
+            uv=[((p[0]*tangent[0]+p[2]*tangent[1])/texel_meters,
+                 p[1]/texel_meters) for p in (a,b,c)]
+        twice_area=abs((uv[1][0]-uv[0][0])*(uv[2][1]-uv[0][1])-
+                       (uv[2][0]-uv[0][0])*(uv[1][1]-uv[0][1]))
+        assert twice_area>1e-10, ('Degenerate face UV0',face,normal,uv)
+        mapped.append(tuple(uv))
+    return mapped
 
 def box(name, material, x0, x1, y0, y1, z0, z1):
     assert x0<x1 and y0<y1 and z0<z1,name
@@ -16,7 +45,7 @@ def box(name, material, x0, x1, y0, y1, z0, z1):
        (0,1,5),(0,5,4),(1,2,6),(1,6,5),
        (2,3,7),(2,7,6),(3,0,4),(3,4,7)]
     return dict(name=name,material=material,vertices=v,faces=f,
-                uv=[(p[0]/1.9,p[1]/1.9) for p in v])
+                face_uv=per_face_scanned_uv(v,f))
 
 def wing(name,material,side,inset=False):
     if not inset:
@@ -34,7 +63,7 @@ def wing(name,material,side,inset=False):
     # Consistently outward-wound, including mirrored port side.
     f=[(a,c,b) for a,b,c in f]
     return dict(name=name,material=material,vertices=v,faces=f,
-                uv=[(x/1.9,z/1.9) for x,y,z in v])
+                face_uv=per_face_scanned_uv(v,f))
 
 def generate():
     """Starfield and screen visible at x±3.10, y .89–3.14 and z -6.06."""
@@ -67,11 +96,15 @@ def preflight():
         names.add(ob['name'])
         assert ob['material'] in ('wall','ceiling','structural')
         v=ob['vertices'];f=ob['faces']
-        assert len(v)==len(ob['uv'])==8
+        assert len(v)==8 and len(ob['face_uv'])==len(f)==12
         assert all(all(isfinite(n) for n in p) for p in v)
         assert all(abs(p[0])>=3.12 or p[1]<.89 or p[1]>3.14 for p in v),ob['name']
         edges=Counter()
-        for face in f:
+        for face, face_uv in zip(f,ob['face_uv']):
+            assert len(face_uv)==3 and all(all(isfinite(n) for n in u) for u in face_uv)
+            twice_area=abs((face_uv[1][0]-face_uv[0][0])*(face_uv[2][1]-face_uv[0][1]) -
+                           (face_uv[2][0]-face_uv[0][0])*(face_uv[1][1]-face_uv[0][1]))
+            assert twice_area>1e-10,(ob['name'],'UV0 collapsed',face)
             assert len(set(face))==3 and all(0<=i<len(v) for i in face)
             for a,b in zip(face,face[1:]+face[:1]):edges[tuple(sorted((a,b)))]+=1
             a,b,c=(v[i] for i in face)
@@ -84,6 +117,7 @@ def preflight():
     assert len(parts)==16 and triangles==192
     return {'id':'ASTERIA_STAGE29_SOURCE_FIT_FORWARD_PORTAL',
       'meshCount':16,'triangles':192,'allMeshesClosed':True,'UV0Present':True,
+      'UV0PerFaceLoopMapped':True,'UV0DegenerateTriangles':0,'UV0NondegenerateTriangles':192,
       'originalScreenAndStarfieldRetained':True,'sourceFaceRemovalRequiresIndependentCapture':True,
       'noGameOrControlsWrites':True,'pbrScan':'Poly Haven CC0 unchanged',
       'ownerArtApproved':False}
