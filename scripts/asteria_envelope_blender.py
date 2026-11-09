@@ -15,6 +15,7 @@ from mathutils import Vector
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 import asteria_command_blender as kit
 import asteria_stage28_coffer_geometry as coffer28
+import asteria_stage29_forward_geometry as portal29
 
 PI=math.pi;TAU=2*PI
 W,D=7.55,6.55
@@ -304,6 +305,33 @@ def stage28_coffer_ceiling():
          "indirectGIBaked":False,"visualApproval":False}
 
 
+def stage29_forward_portal():
+ """Pure opt-in forward command screen/wall/roof assembly on pinned source.
+ 
+ The source-exact V3 boxes/posts are excluded by separate draw-call face spans
+ only in the experimental candidate. Never remove the original screen image.
+ """
+ proof=portal29.preflight()
+ assert proof['meshCount']==16 and proof['allMeshesClosed']
+ material_map={'wall':MATS['wall'],'ceiling':MATS['ceiling'],
+               'structural':MESHES['stage28Objects'][12].data.materials[0]}
+ objects=[]
+ for form in portal29.generate():
+  ob=kit.model('PORTAL29 / '+form['name'],form['vertices'],form['faces'],
+               material_map[form['material']],form['uv'])
+  for polygon in ob.data.polygons:polygon.use_smooth=False
+  objects.append(ob)
+ assert len(objects)==16
+ MESHES['forwardPortalObjects']=objects
+ return {'stage':'forward-command screen and roof source-fit continuous assembly',
+  'meshCount':len(objects),'triangleCount':proof['triangles'],
+  'oldPrimitiveScreenBoxesRemovedByOriginalV3FaceSpan':3,
+  'oldSuspendedPostsRemovedByOriginalV3FaceSpan':14,
+  'additionalSourceFacesRemoved':204,'originalWallRoofFacesRemovedSeparately':864,
+  'starfieldAndActiveDisplayGeometryPreserved':True,'allMeshesClosed':True,
+  'PBRProvenance':'existing Poly Haven CC0 scanned architecture maps',
+  'UV0Present':True,'UV1ContactAOStillPending':True,'artApproved':False}
+
 def other_studio():
  scene=bpy.context.scene
  world=bpy.data.worlds.new("USS Asteria Stage08 / warm studio GI test")
@@ -406,7 +434,8 @@ def actual_ao_bake(out):
   bpy.ops.object.select_all(action="DESELECT")
   ob.select_set(True);bpy.context.view_layer.objects.active=ob
   ob.data.uv_layers.active=uv
-  overlaid=MESHES.get("stage20Objects",[])+MESHES.get("stage28Objects",[])
+  overlaid=(MESHES.get("stage20Objects",[])+MESHES.get("stage28Objects",[])+
+             MESHES.get("forwardPortalObjects",[]))
   assert all(not ob.hide_render for ob in overlaid)
   for ob in overlaid:ob.hide_render=True
   try:
@@ -456,6 +485,7 @@ def main():
  build_wall(MATS["wall"]);build_ceiling(MATS["ceiling"],a.omit_radial_rails)
  zone_evidence=stage20_zone() if a.stage20_zone else None
  stage28_evidence=stage28_coffer_ceiling() if a.stage20_zone else None
+ portal_evidence=stage29_forward_portal() if a.stage20_zone else None
  studio_floor=other_studio()
  cameras=studio_cameras()
  sc=bpy.context.scene
@@ -484,7 +514,7 @@ def main():
   obj.select_set(True);bpy.context.view_layer.objects.active=obj
   bpy.ops.object.convert(target="MESH")
  meshes=[ob for ob in kit.COMMAND.objects if ob.type=="MESH"]
- assert len(meshes)==(30 if a.omit_radial_rails else 54)+(zone_evidence["zoneMeshCount"] if zone_evidence else 0)+(stage28_evidence["meshCount"] if stage28_evidence else 0),len(meshes)
+ assert len(meshes)==(30 if a.omit_radial_rails else 54)+(zone_evidence["zoneMeshCount"] if zone_evidence else 0)+(stage28_evidence["meshCount"] if stage28_evidence else 0)+(portal_evidence["meshCount"] if portal_evidence else 0),len(meshes)
  bpy.ops.object.select_all(action="DESELECT")
  for ob in meshes:ob.select_set(True)
  bpy.context.view_layer.objects.active=meshes[0]
@@ -514,6 +544,7 @@ def main():
   "architecturalBakedAO":ao,"fullIndirectLightmapYetUnproven":True,
   "meshObjects":len(meshes),"stage20ManufacturedZone":zone_evidence,
    "stage28CeilingSystem":stage28_evidence,
+   "forwardPortal29":portal_evidence,
   "renderedViewNames":[] if a.no_render else list(cameras),
   "noGameWrites":True,"visualApproved":False,
   "noPhysicalIphoneVerification":True,

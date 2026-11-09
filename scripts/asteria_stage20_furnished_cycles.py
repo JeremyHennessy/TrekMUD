@@ -63,6 +63,8 @@ def main():
  roof28=[obj for obj in bpy.data.objects if obj.type=="MESH" and "ROOF28" in obj.name]
  assert len(stage23)==44,("Stage23 unchanged source control missing",len(stage23))
  assert len(roof28)==45,("Stage28 macro ceiling missing",len(roof28))
+ portal29=[o for o in bpy.data.objects if o.type=="MESH" and "PORTAL29" in o.name]
+ assert len(portal29)==16,("Forward portal assembly missing",len(portal29))
  sc=bpy.context.scene
  sc.render.engine="CYCLES"
  sc.cycles.samples=a.samples
@@ -99,6 +101,8 @@ def main():
  cameras={
   "wall":cam("QA real furnished wall",(-2.6,1.67,-.5),(-7.05,1.9,-2.3),49),
   "aft":cam("QA real furnished aft",(-1.23,1.67,4.8),(0,.68,.73),37),
+  "forward":cam("QA furnished forward normal command",(-2.32,1.67,2.15),(0,2.15,-6.10),44),
+  "roof":cam("QA upward furnished forward wall to ceiling",(-2.32,1.67,2.15),(0,3.78,-4.98),44),
  }
  for mode in ("baseline","zone20"):
   for obj in roof28:obj.hide_render=(mode=="baseline")
@@ -110,11 +114,13 @@ def main():
  report={"id":"ASTERIA_STAGE28_CYCLES_TRUE_STAGE23_AB",
          "loadedFiveOriginalAndCandidateGLBs":list(counts),
          "importedObjectCounts":counts,"stage20ZoneMeshes":len(stage23),
-          "stage28RoofMeshes":len(roof28),"stage23WallAssembliesSameInBoth":True,
+          "stage28RoofMeshes":len(roof28),"forwardPortal29Meshes":len(portal29),
+         "stage23WallAssembliesSameInBoth":True,
          "cameras":list(cameras),"modes":["baseline","zone20"],
-         "renderCount":4,"resolution":a.resolution,"samples":a.samples,
+         "renderCount":8,"resolution":a.resolution,"samples":a.samples,
          "originalAssetsAndCameraIdentical":True,
           "onlyRoof28VisibilityChangesBetweenCyclesShots":True,
+         "forwardPortalPresentInBothCyclesModes":True,
          "fullFurnishedStudioNotEmptyEnvelope":True,
          "browserLightingAndCyclesMayDiffer":True,
          "ownerArtApproved":False}

@@ -8,6 +8,9 @@ on:
       - scripts/asteria_stage20_furnished_cycles.py
       - scripts/asteria_envelope_blender.py
       - scripts/asteria_stage28_coffer_geometry.py
+      - scripts/asteria_stage29_forward_geometry.py
+      - scripts/extract_asteria_v3_for_v5.py
+      - scripts/build_asteria_v5_assets.py
       - .github/workflows/validate-asteria-zone20-ab.yml
   workflow_dispatch:
 
@@ -65,8 +68,11 @@ jobs:
             scripts/asteria_envelope_blender.py scripts/asteria_envelope_scanned_pbr.py \
             scripts/asteria_stage20_furnished_cycles.py \
             scripts/asteria_stage28_coffer_geometry.py \
+            scripts/asteria_stage29_forward_geometry.py \
+            scripts/extract_asteria_v3_for_v5.py \
             scripts/build_asteria_v5_assets.py
           python scripts/asteria_stage28_coffer_geometry.py > /tmp/asteria-stage28-preflight.json
+          python scripts/asteria_stage29_forward_geometry.py > /tmp/asteria-stage29-preflight.json
           python - <<'PY'
           import json
           r=json.load(open('/tmp/asteria-stage28-preflight.json'))
@@ -74,6 +80,10 @@ jobs:
           assert r['allFacesNondegenerate'] and r['UV0Present']
           assert r['components']==[12,12,3,18] and r['retainedSourceFaceRemovals']==864
           print('STAGE28_WATERTIGHT_ARCHITECTURAL_PREFLIGHT',r['triangles'])
+          p=json.load(open('/tmp/asteria-stage29-preflight.json'))
+          assert p['meshCount']==16 and p['triangles']==192 and p['allMeshesClosed']
+          assert p['originalScreenAndStarfieldRetained'] and p['noGameOrControlsWrites']
+          print('STAGE29_FORWARD_PORTAL_PREFLIGHT',p['triangles'])
           PY
       - name: Install known good three.js, original V3, actual Chromium and Blender runtime
         run: |
@@ -90,6 +100,7 @@ jobs:
             ASTERIA_V3_CAPTURE_INLAID_BAY=1 \
             ASTERIA_V3_CAPTURE_THREE_RIB_BAYS=1 \
             ASTERIA_V3_CAPTURE_ENVELOPE=1 \
+            ASTERIA_V3_CAPTURE_FORWARD_PORTAL=1 \
             python scripts/extract_asteria_v3_for_v5.py
       - name: Create byte-identical three-bay control and optional wall/ceiling source-exact variant
         run: |
@@ -109,6 +120,7 @@ jobs:
             ASTERIA_V5_EXCLUDE_COMMAND_SECTION=1 \
             ASTERIA_V5_EXCLUDE_THREE_RIB_BAYS=1 \
             ASTERIA_V5_EXCLUDE_ENVELOPE=1 \
+            ASTERIA_V5_EXCLUDE_FORWARD_PORTAL=1 \
             ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5-command-envelope/models" \
             python scripts/build_asteria_v5_assets.py
           python - <<'PY'
@@ -117,9 +129,11 @@ jobs:
           p=Path('_site')
           a=json.loads((p/'3d-preview-v5-command-three-bays/models/manifest.json').read_text())
           b=json.loads((p/'3d-preview-v5-command-envelope/models/manifest.json').read_text())
-          assert a['triangles']==81914 and b['triangles']==81050
+          assert a['triangles']==81914 and b['triangles']==80846
           assert 'envelope_source_faces_removed' not in a
           assert b['envelope_source_faces_removed']==864
+          assert b['forward_portal_source_faces_removed']==204
+          assert [r['faces'] for r in b['forward_portal_source_ranges']]==[36,84,84]
           assert [row['faces'] for row in b['envelope_source_ranges']]==[672,192]
           assert a['three_rib_bays_source_faces_removed']==b['three_rib_bays_source_faces_removed']==174
           assert a['captain_chair_source_faces_removed']==b['captain_chair_source_faces_removed']==16272
@@ -189,10 +203,12 @@ jobs:
             assert std>2,(name,std,'Cannot fake AO with solid white')
             results[name]={'mean':mean,'std':std,'minimum':int(pixels.min())}
           report=json.loads((p/'architectural-report.json').read_text())
-          assert report['meshObjects']==119 and report['radialRailsEmitted']==0 and report['stage20ManufacturedZone']['zoneMeshCount']==44 and report['stage20ManufacturedZone']['bayCount']==6,report
+          assert report['meshObjects']==135 and report['radialRailsEmitted']==0 and report['stage20ManufacturedZone']['zoneMeshCount']==44 and report['stage20ManufacturedZone']['bayCount']==6,report
           assert report['stage28CeilingSystem']['meshCount']==45 and report['stage28CeilingSystem']['cofferCount']==12 and report['stage28CeilingSystem']['continuousClosedHoops']==3,report
+          assert report['forwardPortal29']['meshCount']==16 and report['forwardPortal29']['additionalSourceFacesRemoved']==204,report
           assert report['stage20ManufacturedZone']['originalSectors']==[[36,45],[67,76]] and len(report['stage20ManufacturedZone']['lightingPositions'])==6,report
-          proof={'newEnvelopeTriangles':tri,'meshObjects':119,'sourceRemovedFaces':864,
+          proof={'newEnvelopeTriangles':tri,'meshObjects':135,'sourceRemovedFaces':1068,
+                 'originalEnclosureRemovedFaces':864,'forwardPortalRemovedFaces':204,
                  'pbrImages':len(data['images']),'aoMaterialCount':len(aos),
                  'realCyclesAORanges':results,'ownerVisualApproval':False}
           path=Path('_site/3d-preview-v5-command-envelope/models/envelope-manifest.json')
@@ -268,7 +284,9 @@ jobs:
           anchor='triangles!==106988-removed-commandRemoved-174||'
           assert s.count(anchor)==1
           s=s.replace(anchor,
-            'triangles!==106988-removed-commandRemoved-174-864||'+
+            'triangles!==106988-removed-commandRemoved-174-864-204||'+
+            'meta.forwardPortalRemovedFaces!==204||'+
+            '(meta.forwardPortalSourceRanges||[]).length!==3||'+
             'meta.envelopeRemovedFaces!==864||'+
             '(meta.envelopeSourceRanges||[]).length!==2||')
           anchor='    scene.add(room,hero,command);'
@@ -288,7 +306,7 @@ jobs:
                  o.receiveShadow=true;
                  o.castShadow=false;
                });
-               if(faces!==EXPECTED_ARCH_FACES||meshes!==119||missing||ao<2){
+               if(faces!==EXPECTED_ARCH_FACES||meshes!==135||missing||ao<2){
                  fail('Scanned architectural envelope failed geometry, PBR or UV1 AO verification');return;
                }
                scene.add(architecture);
@@ -303,6 +321,7 @@ jobs:
                document.body.dataset.envelopeMeshes=String(meshes);
                document.body.dataset.envelopeAOMaterials=String(ao);
                document.body.dataset.envelopeOriginalRemoved='864';
+               document.body.dataset.envelopeForwardRemoved='204';
                document.body.dataset.envelopeLoaded='true';
                window.__asteriaEnvelopeReview={originalRemoved:864,
                     bakedCyclesAO:true,photographicPBR:true,
@@ -334,9 +353,9 @@ jobs:
           from pathlib import Path
           p=Path('_stage20_furnished')
           result=json.loads((p/'stage20-furnished-cycles-report.json').read_text())
-          assert result['renderCount']==4 and result['stage20ZoneMeshes']==44 and result['stage28RoofMeshes']==45 and result['onlyRoof28VisibilityChangesBetweenCyclesShots']
+          assert result['renderCount']==8 and result['stage20ZoneMeshes']==44 and result['stage28RoofMeshes']==45 and result['forwardPortal29Meshes']==16 and result['onlyRoof28VisibilityChangesBetweenCyclesShots']
           for mode in ('baseline','zone20'):
-            for camera in ('wall','aft'):
+            for camera in ('wall','aft','forward','roof'):
               q=p/f'stage20-furnished-cycles-{mode}-{camera}.png'
               assert q.is_file() and q.stat().st_size>5000,q
           print('STAGE20_REAL_FURNISHED_CYCLES_A_B_PASS')
@@ -358,7 +377,7 @@ jobs:
           assert (control/'app.js').read_bytes()!=(candidate/'app.js').read_bytes()
           faces=lambda p:sum(len(g.faces) for g in trimesh.load(p,force='scene',process=False).geometry.values())
           assert faces(control/'models/asteria-v3-restored-pbr.glb')==81914
-          assert faces(candidate/'models/asteria-v3-restored-pbr.glb')==81050
+          assert faces(candidate/'models/asteria-v3-restored-pbr.glb')==80846
           assert faces(control/'models/asteria-hero-chair-candidate.glb')==31484
           assert faces(control/'models/asteria-command-set-candidate.glb')==16292
           assert faces(control/'models/asteria-three-original-pitch-rib-bays-04.glb')==13098
