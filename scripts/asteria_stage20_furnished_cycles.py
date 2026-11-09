@@ -60,7 +60,7 @@ def main():
   counts[name]=len(new)
   assert len(new)>0,(name,"GLB did not import geometry")
  zone=[obj for obj in bpy.data.objects if obj.type=="MESH" and "ZONE20" in obj.name]
- assert len(zone)>=44,("Missing real modeled Stage23 forward-command flank geometry",len(zone))
+ assert len(zone)==42,("Stage26 requires exactly 42 modeled cove/flank meshes",len(zone))
  sc=bpy.context.scene
  sc.render.engine="CYCLES"
  sc.cycles.samples=a.samples
