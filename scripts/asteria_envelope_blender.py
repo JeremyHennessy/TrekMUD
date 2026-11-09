@@ -319,10 +319,10 @@ def stage29_forward_portal():
  for form in portal29.generate():
   ob=kit.model('PORTAL29 / '+form['name'],form['vertices'],form['faces'],
                material_map[form['material']])
-  # Preserve the welded eight-corner solid and project photographic PBR per
-  # face loop: Blender's glTF exporter performs UV seam splitting as needed.
+  # Preserve each source-welded formed shell and project scanned PBR per
+  # triangle loop. glTF exporter splits only texture seams, not source faces.
   layer=ob.data.uv_layers.new(name='AST_PBR_UV')
-  assert len(ob.data.polygons)==len(form['face_uv'])==12
+  assert len(ob.data.polygons)==len(form['face_uv'])
   for polygon, triangle_uv in zip(ob.data.polygons,form['face_uv']):
    polygon.use_smooth=False
    assert len(polygon.loop_indices)==len(triangle_uv)==3
@@ -341,7 +341,7 @@ def stage29_forward_portal():
   'additionalSourceFacesRemoved':204,'originalWallRoofFacesRemovedSeparately':864,
   'starfieldAndActiveDisplayGeometryPreserved':True,'allMeshesClosed':True,
   'PBRProvenance':'existing Poly Haven CC0 scanned architecture maps',
-  'UV0Present':True,'UV0All192TrianglesNondegenerate':True,
+  'UV0Present':True,'UV0All480TrianglesNondegenerate':True,
   'UV1ContactAOStillPending':True,'artApproved':False}
 
 def other_studio():

@@ -47,23 +47,65 @@ def box(name, material, x0, x1, y0, y1, z0, z1):
     return dict(name=name,material=material,vertices=v,faces=f,
                 face_uv=per_face_scanned_uv(v,f))
 
+def profiled_section(footprint,lo,hi,bevel=.033):
+    """True bevelled solid: four welded horizontal rings, real side returns.
+
+    This is a physical three-dimensional edge at both ends of each panel,
+    not a shader bevel or applied strip. Keep the photographic scan UV metric.
+    """
+    assert hi-lo>.18
+    cx=sum(x for x,z in footprint)/4
+    cz=sum(z for x,z in footprint)/4
+    rings=((lo,bevel),(lo+.055,0.),(hi-.055,0.),(hi,bevel))
+    vertices=[]
+    for y,shrink in rings:
+        for x,z in footprint:
+            dx=x-cx;dz=z-cz
+            d=hypot(dx,dz)
+            vertices.append((x-shrink*dx/d,y,z-shrink*dz/d))
+    faces=[]
+    for i in (1,2):faces.append((0,i+1,i))
+    for ring in range(3):
+        for k in range(4):
+            nxt=(k+1)%4
+            a=ring*4+k;b=ring*4+nxt
+            c=(ring+1)*4+nxt;d=(ring+1)*4+k
+            faces.extend(((a,b,c),(a,c,d)))
+    for i in (1,2):faces.append((12,12+i,12+i+1))
+    def signed_volume():
+        total=0.
+        for face in faces:
+            a,b,c=(vertices[t] for t in face)
+            total+=a[0]*(b[1]*c[2]-b[2]*c[1])+a[1]*(b[2]*c[0]-b[0]*c[2])+a[2]*(b[0]*c[1]-b[1]*c[0])
+        return total/6.
+    if signed_volume()<0:faces=[(a,c,b) for a,b,c in faces]
+    assert signed_volume()>1e-4,(signed_volume(),lo,hi)
+    return vertices,faces
+
 def wing(name,material,side,inset=False):
+    """Raked wall in three joined architectural courses, not one giant slab.
+
+    Each course is physically finished with 33mm bevelled front/back return,
+    and 55mm shoulder height. The 90mm wide horizontal service separations
+    reveal the original backing shell. Lower/upper landings remain source-fit.
+    All three closed segments stay in the one existing opt-in GLB draw mesh,
+    without removing or editing any original V3 face or player surface.
+    """
     if not inset:
         footprint=[(3.45,-6.18),(3.82,-6.10),(4.82,-4.65),(4.63,-4.49)]
-        lo,hi=.58,3.75
+        bands=((.58,1.45),(1.54,2.56),(2.65,3.75))
     else:
         footprint=[(3.40,-5.985),(3.65,-5.975),(4.61,-4.56),(4.43,-4.53)]
-        lo,hi=.80,3.59
+        bands=((.80,1.42),(1.59,2.51),(2.68,3.59))
     if side<0:footprint=[(-x,z) for x,z in reversed(footprint)]
-    v=[(x,lo,z) for x,z in footprint]+[(x,hi,z) for x,z in footprint]
-    f=[(3,1,0),(3,2,1),(4,5,7),(5,6,7)]
-    for i in range(4):
-        j=(i+1)%4
-        f.extend([(i,j,j+4),(i,j+4,i+4)])
-    # Consistently outward-wound, including mirrored port side.
-    f=[(a,c,b) for a,b,c in f]
-    return dict(name=name,material=material,vertices=v,faces=f,
-                face_uv=per_face_scanned_uv(v,f))
+    vertices=[];faces=[]
+    for lo,hi in bands:
+        new_v,new_f=profiled_section(footprint,lo,hi)
+        offset=len(vertices)
+        vertices.extend(new_v)
+        faces.extend(tuple(offset+i for i in triangle) for triangle in new_f)
+    return dict(name=name,material=material,vertices=vertices,faces=faces,
+                face_uv=per_face_scanned_uv(vertices,faces))
 
 def generate():
     """Starfield and screen visible at x±3.10, y .89–3.14 and z -6.06."""
@@ -96,28 +138,36 @@ def preflight():
         names.add(ob['name'])
         assert ob['material'] in ('wall','ceiling','structural')
         v=ob['vertices'];f=ob['faces']
-        assert len(v)==8 and len(ob['face_uv'])==len(f)==12
+        formed_wall=('raked shell' in ob['name'] or 'inset continuous' in ob['name'])
+        assert (len(v),len(f))==((48,84) if formed_wall else (8,12)),ob['name']
+        assert len(ob['face_uv'])==len(f)
         assert all(all(isfinite(n) for n in p) for p in v)
         assert all(abs(p[0])>=3.12 or p[1]<.89 or p[1]>3.14 for p in v),ob['name']
         edges=Counter()
+        oriented=Counter()
         for face, face_uv in zip(f,ob['face_uv']):
             assert len(face_uv)==3 and all(all(isfinite(n) for n in u) for u in face_uv)
             twice_area=abs((face_uv[1][0]-face_uv[0][0])*(face_uv[2][1]-face_uv[0][1]) -
                            (face_uv[2][0]-face_uv[0][0])*(face_uv[1][1]-face_uv[0][1]))
             assert twice_area>1e-10,(ob['name'],'UV0 collapsed',face)
             assert len(set(face))==3 and all(0<=i<len(v) for i in face)
-            for a,b in zip(face,face[1:]+face[:1]):edges[tuple(sorted((a,b)))]+=1
+            for a,b in zip(face,face[1:]+face[:1]):
+                edges[tuple(sorted((a,b)))]+=1
+                oriented[(a,b)]+=1
             a,b,c=(v[i] for i in face)
             q=[b[i]-a[i] for i in range(3)]
             r=[c[i]-a[i] for i in range(3)]
             cross=(q[1]*r[2]-q[2]*r[1],q[2]*r[0]-q[0]*r[2],q[0]*r[1]-q[1]*r[0])
             assert sum(n*n for n in cross)>1e-12,(ob['name'],face)
-        assert len(edges)==18 and all(count==2 for count in edges.values()),ob['name']
+        assert len(edges)==(126 if formed_wall else 18),ob['name']
+        assert all(count==2 for count in edges.values()),ob['name']
+        assert all(oriented[(a,b)]==oriented[(b,a)]==1 for a,b in edges),(
+            ob['name'],'inconsistent closed-shell winding')
         triangles+=len(f)
-    assert len(parts)==16 and triangles==192
+    assert len(parts)==16 and triangles==480
     return {'id':'ASTERIA_STAGE29_SOURCE_FIT_FORWARD_PORTAL',
       'meshCount':16,'triangles':192,'allMeshesClosed':True,'UV0Present':True,
-      'UV0PerFaceLoopMapped':True,'UV0DegenerateTriangles':0,'UV0NondegenerateTriangles':192,
+      'UV0PerFaceLoopMapped':True,'UV0DegenerateTriangles':0,'UV0NondegenerateTriangles':480,
       'originalScreenAndStarfieldRetained':True,'sourceFaceRemovalRequiresIndependentCapture':True,
       'noGameOrControlsWrites':True,'pbrScan':'Poly Haven CC0 unchanged',
       'ownerArtApproved':False}
