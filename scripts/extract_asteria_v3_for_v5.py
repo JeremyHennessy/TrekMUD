@@ -79,6 +79,16 @@ if capture_bay:
 # flat procedural surfaces. Capture direct draw-call boundaries in memory,
 # never edit the approved V3 file, never crop another asset geometrically.
 capture_envelope=os.environ.get('ASTERIA_V3_CAPTURE_ENVELOPE')=='1'
+# Read-only optional witness of the two exact original side hatch draw calls.
+capture_side_hatches=os.environ.get('ASTERIA_V3_CAPTURE_SIDE_HATCHES')=='1'
+if capture_side_hatches:
+ token="sideHatch(-1,0);sideHatch(1,0);"
+ assert html.count(token)==1,("side hatch source call changed",html.count(token))
+ html=html.replace(token,
+   "window.__v3PortHatchStart=P.length/9;sideHatch(-1,0);"
+   "window.__v3PortHatchEnd=P.length/9;"
+   "window.__v3StarHatchStart=P.length/9;sideHatch(1,0);"
+   "window.__v3StarHatchEnd=P.length/9;")
 if capture_envelope:
  wall_start="for(let k=0;k<112;k++){const a=k*2*Math.PI/112"
  wall_end="arc(0,0,W*.99,D*.99,3.70"
@@ -305,6 +315,27 @@ with sync_playwright() as p:
   (OUT/'envelope-source-spans.json').write_text(
    __import__('json').dumps(report,indent=2)+'\n')
   print('EXACT_V3_WALL_CEILING_ENVELOPE_RANGES',report,flush=True)
+ if capture_side_hatches:
+  sides=page.evaluate("""() => ({
+    port:[window.__v3PortHatchStart,window.__v3PortHatchEnd],
+    starboard:[window.__v3StarHatchStart,window.__v3StarHatchEnd]
+  })""")
+  ranges=[]
+  for name,span in sides.items():
+   first,last=span
+   assert all(isinstance(v,(int,float)) and int(v)==v for v in span),(name,span)
+   first,last=int(first),int(last)
+   assert 0<first<last<106988,(name,span)
+   ranges.append({'name':name,'start':first,'end':last,'faces':last-first})
+  assert ranges[0]['end']==ranges[1]['start'],ranges
+  for row in ranges:
+   assert row['faces']>10 and row['faces']<2000,row
+  report={'sourceV3Blob':expected,'totalOriginalTriangles':106988,
+          'originalV3FilesUnmodified':True,'sourceAuthoringFunction':'sideHatch',
+          'ranges':ranges}
+  (OUT/'side-hatches-source-spans.json').write_text(
+       __import__('json').dumps(report,indent=2)+'\n')
+  print('EXACT_V3_TWO_SIDE_HATCH_FACE_RANGES',report,flush=True)
  assert not errors,errors
  for key in ['positions','normals','colors','materials','uv']:
   pieces=[];size=160000
