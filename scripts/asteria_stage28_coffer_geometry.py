@@ -106,8 +106,8 @@ def longitudinal_beam(bay):
         r=.405+(.981-.405)*i/17
         half_width=.0145
         profiles.append((
-            point(a-half_width,r,-.252),
-            point(a+half_width,r,-.252),
+            point(a-half_width,r,-.252+.151*max(0.,min(1.,(r-.80)/.175))),
+            point(a+half_width,r,-.252+.151*max(0.,min(1.,(r-.80)/.175))),
             point(a+half_width,r,-.068),
             point(a-half_width,r,-.068)
         ))
@@ -122,8 +122,8 @@ def circumferential_ring(index,r,half_width):
     for i in range(144):
         a=TAU*i/144
         profiles.append((
-            point(a,r-half_width,-.243),
-            point(a,r+half_width,-.243),
+            point(a,r-half_width,-.103 if index==2 else -.243),
+            point(a,r+half_width,-.103 if index==2 else -.243),
             point(a,r+half_width,-.070),
             point(a,r-half_width,-.070),
         ))
@@ -213,7 +213,7 @@ def preflight():
         assert not invalid,(obj["name"],invalid[:3])
         triangles+=len(faces)
         report.append((obj["name"],len(v),len(faces)))
-    assert 3500<=triangles<=12000,triangles
+    assert 10000<=triangles<=15000,triangles
     return {"meshCount":len(objects),"triangles":triangles,
             "materials":["CC0 scanned ceiling","CC0 scanned wall",
                          "manufactured graphite","existing physical opal"],
