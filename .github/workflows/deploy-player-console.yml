@@ -22,6 +22,7 @@ on:
 
 permissions:
   contents: read
+  actions: read # read-only access to the archived proven Pages artifact
   pages: write
   id-token: write
 
@@ -467,6 +468,25 @@ jobs:
                 'protected original files; model faces',81914,31484,16292,13098,flush=True)
           PY
 
+      # Owner requested a public live EXAMPLE, not replacement of reviewed UI.
+      # Art source is SHA-pinned to the already-validated Stage28 variant,
+      # and all 51 formerly published files are checked byte-for-byte.
+      - name: Checkout pinned tested Stage28 optional architecture for Pages
+        uses: actions/checkout@v4
+        with:
+          repository: JeremyHennessy/TrekMUD
+          ref: ef7078dca29ddf5a89b83aac10bee1afbfa7672c
+          path: asteria-stage28-reviewed-source
+          persist-credentials: false
+
+      - name: Build ONLY isolated Stage28 public review with frozen Pages SHA integrity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          npm ci --prefix asteria-stage28-reviewed-source/ui/3d-preview-v5 --no-audit --no-fund
+          python scripts/publish_asteria_stage28_review.py
+
       - name: Configure GitHub Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
@@ -499,6 +519,9 @@ jobs:
     permissions:
       contents: read
     steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Verify public Pages URLs and the actual hosted model files
         run: |
           python - <<'PY'
@@ -526,6 +549,15 @@ jobs:
             ('3d-preview-v5-three-bays/models/asteria-hero-chair-candidate.glb',b'glTF',100_000),
             ('3d-preview-v5-three-bays/models/asteria-command-set-candidate.glb',b'glTF',100_000),
             ('3d-preview-v5-three-bays/models/asteria-three-original-pitch-rib-bays-04.glb',b'glTF',100_000),
+            ('3d-preview-v5-stage28-review/',b'REVIEW ONLY',1000),
+            ('3d-preview-v5-stage28-review/app.js',b'AST-D01-BRIDGE',200_000),
+            ('3d-preview-v5-stage28-review/models/asteria-v3-restored-pbr.glb',b'glTF',3_000_000),
+            ('3d-preview-v5-stage28-review/models/asteria-hero-chair-candidate.glb',b'glTF',100_000),
+            ('3d-preview-v5-stage28-review/models/asteria-command-set-candidate.glb',b'glTF',100_000),
+            ('3d-preview-v5-stage28-review/models/asteria-three-original-pitch-rib-bays-04.glb',b'glTF',100_000),
+            ('3d-preview-v5-stage28-review/models/asteria-realistic-architectural-envelope-08.glb',b'glTF',200_000),
+            ('3d-preview-v5-stage28-review/review-manifest.json',b'ef7078dca29ddf5a89b83aac10bee1afbfa7672c',200),
+
           ]
           # GitHub Pages CDN can take a short time to update after deployment.
           for attempt in range(1,16):
@@ -771,6 +803,19 @@ jobs:
             'physicalIphoneGPUVerified':False},indent=2)+'\n')
           print('PUBLIC_THREE_BAYS_INTERACTIVE_URL_VERIFIED',url,flush=True)
           PY
+      - name: Independently verify live Stage28 review in desktop and mobile Chromium
+        run: |
+          python scripts/verify_asteria_stage28_hosted.py
+
+      - name: Archive verified LIVE Stage28 browser screenshots and provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-stage28-public-live-review-screenshots
+          path: _stage28_public_qa/*
+          if-no-files-found: ignore
+          retention-days: 30
+
       - name: Archive real deployed three-bay desktop and mobile screenshots
         if: always()
         uses: actions/upload-artifact@v4
