@@ -231,6 +231,36 @@ def stage20_zone():
     n=j*stride+i
     faces.extend(((n,n+1,n+stride+1),(n,n+stride+1,n+stride)))
   add(name,verts,faces,uv,mat)
+ def continuous_cove(name,k0,k1,profile,mat,steps=80,thickness=.026):
+  """Closed curved soffit: joined across three bays, physical end returns.
+
+  The real UV-mapped scan-shaded front, back and capped profile have
+  the same geometry in Blender Cycles and in the browser GLB.
+  """
+  assert len(profile)>=3 and thickness>0 and steps>=32
+  a0=k0*TAU/112;a1=k1*TAU/112
+  width=steps+1;band=len(profile);layer=width*band
+  verts=[];uv=[];faces=[]
+  for side in range(2):
+   for r,y in profile:
+    for i in range(width):
+     a=a0+(a1-a0)*i/steps
+     verts.append((W*math.sin(a)*r,y+side*thickness,D*math.cos(a)*r))
+     uv.append((a*W/1.7,y/1.7))
+  for j in range(band-1):
+   for i in range(steps):
+    n=j*width+i;m=n+width
+    faces.extend(((n,n+1,m+1),(n,m+1,m)))
+    faces.extend(((layer+n,layer+m+1,layer+n+1),
+                  (layer+n,layer+m,layer+m+1)))
+  edge=([i for i in range(width)]+
+        [j*width+steps for j in range(1,band)]+
+        [(band-1)*width+i for i in range(steps-1,-1,-1)]+
+        [j*width for j in range(band-2,0,-1)])
+  for i,n in enumerate(edge):
+   m=edge[(i+1)%len(edge)]
+   faces.extend(((n,m,layer+m),(n,layer+m,layer+n)))
+  add(name,verts,faces,uv,mat)
  for idx,(k0,k1) in enumerate(((36,39),(39,42),(42,45),
                                (67,70),(70,73),(73,76))):
   # Broad physically formed wall shells with 100mm depth, not Stage13
@@ -241,8 +271,6 @@ def stage20_zone():
        k0+.04,k1-.04,.15,.55,graphite,.245,.220,cols=12,rows=4)
   wall(f"bay {idx+1} / framed upper scanned fascia",
        k0+.04,k1-.04,3.14,3.61,MATS["wall"],.166,.132,cols=12,rows=4)
-  roof(f"bay {idx+1} / molded wall-to-roof underside",
-       k0+.03,k1-.03,.859,.984,.075,MATS["ceiling"])
   mid=(k0+k1)/2.
   roof(f"bay {idx+1} / recessed real graphite light housing",
        mid-.42,mid+.42,.89,.959,.118,graphite,cols=8,rows=3)
@@ -251,6 +279,21 @@ def stage20_zone():
   a=mid*TAU/112;r=.922
   lights.append([round(W*math.sin(a)*r,5),round(roof_y(r)-.16,5),
                  round(D*math.cos(a)*r,5)])
+ # Stage26 geometry-only trial: two continuous structural cove assemblies
+ # span the six unchanged wall/fixture bays. No other lighting changes.
+ for k0,k1 in ((36,45),(67,76)):
+  continuous_cove(
+    f"seamless three-bay formed cove / arc {k0}-{k1}",
+    k0+.03,k1-.03,
+    [(.983,3.535),(.978,3.575),(.971,3.620),(.961,3.660),
+     (.946,3.690),(.926,3.724),
+     (.896,roof_y(.896)-.072),(.859,roof_y(.859)-.075)],
+    MATS["ceiling"])
+  continuous_cove(
+    f"physical continuous dark captured junction / arc {k0}-{k1}",
+    k0+.03,k1-.03,
+    [(.974,3.575),(.971,3.590),(.967,3.599),(.963,3.605)],
+    graphite,steps=80,thickness=.010)
  # At both ends, tall actual closed steel members bridge the new bays to
  # the unchanged original shell; no game collision or walk floor changes.
  for k in (36,45,67,76):
@@ -258,14 +301,16 @@ def stage20_zone():
   for y0,y1 in ((.16,1.65),(1.65,3.61)):
    wall(f"architectural boundary column {k}-{y0}",k-.035,k+.035,
         y0,y1,MATS["satin_nickel"],.187,.176,cols=2,rows=4)
- assert len(objects)==44,len(objects)
+ assert len(objects)==42,len(objects)
  MESHES["stage20Objects"]=objects
  return {"bayCount":6,"originalSectors":[[36,45],[67,76]],
          "realManufacturedReturnedWallShells":6,"physicalSoffits":6,
          "integratedPracticalFixtures":6,"lightingPositions":lights,
          "maxInwardProjectionMeters":.245,"wallInsetDepthMeters":.100,
          "sourceScan":"Poly Haven painted_plaster_wall CC0",
-         "zoneMeshCount":len(objects),"noGameOrCollisionWrites":True,
+         "zoneMeshCount":len(objects),
+         "continuousJoinedSoffitSpans":2,"physicalCapturedShadowJointSpans":2,
+         "discreteRoofUnderpanelsReplaced":6,"noGameOrCollisionWrites":True,
          "notVisualApproved":True}
 
 def other_studio():

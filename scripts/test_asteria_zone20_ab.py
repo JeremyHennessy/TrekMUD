@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage23 broad forward-command flank bay coverage versus frozen Stage12 cameras.
+"""Stage26 continuous formed-cove command-flank coverage versus frozen Stage12 cameras.
 
 Original Stage04 source three-bay control (81,914 source triangles) against same
 exact model with 864 further original wall and roof faces removed, retaining
@@ -99,7 +99,7 @@ try:
           assert obs["originalFaces"]==81050,obs
           assert obs["envelopeLoaded"]=="true",obs
           assert obs["envelopeFaces"]==expected_envelope_faces,obs
-          assert obs["envelopeMeshes"]==74 and obs["envelopeAOMaterials"]>=2,obs
+          assert obs["envelopeMeshes"]==72 and obs["envelopeAOMaterials"]>=2,obs
           assert obs["envelopeOriginalRemoved"]==864,obs
         else:
           assert obs["originalFaces"]==81914,obs
@@ -203,7 +203,7 @@ report={
  "realScreenshots":items,"matchedDeltas":comparisons,
  "stage12ReferenceCommit":"e5b5a58fbd284fac98e4f1e367a3b9cb0a86811b",
  "stage12ReferenceArtifact":13634679552,
- "onlyGeometryVariable":"six broad manufactured wall/ceiling/plinth bays relocated to forward-command flanks; same Stage20 geometry/material methods",
+ "onlyGeometryVariable":"replace six separate per-bay roof undersides with two continuous formed scanned soffits and two captured shadow joints; unchanged light/camera/UI/source",
  "stage12VsManufacturedZone20MatchedCameraDeltas":zone_deltas,
  "walkingAndCommandWaypointsPass":True,
  "artApproved":False,"photorealismProven":False,
