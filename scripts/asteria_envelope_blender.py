@@ -455,7 +455,7 @@ def main():
   raise ValueError("Stage20 requires the exact Stage12 rail-free base")
  build_wall(MATS["wall"]);build_ceiling(MATS["ceiling"],a.omit_radial_rails)
  zone_evidence=stage20_zone() if a.stage20_zone else None
-  stage28_evidence=stage28_coffer_ceiling() if a.stage20_zone else None
+ stage28_evidence=stage28_coffer_ceiling() if a.stage20_zone else None
  studio_floor=other_studio()
  cameras=studio_cameras()
  sc=bpy.context.scene
