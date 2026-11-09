@@ -165,8 +165,9 @@ def build_ceiling(mat,omit_radial_rails=False):
  return ob
 
 def stage20_zone():
- """Three connected wall-to-soffit manufactured architectural bays, k75..82.
- Additive/reversible overlay; exact original V3 shell/UI/player unchanged.
+ """Six connected, broadly visible forward-command flank architectural bays.
+ Stage23 only: repeat precisely the Stage20 validated mesh/material method on
+ two arcs beside the forward screen. No original gameplay/collisions altered.
  """
  assert "stage20Objects" not in MESHES
  objects=[];lights=[]
@@ -230,7 +231,8 @@ def stage20_zone():
     n=j*stride+i
     faces.extend(((n,n+1,n+stride+1),(n,n+stride+1,n+stride)))
   add(name,verts,faces,uv,mat)
- for idx,(k0,k1) in enumerate(((75,77),(77,79),(79,82))):
+ for idx,(k0,k1) in enumerate(((36,39),(39,42),(42,45),
+                               (67,70),(70,73),(73,76))):
   # Broad physically formed wall shells with 100mm depth, not Stage13
   # fan-shaped bright roof ribs or paper-thin painted outlines.
   wall(f"bay {idx+1} / photographed recessed wall and return flanges",
@@ -251,16 +253,16 @@ def stage20_zone():
                  round(D*math.cos(a)*r,5)])
  # At both ends, tall actual closed steel members bridge the new bays to
  # the unchanged original shell; no game collision or walk floor changes.
- for k in (75,82):
+ for k in (36,45,67,76):
   a=k*TAU/112
   for y0,y1 in ((.16,1.65),(1.65,3.61)):
    wall(f"architectural boundary column {k}-{y0}",k-.035,k+.035,
         y0,y1,MATS["satin_nickel"],.187,.176,cols=2,rows=4)
- assert len(objects)==22,len(objects)
+ assert len(objects)==44,len(objects)
  MESHES["stage20Objects"]=objects
- return {"bayCount":3,"originalSectors":[75,82],
-         "realManufacturedReturnedWallShells":3,"physicalSoffits":3,
-         "integratedPracticalFixtures":3,"lightingPositions":lights,
+ return {"bayCount":6,"originalSectors":[[36,45],[67,76]],
+         "realManufacturedReturnedWallShells":6,"physicalSoffits":6,
+         "integratedPracticalFixtures":6,"lightingPositions":lights,
          "maxInwardProjectionMeters":.245,"wallInsetDepthMeters":.100,
          "sourceScan":"Poly Haven painted_plaster_wall CC0",
          "zoneMeshCount":len(objects),"noGameOrCollisionWrites":True,

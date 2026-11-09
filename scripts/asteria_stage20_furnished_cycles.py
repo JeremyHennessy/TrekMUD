@@ -60,7 +60,7 @@ def main():
   counts[name]=len(new)
   assert len(new)>0,(name,"GLB did not import geometry")
  zone=[obj for obj in bpy.data.objects if obj.type=="MESH" and "ZONE20" in obj.name]
- assert len(zone)>=22,("Missing real modeled Stage20 geometry",len(zone))
+ assert len(zone)>=44,("Missing real modeled Stage23 forward-command flank geometry",len(zone))
  sc=bpy.context.scene
  sc.render.engine="CYCLES"
  sc.cycles.samples=a.samples
@@ -90,7 +90,7 @@ def main():
  light("Furnished Cycles / aft rim",(0,3.5,5.2),
        (0,1.6,1.0),300,(1,.90,.82),(3.6,3.2))
  fixtures=json.loads(a.report.read_text())["stage20ManufacturedZone"]["lightingPositions"]
- assert len(fixtures)==3
+ assert len(fixtures)==6
  for i,p in enumerate(fixtures):
   light(f"ZONE20 / physical diffuser area emission {i}",p,
         (p[0]+2.,p[1]-1.6,p[2]),42,(1.,.87,.72),(.55,.13))
