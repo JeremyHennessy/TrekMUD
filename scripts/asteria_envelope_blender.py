@@ -30,6 +30,7 @@ def args():
  p.add_argument("--resolution",type=int,nargs=2,default=[960,640])
  p.add_argument("--bake-ao",action="store_true")
  p.add_argument("--omit-radial-rails",action="store_true",help="QA only: isolate roof radial rail shading without touching the ceiling panels")
+ p.add_argument("--stage20-zone",action="store_true",help="QA-only fully formed wall/soffit junction")
  p.add_argument("--no-render",action="store_true")
  return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
 
@@ -163,6 +164,108 @@ def build_ceiling(mat,omit_radial_rails=False):
            [across(-.185,-.033),across(.185,-.033)],.019,MATS['light'],segments=3)
  return ob
 
+def stage20_zone():
+ """Three connected wall-to-soffit manufactured architectural bays, k75..82.
+ Additive/reversible overlay; exact original V3 shell/UI/player unchanged.
+ """
+ assert "stage20Objects" not in MESHES
+ objects=[];lights=[]
+ graphite=bpy.data.materials.new("ZONE20 / engineered matte graphite hardware")
+ graphite.use_nodes=True
+ bsdf=graphite.node_tree.nodes.get("Principled BSDF")
+ bsdf.inputs["Base Color"].default_value=(.09,.078,.085,1)
+ bsdf.inputs["Metallic"].default_value=.26
+ bsdf.inputs["Roughness"].default_value=.59
+ def p(a,y,d):
+  x=W*math.sin(a);z=D*math.cos(a)
+  nx=-math.sin(a)/W;nz=-math.cos(a)/D
+  scale=d/math.hypot(nx,nz)
+  return (x+nx*scale,y,z+nz*scale)
+ def add(name,verts,faces,uvs,mat):
+  ob=kit.model("ZONE20 / "+name,verts,faces,mat,uvs)
+  objects.append(ob)
+ def wall(name,k0,k1,y0,y1,mat,rim,core,cols=16,rows=9):
+  a0=k0*TAU/112;a1=k1*TAU/112
+  verts=[];uv=[];faces=[]
+  for j in range(rows+1):
+   t=j/rows;y=y0+(y1-y0)*t
+   for i in range(cols+1):
+    q=i/cols;a=a0+(a1-a0)*q
+    edge=min(t,1-t,q,1-q)
+    blend=min(1.,edge/.17);blend=blend*blend*(3-2*blend)
+    verts.append(p(a,y,rim+(core-rim)*blend))
+    uv.append((a*(W+D)*.5/1.6,y/1.65))
+  stride=cols+1
+  for j in range(rows):
+   for i in range(cols):
+    n=j*stride+i
+    faces.extend(((n,n+1,n+stride+1),(n,n+stride+1,n+stride)))
+  # Closed physical metal/composite returns to the original scanned wall.
+  edge=([i for i in range(cols+1)]+
+        [j*stride+cols for j in range(1,rows+1)]+
+        [rows*stride+i for i in range(cols-1,-1,-1)]+
+        [j*stride for j in range(rows-1,0,-1)])
+  back=[]
+  for n in edge:
+   i=n%stride;j=n//stride
+   a=a0+(a1-a0)*i/cols;y=y0+(y1-y0)*j/rows
+   back.append(len(verts));verts.append(p(a,y,.023))
+   uv.append((a*(W+D)*.5/1.6,y/1.65))
+  for n in range(len(edge)):
+   m=(n+1)%len(edge)
+   faces.extend(((edge[n],edge[m],back[m]),(edge[n],back[m],back[n])))
+  add(name,verts,faces,uv,mat)
+ def roof(name,k0,k1,r0,r1,drop,mat,cols=12,rows=4):
+  a0=k0*TAU/112;a1=k1*TAU/112
+  verts=[];uv=[];faces=[]
+  for j in range(rows+1):
+   r=r0+(r1-r0)*j/rows
+   for i in range(cols+1):
+    a=a0+(a1-a0)*i/cols
+    verts.append((W*math.sin(a)*r,roof_y(r)-drop,D*math.cos(a)*r))
+    uv.append((W*math.sin(a)*r/1.9,D*math.cos(a)*r/1.9))
+  stride=cols+1
+  for j in range(rows):
+   for i in range(cols):
+    n=j*stride+i
+    faces.extend(((n,n+1,n+stride+1),(n,n+stride+1,n+stride)))
+  add(name,verts,faces,uv,mat)
+ for idx,(k0,k1) in enumerate(((75,77),(77,79),(79,82))):
+  # Broad physically formed wall shells with 100mm depth, not Stage13
+  # fan-shaped bright roof ribs or paper-thin painted outlines.
+  wall(f"bay {idx+1} / photographed recessed wall and return flanges",
+       k0+.06,k1-.06,.68,3.07,MATS["wall"],.170,.070)
+  wall(f"bay {idx+1} / dark built-in lower service plinth",
+       k0+.04,k1-.04,.15,.55,graphite,.245,.220,cols=12,rows=4)
+  wall(f"bay {idx+1} / framed upper scanned fascia",
+       k0+.04,k1-.04,3.14,3.61,MATS["wall"],.166,.132,cols=12,rows=4)
+  roof(f"bay {idx+1} / molded wall-to-roof underside",
+       k0+.03,k1-.03,.859,.984,.075,MATS["ceiling"])
+  mid=(k0+k1)/2.
+  roof(f"bay {idx+1} / recessed real graphite light housing",
+       mid-.42,mid+.42,.89,.959,.118,graphite,cols=8,rows=3)
+  roof(f"bay {idx+1} / inset opal light diffuser",
+       mid-.31,mid+.31,.905,.945,.143,MATS["light"],cols=8,rows=2)
+  a=mid*TAU/112;r=.922
+  lights.append([round(W*math.sin(a)*r,5),round(roof_y(r)-.16,5),
+                 round(D*math.cos(a)*r,5)])
+ # At both ends, tall actual closed steel members bridge the new bays to
+ # the unchanged original shell; no game collision or walk floor changes.
+ for k in (75,82):
+  a=k*TAU/112
+  for y0,y1 in ((.16,1.65),(1.65,3.61)):
+   wall(f"architectural boundary column {k}-{y0}",k-.035,k+.035,
+        y0,y1,MATS["satin_nickel"],.187,.176,cols=2,rows=4)
+ assert len(objects)==22,len(objects)
+ MESHES["stage20Objects"]=objects
+ return {"bayCount":3,"originalSectors":[75,82],
+         "realManufacturedReturnedWallShells":3,"physicalSoffits":3,
+         "integratedPracticalFixtures":3,"lightingPositions":lights,
+         "maxInwardProjectionMeters":.245,"wallInsetDepthMeters":.100,
+         "sourceScan":"Poly Haven painted_plaster_wall CC0",
+         "zoneMeshCount":len(objects),"noGameOrCollisionWrites":True,
+         "notVisualApproved":True}
+
 def other_studio():
  scene=bpy.context.scene
  world=bpy.data.worlds.new("USS Asteria Stage08 / warm studio GI test")
@@ -265,9 +368,13 @@ def actual_ao_bake(out):
   bpy.ops.object.select_all(action="DESELECT")
   ob.select_set(True);bpy.context.view_layer.objects.active=ob
   ob.data.uv_layers.active=uv
+  overlaid=MESHES.get("stage20Objects",[])
+  assert all(not ob.hide_render for ob in overlaid)
+  for ob in overlaid:ob.hide_render=True
   try:
    bpy.ops.object.bake(type="EMIT")
   finally:
+   for ob in overlaid:ob.hide_render=False
    # Restore the ORIGINAL physically scanned Principled shader. The
    # temporary AO emission nodes are not part of the published model.
    mat.node_tree.links.new(original_surface,output.inputs["Surface"])
@@ -306,7 +413,10 @@ def main():
   "gasket":kit.build_material("Asteria / captured neutral gasket","console_gasket",.87,0,a.command_materials),
   "light":make_emissive(),
  }
+ if a.stage20_zone and not a.omit_radial_rails:
+  raise ValueError("Stage20 requires the exact Stage12 rail-free base")
  build_wall(MATS["wall"]);build_ceiling(MATS["ceiling"],a.omit_radial_rails)
+ zone_evidence=stage20_zone() if a.stage20_zone else None
  studio_floor=other_studio()
  cameras=studio_cameras()
  sc=bpy.context.scene
@@ -335,7 +445,7 @@ def main():
   obj.select_set(True);bpy.context.view_layer.objects.active=obj
   bpy.ops.object.convert(target="MESH")
  meshes=[ob for ob in kit.COMMAND.objects if ob.type=="MESH"]
- assert len(meshes)==(30 if a.omit_radial_rails else 54),len(meshes)
+ assert len(meshes)==(30 if a.omit_radial_rails else 54)+(zone_evidence["zoneMeshCount"] if zone_evidence else 0),len(meshes)
  bpy.ops.object.select_all(action="DESELECT")
  for ob in meshes:ob.select_set(True)
  bpy.context.view_layer.objects.active=meshes[0]
@@ -363,7 +473,7 @@ def main():
   "originalPbrScan":pbr["scanPage"],
   "pbrLicense":pbr["license"],"PBRScanPhotoBased":True,
   "architecturalBakedAO":ao,"fullIndirectLightmapYetUnproven":True,
-  "meshObjects":len(meshes),
+  "meshObjects":len(meshes),"stage20ManufacturedZone":zone_evidence,
   "renderedViewNames":[] if a.no_render else list(cameras),
   "noGameWrites":True,"visualApproved":False,
   "noPhysicalIphoneVerification":True,
