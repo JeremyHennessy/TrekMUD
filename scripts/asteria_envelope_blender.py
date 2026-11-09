@@ -14,6 +14,7 @@ import bpy
 from mathutils import Vector
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 import asteria_command_blender as kit
+import asteria_stage28_coffer_geometry as coffer28
 
 PI=math.pi;TAU=2*PI
 W,D=7.55,6.55
@@ -268,6 +269,41 @@ def stage20_zone():
          "zoneMeshCount":len(objects),"noGameOrCollisionWrites":True,
          "notVisualApproved":True}
 
+def stage28_coffer_ceiling():
+ """Assemble one joined full-bridge structural and scanned-PBR roof family.
+
+ This is a separate, fully reversible Stage28 shell BELOW the original roof;
+ no frozen V3 source faces, walking meshes, input, cameras or UI are changed.
+ The previously measured Stage23 flank joinery remains the unchanged control.
+ """
+ proof=coffer28.preflight()
+ assert proof["meshCount"]==45 and proof["allMeshesClosed"]
+ structural=bpy.data.materials.new("ROOF28 / satin graphite structural steel")
+ structural.use_nodes=True
+ bsdf=structural.node_tree.nodes.get("Principled BSDF")
+ bsdf.inputs["Base Color"].default_value=(.115,.124,.144,1.)
+ bsdf.inputs["Metallic"].default_value=.43
+ bsdf.inputs["Roughness"].default_value=.55
+ material_map={"wall":MATS["wall"],"ceiling":MATS["ceiling"],
+               "structural":structural,"opal":MATS["light"]}
+ objects=[]
+ for form in coffer28.generate():
+  mesh=kit.model("ROOF28 / "+form["name"],form["vertices"],
+                 form["faces"],material_map[form["material"]],form["uv"])
+  for polygon in mesh.data.polygons:polygon.use_smooth=False
+  objects.append(mesh)
+ assert len(objects)==45
+ MESHES["stage28Objects"]=objects
+ return {"stage":"28 isolated ceiling system","cofferCount":12,
+         "closedRadialStructuralSpines":12,"continuousClosedHoops":3,
+         "physicallyRecessedPracticalWells":6,
+         "meshCount":len(objects),"triangleCount":proof["triangles"],
+         "sourceScannedPBR":"Poly Haven painted_plaster_wall (CC0) via Stage08 pipeline",
+         "scanProvenanceUnchanged":True,"UV0Present":True,
+         "originalSourceFacesRemoved":864,"noRoomGraphOrPlayerChanges":True,
+         "indirectGIBaked":False,"visualApproval":False}
+
+
 def other_studio():
  scene=bpy.context.scene
  world=bpy.data.worlds.new("USS Asteria Stage08 / warm studio GI test")
@@ -370,7 +406,7 @@ def actual_ao_bake(out):
   bpy.ops.object.select_all(action="DESELECT")
   ob.select_set(True);bpy.context.view_layer.objects.active=ob
   ob.data.uv_layers.active=uv
-  overlaid=MESHES.get("stage20Objects",[])
+  overlaid=MESHES.get("stage20Objects",[])+MESHES.get("stage28Objects",[])
   assert all(not ob.hide_render for ob in overlaid)
   for ob in overlaid:ob.hide_render=True
   try:
@@ -419,6 +455,7 @@ def main():
   raise ValueError("Stage20 requires the exact Stage12 rail-free base")
  build_wall(MATS["wall"]);build_ceiling(MATS["ceiling"],a.omit_radial_rails)
  zone_evidence=stage20_zone() if a.stage20_zone else None
+  stage28_evidence=stage28_coffer_ceiling() if a.stage20_zone else None
  studio_floor=other_studio()
  cameras=studio_cameras()
  sc=bpy.context.scene
@@ -447,7 +484,7 @@ def main():
   obj.select_set(True);bpy.context.view_layer.objects.active=obj
   bpy.ops.object.convert(target="MESH")
  meshes=[ob for ob in kit.COMMAND.objects if ob.type=="MESH"]
- assert len(meshes)==(30 if a.omit_radial_rails else 54)+(zone_evidence["zoneMeshCount"] if zone_evidence else 0),len(meshes)
+ assert len(meshes)==(30 if a.omit_radial_rails else 54)+(zone_evidence["zoneMeshCount"] if zone_evidence else 0)+(stage28_evidence["meshCount"] if stage28_evidence else 0),len(meshes)
  bpy.ops.object.select_all(action="DESELECT")
  for ob in meshes:ob.select_set(True)
  bpy.context.view_layer.objects.active=meshes[0]
@@ -476,6 +513,7 @@ def main():
   "pbrLicense":pbr["license"],"PBRScanPhotoBased":True,
   "architecturalBakedAO":ao,"fullIndirectLightmapYetUnproven":True,
   "meshObjects":len(meshes),"stage20ManufacturedZone":zone_evidence,
+   "stage28CeilingSystem":stage28_evidence,
   "renderedViewNames":[] if a.no_render else list(cameras),
   "noGameWrites":True,"visualApproved":False,
   "noPhysicalIphoneVerification":True,
