@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage20 3 physical wall/soffit/plinth bays versus frozen Stage12 cameras.
+"""Stage23 broad forward-command flank bay coverage versus frozen Stage12 cameras.
 
 Original Stage04 source three-bay control (81,914 source triangles) against same
 exact model with 864 further original wall and roof faces removed, retaining
@@ -99,7 +99,7 @@ try:
           assert obs["originalFaces"]==81050,obs
           assert obs["envelopeLoaded"]=="true",obs
           assert obs["envelopeFaces"]==expected_envelope_faces,obs
-          assert obs["envelopeMeshes"]==52 and obs["envelopeAOMaterials"]>=2,obs
+          assert obs["envelopeMeshes"]==74 and obs["envelopeAOMaterials"]>=2,obs
           assert obs["envelopeOriginalRemoved"]==864,obs
         else:
           assert obs["originalFaces"]==81914,obs
@@ -173,6 +173,7 @@ try:
     # Stage20 must visibly affect the intended near-wall camera. This floor
     # does NOT establish artistic acceptance, which requires inspected pixels.
     assert zone_deltas["envelopeWall/1280"]["changedPixelFractionOver10"]>.035,zone_deltas["envelopeWall/1280"]
+    assert zone_deltas["command/1280"]["changedPixelFractionOver10"]>.02,zone_deltas["command/1280"]
     # Walking and waypoints in candidate only. Do not modify source controls.
     page=browser.new_page(viewport={"width":860,"height":560})
     page.goto(f"{origin}/{candidate}/?studioCapture=aft",wait_until="domcontentloaded")
@@ -202,7 +203,7 @@ report={
  "realScreenshots":items,"matchedDeltas":comparisons,
  "stage12ReferenceCommit":"e5b5a58fbd284fac98e4f1e367a3b9cb0a86811b",
  "stage12ReferenceArtifact":13634679552,
- "onlyGeometryVariable":"three broad manufactured wall/ceiling/plinth bays with inset physical practical lights",
+ "onlyGeometryVariable":"six broad manufactured wall/ceiling/plinth bays relocated to forward-command flanks; same Stage20 geometry/material methods",
  "stage12VsManufacturedZone20MatchedCameraDeltas":zone_deltas,
  "walkingAndCommandWaypointsPass":True,
  "artApproved":False,"photorealismProven":False,

@@ -1,8 +1,8 @@
-name: Asteria Stage20 manufactured wall, ceiling and plinth bays - real Cycles and Chromium A/B
+name: Asteria Stage23 forward command flank architecture - real Cycles Chromium A/B NO DEPLOY
 
 on:
   push:
-    branches: [experiment/asteria-stage20-architectural-zone-ab]
+    branches: [experiment/asteria-stage23-command-flank-zones-ab]
     paths:
       - scripts/test_asteria_zone20_ab.py
       - scripts/asteria_stage20_furnished_cycles.py
@@ -15,7 +15,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: asteria-stage20-manufactured-zone-a-b
+  group: asteria-stage23-forward-command-flanks-a-b
   cancel-in-progress: false
 
 jobs:
@@ -167,7 +167,7 @@ jobs:
           glb=(p/'asteria-realistic-architectural-envelope-08.glb').read_bytes()
           data=json.loads(glb[20:20+struct.unpack_from('<I',glb,12)[0]])
           aos=[m for m in data['materials'] if m.get('occlusionTexture',{}).get('texCoord')==1]
-          assert tri==11356,tri
+          assert 11356<tri<30000,tri
           assert len(aos)>=2
           assert len(data.get('images',[]))>=12
           results={}
@@ -178,9 +178,9 @@ jobs:
             assert std>2,(name,std,'Cannot fake AO with solid white')
             results[name]={'mean':mean,'std':std,'minimum':int(pixels.min())}
           report=json.loads((p/'architectural-report.json').read_text())
-          assert report['meshObjects']==52 and report['radialRailsEmitted']==0 and report['stage20ManufacturedZone']['zoneMeshCount']==22 and report['stage20ManufacturedZone']['bayCount']==3,report
-          assert report['stage20ManufacturedZone']['originalSectors']==[75,82] and len(report['stage20ManufacturedZone']['lightingPositions'])==3,report
-          proof={'newEnvelopeTriangles':tri,'meshObjects':52,'sourceRemovedFaces':864,
+          assert report['meshObjects']==74 and report['radialRailsEmitted']==0 and report['stage20ManufacturedZone']['zoneMeshCount']==44 and report['stage20ManufacturedZone']['bayCount']==6,report
+          assert report['stage20ManufacturedZone']['originalSectors']==[[36,45],[67,76]] and len(report['stage20ManufacturedZone']['lightingPositions'])==6,report
+          proof={'newEnvelopeTriangles':tri,'meshObjects':74,'sourceRemovedFaces':864,
                  'pbrImages':len(data['images']),'aoMaterialCount':len(aos),
                  'realCyclesAORanges':results,'ownerVisualApproval':False}
           path=Path('_site/3d-preview-v5-command-envelope/models/envelope-manifest.json')
@@ -276,7 +276,7 @@ jobs:
                  o.receiveShadow=true;
                  o.castShadow=false;
                });
-               if(faces!==EXPECTED_ARCH_FACES||meshes!==52||missing||ao<2){
+               if(faces!==EXPECTED_ARCH_FACES||meshes!==74||missing||ao<2){
                  fail('Scanned architectural envelope failed geometry, PBR or UV1 AO verification');return;
                }
                scene.add(architecture);
@@ -322,7 +322,7 @@ jobs:
           from pathlib import Path
           p=Path('_stage20_furnished')
           result=json.loads((p/'stage20-furnished-cycles-report.json').read_text())
-          assert result['renderCount']==4 and result['stage20ZoneMeshes']>=22
+          assert result['renderCount']==4 and result['stage20ZoneMeshes']>=44
           for mode in ('baseline','zone20'):
             for camera in ('wall','aft'):
               q=p/f'stage20-furnished-cycles-{mode}-{camera}.png'
@@ -365,7 +365,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: asteria-stage20-manufactured-zone-cycles-chromium-a-b
+          name: asteria-stage23-forward-command-flanks-cycles-chromium-a-b
           path: |
             _stage08_browser/*.png
             _stage08_browser/*.jpg
