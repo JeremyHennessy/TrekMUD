@@ -5,6 +5,7 @@ on:
     branches: [experiment/asteria-stage20-architectural-zone-ab]
     paths:
       - scripts/test_asteria_zone20_ab.py
+      - scripts/asteria_stage20_furnished_cycles.py
       - scripts/asteria_envelope_blender.py
       - .github/workflows/validate-asteria-zone20-ab.yml
   workflow_dispatch:
