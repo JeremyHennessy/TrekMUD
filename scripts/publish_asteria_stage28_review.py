@@ -13,6 +13,7 @@ import re
 from pathlib import Path
 import shutil
 import struct
+import tarfile
 import subprocess
 import sys
 
@@ -85,6 +86,45 @@ def preserve_historical_runtime_snapshot(expected: dict[str, str]) -> None:
             "Published player data has changed beyond its generation timestamp",
             name, sha(f), expected[name])
     print("STAGE28_PUBLISHED_PLAYER_PAYLOAD_RESTORED_EXACT_SHA256", flush=True)
+
+
+def restore_approved_nondeterministic_glbs(expected: dict[str, str]) -> None:
+    """Restore ONLY two verified, byte-exact approved Blender GLBs.
+
+    Blender exports vary between otherwise equivalent releases. The project
+    requires the already-published command models to remain immutable;
+    retrieve ONLY those two files from the exact last successful Pages
+    artifact, verify both against archived SHA256, never rewrite new art.
+    """
+    old = ROOT / "_stage28_pages_frozen_release_archive"
+    assert not old.exists(), "Refuse to reuse a stale Pages download"
+    old.mkdir()
+    cmd = [
+        "gh", "run", "download", "42509385166", "--repo",
+        "JeremyHennessy/TrekMUD", "--name", "github-pages", "--dir", str(old),
+    ]
+    assert os.environ.get("GH_TOKEN"), "Read-only Actions token required"
+    subprocess.run(cmd, cwd=ROOT, check=True)
+    archive = old / "artifact.tar"
+    assert archive.is_file() and archive.stat().st_size > 30_000_000
+    paths = (
+        "3d-preview-v5-command/models/asteria-command-set-candidate.glb",
+        "3d-preview-v5-three-bays/models/asteria-command-set-candidate.glb",
+    )
+    with tarfile.open(archive, mode="r:") as tar:
+        for name in paths:
+            member = tar.getmember("./" + name)
+            assert member.isfile() and member.size > 100_000, (name, member.size)
+            stream = tar.extractfile(member)
+            assert stream is not None
+            data = stream.read()
+            got = hashlib.sha256(data).hexdigest()
+            assert got == expected[name], ("Incorrect frozen Pages source", name, got)
+            current = SITE / name
+            assert current.is_file() and current.stat().st_size > 100_000
+            current.write_bytes(data)
+            assert sha(current) == expected[name]
+            print("RESTORED_BYTE_EXACT_ARCHIVED_COMMAND_ASSET", name, got, flush=True)
 
 
 def safe_replacement(s: str, old: str, new: str) -> str:
@@ -197,6 +237,7 @@ def main() -> None:
     assert frozen["source_actions_run"] == 42509385166
     original = frozen["original_files"]
     preserve_historical_runtime_snapshot(original)
+    restore_approved_nondeterministic_glbs(original)
     assert_original_pages(original)
     assert not NEW.exists(), "Refuse to overwrite a previously built review route"
     assert subprocess.check_output(
