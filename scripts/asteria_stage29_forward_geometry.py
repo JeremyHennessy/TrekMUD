@@ -166,7 +166,7 @@ def preflight():
         triangles+=len(f)
     assert len(parts)==16 and triangles==480
     return {'id':'ASTERIA_STAGE29_SOURCE_FIT_FORWARD_PORTAL',
-      'meshCount':16,'triangles':192,'allMeshesClosed':True,'UV0Present':True,
+      'meshCount':16,'triangles':480,'allMeshesClosed':True,'UV0Present':True,
       'UV0PerFaceLoopMapped':True,'UV0DegenerateTriangles':0,'UV0NondegenerateTriangles':480,
       'originalScreenAndStarfieldRetained':True,'sourceFaceRemovalRequiresIndependentCapture':True,
       'noGameOrControlsWrites':True,'pbrScan':'Poly Haven CC0 unchanged',
