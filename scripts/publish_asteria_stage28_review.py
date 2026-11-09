@@ -277,12 +277,15 @@ def main() -> None:
         "--out", "_command_maps", "--v3-atlas", "_v5_mesh_capture/atlas.png")
     run(sys.executable, "scripts/asteria_envelope_scanned_pbr.py",
         "--out", "_envelope_scanned_maps")
+    # Blender resolves its --python filepath relative to its own startup
+    # directory, not reliably to subprocess cwd. Use exact absolute paths
+    # for source and all input/output assets (verified by failed preflight).
     run("blender", "-b", "-t", "4", "--python-exit-code", "1",
-        "--python", "scripts/asteria_envelope_blender.py", "--",
-        "--out", "_stage28_pages_envelope",
-        "--materials", "_envelope_scanned_maps",
-        "--command-materials", "_command_maps",
-        "--source-report", "_v5_mesh_capture/envelope-source-spans.json",
+        "--python", str(SOURCE / "scripts/asteria_envelope_blender.py"), "--",
+        "--out", str(SOURCE / "_stage28_pages_envelope"),
+        "--materials", str(SOURCE / "_envelope_scanned_maps"),
+        "--command-materials", str(SOURCE / "_command_maps"),
+        "--source-report", str(SOURCE / "_v5_mesh_capture/envelope-source-spans.json"),
         "--samples", "20", "--resolution", "960", "640",
         "--bake-ao", "--omit-radial-rails", "--stage20-zone", "--no-render")
     envelope = SOURCE / "_stage28_pages_envelope"
