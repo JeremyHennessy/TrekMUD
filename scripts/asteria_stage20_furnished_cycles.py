@@ -66,7 +66,11 @@ def main():
  sc.cycles.samples=a.samples
  sc.cycles.diffuse_bounces=3
  sc.cycles.max_bounces=6
- if hasattr(sc.cycles,"use_denoising"):sc.cycles.use_denoising=True
+ # The pinned Ubuntu Blender 4.0.2 runner lacks OpenImageDenoiser.
+ # Keep Cycles native sampling intact, never silently substitute a synthetic image.
+ if hasattr(sc.cycles,"use_denoising"):sc.cycles.use_denoising=False
+ for layer in sc.view_layers:
+  if hasattr(layer,"cycles"):layer.cycles.use_denoising=False
  sc.view_settings.view_transform="AgX"
  sc.view_settings.look="AgX - Medium High Contrast"
  sc.view_settings.exposure=-.5
