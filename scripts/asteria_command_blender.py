@@ -18,6 +18,8 @@ from pathlib import Path
 
 import bpy
 from mathutils import Vector
+# Blender --python does not automatically add the script directory to sys.path.
+sys.path.insert(0,str(Path(__file__).resolve().parent))
 import asteria_stage30_command_sculpt as sculpt30
 
 PI=math.pi
