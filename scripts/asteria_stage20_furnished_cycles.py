@@ -61,6 +61,17 @@ def main():
   assert len(new)>0,(name,"GLB did not import geometry")
  zone=[obj for obj in bpy.data.objects if obj.type=="MESH" and "ZONE20" in obj.name]
  assert len(zone)>=44,("Missing real modeled Stage23 forward-command flank geometry",len(zone))
+ # Six independent opal mesh surfaces, not the protected 12 historical lights.
+ opal_users=[ob for ob in zone if "inset opal light diffuser" in ob.name]
+ assert len(opal_users)==6,("Expected six opal physical diffusers",len(opal_users))
+ opal_mats={mat.name:mat for ob in opal_users for mat in ob.data.materials}
+ assert len(opal_mats)==1 and next(iter(opal_mats)).startswith("ZONE20 / isolated six-only opal emission"),list(opal_mats)
+ opal=next(iter(opal_mats.values()))
+ assert not any(any(mat == opal for mat in ob.data.materials) for ob in zone if ob not in opal_users)
+ bsdf=next(node for node in opal.node_tree.nodes if node.type=="BSDF_PRINCIPLED")
+ emission=bsdf.inputs.get("Emission Strength")
+ assert emission is not None and float(emission.default_value)>0
+ initial_emission=float(emission.default_value)
  sc=bpy.context.scene
  sc.render.engine="CYCLES"
  sc.cycles.samples=a.samples
@@ -99,25 +110,29 @@ def main():
   "wall":cam("QA real furnished wall",(-2.6,1.67,-.5),(-7.05,1.9,-2.3),49),
   "aft":cam("QA real furnished aft",(-1.23,1.67,4.8),(0,.68,.73),37),
  }
- for mode in ("baseline","zone20","zone24"):
+ for mode in ("baseline","zone20","zone24","zone25"):
   for obj in zone:obj.hide_render=(mode=="baseline")
   # Only the six modeled recess fixtures vary, not the rest of the studio.
   # 10.2 W is 0.45/1.85 times Stage23's 42 W proxy; these are
   # independently calibrated *comparative* values, not identical units.
   for fixture in fixture_lights:
-   fixture.data.energy=10.2 if mode=="zone24" else 42
+   fixture.data.energy=10.2 if mode in ("zone24","zone25") else 42
+  emission.default_value=initial_emission*(.2 if mode=="zone25" else 1.)
   for name,camera in cameras.items():
    sc.camera=camera
    sc.render.filepath=str((a.out/f"stage20-furnished-cycles-{mode}-{name}.png").resolve())
    bpy.ops.render.render(write_still=True)
+ emission.default_value=initial_emission
  for obj in zone:obj.hide_render=False
  report={"id":"ASTERIA_STAGE20_FURNISHED_REAL_CYCLES_AB",
          "loadedFiveOriginalAndCandidateGLBs":list(counts),
          "importedObjectCounts":counts,"stage20ZoneMeshes":len(zone),
-         "cameras":list(cameras),"modes":["baseline","zone20","zone24"],
+         "cameras":list(cameras),"modes":["baseline","zone20","zone24","zone25"],
          "fixtureIntensities":{"WebGL_Stage23":1.85,"WebGL_Stage24":0.45,
                                "Cycles_Stage23":42,"Cycles_Stage24":10.2},
-         "renderCount":6,"resolution":a.resolution,"samples":a.samples,
+         "renderCount":8,"resolution":a.resolution,"samples":a.samples,
+         "Stage25OnlySixOpalEmissionRatio":.2,
+         "Stage25StudioAndPointProxySameAsStage24":True,
          "originalAssetsAndCameraIdentical":True,
          "fullFurnishedStudioNotEmptyEnvelope":True,
          "browserLightingAndCyclesMayDiffer":True,

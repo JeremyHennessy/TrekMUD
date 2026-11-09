@@ -171,6 +171,10 @@ def stage20_zone():
  """
  assert "stage20Objects" not in MESHES
  objects=[];lights=[]
+ # Stage25: isolate only the six added opal diffusers. The copied shader
+ # starts physically identical to the 12 protected Stage12 roof fixtures.
+ opal_six=MATS['light'].copy()
+ opal_six.name='ZONE20 / isolated six-only opal emission'
  graphite=bpy.data.materials.new("ZONE20 / engineered matte graphite hardware")
  graphite.use_nodes=True
  bsdf=graphite.node_tree.nodes.get("Principled BSDF")
@@ -247,7 +251,7 @@ def stage20_zone():
   roof(f"bay {idx+1} / recessed real graphite light housing",
        mid-.42,mid+.42,.89,.959,.118,graphite,cols=8,rows=3)
   roof(f"bay {idx+1} / inset opal light diffuser",
-       mid-.31,mid+.31,.905,.945,.143,MATS["light"],cols=8,rows=2)
+       mid-.31,mid+.31,.905,.945,.143,opal_six,cols=8,rows=2)
   a=mid*TAU/112;r=.922
   lights.append([round(W*math.sin(a)*r,5),round(roof_y(r)-.16,5),
                  round(D*math.cos(a)*r,5)])

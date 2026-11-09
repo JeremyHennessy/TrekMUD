@@ -16,7 +16,7 @@ site = Path(sys.argv[1]).resolve()
 out = Path(sys.argv[2]).resolve()
 out.mkdir(parents=True, exist_ok=True)
 original = "3d-preview-v5-command-stage23"
-reduced = "3d-preview-v5-command-envelope"
+reduced = "3d-preview-v5-command-stage24"
 for name in (original, reduced):
     assert (site / name / "app.js").is_file(), name
     assert (site / name / "models" / "envelope-manifest.json").is_file(), name
