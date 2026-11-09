@@ -377,7 +377,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: asteria-stage23-forward-command-flanks-cycles-chromium-a-b
+          name: asteria-stage28-coffer-ceiling-cycles-chromium-a-b
           path: |
             _stage08_browser/*.png
             _stage08_browser/*.jpg
