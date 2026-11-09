@@ -91,15 +91,21 @@ def main():
        (0,1.6,1.0),300,(1,.90,.82),(3.6,3.2))
  fixtures=json.loads(a.report.read_text())["stage20ManufacturedZone"]["lightingPositions"]
  assert len(fixtures)==6
+ fixture_lights=[]
  for i,p in enumerate(fixtures):
-  light(f"ZONE20 / physical diffuser area emission {i}",p,
-        (p[0]+2.,p[1]-1.6,p[2]),42,(1.,.87,.72),(.55,.13))
+  fixture_lights.append(light(f"ZONE20 / physical diffuser area emission {i}",p,
+        (p[0]+2.,p[1]-1.6,p[2]),42,(1.,.87,.72),(.55,.13)))
  cameras={
   "wall":cam("QA real furnished wall",(-2.6,1.67,-.5),(-7.05,1.9,-2.3),49),
   "aft":cam("QA real furnished aft",(-1.23,1.67,4.8),(0,.68,.73),37),
  }
- for mode in ("baseline","zone20"):
+ for mode in ("baseline","zone20","zone24"):
   for obj in zone:obj.hide_render=(mode=="baseline")
+  # Only the six modeled recess fixtures vary, not the rest of the studio.
+  # 10.2 W is 0.45/1.85 times Stage23's 42 W proxy; these are
+  # independently calibrated *comparative* values, not identical units.
+  for fixture in fixture_lights:
+   fixture.data.energy=10.2 if mode=="zone24" else 42
   for name,camera in cameras.items():
    sc.camera=camera
    sc.render.filepath=str((a.out/f"stage20-furnished-cycles-{mode}-{name}.png").resolve())
@@ -108,8 +114,10 @@ def main():
  report={"id":"ASTERIA_STAGE20_FURNISHED_REAL_CYCLES_AB",
          "loadedFiveOriginalAndCandidateGLBs":list(counts),
          "importedObjectCounts":counts,"stage20ZoneMeshes":len(zone),
-         "cameras":list(cameras),"modes":["baseline","zone20"],
-         "renderCount":4,"resolution":a.resolution,"samples":a.samples,
+         "cameras":list(cameras),"modes":["baseline","zone20","zone24"],
+         "fixtureIntensities":{"WebGL_Stage23":1.85,"WebGL_Stage24":0.45,
+                               "Cycles_Stage23":42,"Cycles_Stage24":10.2},
+         "renderCount":6,"resolution":a.resolution,"samples":a.samples,
          "originalAssetsAndCameraIdentical":True,
          "fullFurnishedStudioNotEmptyEnvelope":True,
          "browserLightingAndCyclesMayDiffer":True,
