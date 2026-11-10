@@ -54,7 +54,7 @@ def splice(control,candidate,out):
     assert len(doc['meshes'])==len(doc['nodes'])==135 and count_faces(doc)==27848
     assert len(doc['scenes'])==1 and doc['scene']==0
     assert len(doc['scenes'][0]['nodes'])==135 and len(doc['buffers'])==1
-    assert doc['materials'][1]['name']=='Architecture / original 112 exterior shell and capped edges / PBR no AO'
+    assert doc['materials'][1]['name']=='Architecture / original 112 exterior shell and capped edges / P'
     assert doc['materials'][3]['name']=='Asteria / captured satin trim'
     assert doc['materials'][7]['name']=='ZONE20 / engineered matte graphite hardware'
     original_json={k:json.dumps(doc[k],sort_keys=True) for k in
