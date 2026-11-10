@@ -18,6 +18,9 @@ from pathlib import Path
 
 import bpy
 from mathutils import Vector
+# This module is consulted only for isolated opt-in art; default is unchanged.
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+import asteria_stage31_command_open_support as stage31
 
 PI=math.pi
 CMD_ROOM="AST-D01-BRIDGE"
@@ -37,6 +40,7 @@ def args():
     p.add_argument("--bake-ao",action="store_true")
     p.add_argument("--correct-screen-uv",action="store_true",help="A/B corrected V3 console text orientation")
     p.add_argument("--no-render",action="store_true")
+    p.add_argument("--stage31-open-support",action="store_true",help="isolated command island open support sculpt")
     return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
 
 def put(ob):
@@ -187,7 +191,7 @@ def display_material(name,texture_file):
         bsdf.inputs["Emission Strength"].default_value=.4
     return m
 
-def make_pylon(side,mats,correct_screen_uv=False):
+def make_pylon(side,mats,correct_screen_uv=False,stage31_trial=False):
     """Exact-position closed composite electronics pedestal: ±1.27, z=.58."""
     x0=side*1.27;z0=.58;rot=side*.24
     co,si=math.cos(rot),math.sin(rot)
@@ -213,15 +217,19 @@ def make_pylon(side,mats,correct_screen_uv=False):
         faces.append((0,j+1,j))
         end=(len(profiles)-1)*8
         faces.append((end,end+j,end+j+1))
-    model(f"Command / {side} / moulded eight-corner closed cast pedestal",
-          verts,faces,mats["powder_ivory"])
+    if stage31_trial:
+        stage31.build(side,model,mats)
+    else:
+        model(f"Command / {side} / moulded eight-corner closed cast pedestal",
+              verts,faces,mats["powder_ivory"])
     # Standalone structural gussets, service access panel and toe relief.
     x,y,z=P(0,.29,.02)
     box(f"Command / {side} / recessed toe support",(x,y,z),(.52,.105,.56),
         mats["powder_graphite"],.025,rot)
     x,y,z=P(0,.45,.312)
-    box(f"Command / {side} / rear service door",(x,y,z),(.53,.42,.023),
-        mats["powder_graphite"],.014,rot)
+    if not stage31_trial:
+        box(f"Command / {side} / rear service door",(x,y,z),(.53,.42,.023),
+            mats["powder_graphite"],.014,rot)
     # Top molded surface, elastomer gasket, physical glass with V3 screen
     # content at exactly the original systems 03/05 atlas coordinates.
     x,y,z=P(0,1.115,-.01)
@@ -258,7 +266,7 @@ def make_pylon(side,mats,correct_screen_uv=False):
     pipe(f"Command / {side} / light-seam recess",
          [P(-.29,.38,-.386),P(.29,.38,-.386)],.008,mats["satin_nickel"])
 
-def build_command(mats,correct_screen_uv=False):
+def build_command(mats,correct_screen_uv=False,stage31_trial=False):
     # All geometry respects the measured V3 oval footprint and y=.28 top.
     lathe("Plinth / lower integrated side skirt",[
        (.018,1.72,1.42),(.055,1.80,1.49),(.185,1.85,1.54),
@@ -306,8 +314,8 @@ def build_command(mats,correct_screen_uv=False):
         pipe(f"Rail {side} / hand-rest cast bronze tube",high,.022,mats["rose_bronze"])
         pipe(f"Rail {side} / lower structural cable",
              [(x,y+.10,z) for x,y,z in waypoints],.009,mats["satin_nickel"])
-    make_pylon(-1,mats,correct_screen_uv)
-    make_pylon(1,mats,correct_screen_uv)
+    make_pylon(-1,mats,correct_screen_uv,stage31_trial)
+    make_pylon(1,mats,correct_screen_uv,stage31_trial)
 
 def camera(name,position,aim,lens):
     data=bpy.data.cameras.new(name)
@@ -420,7 +428,7 @@ def main():
         a.materials/"v3_command_overview_screen.png")
     mats["screen_right"]=display_material("Asteria / V3 systems screen",
         a.materials/"v3_systems_control_screen.png")
-    build_command(mats,correct_screen_uv=a.correct_screen_uv)
+    build_command(mats,correct_screen_uv=a.correct_screen_uv,stage31_trial=a.stage31_open_support)
     views=studio()
     scene=bpy.context.scene
     scene.render.engine="CYCLES"
@@ -464,7 +472,9 @@ def main():
             scene.render.filepath=str((a.out/f"asteria-command-{name}.png").resolve())
             bpy.ops.render.render(write_still=True)
     report={
-      "assetId":"ASTERIA_COMMAND_ARCHITECTURE_01",
+      "assetId":"ASTERIA_COMMAND_ARCHITECTURE_31_DRAFT" if a.stage31_open_support else "ASTERIA_COMMAND_ARCHITECTURE_01",
+      "stage31OpenSupport":bool(a.stage31_open_support),
+      "stage31SourceProof":stage31.preflight() if a.stage31_open_support else None,
       "roomId":CMD_ROOM,
       "sourceV3Blob":ORIGINAL_V3,
       "platformFootprint":{"xRadius":1.85,"zRadius":1.54,"zCenter":1.11,
