@@ -37,6 +37,7 @@ def args():
     p.add_argument("--bake-ao",action="store_true")
     p.add_argument("--correct-screen-uv",action="store_true",help="A/B corrected V3 console text orientation")
     p.add_argument("--no-render",action="store_true")
+    p.add_argument("--stage32-cast-support",action="store_true",help="Opt-in isolated Stage32 art only")
     return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
 
 def put(ob):
@@ -187,41 +188,47 @@ def display_material(name,texture_file):
         bsdf.inputs["Emission Strength"].default_value=.4
     return m
 
-def make_pylon(side,mats,correct_screen_uv=False):
+def make_pylon(side,mats,correct_screen_uv=False,stage32=False):
     """Exact-position closed composite electronics pedestal: ±1.27, z=.58."""
     x0=side*1.27;z0=.58;rot=side*.24
     co,si=math.cos(rot),math.sin(rot)
     def P(a,y,b):
         return (x0+a*co-b*si,y,z0+a*si+b*co)
-    # Eight-corner tapered pressure-formed housing with rounded planar corners.
-    profiles=[(.266,.31,.310,.330),(.322,.362,.359,.380),(.94,.390,.372,.395),
-              (1.077,.372,.375,.375),(1.105,.365,.372,.375)]
-    verts=[]
-    for h,w,forward,rear in profiles:
-        r=.061
-        corners=[(-w+r,-forward),(w-r,-forward),(w,-forward+r),
-                 (w,rear-r),(w-r,rear),(-w+r,rear),
-                 (-w,rear-r),(-w,-forward+r)]
-        verts.extend(P(a,h,b) for a,b in corners)
-    faces=[]
-    for layer in range(len(profiles)-1):
-        for j in range(8):
-            v=layer*8+j;n=layer*8+(j+1)%8
-            u=(layer+1)*8+j;o=(layer+1)*8+(j+1)%8
-            faces.extend(((v,n,u),(n,o,u)))
-    for j in range(1,7):
-        faces.append((0,j+1,j))
-        end=(len(profiles)-1)*8
-        faces.append((end,end+j,end+j+1))
-    model(f"Command / {side} / moulded eight-corner closed cast pedestal",
-          verts,faces,mats["powder_ivory"])
-    # Standalone structural gussets, service access panel and toe relief.
-    x,y,z=P(0,.29,.02)
-    box(f"Command / {side} / recessed toe support",(x,y,z),(.52,.105,.56),
-        mats["powder_graphite"],.025,rot)
-    x,y,z=P(0,.45,.312)
-    box(f"Command / {side} / rear service door",(x,y,z),(.53,.42,.023),
-        mats["powder_graphite"],.014,rot)
+    if stage32:
+        import sys
+        sys.path.insert(0,str(Path(__file__).resolve().parent))
+        from asteria_stage32_command_asset import build as build_stage32
+        build_stage32(side,model,pipe,mats)
+    else:
+        # Eight-corner tapered pressure-formed housing with rounded planar corners.
+        profiles=[(.266,.31,.310,.330),(.322,.362,.359,.380),(.94,.390,.372,.395),
+                  (1.077,.372,.375,.375),(1.105,.365,.372,.375)]
+        verts=[]
+        for h,w,forward,rear in profiles:
+            r=.061
+            corners=[(-w+r,-forward),(w-r,-forward),(w,-forward+r),
+                     (w,rear-r),(w-r,rear),(-w+r,rear),
+                     (-w,rear-r),(-w,-forward+r)]
+            verts.extend(P(a,h,b) for a,b in corners)
+        faces=[]
+        for layer in range(len(profiles)-1):
+            for j in range(8):
+                v=layer*8+j;n=layer*8+(j+1)%8
+                u=(layer+1)*8+j;o=(layer+1)*8+(j+1)%8
+                faces.extend(((v,n,u),(n,o,u)))
+        for j in range(1,7):
+            faces.append((0,j+1,j))
+            end=(len(profiles)-1)*8
+            faces.append((end,end+j,end+j+1))
+        model(f"Command / {side} / moulded eight-corner closed cast pedestal",
+              verts,faces,mats["powder_ivory"])
+        # Standalone structural gussets, service access panel and toe relief.
+        x,y,z=P(0,.29,.02)
+        box(f"Command / {side} / recessed toe support",(x,y,z),(.52,.105,.56),
+            mats["powder_graphite"],.025,rot)
+        x,y,z=P(0,.45,.312)
+        box(f"Command / {side} / rear service door",(x,y,z),(.53,.42,.023),
+            mats["powder_graphite"],.014,rot)
     # Top molded surface, elastomer gasket, physical glass with V3 screen
     # content at exactly the original systems 03/05 atlas coordinates.
     x,y,z=P(0,1.115,-.01)
@@ -254,11 +261,12 @@ def make_pylon(side,mats,correct_screen_uv=False):
         for b in (-.30,.29):
             x,y,z=P(xdir*.32,1.165,b)
             bolt(f"Command / {side} / fastener {xdir}:{b}",x,y,z,mats["satin_nickel"])
-    x,y,z=P(0,.46,-.374)
-    pipe(f"Command / {side} / light-seam recess",
-         [P(-.29,.38,-.386),P(.29,.38,-.386)],.008,mats["satin_nickel"])
+    if not stage32:
+        x,y,z=P(0,.46,-.374)
+        pipe(f"Command / {side} / light-seam recess",
+             [P(-.29,.38,-.386),P(.29,.38,-.386)],.008,mats["satin_nickel"])
 
-def build_command(mats,correct_screen_uv=False):
+def build_command(mats,correct_screen_uv=False,stage32=False):
     # All geometry respects the measured V3 oval footprint and y=.28 top.
     lathe("Plinth / lower integrated side skirt",[
        (.018,1.72,1.42),(.055,1.80,1.49),(.185,1.85,1.54),
@@ -306,8 +314,8 @@ def build_command(mats,correct_screen_uv=False):
         pipe(f"Rail {side} / hand-rest cast bronze tube",high,.022,mats["rose_bronze"])
         pipe(f"Rail {side} / lower structural cable",
              [(x,y+.10,z) for x,y,z in waypoints],.009,mats["satin_nickel"])
-    make_pylon(-1,mats,correct_screen_uv)
-    make_pylon(1,mats,correct_screen_uv)
+    make_pylon(-1,mats,correct_screen_uv,stage32=stage32)
+    make_pylon(1,mats,correct_screen_uv,stage32=stage32)
 
 def camera(name,position,aim,lens):
     data=bpy.data.cameras.new(name)
@@ -420,7 +428,7 @@ def main():
         a.materials/"v3_command_overview_screen.png")
     mats["screen_right"]=display_material("Asteria / V3 systems screen",
         a.materials/"v3_systems_control_screen.png")
-    build_command(mats,correct_screen_uv=a.correct_screen_uv)
+    build_command(mats,correct_screen_uv=a.correct_screen_uv,stage32=a.stage32_cast_support)
     views=studio()
     scene=bpy.context.scene
     scene.render.engine="CYCLES"
