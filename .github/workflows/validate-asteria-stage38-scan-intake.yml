@@ -1,0 +1,37 @@
+name: Asteria Stage38 licensed upholstered seat asset intake (NO DEPLOY)
+on:
+  push:
+    branches: [experiment/asteria-stage28-integrated-command-ceiling-sprint]
+    paths:
+      - scripts/asteria_stage38_scan_intake.py
+      - .github/workflows/validate-asteria-stage38-scan-intake.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: asteria-stage38-real-scan-source-intake
+  cancel-in-progress: false
+jobs:
+  cc0-asset-readonly:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify original CC0 2K mesh, normal/UV0 and source hashes; no app modifications
+        run: |
+          set -euo pipefail
+          python -m py_compile scripts/asteria_stage38_scan_intake.py
+          python scripts/asteria_stage38_scan_intake.py --out _stage38_asset
+      - name: Preserve checked input and provenance for next visual candidate
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-stage38-original-cc0-polyhaven-pilot-scan-input
+          path: _stage38_asset/
+          if-no-files-found: ignore
+          retention-days: 30
