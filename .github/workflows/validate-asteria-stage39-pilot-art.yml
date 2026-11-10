@@ -4,6 +4,7 @@ on:
     branches: [experiment/asteria-stage28-integrated-command-ceiling-sprint]
     paths:
       - scripts/asteria_stage39_composite_pilot.py
+      - scripts/test_asteria_stage39_art_browser.py
       - .github/workflows/validate-asteria-stage39-pilot-art.yml
   workflow_dispatch:
 permissions:
@@ -75,7 +76,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y blender
           python -m pip install --disable-pip-version-check numpy==2.3.5 Pillow==12.3.0 playwright==1.56.0
-          python -m py_compile scripts/asteria_stage38_v3_filter.py scripts/asteria_stage38_real_pilot_merge.py scripts/test_asteria_stage38_art_browser.py scripts/asteria_stage39_composite_pilot.py
+          python -m py_compile scripts/asteria_stage38_v3_filter.py scripts/asteria_stage38_real_pilot_merge.py scripts/test_asteria_stage38_art_browser.py scripts/test_asteria_stage39_art_browser.py scripts/asteria_stage39_composite_pilot.py
           mkdir -p _pilot_site/control _pilot_site/candidate _pilot_evidence
           cp -a _pilot_base/site/. _pilot_site/control/
           cp -a _pilot_base/site/. _pilot_site/candidate/
@@ -123,7 +124,7 @@ jobs:
         run: |
           set -euo pipefail
           CHROME="$(command -v google-chrome || command -v chromium)" \
-            python scripts/test_asteria_stage38_art_browser.py \
+            python scripts/test_asteria_stage39_art_browser.py \
               --site _pilot_site --out _pilot_evidence \
               --base-sha "$(cat /tmp/asteria38-base-sha)"
       - name: Preserve actual A/B screenshots, GLBs, PBR manifest and original V3 exclusion proof
