@@ -80,18 +80,44 @@ def generate(side):
                     vertices=verts,faces=faces,uv=uv))
  return parts
 def build(side,model,mats):
+ # One exact non-overlapping 30x30 UV1 atlas for all 840 Stage33
+ # triangles, independent from the per-face metric scanned-PBR UV0.
+ # Every mesh receives the SAME atlas texture but DIFFERENT cells.
+ per_side=sum(len(part['faces']) for part in generate(-1))
+ assert per_side==420,per_side
+ offset=per_side if side==1 else 0
+ part_offset=0
  for part in generate(side):
-  ob=model(part['name'],part['vertices'],part['faces'],mats[part['material']])
-  channel=ob.data.uv_layers.new(name='STAGE33_METRIC_PER_FACE_PBR_UV0')
-  for face,tri in zip(ob.data.polygons,part['uv']):
+  key='stage33_ao_'+part['material']
+  if key not in mats:
+   cloned=mats[part['material']].copy()
+   cloned.name='Asteria / Stage33 distinct AO '+part['material']
+   mats[key]=cloned
+  ob=model(part['name'],part['vertices'],part['faces'],mats[key])
+  diffuse=ob.data.uv_layers.new(name='STAGE33_METRIC_PER_FACE_PBR_UV0')
+  contact=ob.data.uv_layers.new(name='STAGE33_LOCAL_CONTACT_UV1')
+  for i,(face,tri) in enumerate(zip(ob.data.polygons,part['uv'])):
+   assert len(face.loop_indices)==3
    for loop,coords in zip(face.loop_indices,tri):
-    channel.data[loop].uv=coords
+    diffuse.data[loop].uv=coords
+   tile=offset+part_offset+i
+   assert 0<=tile<900
+   col,row=tile%30,tile//30
+   uvs=(((col+.13)/30,(row+.13)/30),
+        ((col+.86)/30,(row+.13)/30),
+        ((col+.13)/30,(row+.86)/30))
+   for loop,uv in zip(face.loop_indices,uvs):
+    contact.data[loop].uv=uv
+  part_offset+=len(part['faces'])
+ assert part_offset==420
+
 def preflight():
  parts=generate(-1)+generate(1)
  return {'name':'AST_STAGE33_JOINED_TWIN_SUPPORT_COMMAND_ISLAND','closedParts':len(parts),
          'triangles':sum(len(p['faces']) for p in parts),'watertight':True,
          'UV0Nondegenerate':True,'sourceRemovalOnlyExact96':True,
-         'UV1AndContactAOStillPending':True,'artApproved':False}
+         'UV1NonOverlappingAtlasSourceDefined':True,
+          'UV1BakedContactAORequiresExportValidation':True,'artApproved':False}
 if __name__=='__main__':
  import json
  print(json.dumps(preflight(),indent=2))

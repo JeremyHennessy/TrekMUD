@@ -447,8 +447,14 @@ def main():
     scene.render.image_settings.file_format="PNG"
     scene.camera=views["aft"]
     bake_path=None
+    stage33_contact=None
     if a.bake_ao:
         bake_path=bake_platform_ao(a.out,mats)
+        if a.stage33_command_island:
+            import sys
+            sys.path.insert(0,str(Path(__file__).resolve().parent))
+            from asteria_stage33_contact_ao import bake as bake_stage33_contact
+            stage33_contact=bake_stage33_contact(bpy,COMMAND,a.out)
     # Editable source remains before converting the spline rails to meshes.
     bpy.ops.wm.save_as_mainfile(
         filepath=str((a.out/"asteria-command-set-candidate.blend").resolve()))
@@ -485,7 +491,8 @@ def main():
       "cameraAndCampaignUnchanged":True,
       "cyclesSamples":a.samples,
       "realAOTexture":str(bake_path) if bake_path else None,
-      "realAOBakedFor":"platform top only" if bake_path else "none",
+      "realAOBakedFor":("platform top + Stage33 distinct UV1 contact AO" if stage33_contact else "platform top only") if bake_path else "none",
+      "stage33LocalContactAO":stage33_contact,
       "notFullGlobalIllumination":True,
       "correctedOriginalScreenUv":bool(a.correct_screen_uv),
       "artApproval":False,
