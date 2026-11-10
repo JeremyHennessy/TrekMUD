@@ -7,6 +7,7 @@ on:
       - scripts/asteria_stage32_command_asset.py
       - scripts/asteria_stage33_command_asset.py
       - scripts/asteria_stage34_forward_hero.py
+      - scripts/asteria_stage34_envelope_splice.py
       - scripts/asteria_stage33_v3_filter.py
       - scripts/asteria_stage33_contact_ao.py
       - scripts/asteria_stage33_glb_uv1_verify.py
@@ -68,7 +69,7 @@ jobs:
           PY
           gh run download "$BASE_RUN" --repo JeremyHennessy/TrekMUD             --name asteria-fast-art-base --dir _fast-art-base
           python scripts/asteria_fast_art_snapshot.py verify             --root _fast-art-base --base-sha "$BASE_SHA"
-      - name: Build only the opt-in command asset with original source-scan maps
+      - name: Build separate source-pinned local Stage33 console and full-room Stage34 envelope
         run: |
           set -euo pipefail
           sudo apt-get update
@@ -93,12 +94,20 @@ jobs:
             _fast_visual_evidence/stage33-source-exclusion-proof.json
           # Candidate flags must be an explicit, reviewed source-code option.
           # Art-first build still bakes command AO; this is NOT final UV1 proof.
-          blender -b -t 4 --python-exit-code 1             --python scripts/asteria_command_blender.py --             --materials _fast-art-base/maps --out _fast_command             --samples 20 --no-render --bake-ao --correct-screen-uv --stage33-command-island --stage34-forward-hero ${{ inputs.contactAO && '--stage33-contact-ao' || '' }}
+          blender -b -t 4 --python-exit-code 1             --python scripts/asteria_command_blender.py --             --materials _fast-art-base/maps --out _fast_command             --samples 20 --no-render --bake-ao --correct-screen-uv --stage33-command-island ${{ inputs.contactAO && '--stage33-contact-ao' || '' }}
           test -s _fast_command/asteria-command-set-candidate.glb
           python scripts/asteria_stage33_glb_uv1_verify.py \
             --glb _fast_command/asteria-command-set-candidate.glb \
             --report _fast_visual_evidence/stage33-exported-contact-uv1-proof.json ${{ inputs.contactAO && '--require-contact-ao' || '' }}
           cp _fast_command/asteria-command-set-candidate.glb             _fast_visual_site/candidate/models/asteria-command-set-candidate.glb
+          # NEVER place the full-width forward wall into the command GLB:
+          # the immutable command viewer enforces local ±2.1m bounds.
+          # Append six generated Stage34 forms into a candidate copy of the
+          # exact SHA-pinned envelope; original meshes/UV1 AO byte-identical.
+          python scripts/asteria_stage34_envelope_splice.py \
+            --control _fast_visual_site/control \
+            --candidate _fast_visual_site/candidate \
+            --proof _fast_visual_evidence/stage34-envelope-source-proof.json
       - name: Actual 1280 desktop and 390 mobile command visuals; zero UI or other GLB changes
         run: |
           CHROME="$(command -v google-chrome || command -v chromium)"             python scripts/test_asteria_fast_art_browser.py               --site _fast_visual_site --out _fast_visual_evidence               --base-sha "$(cat /tmp/fast-base-sha)"
@@ -114,5 +123,8 @@ jobs:
             _fast_command/asteria-stage33-real-cycles-contact-uv1.png
             _fast_command/command-report.json
             _fast_command/asteria-command-set-candidate.glb
+            _fast_visual_site/candidate/models/asteria-realistic-architectural-envelope-08.glb
+            _fast_visual_site/candidate/models/envelope-manifest.json
+            _fast_visual_site/candidate/app.js
           if-no-files-found: ignore
           retention-days: 30
