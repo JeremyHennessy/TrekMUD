@@ -129,12 +129,24 @@ def metric_uv(pts):
     return uv
 
 
+def screen_clear(opening):
+    """All four original rectangular starfield corners must remain visible."""
+    half,bottom,top,radius=opening
+    for x in (-3.10,3.10):
+        for y in (.89,3.14):
+            cx=min(max(x,-half+radius),half-radius)
+            cy=min(max(y,bottom+radius),top-radius)
+            assert (x-cx)**2+(y-cy)**2<=radius**2, (opening,x,y)
+
+
 def generate():
+    screen_clear((3.245,.775,3.265,.145))
+    screen_clear((3.225,.800,3.246,.125))
     parts=[
       ring('STAGE34 / CNC continuous panoramic portal / plaster ceramic',
-           'powder_ivory',(3.71,.51,3.77,.335),(3.145,.84,3.197,.230),-6.30,-5.963),
+           'powder_ivory',(3.71,.51,3.77,.335),(3.245,.775,3.265,.145),-6.30,-5.963),
       ring('STAGE34 / physically seated satin screen reveal',
-           'satin_nickel',(3.196,.810,3.237,.256),(3.117,.879,3.172,.216),-6.015,-5.912),
+           'satin_nickel',(3.325,.735,3.310,.210),(3.225,.800,3.246,.125),-6.015,-5.912),
       desk('STAGE34 / continuous bowed forward instrument cabinetry', 'powder_graphite'),
       section('STAGE34 / inlaid upper satin integral desk bead', 'satin_nickel',.017,.012,.767,.019),
     ]
