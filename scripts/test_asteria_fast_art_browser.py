@@ -38,8 +38,25 @@ def main() -> None:
          for p in candidate.rglob("*") if p.is_file()}
     assert set(a) == set(b) and COMMAND in a, "Art trial must have identical file inventory"
     mismatched = [k for k in sorted(a) if a[k] != b[k]]
-    assert not set(mismatched) - {COMMAND}, ("Non-art asset differs", mismatched)
-    assert a["app.js"] == b["app.js"] and a["index.html"] == b["index.html"]
+    V3 = "models/asteria-v3-restored-pbr.glb"
+    META = "models/manifest.json"
+    if V3 in mismatched:
+        assert set(mismatched) == {COMMAND,V3,META,"app.js"}, ("Unexpected source-replacement diff",mismatched)
+        prev=(control/"app.js").read_text()
+        next_=(candidate/"app.js").read_text()
+        marker="Se!==106988-Be-ft-174-864-204"
+        assert prev.count(marker)==1 and next_==prev.replace(marker,marker+"-96",1), "UI altered beyond model face-count guard"
+        old=json.loads((control/META).read_text())
+        new=json.loads((candidate/META).read_text())
+        assert old["triangles"]==80846 and new["triangles"]==80750
+        assert new["under_console_original_faces_removed"]==96 and len(new["under_console_source_ranges"])==4
+        for key in ("under_console_original_faces_removed","under_console_source_ranges","triangles","sha256","bytes"):
+            new.pop(key,None);old.pop(key,None)
+        assert new==old, "Non-source manifest changed"
+    else:
+        assert set(mismatched) <= {COMMAND}, ("Non-art asset differs", mismatched)
+        assert a["app.js"]==b["app.js"]
+    assert a["index.html"]==b["index.html"]
     args.out.mkdir(parents=True, exist_ok=True)
     chrome = os.environ.get("CHROME") or shutil.which("google-chrome") or shutil.which("chromium")
     assert chrome, "Real Chromium is required"
@@ -115,7 +132,7 @@ def main() -> None:
                     assert observed["room"] == "AST-D01-BRIDGE"
                     assert observed["source"] == "74a154ae62bccb0c16d03c2ecf791a64ab19ce81"
                     assert observed["writes"] is False
-                    assert observed["floor"] == 80846 and observed["chair"] == 31484
+                    assert observed["floor"] == (80750 if route=="candidate" and V3 in mismatched else 80846) and observed["chair"] == 31484
                     assert observed["removed"] == 8628
                     assert observed["envelope"] == observed["threeBay"] == "true"
                     assert observed["command"] > 4000 and observed["ao"] >= 1

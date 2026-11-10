@@ -6,6 +6,9 @@ on:
       - scripts/asteria_command_blender.py
       - scripts/asteria_stage32_command_asset.py
       - scripts/asteria_stage33_command_asset.py
+      - scripts/asteria_stage33_v3_filter.py
+      - scripts/asteria_source_underconsole_audit.py
+      - scripts/extract_asteria_v3_for_v5.py
       - baselines/asteria-fast-art-base.json
       - scripts/asteria_fast_art_snapshot.py
       - scripts/test_asteria_fast_art_browser.py
@@ -65,9 +68,20 @@ jobs:
           mkdir -p _fast_visual_site/control _fast_visual_site/candidate
           cp -a _fast-art-base/site/. _fast_visual_site/control/
           cp -a _fast-art-base/site/. _fast_visual_site/candidate/
+          # Stage33: exact original-source 96 face exclusions independently
+          # audited in real Chromium, with original array vs GLB proof.
+          python scripts/asteria_stage33_command_asset.py > /tmp/stage33-prefight.json
+          ASTERIA_V5_SOURCE_DIR=_stage33_original_capture python scripts/extract_asteria_v3_for_v5.py
+          python scripts/asteria_source_underconsole_audit.py --output _stage33_original_exact.json
+          python scripts/asteria_stage33_v3_filter.py \
+            --site _fast-art-base/site --capture _stage33_original_capture \
+            --proof _stage33_original_exact.json --out _fast_visual_site/candidate
+          mkdir -p _fast_visual_evidence
+          mv _fast_visual_site/candidate/stage33-source-exclusion-proof.json \
+            _fast_visual_evidence/stage33-source-exclusion-proof.json
           # Candidate flags must be an explicit, reviewed source-code option.
           # Art-first build still bakes command AO; this is NOT final UV1 proof.
-          blender -b -t 4 --python-exit-code 1             --python scripts/asteria_command_blender.py --             --materials _fast-art-base/maps --out _fast_command             --samples 20 --no-render --bake-ao --correct-screen-uv
+          blender -b -t 4 --python-exit-code 1             --python scripts/asteria_command_blender.py --             --materials _fast-art-base/maps --out _fast_command             --samples 20 --no-render --bake-ao --correct-screen-uv --stage33-command-island
           test -s _fast_command/asteria-command-set-candidate.glb
           cp _fast_command/asteria-command-set-candidate.glb             _fast_visual_site/candidate/models/asteria-command-set-candidate.glb
       - name: Actual 1280 desktop and 390 mobile command visuals; zero UI or other GLB changes
