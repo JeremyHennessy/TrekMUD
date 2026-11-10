@@ -110,9 +110,38 @@ def main() -> None:
                     page.wait_for_function(
                         "document.body.dataset.envelopeLoaded==='true'||document.body.dataset.rendererReady==='error'",
                         timeout=180000)
-                    page.wait_for_function(
-                        "Number(document.body.dataset.renderedFrames||0)>=4",
-                        timeout=90000)
+                    # Keep the original four-frame acceptance gate intact.
+                    # Stage34 first candidate failed by timing out here, with
+                    # the true browser error lost; preserve evidence before
+                    # throwing instead of relying on a green geometry export.
+                    def failure_state():
+                        return page.evaluate("""() => ({
+                          ready:document.body.dataset.rendererReady,
+                          error:document.getElementById('error')?.textContent||'',
+                          frames:document.body.dataset.renderedFrames||'',
+                          commandFaces:document.body.dataset.commandMeshFaces||'',
+                          env:document.body.dataset.envelopeLoaded||'',
+                          allDatasets:{...document.body.dataset}
+                        })""")
+                    early = failure_state()
+                    if early["ready"] == "error":
+                        args.out.joinpath(f"{label}-{route}-browser-failure.json").write_text(
+                            json.dumps({"at":"before-frames","state":early,
+                                        "pageErrors":errors,"requests":requested},indent=2))
+                        page.screenshot(path=str(args.out/f"{label}-{route}-error.png"),timeout=10000)
+                        raise AssertionError(("Renderer reported error",label,route,early))
+                    try:
+                        page.wait_for_function(
+                            "Number(document.body.dataset.renderedFrames||0)>=4",
+                            timeout=90000)
+                    except Exception as exc:
+                        state=failure_state()
+                        args.out.joinpath(f"{label}-{route}-browser-failure.json").write_text(
+                            json.dumps({"at":"four-frame-timeout",
+                                        "exception":str(exc),"state":state,
+                                        "pageErrors":errors,"requests":requested},indent=2))
+                        page.screenshot(path=str(args.out/f"{label}-{route}-timeout.png"),timeout=10000)
+                        raise
                     observed = page.evaluate("""() => ({
                       ready:document.body.dataset.rendererReady,
                       error:document.getElementById('error')?.textContent||'',
