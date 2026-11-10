@@ -114,6 +114,12 @@ jobs:
           scene=bpy.context.scene
           scene.render.engine='CYCLES'
           scene.cycles.samples=20
+          # The Ubuntu apt Blender build omits OpenImageDenoiser; disable its render pass explicitly.
+          for layer in scene.view_layers:
+              if hasattr(layer,'cycles') and hasattr(layer.cycles,'use_denoising'):
+                  layer.cycles.use_denoising=False
+          if hasattr(scene.cycles,'use_denoising'):
+              scene.cycles.use_denoising=False
           scene.render.resolution_x=960
           scene.render.resolution_y=720
           scene.render.resolution_percentage=100
