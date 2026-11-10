@@ -52,26 +52,43 @@ def generate(side):
  assert side in (-1,1)
  x0,z0=side*1.27,.58;angle=side*.24;ca,sa=cos(angle),sin(angle)
  def world(x,y,z):return (x0+x*ca-z*sa,y,z0+x*sa+z*ca)
+ # Stage33 coherent architected option B: manufactured cantilever, not a
+ # solid pedestal. This is one reversible foreground assembly trial.
+ # The floor shoe, swept side load paths, flush upper cassette, service
+ # fascia and inset shear reveal are designed as ONE connected system.
+ # Existing physical instruments/glass/buttons and room/player stay fixed.
  specs=[
- ('continuous low graphite floor saddle','powder_graphite',(
-  (.282,0.,.296,.060,.235,.255),(.312,0.,.327,.060,.246,.262),
-  (.355,0.,.317,.061,.232,.249))),
- ('integrated upper electronics raft','powder_graphite',(
-  (.925,0.,.315,-.018,.303,.301),(.985,0.,.359,-.012,.349,.343),
-  (1.087,0.,.361,-.012,.350,.353),(1.110,0.,.338,-.012,.332,.337))),
- ('recessed rear modest ivory service fascia','powder_ivory',(
-  (.969,0.,.263,.333,.019,.020),(1.013,0.,.277,.337,.019,.023),
-  (1.071,0.,.276,.339,.019,.020)))]
+ ('floor-mounted double-foot load shoe','powder_graphite',(
+  (.282,0.,.305,.084,.228,.238),(.322,0.,.346,.080,.250,.258),
+  (.356,0.,.324,.077,.238,.243))),
+ ('curved thin upper instrument cassette','powder_graphite',(
+  (.977,0.,.319,-.018,.288,.300),
+  (1.020,0.,.356,-.013,.329,.343),
+  (1.085,0.,.362,-.010,.337,.353),
+  (1.112,0.,.338,-.010,.331,.340))),
+ ('sunk rear ceramic service apron attached to cassette','powder_ivory',(
+  (.990,0.,.265,.322,.027,.034),
+  (1.040,0.,.275,.335,.025,.035),
+  (1.101,0.,.274,.336,.025,.032)))]
  for sign in (-1,1):
-  x=sign*.233
-  specs.append((f'cast graphite side shoulder {sign}','powder_graphite',(
-   (.313,x,.056,.064,.104,.123),(.430,x,.069,.073,.118,.127),
-   (.710,x,.071,.040,.154,.164),(.905,x,.081,-.005,.211,.221),
-   (1.071,x,.100,-.012,.274,.275),(1.106,x,.104,-.012,.292,.292))))
-  specs.append((f'integral satin outer shear face {sign}','satin_nickel',(
-   (.467,x+sign*.069,.011,.183,.018,.018),
-   (.711,x+sign*.069,.012,.192,.018,.019),
-   (.887,x+sign*.077,.012,.209,.019,.018))))
+  # Each narrow sweeps inward from its foot then flares into the tray.
+  # No lower slab spanning the kneehole; open space is true geometry.
+  path=(
+   (.315,sign*.248,.055,.079,.095,.119),
+   (.430,sign*.247,.053,.086,.100,.128),
+   (.628,sign*.259,.055,.080,.132,.151),
+   (.799,sign*.270,.060,.052,.171,.190),
+   (.964,sign*.273,.082,.005,.248,.256),
+   (1.106,sign*.256,.094,-.012,.278,.283))
+  specs.append((f'one-piece curved load-bearing side fork {sign}',
+                'satin_nickel',path))
+  # Actual inset powder-coated service channel follows the metal side
+  # cast surface: no unsupported decorative free-standing rails.
+  specs.append((f'flush graphite access-channel in structural fork {sign}',
+                'powder_graphite',(
+   (.463,sign*.294,.010,.171,.016,.017),
+   (.710,sign*.315,.011,.176,.018,.019),
+   (.897,sign*.326,.012,.167,.020,.021))))
  parts=[]
  for name,material,profiles in specs:
   verts,faces,uv=loft(world,profiles)
