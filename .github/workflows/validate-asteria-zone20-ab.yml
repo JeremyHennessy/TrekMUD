@@ -9,8 +9,6 @@ on:
       - scripts/asteria_envelope_blender.py
       - scripts/asteria_stage28_coffer_geometry.py
       - scripts/asteria_stage29_forward_geometry.py
-      - scripts/asteria_stage30_command_sculpt.py
-      - scripts/asteria_command_blender.py
       - scripts/extract_asteria_v3_for_v5.py
       - scripts/build_asteria_v5_assets.py
       - .github/workflows/validate-asteria-zone20-ab.yml
@@ -71,13 +69,10 @@ jobs:
             scripts/asteria_stage20_furnished_cycles.py \
             scripts/asteria_stage28_coffer_geometry.py \
             scripts/asteria_stage29_forward_geometry.py \
-            scripts/asteria_stage30_command_sculpt.py \
-            scripts/asteria_command_blender.py \
             scripts/extract_asteria_v3_for_v5.py \
             scripts/build_asteria_v5_assets.py
           python scripts/asteria_stage28_coffer_geometry.py > /tmp/asteria-stage28-preflight.json
           python scripts/asteria_stage29_forward_geometry.py > /tmp/asteria-stage29-preflight.json
-          python scripts/asteria_stage30_command_sculpt.py > /tmp/asteria-stage30-preflight.json
           python - <<'PY'
           import json
           r=json.load(open('/tmp/asteria-stage28-preflight.json'))
@@ -91,9 +86,6 @@ jobs:
           assert p['UV0PerFaceLoopMapped'] and p['UV0DegenerateTriangles']==0
           assert p['UV0NondegenerateTriangles']==480
           print('STAGE29_FORWARD_PORTAL_PREFLIGHT',p['triangles'])
-          s=json.load(open('/tmp/asteria-stage30-preflight.json'))
-          assert s['meshCount']==4 and s['sourceTriangles']>1900 and s['watertight'] and s['UV0SourceNondegenerate']
-          print('STAGE30_COMMAND_CLOSED_SOURCE',s['sourceTriangles'])
           PY
       - name: Install known good three.js, original V3, actual Chromium and Blender runtime
         run: |
@@ -164,11 +156,6 @@ jobs:
             --python scripts/asteria_command_blender.py -- \
             --materials _command_maps --out _stage08_command \
             --samples 24 --no-render --bake-ao --correct-screen-uv
-          # Candidate-only console modeling. Control GLB remains the original verified bytes.
-          blender -b -t 4 --python-exit-code 1 \
-            --python scripts/asteria_command_blender.py -- \
-            --materials _command_maps --out _stage30_command \
-            --samples 24 --no-render --bake-ao --correct-screen-uv --stage30-sculpt
           python scripts/asteria_rib_fin_maps.py --out _rib_fin_maps
           blender -b -t 4 --python-exit-code 1 \
             --python scripts/asteria_three_rib_bays_blender.py -- \
@@ -182,26 +169,6 @@ jobs:
             cp _stage08_command/asteria-command-set-candidate.glb "$root/"
             cp _stage08_threebays/asteria-three-original-pitch-rib-bays-04.glb "$root/"
           done
-          cp _stage30_command/asteria-command-set-candidate.glb \
-             _site/3d-preview-v5-command-envelope/models/
-          python - <<'PY'
-          from pathlib import Path
-          import json,trimesh,hashlib
-          root=Path('_site')
-          control=root/'3d-preview-v5-command-three-bays/models/asteria-command-set-candidate.glb'
-          candidate=root/'3d-preview-v5-command-envelope/models/asteria-command-set-candidate.glb'
-          faces=lambda p:sum(len(g.faces) for g in trimesh.load(p,force='scene',process=False).geometry.values())
-          ctrl,modified=faces(control),faces(candidate)
-          assert ctrl==16292,ctrl
-          assert 18000<modified<20000,modified
-          assert hashlib.sha256(control.read_bytes()).digest()!=hashlib.sha256(candidate.read_bytes()).digest()
-          report=json.loads(Path('_stage30_command/command-report.json').read_text())
-          assert report['stage30Sculpt'] and report['stage30SourceProof']['UV0SourceNondegenerate']
-          (candidate.parent/'stage30-command-manifest.json').write_text(
-            json.dumps({'controlFaces':ctrl,'candidateFaces':modified,'notArtApproved':True,
-                        'sourceProof':report['stage30SourceProof']},indent=2)+'\n')
-          print('STAGE30_COMMAND_CANDIDATE_EXPORTED',modified)
-          PY
       - name: Build whole-room scanned CC0 envelope with corrected local-ray Cycles AO
         run: |
           python scripts/asteria_envelope_scanned_pbr.py \
@@ -407,6 +374,7 @@ jobs:
           candidate=root/'3d-preview-v5-command-envelope'
           assert (control/'index.html').read_bytes()==(candidate/'index.html').read_bytes()
           for file in ('asteria-hero-chair-candidate.glb',
+                       'asteria-command-set-candidate.glb',
                        'asteria-three-original-pitch-rib-bays-04.glb'):
             assert (control/'models'/file).read_bytes()==(candidate/'models'/file).read_bytes(),file
           assert (control/'app.js').read_bytes()!=(candidate/'app.js').read_bytes()
@@ -415,9 +383,6 @@ jobs:
           assert faces(candidate/'models/asteria-v3-restored-pbr.glb')==80846
           assert faces(control/'models/asteria-hero-chair-candidate.glb')==31484
           assert faces(control/'models/asteria-command-set-candidate.glb')==16292
-          stage30=json.loads((candidate/'models/stage30-command-manifest.json').read_text())
-          assert faces(candidate/'models/asteria-command-set-candidate.glb')==stage30['candidateFaces']
-          assert 18000<stage30['candidateFaces']<20000
           assert faces(control/'models/asteria-three-original-pitch-rib-bays-04.glb')==13098
           print('ENVELOPE_QA_PROTECTED_APP_MODELS_EQUAL')
           PY

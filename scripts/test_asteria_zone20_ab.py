@@ -28,7 +28,6 @@ origin=f"http://127.0.0.1:{server.server_port}"
 shots=[("aft",1280,800),("command",1280,800),("science",1280,800),
        ("envelopeWall",1280,800),("envelopeCeiling",1280,800),("aft",390,844),("command",390,844)]
 metadata=json.loads((root/candidate/"models/envelope-manifest.json").read_text())
-stage30=json.loads((root/candidate/"models/stage30-command-manifest.json").read_text())
 expected_envelope_faces=int(metadata["newEnvelopeTriangles"])
 assert 1000<expected_envelope_faces<50000
 items=[]
@@ -91,8 +90,7 @@ try:
         assert obs["sourceV3"]=="74a154ae62bccb0c16d03c2ecf791a64ab19ce81"
         assert obs["writes"] is False
         assert obs["chairFaces"]==31484 and obs["removedCaptain"]==16272
-        assert obs["removedCommand"]==8628
-        assert obs["commandFaces"]==(stage30["candidateFaces"] if route==candidate else 16292)
+        assert obs["removedCommand"]==8628 and obs["commandFaces"]==16292
         assert obs["commandAO"]>=1
         assert obs["threeBayLoaded"]=="true",obs
         assert obs["threeBayFaces"]==13098 and obs["threeBayMeshes"]==105,obs

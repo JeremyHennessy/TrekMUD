@@ -18,9 +18,6 @@ from pathlib import Path
 
 import bpy
 from mathutils import Vector
-# Blender --python does not automatically add the script directory to sys.path.
-sys.path.insert(0,str(Path(__file__).resolve().parent))
-import asteria_stage30_command_sculpt as sculpt30
 
 PI=math.pi
 CMD_ROOM="AST-D01-BRIDGE"
@@ -40,7 +37,6 @@ def args():
     p.add_argument("--bake-ao",action="store_true")
     p.add_argument("--correct-screen-uv",action="store_true",help="A/B corrected V3 console text orientation")
     p.add_argument("--no-render",action="store_true")
-    p.add_argument("--stage30-sculpt",action="store_true",help="Optional source-proven command island visual study")
     return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
 
 def put(ob):
@@ -191,7 +187,7 @@ def display_material(name,texture_file):
         bsdf.inputs["Emission Strength"].default_value=.4
     return m
 
-def make_pylon(side,mats,correct_screen_uv=False,stage30=False):
+def make_pylon(side,mats,correct_screen_uv=False):
     """Exact-position closed composite electronics pedestal: ±1.27, z=.58."""
     x0=side*1.27;z0=.58;rot=side*.24
     co,si=math.cos(rot),math.sin(rot)
@@ -217,11 +213,8 @@ def make_pylon(side,mats,correct_screen_uv=False,stage30=False):
         faces.append((0,j+1,j))
         end=(len(profiles)-1)*8
         faces.append((end,end+j,end+j+1))
-    if stage30:
-        sculpt30.build(side,model,mats)
-    else:
-        model(f"Command / {side} / moulded eight-corner closed cast pedestal",
-              verts,faces,mats["powder_ivory"])
+    model(f"Command / {side} / moulded eight-corner closed cast pedestal",
+          verts,faces,mats["powder_ivory"])
     # Standalone structural gussets, service access panel and toe relief.
     x,y,z=P(0,.29,.02)
     box(f"Command / {side} / recessed toe support",(x,y,z),(.52,.105,.56),
@@ -265,7 +258,7 @@ def make_pylon(side,mats,correct_screen_uv=False,stage30=False):
     pipe(f"Command / {side} / light-seam recess",
          [P(-.29,.38,-.386),P(.29,.38,-.386)],.008,mats["satin_nickel"])
 
-def build_command(mats,correct_screen_uv=False,stage30=False):
+def build_command(mats,correct_screen_uv=False):
     # All geometry respects the measured V3 oval footprint and y=.28 top.
     lathe("Plinth / lower integrated side skirt",[
        (.018,1.72,1.42),(.055,1.80,1.49),(.185,1.85,1.54),
@@ -313,8 +306,8 @@ def build_command(mats,correct_screen_uv=False,stage30=False):
         pipe(f"Rail {side} / hand-rest cast bronze tube",high,.022,mats["rose_bronze"])
         pipe(f"Rail {side} / lower structural cable",
              [(x,y+.10,z) for x,y,z in waypoints],.009,mats["satin_nickel"])
-    make_pylon(-1,mats,correct_screen_uv,stage30)
-    make_pylon(1,mats,correct_screen_uv,stage30)
+    make_pylon(-1,mats,correct_screen_uv)
+    make_pylon(1,mats,correct_screen_uv)
 
 def camera(name,position,aim,lens):
     data=bpy.data.cameras.new(name)
@@ -427,7 +420,7 @@ def main():
         a.materials/"v3_command_overview_screen.png")
     mats["screen_right"]=display_material("Asteria / V3 systems screen",
         a.materials/"v3_systems_control_screen.png")
-    build_command(mats,correct_screen_uv=a.correct_screen_uv,stage30=a.stage30_sculpt)
+    build_command(mats,correct_screen_uv=a.correct_screen_uv)
     views=studio()
     scene=bpy.context.scene
     scene.render.engine="CYCLES"
@@ -471,9 +464,7 @@ def main():
             scene.render.filepath=str((a.out/f"asteria-command-{name}.png").resolve())
             bpy.ops.render.render(write_still=True)
     report={
-      "assetId":"ASTERIA_COMMAND_ARCHITECTURE_30_DRAFT" if a.stage30_sculpt else "ASTERIA_COMMAND_ARCHITECTURE_01",
-      "stage30Sculpt":bool(a.stage30_sculpt),
-      "stage30SourceProof":sculpt30.preflight() if a.stage30_sculpt else None,
+      "assetId":"ASTERIA_COMMAND_ARCHITECTURE_01",
       "roomId":CMD_ROOM,
       "sourceV3Blob":ORIGINAL_V3,
       "platformFootprint":{"xRadius":1.85,"zRadius":1.54,"zCenter":1.11,
