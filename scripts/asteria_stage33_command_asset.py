@@ -86,7 +86,7 @@ def generate(side):
   # cast surface: no unsupported decorative free-standing rails.
   specs.append((f'flush graphite access-channel in structural fork {sign}',
                 'powder_graphite',(
-   (.463,sign*.294,.010,.171,.016,.017),
+   (.463,sign*.294,.012,.171,.016,.017),
    (.710,sign*.315,.011,.176,.018,.019),
    (.897,sign*.326,.012,.167,.020,.021))))
  parts=[]
