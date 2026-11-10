@@ -41,55 +41,20 @@ def main() -> None:
     V3 = "models/asteria-v3-restored-pbr.glb"
     META = "models/manifest.json"
     if V3 in mismatched:
-        # Stage35 independently removes original 6476 opaque flightIsland V3
-        # triangles and appends a coherent full-width manufactured desk into
-        # the envelope GLB without changing original screens/chairs/controls.
-        envelope="models/asteria-realistic-architectural-envelope-08.glb"
-        envelope_manifest="models/envelope-manifest.json"
-        assert set(mismatched)=={COMMAND,V3,META,"app.js",envelope,envelope_manifest}, (
-            "Unexpected Stage35 asset changes",mismatched)
+        assert set(mismatched) == {COMMAND,V3,META,"app.js"}, ("Unexpected source-replacement diff",mismatched)
         prev=(control/"app.js").read_text()
-        nxt=(candidate/"app.js").read_text()
+        next_=(candidate/"app.js").read_text()
         marker="Se!==106988-Be-ft-174-864-204"
-        assert prev.count(marker)==1
-        expected=prev.replace(marker,marker+"-96-6476",1)
+        assert prev.count(marker)==1 and next_==prev.replace(marker,marker+"-96",1), "UI altered beyond model face-count guard"
         old=json.loads((control/META).read_text())
         new=json.loads((candidate/META).read_text())
-        assert old["triangles"]==80846 and new["triangles"]==74274
-        assert new["under_console_original_faces_removed"]==96
-        assert new["stage35_forward_original_faces_removed"]==6476
-        assert new["stage35_forward_original_source_span"]==[37104,43580]
-        for key in ("under_console_original_faces_removed","under_console_source_ranges",
-                    "stage35_forward_original_faces_removed","stage35_forward_original_source_span",
-                    "triangles","sha256","bytes"):
+        assert old["triangles"]==80846 and new["triangles"]==80750
+        assert new["under_console_original_faces_removed"]==96 and len(new["under_console_source_ranges"])==4
+        for key in ("under_console_original_faces_removed","under_console_source_ranges","triangles","sha256","bytes"):
             new.pop(key,None);old.pop(key,None)
-        assert old==new,"Original V3 manifest changed outside source exclusion"
-        oldenv=json.loads((control/envelope_manifest).read_text())
-        newenv=json.loads((candidate/envelope_manifest).read_text())
-        assert oldenv["newEnvelopeTriangles"]==27848 and oldenv["meshObjects"]==135
-        art=newenv.pop("stage35OptionalGeometry")
-        assert art["sourceFlightDeskRemovedFaces"]==6476 and len(art["names"])==14
-        assert not art["artApproved"] and not art["newUV1OrGIProven"]
-        newtriangles=art["newFaces"]
-        assert newenv["newEnvelopeTriangles"]==27848+newtriangles
-        assert newenv["meshObjects"]==149
-        newenv["newEnvelopeTriangles"]=27848
-        newenv["meshObjects"]=135
-        assert oldenv==newenv,"Changed approved envelope manifest"
-        guard="be!==27848||Te!==135"
-        assert expected.count(guard)==1
-        expected=expected.replace(guard,f'be!=={27848+newtriangles}||Te!==149',1)
-        assert nxt==expected,"Original viewer changed beyond two model-count assertions"
-        from asteria_stage35_flight_envelope import read
-        orig,bin0=read((control/envelope).read_bytes())
-        cand,bin1=read((candidate/envelope).read_bytes())
-        assert bin1[:len(bin0)]==bin0,"Existing scanned envelope bytes changed"
-        for key in ("meshes","nodes","materials","images","textures","samplers",
-                    "bufferViews","accessors"):
-            assert cand[key][:len(orig[key])]==orig[key],("Existing GLB mutated",key)
-        assert len(cand["meshes"])==len(cand["nodes"])==149
+        assert new==old, "Non-source manifest changed"
     else:
-        assert set(mismatched) <= {COMMAND}, ("Non-art asset differs",mismatched)
+        assert set(mismatched) <= {COMMAND}, ("Non-art asset differs", mismatched)
         assert a["app.js"]==b["app.js"]
     assert a["index.html"]==b["index.html"]
     args.out.mkdir(parents=True, exist_ok=True)
@@ -167,7 +132,7 @@ def main() -> None:
                     assert observed["room"] == "AST-D01-BRIDGE"
                     assert observed["source"] == "74a154ae62bccb0c16d03c2ecf791a64ab19ce81"
                     assert observed["writes"] is False
-                    assert observed["floor"] == (74274 if route=="candidate" and V3 in mismatched else 80846) and observed["chair"] == 31484
+                    assert observed["floor"] == (80750 if route=="candidate" and V3 in mismatched else 80846) and observed["chair"] == 31484
                     assert observed["removed"] == 8628
                     assert observed["envelope"] == observed["threeBay"] == "true"
                     assert observed["command"] > 4000 and observed["ao"] >= 1
