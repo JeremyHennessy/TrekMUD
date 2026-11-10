@@ -65,10 +65,9 @@ jobs:
           mkdir -p _fast_visual_site/control _fast_visual_site/candidate
           cp -a _fast-art-base/site/. _fast_visual_site/control/
           cp -a _fast-art-base/site/. _fast_visual_site/candidate/
-          python scripts/asteria_stage32_command_asset.py > /tmp/stage32-preflight.json
           # Candidate flags must be an explicit, reviewed source-code option.
           # Art-first build still bakes command AO; this is NOT final UV1 proof.
-          blender -b -t 4 --python-exit-code 1             --python scripts/asteria_command_blender.py --             --materials _fast-art-base/maps --out _fast_command             --samples 20 --no-render --bake-ao --correct-screen-uv --stage32-cast-support
+          blender -b -t 4 --python-exit-code 1             --python scripts/asteria_command_blender.py --             --materials _fast-art-base/maps --out _fast_command             --samples 20 --no-render --bake-ao --correct-screen-uv
           test -s _fast_command/asteria-command-set-candidate.glb
           cp _fast_command/asteria-command-set-candidate.glb             _fast_visual_site/candidate/models/asteria-command-set-candidate.glb
       - name: Actual 1280 desktop and 390 mobile command visuals; zero UI or other GLB changes
