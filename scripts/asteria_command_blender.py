@@ -38,7 +38,6 @@ def args():
     p.add_argument("--correct-screen-uv",action="store_true",help="A/B corrected V3 console text orientation")
     p.add_argument("--stage33-command-island",action="store_true",help="Opt-in exact-source 96-face Stage33 art trial only")
     p.add_argument("--stage33-contact-ao",action="store_true",help="Expensive real Cycles UV1 contact bake; only after fast art review")
-    p.add_argument("--stage34-forward-hero",action="store_true",help="Stage34 opt-in source-fit panoramic screen + forward desk assembly only")
     p.add_argument("--no-render",action="store_true")
     return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
 
@@ -435,11 +434,6 @@ def main():
     mats["screen_right"]=display_material("Asteria / V3 systems screen",
         a.materials/"v3_systems_control_screen.png")
     build_command(mats,correct_screen_uv=a.correct_screen_uv,stage33=a.stage33_command_island)
-    if a.stage34_forward_hero:
-        import sys
-        sys.path.insert(0,str(Path(__file__).resolve().parent))
-        from asteria_stage34_forward_hero import build as build_stage34_forward
-        build_stage34_forward(model,mats)
     views=studio()
     scene=bpy.context.scene
     scene.render.engine="CYCLES"
