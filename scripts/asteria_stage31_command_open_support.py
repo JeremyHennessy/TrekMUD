@@ -18,7 +18,7 @@ def volume(v,f):
 def loft(P,rings,n=32):
     v=[]
     for y,w,front,rear in rings:
-        assert y>.20 and w>.10 and front>.05 and rear>.05
+        assert y>.20 and w>.045 and front>.05 and rear>.05
         for j in range(n):
             a=2*pi*j/n;c=cos(a);s=sin(a)
             squircle=(abs(c)**4+abs(s)**4)**(-.25)
