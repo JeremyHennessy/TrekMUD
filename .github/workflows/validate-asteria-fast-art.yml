@@ -16,6 +16,12 @@ on:
       - scripts/test_asteria_fast_art_browser.py
       - .github/workflows/validate-asteria-fast-art.yml
   workflow_dispatch:
+    inputs:
+      contactAO:
+        description: "Expensive Stage33 real Cycles UV1 AO only after visual screening"
+        required: false
+        type: boolean
+        default: false
 permissions:
   contents: read
   actions: read
@@ -84,11 +90,11 @@ jobs:
             _fast_visual_evidence/stage33-source-exclusion-proof.json
           # Candidate flags must be an explicit, reviewed source-code option.
           # Art-first build still bakes command AO; this is NOT final UV1 proof.
-          blender -b -t 4 --python-exit-code 1             --python scripts/asteria_command_blender.py --             --materials _fast-art-base/maps --out _fast_command             --samples 20 --no-render --bake-ao --correct-screen-uv --stage33-command-island
+          blender -b -t 4 --python-exit-code 1             --python scripts/asteria_command_blender.py --             --materials _fast-art-base/maps --out _fast_command             --samples 20 --no-render --bake-ao --correct-screen-uv --stage33-command-island ${{ inputs.contactAO && '--stage33-contact-ao' || '' }}
           test -s _fast_command/asteria-command-set-candidate.glb
           python scripts/asteria_stage33_glb_uv1_verify.py \
             --glb _fast_command/asteria-command-set-candidate.glb \
-            --report _fast_visual_evidence/stage33-exported-contact-uv1-proof.json
+            --report _fast_visual_evidence/stage33-exported-contact-uv1-proof.json ${{ inputs.contactAO && '--require-contact-ao' || '' }}
           cp _fast_command/asteria-command-set-candidate.glb             _fast_visual_site/candidate/models/asteria-command-set-candidate.glb
       - name: Actual 1280 desktop and 390 mobile command visuals; zero UI or other GLB changes
         run: |

@@ -36,12 +36,14 @@ def main():
     a=argparse.ArgumentParser()
     a.add_argument('--glb',required=True,type=Path)
     a.add_argument('--report',required=True,type=Path)
+    a.add_argument('--require-contact-ao',action='store_true',help='Fail if exported UV1 AO is not bound for all 14 Stage33 parts')
     args=a.parse_args()
     doc,binary=load(args.glb)
     meshes=0
     triangles=0
     cells=set()
     materials=set()
+    ao_parts=0
     for mesh in doc['meshes']:
         if not mesh['name'].startswith('STAGE33 / command '):
             continue
@@ -53,7 +55,10 @@ def main():
                ('POSITION','NORMAL','TEXCOORD_0','TEXCOORD_1'))
         mat=doc['materials'][p['material']]
         materials.add(mat['name'])
-        assert mat.get('occlusionTexture',{}).get('texCoord')==1,('Stage33 AO not mapped to UV1',mesh['name'])
+        ao=mat.get('occlusionTexture',{})
+        if ao:
+            assert ao.get('texCoord')==1,('Stage33 AO not mapped to UV1',mesh['name'])
+            ao_parts+=1
         assert 'pbrMetallicRoughness' in mat and 'normalTexture' in mat
         xyz=read(doc,binary,attrs['POSITION'])
         normal=read(doc,binary,attrs['NORMAL'])
@@ -82,11 +87,15 @@ def main():
         triangles+=len(indices)//3
     assert meshes==14 and triangles==840 and len(cells)==840,(meshes,triangles,len(cells))
     assert len(materials)==3,materials
+    assert ao_parts in (0,14),('Partial Stage33 local AO would be invalid',ao_parts)
+    if args.require_contact_ao:assert ao_parts==14,('Missing real baked Stage33 AO',ao_parts)
     assert len(doc.get('images',[]))>=1
     receipt={'id':'STAGE33_GENUINE_CYCLES_AO_EXPORTED_UV1_VALIDATION',
              'meshCount':meshes,'triangleCount':triangles,
              'nonoverlappingUv1Triangles':len(cells),'distinctAOMaterials':len(materials),
-             'glTFUV1OcclusionBound':True,'normalTextureRetained':True,
+             'glTFUV1OcclusionBound':ao_parts==14,
+             'contactAORequiredForThisRun':bool(args.require_contact_ao),
+             'normalTextureRetained':True,
              'licensedMaterialsMustStillBeChecked':True,
              'fullIndirectGI':False,'ownerArtApproved':False}
     args.report.parent.mkdir(parents=True,exist_ok=True)

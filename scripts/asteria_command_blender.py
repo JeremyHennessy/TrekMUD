@@ -37,6 +37,7 @@ def args():
     p.add_argument("--bake-ao",action="store_true")
     p.add_argument("--correct-screen-uv",action="store_true",help="A/B corrected V3 console text orientation")
     p.add_argument("--stage33-command-island",action="store_true",help="Opt-in exact-source 96-face Stage33 art trial only")
+    p.add_argument("--stage33-contact-ao",action="store_true",help="Expensive real Cycles UV1 contact bake; only after fast art review")
     p.add_argument("--no-render",action="store_true")
     return p.parse_args(sys.argv[sys.argv.index("--")+1:] if "--" in sys.argv else [])
 
@@ -411,6 +412,8 @@ def bake_platform_ao(out,mats):
 
 def main():
     a=args()
+    if a.stage33_contact_ao and not (a.stage33_command_island and a.bake_ao):
+        raise ValueError("Stage33 contact AO requires --stage33-command-island and --bake-ao")
     if a.samples<8 or min(a.resolution)<128:raise ValueError("Invalid QA settings")
     source=json.loads((a.materials/"material-provenance.json").read_text())
     assert source['id']=="ASTERIA-COMMAND-PBR-01"
@@ -450,7 +453,7 @@ def main():
     stage33_contact=None
     if a.bake_ao:
         bake_path=bake_platform_ao(a.out,mats)
-        if a.stage33_command_island:
+        if a.stage33_contact_ao:
             import sys
             sys.path.insert(0,str(Path(__file__).resolve().parent))
             from asteria_stage33_contact_ao import bake as bake_stage33_contact
