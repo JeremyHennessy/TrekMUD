@@ -88,6 +88,7 @@ jobs:
             --site _fast-art-base/site --capture _stage33_original_capture \
             --proof _stage33_original_exact.json --out _fast_visual_site/candidate
           mkdir -p _fast_visual_evidence
+          cp /tmp/stage34-source-preflight.json _fast_visual_evidence/stage34-source-preflight.json
           mv _fast_visual_site/candidate/stage33-source-exclusion-proof.json \
             _fast_visual_evidence/stage33-source-exclusion-proof.json
           # Candidate flags must be an explicit, reviewed source-code option.
@@ -112,5 +113,6 @@ jobs:
             _fast_visual_evidence/*.json
             _fast_command/asteria-stage33-real-cycles-contact-uv1.png
             _fast_command/command-report.json
+            _fast_command/asteria-command-set-candidate.glb
           if-no-files-found: ignore
           retention-days: 30
