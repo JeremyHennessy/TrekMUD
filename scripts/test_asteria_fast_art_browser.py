@@ -41,11 +41,44 @@ def main() -> None:
     V3 = "models/asteria-v3-restored-pbr.glb"
     META = "models/manifest.json"
     if V3 in mismatched:
-        assert set(mismatched) == {COMMAND,V3,META,"app.js"}, ("Unexpected source-replacement diff",mismatched)
+        # Stage34 is full-room architecture, never part of the localized
+        # command GLB. Its candidate-only envelope guard is exact and additive.
+        envelope="models/asteria-realistic-architectural-envelope-08.glb"
+        envelope_manifest="models/envelope-manifest.json"
+        stage34=envelope in mismatched
+        expected={COMMAND,V3,META,"app.js"}
+        if stage34:
+            expected.update((envelope,envelope_manifest))
+        assert set(mismatched)==expected, ("Unexpected art-trial diff",mismatched)
         prev=(control/"app.js").read_text()
         next_=(candidate/"app.js").read_text()
         marker="Se!==106988-Be-ft-174-864-204"
-        assert prev.count(marker)==1 and next_==prev.replace(marker,marker+"-96",1), "UI altered beyond model face-count guard"
+        assert prev.count(marker)==1
+        expected_app=prev.replace(marker,marker+"-96",1)
+        if stage34:
+            from asteria_stage34_envelope_splice import read_glb
+            original_glb=(control/envelope).read_bytes()
+            candidate_glb=(candidate/envelope).read_bytes()
+            odoc,obin=read_glb(original_glb)
+            ndoc,nbin=read_glb(candidate_glb)
+            assert nbin[:len(obin)]==obin, "Original scanned architecture GLB bytes modified"
+            for key in ("meshes","nodes","materials","images","textures","samplers",
+                        "bufferViews","accessors"):
+                assert ndoc[key][:len(odoc[key])]==odoc[key],("Original architecture changed",key)
+            assert len(ndoc["meshes"])==141 and len(ndoc["nodes"])==141
+            old_env=json.loads((control/envelope_manifest).read_text())
+            new_env=json.loads((candidate/envelope_manifest).read_text())
+            assert old_env["newEnvelopeTriangles"]==27848 and old_env["meshObjects"]==135
+            assert new_env["newEnvelopeTriangles"]==29144 and new_env["meshObjects"]==141
+            art=new_env.pop("stage34OptionalGeometry")
+            assert art["faces"]==1296 and len(art["names"])==6 and not art["artApproved"]
+            new_env["newEnvelopeTriangles"]=27848
+            new_env["meshObjects"]=135
+            assert old_env==new_env,"Source envelope manifest altered beyond Stage34"
+            arch_guard="be!==27848||Te!==135"
+            assert expected_app.count(arch_guard)==1
+            expected_app=expected_app.replace(arch_guard,"be!==29144||Te!==141",1)
+        assert next_==expected_app, "UI altered beyond exact source/architecture count guards"
         old=json.loads((control/META).read_text())
         new=json.loads((candidate/META).read_text())
         assert old["triangles"]==80846 and new["triangles"]==80750
