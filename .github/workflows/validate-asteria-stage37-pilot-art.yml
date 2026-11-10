@@ -80,7 +80,7 @@ jobs:
             --proof _pilot_evidence/underconsole-original-provenance.json \
             --out _pilot_site/candidate
           mv _pilot_site/candidate/stage33-source-exclusion-proof.json _pilot_evidence/
-          python scripts/asteria_stage37_pilot_source_audit.py \
+          python scripts/asteria_stage36_pilot_source_audit.py \
             --output _pilot_evidence/stage37-original-pilot-provenance.json
           python scripts/asteria_stage37_v3_filter.py \
             --site _pilot_site/candidate --capture _pilot_original_capture \
