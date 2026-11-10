@@ -93,6 +93,7 @@ def run(site,receipt):
  assert hashlib.sha256(b).hexdigest()==STAGE38
  assert hashlib.sha256((site/'models/asteria-v3-restored-pbr.glb').read_bytes()).hexdigest()==MASKED_V3
  doc,raw=parse(b)
+ raw=bytearray(raw)
  assert len(doc['meshes'])==136 and len(doc['nodes'])==137
  src=doc['meshes'][135]['primitives']
  assert [p['material'] for p in src]==[10,11]
