@@ -6,8 +6,6 @@ on:
       - scripts/asteria_command_blender.py
       - scripts/asteria_stage32_command_asset.py
       - scripts/asteria_stage33_command_asset.py
-      - scripts/asteria_stage34_forward_hero.py
-      - scripts/asteria_stage34_envelope_splice.py
       - scripts/asteria_stage33_v3_filter.py
       - scripts/asteria_stage33_contact_ao.py
       - scripts/asteria_stage33_glb_uv1_verify.py
@@ -69,7 +67,7 @@ jobs:
           PY
           gh run download "$BASE_RUN" --repo JeremyHennessy/TrekMUD             --name asteria-fast-art-base --dir _fast-art-base
           python scripts/asteria_fast_art_snapshot.py verify             --root _fast-art-base --base-sha "$BASE_SHA"
-      - name: Build separate source-pinned local Stage33 console and full-room Stage34 envelope
+      - name: Build only the opt-in command asset with original source-scan maps
         run: |
           set -euo pipefail
           sudo apt-get update
@@ -80,16 +78,14 @@ jobs:
           cp -a _fast-art-base/site/. _fast_visual_site/candidate/
           # Stage33: exact original-source 96 face exclusions independently
           # audited in real Chromium, with original array vs GLB proof.
-          python -m py_compile scripts/asteria_stage33_command_asset.py scripts/asteria_stage34_forward_hero.py scripts/asteria_stage33_contact_ao.py scripts/asteria_stage33_glb_uv1_verify.py scripts/asteria_command_blender.py
+          python -m py_compile scripts/asteria_stage33_command_asset.py scripts/asteria_stage33_contact_ao.py scripts/asteria_stage33_glb_uv1_verify.py scripts/asteria_command_blender.py
           python scripts/asteria_stage33_command_asset.py > /tmp/stage33-prefight.json
-          python scripts/asteria_stage34_forward_hero.py > /tmp/stage34-source-preflight.json
           ASTERIA_V5_SOURCE_DIR=_stage33_original_capture python scripts/extract_asteria_v3_for_v5.py
           python scripts/asteria_source_underconsole_audit.py --output _stage33_original_exact.json
           python scripts/asteria_stage33_v3_filter.py \
             --site _fast-art-base/site --capture _stage33_original_capture \
             --proof _stage33_original_exact.json --out _fast_visual_site/candidate
           mkdir -p _fast_visual_evidence
-          cp /tmp/stage34-source-preflight.json _fast_visual_evidence/stage34-source-preflight.json
           mv _fast_visual_site/candidate/stage33-source-exclusion-proof.json \
             _fast_visual_evidence/stage33-source-exclusion-proof.json
           # Candidate flags must be an explicit, reviewed source-code option.
@@ -100,14 +96,6 @@ jobs:
             --glb _fast_command/asteria-command-set-candidate.glb \
             --report _fast_visual_evidence/stage33-exported-contact-uv1-proof.json ${{ inputs.contactAO && '--require-contact-ao' || '' }}
           cp _fast_command/asteria-command-set-candidate.glb             _fast_visual_site/candidate/models/asteria-command-set-candidate.glb
-          # NEVER place the full-width forward wall into the command GLB:
-          # the immutable command viewer enforces local ±2.1m bounds.
-          # Append six generated Stage34 forms into a candidate copy of the
-          # exact SHA-pinned envelope; original meshes/UV1 AO byte-identical.
-          python scripts/asteria_stage34_envelope_splice.py \
-            --control _fast_visual_site/control \
-            --candidate _fast_visual_site/candidate \
-            --proof _fast_visual_evidence/stage34-envelope-source-proof.json
       - name: Actual 1280 desktop and 390 mobile command visuals; zero UI or other GLB changes
         run: |
           CHROME="$(command -v google-chrome || command -v chromium)"             python scripts/test_asteria_fast_art_browser.py               --site _fast_visual_site --out _fast_visual_evidence               --base-sha "$(cat /tmp/fast-base-sha)"
@@ -122,9 +110,5 @@ jobs:
             _fast_visual_evidence/*.json
             _fast_command/asteria-stage33-real-cycles-contact-uv1.png
             _fast_command/command-report.json
-            _fast_command/asteria-command-set-candidate.glb
-            _fast_visual_site/candidate/models/asteria-realistic-architectural-envelope-08.glb
-            _fast_visual_site/candidate/models/envelope-manifest.json
-            _fast_visual_site/candidate/app.js
           if-no-files-found: ignore
           retention-days: 30
