@@ -395,6 +395,23 @@ jobs:
           git diff --exit-code -- ui/3d/ ui/3d-preview/ ui/3d-preview-v3/ \
             ui/3d-preview-v4/ ui/3d-preview-v5/ ui/3d-preview-v5-chair/ \
             ui/3d-preview-v5-command/ campaign/ world/asteria/
+      - name: Pack SHA-verified command visual base only after complete technical gate
+        run: |
+          set -euo pipefail
+          python scripts/asteria_fast_art_snapshot.py pack \
+            --root _fast-art-base \
+            --site _site/3d-preview-v5-command-envelope \
+            --maps _command_maps \
+            --base-sha "$GITHUB_SHA"
+          python scripts/asteria_fast_art_snapshot.py verify \
+            --root _fast-art-base --base-sha "$GITHUB_SHA"
+      - name: Preserve validated full-scene inputs for future 2-camera art screening
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-fast-art-base
+          path: _fast-art-base/
+          if-no-files-found: error
+          retention-days: 30
       - name: Preserve real browser image/geometry evidence regardless of result
         if: always()
         uses: actions/upload-artifact@v4
