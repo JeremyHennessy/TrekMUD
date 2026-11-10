@@ -28,7 +28,7 @@ def solid(name,verts,faces,material):
  vn/=length[:,None]
  uv=np.column_stack((v[:,0]*1.7+v[:,2]*.47+.5,v[:,1]*1.6+v[:,2]*.33+.5))
  parts.append((name,v.astype('<f4'),f.astype('<u4'),vn.astype('<f4'),uv.astype('<f4'),material))
-def lathe(name,rings,material,N=64):
+def lathe(name,rings,material,N=72):
  v=[]
  for y,w,front,back,xc,zc in rings:
   for k in range(N):
