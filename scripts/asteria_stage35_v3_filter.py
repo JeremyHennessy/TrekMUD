@@ -24,6 +24,19 @@ def run(site,capture,proof,out):
     source=np.load(capture/"positions.npy").reshape(-1,3,3)
     mats=np.load(capture/"materials.npy").reshape(-1,3)
     assert len(source)==len(mats)==106988 and np.all(mats==mats[:,0,None])
+    # Frozen build_asteria_v5_assets.py reclassifies the two source-material-7
+    # starfield triangles as unlit GLB material 9 after source capture. Preserve
+    # those six original vertices, the source arrays and all functional screens.
+    # Match the exact pinned V5 builder's geometric predicate, fail closed.
+    source_pos=source.reshape(-1,3)
+    source_mats=mats.reshape(-1)
+    star=(source_mats==7)&(np.abs(source_pos[:,2]+6.06)<.0005)&(
+        np.abs(source_pos[:,0])<=3.101)
+    assert int(star.sum())==6, "Pinned V5 starfield material provenance drift"
+    assert np.all(star.reshape(-1,3)==star.reshape(-1,3)[:,0,None])
+    mats=mats.copy()
+    mats.reshape(-1)[star]=9
+    assert int((mats[:,0]==9).sum())==2, "Unlit starfield must be exactly two triangles"
     keep=np.ones(106988,dtype=bool)
     exclusions=[(14404,30676)]
     for key in ("command_source_ranges","three_rib_bays_source_ranges",
