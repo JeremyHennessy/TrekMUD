@@ -1,0 +1,93 @@
+name: Asteria Stage46 integrated forward command architecture — real Chromium ART-FIRST NO DEPLOY
+on:
+  push:
+    branches: [experiment/asteria-stage28-integrated-command-ceiling-sprint]
+    paths:
+      - scripts/asteria_stage46_integrated_seat.py
+      - scripts/asteria_stage46_integrated_zone.py
+      - scripts/asteria_stage46_prepare.py
+      - scripts/test_asteria_stage46_browser.py
+      - .github/workflows/validate-asteria-stage46-integrated.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: asteria-stage46-integrated-art-first
+  cancel-in-progress: false
+jobs:
+  integrated-forward-art:
+    if: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[stage46-art]') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify authored integrated closed twin pilot seat geometry before downloading assets
+        run: |
+          set -euo pipefail
+          python -m py_compile scripts/asteria_stage46_integrated_seat.py scripts/asteria_stage46_integrated_zone.py scripts/asteria_stage46_prepare.py scripts/test_asteria_stage46_browser.py
+          python - <<'PY'
+          import sys
+          sys.path.insert(0,'scripts')
+          from asteria_stage46_integrated_zone import make_zone,preflight_mesh
+          parts=make_zone()
+          assert len(parts)>=55
+          for p in parts:preflight_mesh(p)
+          assert sum(len(p['faces']) for p in parts)>4000
+          print('STAGE46_PURE_GEOMETRY_CHEAP_PREFLIGHT_PASS',len(parts),sum(len(p['faces']) for p in parts))
+          PY
+      - name: Retrieve two SHA-pinned, previously tested historical 3D source artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          b=json.loads(Path('baselines/asteria-fast-art-base.json').read_text())
+          assert b['runId']==42749695563 and b['commitSHA']=='e8b3c3db6a482d2c6a9f66589307f9ae582961ed'
+          assert b['workflow']=='Asteria Stage28 full structural ceiling macro - real Cycles Chromium A/B NO DEPLOY'
+          PY
+          gh api repos/JeremyHennessy/TrekMUD/actions/runs/42749695563 --jq '{sha:.head_sha,conclusion:.conclusion}' > /tmp/stage46-base-run.json
+          gh api repos/JeremyHennessy/TrekMUD/actions/runs/42877690054 --jq '{sha:.head_sha,conclusion:.conclusion}' > /tmp/stage46-pilot-run.json
+          python - <<'PY'
+          import json
+          a=json.load(open('/tmp/stage46-base-run.json'));b=json.load(open('/tmp/stage46-pilot-run.json'))
+          assert a['sha']=='e8b3c3db6a482d2c6a9f66589307f9ae582961ed' and a['conclusion']=='success'
+          assert b['sha']=='1920ca11124b03c0a90a8a37e09c0774f867e4a3' and b['conclusion']=='success'
+          PY
+          gh run download 42749695563 --repo JeremyHennessy/TrekMUD --name asteria-fast-art-base --dir _stage46_base
+          gh run download 42877690054 --repo JeremyHennessy/TrekMUD --name asteria-stage36-twin-pilot-actual-browser-a-b --dir _stage46_source36
+          python scripts/asteria_fast_art_snapshot.py verify --root _stage46_base --base-sha e8b3c3db6a482d2c6a9f66589307f9ae582961ed
+      - name: Build complete source-matched command macro as reversible candidate only
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check numpy==2.3.5 Pillow==12.3.0 playwright==1.56.0
+          python scripts/asteria_stage46_prepare.py --base _stage46_base --prior _stage46_source36 --output _stage46_site
+          test -s _stage46_site/candidate/models/asteria-realistic-architectural-envelope-08.glb
+          test -s _stage46_site/stage46-forward-command-proof.json
+      - name: Compare actual standard desktop command and mobile Chromium software-WebGL
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v chromium)" python scripts/test_asteria_stage46_browser.py --root _stage46_site --out _stage46_evidence
+      - name: Preserve genuine images plus source receipts and candidate GLB if fail
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-stage46-integrated-real-browser-a-b
+          path: |
+            _stage46_evidence/*.png
+            _stage46_evidence/*.jpg
+            _stage46_evidence/*.json
+            _stage46_site/stage46-forward-command-proof.json
+            _stage46_site/candidate/models/asteria-v3-restored-pbr.glb
+            _stage46_site/candidate/models/asteria-realistic-architectural-envelope-08.glb
+            _stage46_site/candidate/models/manifest.json
+            _stage46_site/candidate/models/envelope-manifest.json
+          if-no-files-found: ignore
+          retention-days: 30
