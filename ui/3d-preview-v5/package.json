@@ -1,0 +1,10 @@
+{
+  "name":"asteria-v5-v3-restoration-pbr",
+  "private":true,
+  "version":"0.5.0",
+  "description":"Isolated original USS Asteria V3 geometry with real Three.js PBR rendering; campaign-safe",
+  "license":"UNLICENSED",
+  "scripts":{"build":"esbuild src/main.js --bundle --platform=browser --target=es2021 --format=iife --minify --outfile=dist/app.js","check":"node --check src/main.js"},
+  "dependencies":{"three":"0.187.0"},
+  "devDependencies":{"esbuild":"0.25.12"}
+}

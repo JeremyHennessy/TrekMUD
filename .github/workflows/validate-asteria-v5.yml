@@ -1,0 +1,71 @@
+name: Asteria V5 — preserve V3 geometry and test new PBR renderer
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'ui/3d-preview-v5/**'
+      - 'scripts/extract_asteria_v3_for_v5.py'
+      - 'scripts/build_asteria_v5_assets.py'
+      - 'scripts/verify_asteria_v5.py'
+      - 'scripts/test_asteria_v5_browser.py'
+      - '.github/workflows/validate-asteria-v5.yml'
+  push:
+    branches: ['feature/asteria-v5-faithful-pbr', 'experiment/asteria-v5-upward-bounce']
+    paths:
+      - 'ui/3d-preview-v5/**'
+      - 'scripts/extract_asteria_v3_for_v5.py'
+      - 'scripts/build_asteria_v5_assets.py'
+      - 'scripts/verify_asteria_v5.py'
+      - 'scripts/test_asteria_v5_browser.py'
+      - '.github/workflows/validate-asteria-v5.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  fidelity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate existing approved player console
+        run: |
+          python scripts/validate_player_console.py --keep _site
+          node --test tests/asteria-3d.test.cjs tests/asteria-3d-preview.test.cjs tests/asteria-3d-v3.test.cjs
+      - name: Install isolated model export, WebGL and PBR build dependencies
+        run: |
+          python -m pip install --disable-pip-version-check \
+            numpy==2.3.5 Pillow==12.3.0 trimesh==4.11.1 playwright==1.56.0
+          npm ci --prefix ui/3d-preview-v5 --no-audit --no-fund
+      - name: Recover exact V3 triangles and instrument atlas
+        run: python scripts/extract_asteria_v3_for_v5.py
+      - name: Build physically based V5 GLB and standalone viewer
+        run: |
+          ASTERIA_V5_OUT_DIR="$PWD/_site/3d-preview-v5/models" python scripts/build_asteria_v5_assets.py
+          npm run build --prefix ui/3d-preview-v5
+          cp ui/3d-preview-v5/src/index.html _site/3d-preview-v5/index.html
+          cp ui/3d-preview-v5/dist/app.js _site/3d-preview-v5/app.js
+          cp ui/3d-preview-v5/node_modules/three/LICENSE _site/3d-preview-v5/THREE-LICENSE.txt
+          python scripts/verify_asteria_v5.py _site/3d-preview-v5
+      - name: Capture matched V3/V5 desktop and mobile WebGL frames and test walking
+        run: |
+          CHROME="$(command -v google-chrome || command -v chromium)" \
+            python scripts/test_asteria_v5_browser.py _site "$RUNNER_TEMP/asteria-v5-review"
+      - name: Archive actual V3/V5 screenshots and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-v3-v5-fidelity-review
+          path: |
+            ${{ runner.temp }}/asteria-v5-review/**
+            _site/3d-preview-v5/models/manifest.json
+          if-no-files-found: ignore
+          retention-days: 7
