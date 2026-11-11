@@ -24,20 +24,11 @@ def main(root,out):
     meta=json.loads(source.read_text());assert meta['triangles']==48150
     assert meta['stage40_original_pilot_faces_removed']==32600
     env=json.loads((after/'models/envelope-manifest.json').read_text())
+    assert env['newEnvelopeTriangles']==93288 and env['meshObjects']==241
     trial=env['stage40IntegratedCommandZoneTrial']
     assert trial['pilotInstances']==2 and trial['pilotTriangles']==62968
     assert trial['removedOldPortal29DrawNodes']==16
     assert trial['originalEnvelopeBinaryUnchanged'] and not trial['artisticallyApproved']
-    # QA-only diagnostic: expose the four genuine renderer guard operands
-    # on the *candidate copy* when the exact original rejection fires.
-    # This does not change any guard, UI behavior in successful scenes,
-    # gameplay source, or production page. Remove after root cause found.
-    app_path=after/'app.js'
-    app=app_path.read_text()
-    needle='o("Scanned architectural envelope failed geometry, PBR or UV1 AO verification")'
-    patched='o("Scanned architectural envelope failed geometry, PBR or UV1 AO verification [DIAGNOSTIC] "+JSON.stringify({be,Te,T,x}))'
-    assert app.count(needle)==1
-    app_path.write_text(app.replace(needle,patched,1))
     out.mkdir(parents=True,exist_ok=True)
     serve=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(http.server.SimpleHTTPRequestHandler,directory=str(root)))
     thread=threading.Thread(target=serve.serve_forever,daemon=True);thread.start()

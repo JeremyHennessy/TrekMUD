@@ -329,7 +329,15 @@ def run(control,candidate,out):
     unique_faces=27848+31484+sum(len(p['faces']) for p in parts)
     assert restored==unique_faces
     total=27848-portal_faces+31484*2+sum(len(p['faces']) for p in parts)
-    total_visible_meshes=119+76+len(parts)
+    # Blender's 38 source chair meshes contain forty GLTF primitives:
+    # two upholstery meshes each split into two physically separate materials.
+    # GLTFLoader exposes each primitive as a render Mesh. Count the original
+    # GLB primitive groups rather than silently weakening a browser guard.
+    hero_doc,_=parse(hero)
+    assert len(hero_doc['meshes'])==38
+    hero_draw_meshes=sum(len(m['primitives']) for m in hero_doc['meshes'])
+    assert hero_draw_meshes==40
+    total_visible_meshes=119+2*hero_draw_meshes+len(parts)
     assert len(d['scenes'][0]['nodes'])==119+2+len(parts)
     path=candidate/ENVELOPE;path.write_bytes(product)
     app_path=candidate/'app.js';app=app_path.read_text()
