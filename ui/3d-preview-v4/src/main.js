@@ -10,9 +10,26 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
   'use strict';
   const $ = id => document.getElementById(id);
   const canvas = $('scene');
-  const fail = message => { $('error').hidden = false; $('error').textContent = message; document.body.dataset.v4Ready = 'error'; };
+  let stopped=false;
+  const fail = message => {
+    if(stopped)return;
+    stopped=true;
+    const error=$('error');
+    error.hidden=false;
+    error.replaceChildren();
+    const heading=document.createElement('h2');heading.textContent='3D walkthrough unavailable';
+    const detail=document.createElement('p');detail.textContent=message;
+    const links=document.createElement('p');
+    const fallback=document.createElement('a');fallback.href='../3d-preview-v3/';fallback.textContent='Open the earlier walkable V3 bridge';
+    const retry=document.createElement('a');retry.href=location.href;retry.textContent='Retry V4';
+    links.append(fallback,document.createTextNode(' · '),retry);
+    error.append(heading,detail,links);
+    document.body.dataset.v4Ready='error';
+    $('stateLabel').textContent='Scene unavailable';
+  };
+  canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();fail('The graphics context was lost. Retry V4 or open V3.');});
   const webgl2 = (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch { return false; } })();
-  if (!webgl2) { fail('This cinematic preview needs a WebGL 2-capable browser. The earlier /3d/ versions are still available.'); return; }
+  if (!webgl2) { fail('This preview requires WebGL 2, which is unavailable in this browser or graphics configuration.'); return; }
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});
@@ -216,18 +233,19 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     if(!block(pos.x,pos.z+z))pos.z+=z;
   }
   function frame(time){
-    requestAnimationFrame(frame);
+    if(stopped)return;
     const dt=Math.min(.04,(time-last)/1000 || .016);last=time;
     const f=(pressed.has('w')||pressed.has('arrowup')?1:0)-(pressed.has('s')||pressed.has('arrowdown')?1:0)-joyY;
     const side=(pressed.has('d')||pressed.has('arrowright')?1:0)-(pressed.has('a')||pressed.has('arrowleft')?1:0)+joyX;
     const norm=Math.hypot(f,side);
     if(norm>.001)move(f/norm,side/norm,dt);
     syncCamera();document.body.dataset.frameAttempt=String(frameN+1);
-    try { renderer.render(scene,camera); } catch(e) { fail("WebGL scene render failed: "+e.message); return; }
+    try { renderer.render(scene,camera); } catch(e) { fail('WebGL scene render failed: '+e.message); return; }
     drawMinimap();
     if(ready){frameN++; document.body.dataset.renderedFrames=String(frameN);
       if(frameN===1){document.body.dataset.v4Ready='true';document.body.dataset.renderTriangles=String(renderer.info.render.triangles);}
     }
+    requestAnimationFrame(frame);
   }
   function resize(){
     const w=Math.max(1,canvas.clientWidth),h=Math.max(1,canvas.clientHeight);
@@ -268,7 +286,12 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
   for(const type of ['pointerup','pointercancel','lostpointercapture'])pad.addEventListener(type,e=>{if(e.pointerId===joystick){joystick=null;joyX=joyY=0;thumb.style.transform='translate(0,0)';}});
 
   const load=new GLTFLoader();
+  // A missing, blocked or stalled GLB must never leave the viewer in an endless loading state.
+  const loadingDeadline=window.setTimeout(()=>fail('The bridge model did not finish loading. Check your connection, or use the V3 walkthrough.'),20000);
+  $('stateLabel').textContent='Loading bridge geometry…';
   load.load('./models/asteria-bridge-shell.glb', gltf=>{
+    window.clearTimeout(loadingDeadline);
+    if(stopped)return;
     const group=gltf.scene;group.name='ASTERIA_BRIDGE_V4';
     let triangles=0,models=0,missing=0;
     group.traverse(o=>{
@@ -287,6 +310,6 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
     const choice=new URLSearchParams(location.search).get('capture');
     if(choice){resetAt(views[choice]?choice:'aft');$('curtain').classList.add('off');}
     resize();requestAnimationFrame(frame);
-  }, undefined, err=>{fail('The V4 3D asset could not be loaded: '+(err.message||String(err)));});
+  }, progress=>{if(!stopped && progress.total>0)$('stateLabel').textContent='Loading model '+Math.min(100,Math.round(100*progress.loaded/progress.total))+'%';}, err=>{window.clearTimeout(loadingDeadline);fail('The V4 3D asset could not be loaded: '+(err.message||String(err)));});
   resize();resetAt('aft');
 })();
