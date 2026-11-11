@@ -184,6 +184,23 @@ elliptical_band('AST_Command_Bronze_Edge',2.21,1.80,.992,.302,.322,'bronze',zc=.
 for idx,s in enumerate([-1,1]):
     curve_tube(f'AST_Aisle_Inlay_{idx}',[(s*(1.4+.17*k/22),.043,-4.66+6.32*k/22) for k in range(23)],.010,'bronze',8)
 
+# EXPERIMENT V4-WALL-01: a continuous inner structural backing behind the decorative wall bays.
+# The v4 base model created separate wall bays with open gaps and omitted side sectors,
+# revealing dark space instead of the underlying wall. Leave the forward viewscreen and
+# aft command access open. The outer radius keeps the backing behind existing panels.
+for k in range(120):
+    a0=k*2*PI/120; a1=(k+1)*2*PI/120
+    am=(a0+a1)/2
+    dfront=abs((am-PI+PI)%(2*PI)-PI)
+    daft=min(abs(am),abs(am-2*PI))
+    if dfront<.55 or daft<.215:
+        continue
+    def structural_at(a,y):
+        return (W*.995*math.sin(a),y,D*.995*math.cos(a))
+    panel4(f'AST_Structural_Wall_Back_{k:03d}',
+           [structural_at(a0,.24),structural_at(a1,.24),
+            structural_at(a1,3.58),structural_at(a0,3.58)],'wall')
+
 # ORIGINAL ARCHITECTURAL WALL SYSTEM: segmented true curved skin, inset relief and shadow coves
 N=48
 for k in range(N):
