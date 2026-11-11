@@ -1,0 +1,58 @@
+name: Experimental Asteria Gaussian Splat Hybrid (not production)
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'experiments/asteria-3dgs/**'
+      - '.github/workflows/experiment-asteria-3dgs.yml'
+permissions:
+  contents: read
+jobs:
+  hybrid:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install asset build tools
+        run: |
+          python -m pip install -r ui/3d-preview-v4/asset-requirements.txt
+          python -m pip install playwright==1.56.0
+      - name: Build a non-photographic, mesh-sampled Gaussian proof asset
+        run: |
+          mkdir -p experiments/asteria-3dgs/dist/models
+          python scripts/build_asteria_v4_assets.py --out experiments/asteria-3dgs/dist/models
+          python experiments/asteria-3dgs/generate_splat.py --glb experiments/asteria-3dgs/dist/models/asteria-bridge-shell.glb --out experiments/asteria-3dgs/dist/models/captain-chair.splat --count 20000
+          python experiments/asteria-3dgs/tests/verify_splat.py experiments/asteria-3dgs/dist/models/captain-chair.splat
+          python experiments/asteria-3dgs/generate_chisel_blockout.py --out experiments/asteria-3dgs/dist/models/asteria-bridge-chisel-blockout.glb
+          python experiments/asteria-3dgs/tests/verify_blockout.py experiments/asteria-3dgs/dist/models/asteria-bridge-chisel-blockout.glb
+      - name: Pin and bundle Spark + Three.js (isolated from published V4)
+        run: |
+          npm ci --prefix experiments/asteria-3dgs --no-audit --no-fund
+          npm run build --prefix experiments/asteria-3dgs
+          cp experiments/asteria-3dgs/src/index.html experiments/asteria-3dgs/dist/index.html
+          cp experiments/asteria-3dgs/src/style.css experiments/asteria-3dgs/dist/style.css
+      - name: Capture matched Gaussian-vs-mesh browser renders
+        run: |
+          CHROME="$(command -v google-chrome || command -v chromium)"
+          export CHROME
+          python experiments/asteria-3dgs/tests/browser_probe.py experiments/asteria-3dgs/dist "$RUNNER_TEMP/asteria-3dgs-review"
+      - name: Retain results even if browser checks fail
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-splat-vs-mesh-technical-review
+          path: |
+            ${{ runner.temp }}/asteria-3dgs-review/
+            experiments/asteria-3dgs/package-lock.json
+            experiments/asteria-3dgs/dist/models/captain-chair.json
+            experiments/asteria-3dgs/dist/models/asteria-bridge-chisel-blockout.glb
+            experiments/asteria-3dgs/dist/models/asteria-bridge-chisel-blockout.json
+          if-no-files-found: ignore
+          retention-days: 7
