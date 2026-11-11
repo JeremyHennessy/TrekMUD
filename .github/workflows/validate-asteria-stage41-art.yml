@@ -1,0 +1,96 @@
+name: Asteria Stage41 bespoke twin command workstation - genuine Chromium A/B NO DEPLOY
+on:
+  push:
+    branches: [experiment/asteria-stage28-integrated-command-ceiling-sprint]
+    paths:
+      - scripts/asteria_stage41_command_workstations.py
+      - scripts/asteria_stage41_verify.py
+      - .github/workflows/validate-asteria-stage41-art.yml
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: asteria-stage41-command-workstation-art
+  cancel-in-progress: false
+jobs:
+  real-browser-art-first:
+    if: contains(github.event.head_commit.message, '[stage41-art]')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source-exact verified prior full-gate art base
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          c=json.loads(Path('baselines/asteria-fast-art-base.json').read_text())
+          assert c['runId']==42749695563
+          assert c['commitSHA']=='e8b3c3db6a482d2c6a9f66589307f9ae582961ed'
+          assert c['workflow']=='Asteria Stage28 full structural ceiling macro - real Cycles Chromium A/B NO DEPLOY'
+          PY
+          gh api repos/JeremyHennessy/TrekMUD/actions/runs/42749695563 \
+             --jq '{sha:.head_sha,conclusion:.conclusion,name:.name}' > /tmp/stage41-pinned-source.json
+          python - <<'PY'
+          import json
+          c=json.load(open('/tmp/stage41-pinned-source.json'))
+          assert c['sha']=='e8b3c3db6a482d2c6a9f66589307f9ae582961ed'
+          assert c['conclusion']=='success'
+          assert c['name']=='Asteria Stage28 full structural ceiling macro - real Cycles Chromium A/B NO DEPLOY'
+          PY
+          gh run download 42749695563 --repo JeremyHennessy/TrekMUD \
+             --name asteria-fast-art-base --dir _stage41_pinned
+          python scripts/asteria_fast_art_snapshot.py verify \
+             --root _stage41_pinned --base-sha e8b3c3db6a482d2c6a9f66589307f9ae582961ed
+      - name: Sculpt complete opt-in command bases without altering original builder or any UI
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y blender
+          python -m pip install --disable-pip-version-check \
+             numpy==2.3.5 Pillow==12.3.0 playwright==1.56.0
+          python -m py_compile scripts/asteria_stage41_command_workstations.py scripts/asteria_stage41_verify.py
+          mkdir -p _stage41_site/control _stage41_site/candidate _stage41_evidence
+          cp -a _stage41_pinned/site/. _stage41_site/control/
+          cp -a _stage41_pinned/site/. _stage41_site/candidate/
+          blender -b -t 4 --python-exit-code 1 \
+            --python scripts/asteria_stage41_command_workstations.py -- \
+            --out _stage41_command --materials _stage41_pinned/maps \
+            --samples 20 --no-render --bake-ao --correct-screen-uv
+          python scripts/asteria_stage41_verify.py \
+            --base _stage41_site/control/models/asteria-command-set-candidate.glb \
+            --candidate _stage41_command/asteria-command-set-candidate.glb \
+            --out _stage41_evidence/retained-controls-exact-proof.json
+          cp _stage41_command/asteria-command-set-candidate.glb \
+            _stage41_site/candidate/models/asteria-command-set-candidate.glb
+          cp _stage41_command/stage41-trial-report.json _stage41_evidence/
+          cp _stage41_command/command-report.json _stage41_evidence/
+      - name: Actual normal command desktop and mobile matched-camera Chromium images
+        env:
+          CHROME: /usr/bin/google-chrome
+        run: |
+          set -euo pipefail
+          CHROME="$(command -v google-chrome || command -v chromium)" \
+           python scripts/test_asteria_fast_art_browser.py \
+            --site _stage41_site --out _stage41_evidence \
+            --base-sha e8b3c3db6a482d2c6a9f66589307f9ae582961ed
+      - name: Preserve all failed or successful review evidence, never deploy
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-stage41-bespoke-command-art-first
+          path: |
+            _stage41_evidence/*.png
+            _stage41_evidence/*.jpg
+            _stage41_evidence/*.json
+            _stage41_command/asteria-command-set-candidate.blend
+          if-no-files-found: ignore
+          retention-days: 30
