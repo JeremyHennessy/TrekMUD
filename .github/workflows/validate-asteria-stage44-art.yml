@@ -5,7 +5,7 @@ on:
     paths:
       - scripts/asteria_stage44_original_port_uv.py
       - scripts/asteria_stage44_verify.py
-          - .github/workflows/validate-asteria-stage44-art.yml
+      - .github/workflows/validate-asteria-stage44-art.yml
 permissions:
   contents: read
   actions: read
