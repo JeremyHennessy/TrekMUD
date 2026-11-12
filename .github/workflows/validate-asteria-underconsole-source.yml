@@ -75,7 +75,7 @@ jobs:
                   'protectedFaces':216,'sourceFilesModified':False,
                   'candidateApplied':False,'artApproved':False,
                   'productionChanged':False}
-          (root/'original-array-custody.json').write_text(json.dumps(report,indent=2)+'\\n')
+          (root/'original-array-custody.json').write_text(json.dumps(report,indent=2)+chr(10))
           print('EXACT_ORIGINAL_SOURCE_ARRAYS_CAPTURED',json.dumps(report),flush=True)
           PY
       - name: Preserve face-span proof even if a subsequent gate fails
