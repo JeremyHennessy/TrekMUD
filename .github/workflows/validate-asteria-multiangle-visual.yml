@@ -1,0 +1,58 @@
+name: Asteria eight-camera screen and button audit - genuine Chromium NO DEPLOY
+on:
+  push:
+    branches: [experiment/asteria-stage28-integrated-command-ceiling-sprint]
+    paths:
+      - scripts/test_asteria_multiangle_readonly.py
+      - .github/workflows/validate-asteria-multiangle-visual.yml
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: asteria-readonly-multiangle
+  cancel-in-progress: false
+jobs:
+  multiangle-screens:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify exact original producer and all 30 pinned snapshot files
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('baselines/asteria-fast-art-base.json').read_text())
+          assert p['runId']==42749695563
+          assert p['commitSHA']=='e8b3c3db6a482d2c6a9f66589307f9ae582961ed'
+          PY
+          gh api repos/JeremyHennessy/TrekMUD/actions/runs/42749695563 --jq '{sha:.head_sha,conclusion:.conclusion}' >/tmp/pinned.json
+          python - <<'PY'
+          import json
+          p=json.load(open('/tmp/pinned.json'))
+          assert p=={'sha':'e8b3c3db6a482d2c6a9f66589307f9ae582961ed','conclusion':'success'},p
+          PY
+          gh run download 42749695563 --repo JeremyHennessy/TrekMUD --name asteria-fast-art-base --dir _asteria_pinned
+          python scripts/asteria_fast_art_snapshot.py verify --root _asteria_pinned --base-sha e8b3c3db6a482d2c6a9f66589307f9ae582961ed
+      - name: Capture real 8 camera positions x 2 devices, test five GLBs, network, and screen errors
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check playwright==1.56.0
+          CHROME="$(command -v google-chrome || command -v chromium)"
+          python scripts/test_asteria_multiangle_readonly.py --site _asteria_pinned/site --out _asteria_multiangle_evidence --chrome "$CHROME"
+      - name: Preserve visual captures and failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-eight-camera-desktop-mobile-readonly
+          path: _asteria_multiangle_evidence/
+          if-no-files-found: ignore
+          retention-days: 30

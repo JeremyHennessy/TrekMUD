@@ -1,0 +1,46 @@
+name: Asteria Stage36 frozen pilot-seat source provenance (NO DEPLOY)
+on:
+  push:
+    branches: [experiment/asteria-stage28-integrated-command-ceiling-sprint]
+    paths:
+      - scripts/asteria_stage36_pilot_source_audit.py
+      - .github/workflows/validate-asteria-stage36-pilot-source.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: asteria-stage36-source-provenance
+  cancel-in-progress: false
+jobs:
+  exact-original-pilot-spans:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Cheap frozen V3 and syntax/source gates
+        run: |
+          set -euo pipefail
+          python scripts/validate_asteria.py
+          python -m py_compile scripts/asteria_stage36_pilot_source_audit.py
+          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
+          test "$(git hash-object ui/3d-preview-v3/set-details.js)" = 3716accf4490bf28da56be0ae21081ab3a3a0f17
+          test "$(git hash-object ui/3d-preview-v3/hero-v3.js)" = 95ac0fc2d480736ddf2f38f596d1115a4193f926
+      - name: Measure original seat source draw-call spans in real Chromium
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check playwright==1.56.0
+          command -v google-chrome || command -v chromium
+          python scripts/asteria_stage36_pilot_source_audit.py --output _stage36_audit/pilot-face-spans.json
+      - name: Preserve original source proof (never interpret as art)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-stage36-source-exact-pilot-spans
+          path: _stage36_audit/pilot-face-spans.json
+          if-no-files-found: ignore
+          retention-days: 30

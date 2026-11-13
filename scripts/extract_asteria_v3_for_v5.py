@@ -79,6 +79,8 @@ if capture_bay:
 # flat procedural surfaces. Capture direct draw-call boundaries in memory,
 # never edit the approved V3 file, never crop another asset geometrically.
 capture_envelope=os.environ.get('ASTERIA_V3_CAPTURE_ENVELOPE')=='1'
+capture_forward=os.environ.get('ASTERIA_V3_CAPTURE_FORWARD_PORTAL')=='1'
+if capture_forward:assert capture_bay,'Forward portal provenance requires measured set-details faceCount()'
 if capture_envelope:
  wall_start="for(let k=0;k<112;k++){const a=k*2*Math.PI/112"
  wall_end="arc(0,0,W*.99,D*.99,3.70"
@@ -95,6 +97,12 @@ if capture_envelope:
    "window.__v3EnvelopeCeilingBegin=P.length/9;"+roof_start)
  html=html.replace(roof_end,
    "window.__v3EnvelopeCeilingEnd=P.length/9;"+roof_end)
+if capture_forward:
+ start="box(0,2.04,-6.38,7.2,3.15,.24,0xddd0c1,2);"
+ end="// Custom original starbase vista built from true 3D objects in front of screen."
+ assert html.count(start)==html.count(end)==1
+ html=html.replace(start,"window.__v3ForwardPortalStart=P.length/9;"+start)
+ html=html.replace(end,"window.__v3ForwardPortalEnd=P.length/9;"+end)
 needle='window.__asteriaWalkthrough={roomId:'
 assert html.count(needle)==1
 html=html.replace(needle, "window.__captureV3={positions:P,normals:N,colors:C,materials:M,uv:UV,atlas:atlas.toDataURL('image/png')};"+needle)
@@ -111,6 +119,13 @@ for filename in ['hero-v3.js','furniture.js','set-details.js']:
   raw=raw.replace(begin,"if(k===24)window.__v3BayDecorStart=api.faceCount();"+extra_start+begin)
   extra_end=("    if([22,23,24].includes(k)){window.__v3TripleEnds=window.__v3TripleEnds||{};window.__v3TripleEnds[k]=api.faceCount();}\n" if capture_three else "")
   raw=raw.replace(end,"    if(k===24)window.__v3BayDecorEnd=api.faceCount();\n"+extra_end+end)
+ if capture_forward and filename=='set-details.js':
+  begin="    for(let i=0;i<7;i++){\n      const z=-5.68+i*.18;"
+  finish="      B(s*(3.36+i*.035),2.14,z,.065,2.34,.055,0xa79c99,3);\n    }"
+  assert raw.count(begin)==raw.count(finish)==1
+  raw=raw.replace(begin,"    window.__v3ForwardPostRanges=window.__v3ForwardPostRanges||{};\n"+
+    "    window.__v3ForwardPostRanges[s]={start:api.faceCount()};\n"+begin)
+  raw=raw.replace(finish,finish+"\n    window.__v3ForwardPostRanges[s].end=api.faceCount();")
  html=html.replace(tag,'<script>'+raw+'</script>')
 stub="""<script>(()=>{
   const fake=new Proxy({}, {get:(_,k)=>{
@@ -260,6 +275,42 @@ with sync_playwright() as p:
    (OUT/'three-rib-bays-source-spans.json').write_text(
       __import__('json').dumps(triple,indent=2)+'\n')
    print('MEASURED_THREE_ORIGINAL_WALL_BAYS',triple,flush=True)
+ if capture_forward:
+  segments=page.evaluate("""() => ({
+    frame:[window.__v3ForwardPortalStart,window.__v3ForwardPortalEnd],
+    port:window.__v3ForwardPostRanges?.['-1'],
+    starboard:window.__v3ForwardPostRanges?.['1']
+  })""")
+  pairs=[('forwardScreenFrameBoxes',segments['frame']),
+         ('viewerPostPort',[segments['port']['start'],segments['port']['end']]),
+         ('viewerPostStarboard',[segments['starboard']['start'],segments['starboard']['end']])]
+  rows=[]
+  for name,pair in pairs:
+   lo,hi=pair
+   assert isinstance(lo,(int,float)) and isinstance(hi,(int,float)),(name,pair)
+   assert 0<=lo==int(lo)<hi==int(hi)<=106988,(name,pair)
+   rows.append({'name':name,'start':int(lo),'end':int(hi),'faces':int(hi-lo)})
+  rows.sort(key=lambda r:r['start'])
+  assert [(r['name'],r['faces']) for r in rows]==[
+    ('forwardScreenFrameBoxes',36),('viewerPostPort',84),('viewerPostStarboard',84)],rows
+  for p,q in zip(rows,rows[1:]):assert p['end']<=q['start'],(p,q)
+  protected=[]
+  if capture_chair:protected.append({'name':'captain','start':start,'end':end})
+  if capture_command:
+   protected+=__import__('json').loads((OUT/'command-section-source-spans.json').read_text())['ranges']
+  if capture_three:
+   protected+=__import__('json').loads((OUT/'three-rib-bays-source-spans.json').read_text())['ranges']
+  for r in rows:
+   for p in protected:
+    assert r['end']<=p['start'] or r['start']>=p['end'],(r,p,'Protected source overlaps')
+  report={'id':'AST_D01_FORWARD_SOURCE_PORTAL_29','sourceV3Blob':expected,
+    'totalFaces':106988,'ranges':rows,'removedFaces':204,
+    'frozenV3AssetsNeverModified':True,'starfieldViewscreenAndStationsRetained':True,
+    'originalScreenBackingBoxCount':3,'originalSidePostCount':14,
+    'removalIsExactDrawCallNotSpatialCrop':True,'ownerArtApproved':False}
+  (OUT/'forward-portal-source-spans.json').write_text(
+     __import__('json').dumps(report,indent=2)+'\n')
+  print('SOURCE_EXACT_FORWARD_SCREEN_POSTS_204_FACES',report,flush=True)
  if capture_envelope:
   observed=page.evaluate("""() => ({
     wall:[window.__v3EnvelopeWallBegin,window.__v3EnvelopeWallEnd],
