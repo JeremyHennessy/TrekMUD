@@ -76,8 +76,13 @@ def make_maps(scans, out):
     diffuse, normals, roughness = (scans[k] for k in ("diff", "nor", "rough"))
     weights = np.array([.2126, .7152, .0722], dtype=np.float32)
     hp = np.clip(diffuse @ weights - blur(diffuse) @ weights, -26, 26) / 26
+    # Real shutter photography has strong horizontal ribs. Strip the row-wise
+    # manufactured ridge profile while retaining photographed pixel micrograin.
+    hp = np.clip(hp - np.median(hp, axis=1, keepdims=True), -1, 1)
     rough_hp = np.clip((roughness.mean(axis=2) - blur(roughness).mean(axis=2)) / 255, -.15, .15)
+    rough_hp = np.clip(rough_hp - np.median(rough_hp, axis=1, keepdims=True), -.15, .15)
     normal_xy = np.clip((normals[:,:,:2] - blur(normals)[:,:,:2]) / 127.5 * .17, -.16, .16)
+    normal_xy = np.clip(normal_xy - np.median(normal_xy, axis=1, keepdims=True), -.16, .16)
     normal_z = np.sqrt(np.maximum(.0001, 1 - np.sum(normal_xy**2, axis=2)))
     new_norm = (np.dstack((normal_xy, normal_z)) * .5 + .5) * 255
     outmaps = {}
@@ -92,7 +97,7 @@ def make_maps(scans, out):
         outmaps[label] = {k:write_png(out / (label+"_"+k+".png"), v)
                           for k,v in (("base",base),("normal",new_norm),("orm",orm))}
         outmaps[label]["design"] = {"sRGB": color, "roughness": target_rough, "metallic":metal,
-                                   "photoMicrodetailHighpassOnly": True,
+                                   "photoMicrodetailHighpassOnly": True, "shutterRowBandRemoved": True,
                                    "notPristineMetalPhotograph": True}
     thumb = Image.new("RGB", (930, 330), (26,25,32))
     d = ImageDraw.Draw(thumb)
