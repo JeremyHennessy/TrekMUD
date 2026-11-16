@@ -97,11 +97,57 @@ jobs:
               materials=material_count,meshCount=len(mesh_records),nodeMeshCount=len(node_records),
               meshRecords=mesh_records[:100],nodeMeshRecords=node_records[:100],
               upstreamGLBDeclarationVerified=True)
-            scene=trimesh.load(str(source),force='scene',process=False)
-            assert isinstance(scene,trimesh.Scene) and len(scene.geometry)>0
-            geom=scene.dump(concatenate=True)
-            assert len(geom.faces)>1000
+            # KHR_mesh_quantization: trimesh's GLB loader can incorrectly leave
+            # normalized signed-short POSITION as +/-32767 rather than metres.
+            # Decode the authentic original GLB ourselves for SOURCE PREVIEW ONLY.
+            off=20+jsonlen
+            binlen,binkind=struct.unpack_from('<I4s',raw,off)
+            assert binkind==b'BIN\x00'
+            payload=raw[off+8:off+8+binlen]
+            scalar={5120:np.dtype('<i1'),5121:np.dtype('<u1'),
+                    5122:np.dtype('<i2'),5123:np.dtype('<u2'),
+                    5125:np.dtype('<u4'),5126:np.dtype('<f4')}
+            counts={'SCALAR':1,'VEC2':2,'VEC3':3,'VEC4':4}
+            def read_accessor(idx):
+              acc=doc['accessors'][idx];bv=doc['bufferViews'][acc['bufferView']]
+              dtype=scalar[acc['componentType']];n=counts[acc['type']]
+              offset=bv.get('byteOffset',0)+acc.get('byteOffset',0)
+              stride=bv.get('byteStride',dtype.itemsize*n)
+              view=np.ndarray((acc['count'],n),dtype=dtype,buffer=payload,offset=offset,
+                              strides=(stride,dtype.itemsize))
+              if acc.get('normalized'):
+                if np.issubdtype(dtype,np.signedinteger):
+                  view=np.clip(view.astype('f8')/np.iinfo(dtype).max,-1.,1.)
+                else:view=view.astype('f8')/np.iinfo(dtype).max
+              return np.asarray(view).copy()
+            decoded=[]
+            scene=trimesh.Scene()
+            def walk_node(idx,world):
+              node=doc['nodes'][idx]
+              assert not node.get('rotation') and not node.get('matrix'), 'Source transform not covered; fail closed'
+              local=np.eye(4)
+              local[:3,3]=node.get('translation',[0.,0.,0.])
+              local=local@np.diag(list(node.get('scale',[1.,1.,1.]))+[1.])
+              model=world@local
+              if 'mesh' in node:
+                mesh=doc['meshes'][node['mesh']]
+                for primitive in mesh['primitives']:
+                  verts=read_accessor(primitive['attributes']['POSITION'])
+                  inds=read_accessor(primitive['indices']).astype('i8').flatten()
+                  assert verts.shape[1]==3 and len(inds)%3==0
+                  transformed=(model@np.c_[verts,np.ones(len(verts))].T).T[:,:3]
+                  item=trimesh.Trimesh(vertices=transformed,faces=inds.reshape(-1,3),process=False)
+                  scene.add_geometry(item,geom_name=node.get('name','source')+'_'+str(len(decoded)))
+                  decoded.append(item)
+              for child in node.get('children',[]):walk_node(child,model)
+            for node in doc['scenes'][doc.get('scene',0)]['nodes']:walk_node(node,np.eye(4))
+            assert len(decoded)==11,'Source mesh count drift'
+            geom=trimesh.util.concatenate(decoded)
+            assert len(geom.faces)==11592,'Source triangle count drift'
             bounds=geom.bounds
+            measured=bounds[1]-bounds[0]
+            assert np.allclose(measured,[1.7,1.42,.792],atol=.04),('Invalid source scale',measured)
+            receipt['sourceQuantizationDecodedIndependently']=True
             receipt.update(triangleCountLoaded=int(len(geom.faces)),
               loadedAABB=bounds.tolist(),loadedDimensions=(bounds[1]-bounds[0]).tolist(),
               sceneMeshCount=len(scene.geometry))
