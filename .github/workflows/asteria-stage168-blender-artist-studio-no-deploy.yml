@@ -1,0 +1,187 @@
+name: "Asteria Stage168 original-source Blender artist studio (NO DEPLOY)"
+on:
+  push:
+    branches:
+      - experiment/asteria-stage28-integrated-command-ceiling-sprint
+    paths:
+      - .github/workflows/asteria-stage168-blender-artist-studio-no-deploy.yml
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: asteria-stage168-source-blender-studio
+  cancel-in-progress: false
+
+jobs:
+  authentic-studio-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Fetch exact preapproved 30-file original producer, never regenerate or substitute source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p _stage168/proven_source
+          gh run download 42749695563 --repo "$GITHUB_REPOSITORY" -n asteria-fast-art-base --dir _stage168/proven_source
+          find _stage168/proven_source -type f -printf '%P\n' | sort > _stage168/proven_source_files.txt
+          test "$(wc -l < _stage168/proven_source_files.txt)" -eq 30
+          mapfile -t matches < <(find _stage168/proven_source -type f -name 'asteria-command-set-candidate.glb')
+          test "${#matches[@]}" -eq 1
+          echo "ASTERIA_COMMAND_PATH=${matches[0]}" >> "$GITHUB_ENV"
+          printf '%s  %s\n' '9b988aaec53afa557011e5cba1addc19b1de6bf8f5d8bb6a7edc560ae8452f1c' "${matches[0]}" | sha256sum --check --
+      - name: Install Blender inside disposable isolated runner (no deployment credentials)
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y blender
+          blender --version
+      - name: Write native editable studio builder from audited source boundaries
+        shell: bash
+        run: |
+          mkdir -p _stage168/output
+          cat > _stage168/build_source_studio.py <<'PY'
+          import bpy, hashlib, json, math, os
+          from mathutils import Vector
+          from pathlib import Path
+          source=Path(os.environ['ASTERIA_COMMAND_PATH'])
+          expected='9b988aaec53afa557011e5cba1addc19b1de6bf8f5d8bb6a7edc560ae8452f1c'
+          actual=hashlib.sha256(source.read_bytes()).hexdigest()
+          assert actual==expected,(actual,expected)
+          bpy.ops.object.select_all(action='SELECT')
+          bpy.ops.object.delete(use_global=False)
+          bpy.ops.import_scene.gltf(filepath=str(source.resolve()),import_pack_images=True)
+          ms=[o for o in bpy.context.scene.objects if o.type=='MESH']
+          port=[o for o in ms if 'moulded eight-corner closed cast pedestal' in o.name and '/ -1 /' in o.name]
+          assert len(port)==1,[(o.name,len(o.data.polygons)) for o in port]
+          target=port[0]
+          assert len(target.data.polygons)==76,(target.name,len(target.data.polygons))
+          assert sum(len(o.data.polygons) for o in ms)==16292,('unexpected original triangles',sum(len(o.data.polygons) for o in ms))
+          def col(name):
+              c=bpy.data.collections.new(name)
+              bpy.context.scene.collection.children.link(c)
+              return c
+          locked=col('01_LOCKED_ORIGINAL_89_MESHES')
+          approved=col('02_EDITABLE_PORT_ONLY_UNAPPROVED_STUDY')
+          orig=col('03_ORIGINAL_PORT_76F_HIDDEN_REFERENCE')
+          cameras=col('04_FIXED_REFERENCE_CAMERAS_NOT_GAME')
+          lights=col('05_STUDIO_ONLY_LIGHTS')
+          def move(obj,dst):
+              for c in tuple(obj.users_collection):c.objects.unlink(obj)
+              dst.objects.link(obj)
+          for o in ms:
+              o['ASTERIA_SOURCE_SHA256']=expected
+              o['ASTERIA_REFERENCE_DO_NOT_EDIT']=True
+              if o==target:
+                  move(o,orig)
+                  o.hide_render=True
+                  o.hide_select=True
+              else:
+                  move(o,locked)
+                  o.hide_select=True
+          dup=target.copy()
+          dup.data=target.data.copy()
+          approved.objects.link(dup)
+          dup.name='EDITABLE_STUDY_ONLY_ORIGINAL_76_FACE_SEED'
+          dup.hide_render=False
+          dup.hide_select=False
+          dup['ASTERIA_NO_ART_APPROVAL']=True
+          dup['ASTERIA_ONLY_THIS_MESH_MAY_CHANGE']=True
+          def g2b(v):
+              x,y,z=v
+              return Vector((x,-z,y))
+          def camera(name,gpos,gdirection):
+              data=bpy.data.cameras.new(name)
+              ob=bpy.data.objects.new(name,data)
+              cameras.objects.link(ob)
+              ob.location=g2b(gpos)
+              ob.rotation_euler=g2b(gdirection).to_track_quat('-Z','Y').to_euler()
+              data.type='PERSP';data.sensor_fit='VERTICAL'
+              data.sensor_height=24
+              data.lens=24/(2*math.tan(math.radians(65)/2))
+              ob.hide_select=True
+              ob['CANNOT_MOVE_APPROVED_GAME_CAMERA']=True
+              return ob
+          pos=(-2.32,1.67,2.15)
+          yaw,pitch=.22,-.14
+          aim=(math.sin(yaw)*math.cos(pitch),math.sin(pitch),-math.cos(yaw)*math.cos(pitch))
+          cmd=camera('ORIGINAL_COMMAND_POSE_DO_NOT_MOVE',pos,aim)
+          eye=(-3.80,1.45,.45);look=(-1.27,.74,.58)
+          side=camera('SCULPT_INSPECTION_SIDE_ONLY',eye,tuple(b-a for a,b in zip(eye,look)))
+          def area(name,position,target,energy,size):
+              d=bpy.data.lights.new(name,'AREA')
+              d.energy=energy;d.shape='DISK';d.size=size
+              obj=bpy.data.objects.new(name,d);lights.objects.link(obj)
+              obj.location=g2b(position)
+              obj.rotation_euler=(g2b(target)-obj.location).to_track_quat('-Z','Y').to_euler()
+          ctr=(-1.27,.70,.58)
+          area('KEY_SOURCE_REFERENCE_ONLY',(-2.1,3.4,3.25),ctr,480,3.5)
+          area('FILL_SOURCE_REFERENCE_ONLY',(.75,2.1,2.05),ctr,260,2.8)
+          area('RIM_SOURCE_REFERENCE_ONLY',(-1,2.1,-1.5),ctr,380,2.1)
+          s=bpy.context.scene
+          s.render.engine='CYCLES'
+          s.cycles.samples=12
+          s.cycles.device='CPU'
+          s.render.image_settings.file_format='PNG'
+          s.render.film_transparent=False
+          s.world.color=(.07,.07,.07)
+          s['ASTERIA_ART_VERDICT']='HOLD — native studio bootstrap only, NO NEW ART'
+          s['ASTERIA_FULL_BROWSER_EQUIVALENCE']=False
+          s['ASTERIA_RELEASE_AUTHORIZED']=False
+          s.camera=cmd
+          Path('_stage168/output').mkdir(exist_ok=True,parents=True)
+          bpy.ops.wm.save_as_mainfile(filepath=str(Path('_stage168/output/ASTERIA_STAGE168_ORIGINAL_SOURCE_STUDIO_UNAPPROVED.blend').resolve()))
+          for name,cam,w,h in [('ORIGINAL_SOURCE_DESKTOP_NOT_BROWSER',cmd,1280,800),('ORIGINAL_SOURCE_MOBILE_NOT_BROWSER',cmd,390,844),('SOURCE_SIDE_INSPECTION_NOT_BROWSER',side,1200,900)]:
+              s.camera=cam
+              s.render.resolution_x=w
+              s.render.resolution_y=h
+              s.render.resolution_percentage=100
+              s.render.filepath=str(Path('_stage168/output')/(name+'.png'))
+              bpy.ops.render.render(write_still=True)
+          report={'art_verdict':'HOLD — no new sculpt','source_sha256':actual,
+             'source_mesh_objects':len(ms),'source_face_total':sum(len(o.data.polygons) for o in ms),
+             'locked_original_meshes':len(ms)-1,'editable_port_original_faces':76,
+             'source_modified':False,'deployment':False,
+             'native_blend_present':True,
+             'preview':'Blender isolated original command only; NOT real browser or full-bridge camera A/B'}
+          Path('_stage168/output/source-studio-report.json').write_text(json.dumps(report,indent=2))
+          print('SOURCE_STUDIO_VERIFIED',json.dumps(report))
+          PY
+      - name: Create and render verifiable native Blender source studio, no candidate/release
+        shell: bash
+        run: |
+          set -euo pipefail
+          blender -b -t 2 --factory-startup --python-exit-code 1 --python _stage168/build_source_studio.py
+          test -s _stage168/output/ASTERIA_STAGE168_ORIGINAL_SOURCE_STUDIO_UNAPPROVED.blend
+          python - <<'PY'
+          import json, pathlib,struct
+          p=pathlib.Path('_stage168/output')
+          r=json.loads((p/'source-studio-report.json').read_text())
+          assert r['source_sha256']=='9b988aaec53afa557011e5cba1addc19b1de6bf8f5d8bb6a7edc560ae8452f1c'
+          assert r['editable_port_original_faces']==76 and r['source_face_total']==16292
+          assert r['source_modified'] is False and r['deployment'] is False
+          for name in ['ORIGINAL_SOURCE_DESKTOP_NOT_BROWSER','ORIGINAL_SOURCE_MOBILE_NOT_BROWSER','SOURCE_SIDE_INSPECTION_NOT_BROWSER']:
+              png=(p/(name+'.png')).read_bytes()
+              assert png[:8]==b'\x89PNG\r\n\x1a\n'
+          print('Authenticated Blender source reference studio generated; no artistic claim')
+          PY
+      - name: Preserve isolated Blender evidence, even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage168-original-command-source-blender-studio-NO-ART-PASS
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            _stage168/output/*.blend
+            _stage168/output/*.png
+            _stage168/output/*.json
+            _stage168/proven_source_files.txt
+            _stage168/build_source_studio.py
