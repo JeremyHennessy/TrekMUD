@@ -130,6 +130,7 @@ jobs:
           s.render.engine='CYCLES'
           s.cycles.samples=12
           s.cycles.device='CPU'
+          s.view_layers[0].cycles.use_denoising=False  # Ubuntu Blender 4.0.2 has no OpenImageDenoiser
           s.render.image_settings.file_format='PNG'
           s.render.film_transparent=False
           s.world.color=(.07,.07,.07)
