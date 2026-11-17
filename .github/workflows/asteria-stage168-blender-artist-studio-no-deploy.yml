@@ -31,7 +31,7 @@ jobs:
           mkdir -p _stage168/proven_source
           gh run download 42749695563 --repo "$GITHUB_REPOSITORY" -n asteria-fast-art-base --dir _stage168/proven_source
           find _stage168/proven_source -type f -printf '%P\n' | sort > _stage168/proven_source_files.txt
-          test "$(wc -l < _stage168/proven_source_files.txt)" -eq 30
+          test "$(wc -l < _stage168/proven_source_files.txt)" -eq 31  # 30 protected producer files + snapshot.json
           mapfile -t matches < <(find _stage168/proven_source -type f -name 'asteria-command-set-candidate.glb')
           test "${#matches[@]}" -eq 1
           echo "ASTERIA_COMMAND_PATH=${matches[0]}" >> "$GITHUB_ENV"
