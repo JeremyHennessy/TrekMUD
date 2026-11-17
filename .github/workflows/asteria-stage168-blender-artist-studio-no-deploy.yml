@@ -174,29 +174,6 @@ jobs:
               assert png[:8]==b'\x89PNG\r\n\x1a\n'
           print('Authenticated Blender source reference studio generated; no artistic claim')
           PY
-      - name: Stage171 native editable sculpt of ONLY original 76-face port duplicate
-        shell: bash
-        run: |
-          set -euo pipefail
-          blender -b -t 2 _stage168/output/ASTERIA_STAGE168_ORIGINAL_SOURCE_STUDIO_UNAPPROVED.blend --python-exit-code 1 --python research/asteria-stage171/stage171_native_crescent_sculpt.py
-          python - <<'PY'
-          import json, pathlib, hashlib
-          o=pathlib.Path('_stage168/output')
-          r=json.loads((o/'stage171-source-sculpt-report.json').read_text())
-          assert r['stage']==171 and r['unmodified_original_meshes']==89
-          assert r['nonmanifold_edges']==0 and r['release'] is False
-          assert r['photographic_PBR_qualified'] is False
-          assert r['art_verdict']=='HOLD, NOT ACCEPTED'
-          assert (o/'STAGE171_SCULPT_EDITABLE_UNAPPROVED.blend').stat().st_size > 100000
-          dims={'STAGE171_SCULPT_DESKTOP_BLENDER_NOT_BROWSER':(1280,800),
-                'STAGE171_SCULPT_MOBILE_BLENDER_NOT_BROWSER':(390,844),
-                'STAGE171_SCULPT_SIDE_BLENDER_NOT_BROWSER':(1200,900)}
-          for name,(width,height) in dims.items():
-              raw=(o/(name+'.png')).read_bytes()
-              assert raw[:8]==bytes.fromhex('89504e470d0a1a0a')
-              assert tuple(int.from_bytes(raw[i:i+4],'big') for i in (16,20))==(width,height)
-          print('Stage171 native source-camera sculpt valid for visual rejection review only')
-          PY
       - name: Preserve isolated Blender evidence, even on failure
         if: always()
         uses: actions/upload-artifact@v4
@@ -210,4 +187,3 @@ jobs:
             _stage168/output/*.json
             _stage168/proven_source_files.txt
             _stage168/build_source_studio.py
-            research/asteria-stage171/stage171_native_crescent_sculpt.py
