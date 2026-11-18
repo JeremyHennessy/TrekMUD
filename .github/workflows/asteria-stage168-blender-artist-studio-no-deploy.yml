@@ -5,12 +5,10 @@ on:
       - experiment/asteria-stage28-integrated-command-ceiling-sprint
     paths:
       - .github/workflows/asteria-stage168-blender-artist-studio-no-deploy.yml
-      - research/asteria-stage172/**
 
 permissions:
   contents: read
   actions: read
-  issues: write  # isolate metadata receipt to draft PR #84; never content or Pages write
 
 concurrency:
   group: asteria-stage168-source-blender-studio
@@ -176,28 +174,6 @@ jobs:
               assert png[:8]==b'\x89PNG\r\n\x1a\n'
           print('Authenticated Blender source reference studio generated; no artistic claim')
           PY
-      - name: Stage172 actual source-fitted port-helm sculpt and original-camera study ONLY
-        shell: bash
-        run: |
-          set -euo pipefail
-          blender -b -t 2 _stage168/output/ASTERIA_STAGE168_ORIGINAL_SOURCE_STUDIO_UNAPPROVED.blend --python-exit-code 1 --python research/asteria-stage172/stage172_native_monocoque.py
-          python - <<'PY'
-          import json, pathlib
-          p=pathlib.Path('_stage168/output')
-          r=json.loads((p/'stage172-report.json').read_text())
-          assert r['stage']==172 and r['locked_original_meshes_identical']==89
-          assert r['nonmanifold_edges']==0 and r['release'] is False
-          assert r['photographic_pbr_qualified'] is False and not r['full_browser_ab']
-          assert (p/'STAGE172_MONOCOQUE_NATIVE_EDITABLE_UNAPPROVED.blend').stat().st_size>100000
-          for n,(w,h) in {
-            'STAGE172_DESKTOP_BLENDER_NOT_BROWSER':(1280,800),
-            'STAGE172_MOBILE_BLENDER_NOT_BROWSER':(390,844),
-            'STAGE172_SIDE_BLENDER_NOT_BROWSER':(1200,900)}.items():
-            q=(p/(n+'.png')).read_bytes()
-            assert q[:8]==bytes.fromhex('89504e470d0a1a0a')
-            assert tuple(int.from_bytes(q[i:i+4],'big') for i in (16,20))==(w,h)
-          print('Stage172 source-camera only: hold pending artwork judgement, no browser, no release')
-          PY
       - name: Preserve isolated Blender evidence, even on failure
         if: always()
         uses: actions/upload-artifact@v4
@@ -211,19 +187,3 @@ jobs:
             _stage168/output/*.json
             _stage168/proven_source_files.txt
             _stage168/build_source_studio.py
-            research/asteria-stage172/stage172_native_monocoque.py
-      - name: Record authentic push-run ID and uploaded artifact on draft PR #84 (CI receipt, no deploy)
-        if: always()
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-          ASTERIA_RUN_ID: ${{ github.run_id }}
-          ASTERIA_HEAD_SHA: ${{ github.sha }}
-          ASTERIA_JOB_STATUS: ${{ job.status }}
-        run: |
-          set -euo pipefail
-          test "$GITHUB_REPOSITORY" = "JeremyHennessy/TrekMUD"
-          test "$GITHUB_REF" = "refs/heads/experiment/asteria-stage28-integrated-command-ceiling-sprint"
-          artifact="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$ASTERIA_RUN_ID/artifacts" --jq '[.artifacts[]? | select(.name == "stage168-original-command-source-blender-studio-NO-ART-PASS") | {id, name, size_in_bytes, expired}] | .[0] // {}' || printf 'artifact lookup unavailable')"
-          body="$(printf '%s\n' '### Asteria Stage172 isolated Blender run receipt — CI evidence ONLY, not ART PASS' "- Run: https://github.com/$GITHUB_REPOSITORY/actions/runs/$ASTERIA_RUN_ID" "- Head SHA: $ASTERIA_HEAD_SHA" "- Job status before receipt: $ASTERIA_JOB_STATUS" "- Uploaded artifact metadata: $artifact" '- Release: NONE. Desktop/mobile/side artwork review and source preservation gates remain required.')"
-          gh api --method POST "repos/$GITHUB_REPOSITORY/issues/84/comments" --field body="$body" >/dev/null
