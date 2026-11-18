@@ -5,6 +5,7 @@ on:
       - experiment/asteria-stage28-integrated-command-ceiling-sprint
     paths:
       - .github/workflows/asteria-stage168-blender-artist-studio-no-deploy.yml
+      - research/asteria-stage173/**
 
 permissions:
   contents: read
@@ -174,6 +175,22 @@ jobs:
               assert png[:8]==b'\x89PNG\r\n\x1a\n'
           print('Authenticated Blender source reference studio generated; no artistic claim')
           PY
+      - name: Build and render source-preserving Stage173 split-yoke art trial — never deploy
+        shell: bash
+        run: |
+          set -euo pipefail
+          blender -b -t 2 --factory-startup --python-exit-code 1 --python research/asteria-stage173/stage173_split_yoke_workstation.py
+          python - <<'PY'
+          import pathlib,json
+          out=pathlib.Path('_stage168/output')
+          r=json.loads((out/'stage173-report.json').read_text())
+          assert r['locked_original_meshes_identical']==89
+          assert r['connected_shells']==1 and r['nonmanifold_edges']==0
+          assert r['release'] is False and r['photographic_pbr_qualified'] is False
+          for p in ['STAGE173_DESKTOP_NATIVE_NOT_BROWSER','STAGE173_MOBILE_NATIVE_NOT_BROWSER','STAGE173_SIDE_NATIVE_NOT_BROWSER']:
+              assert (out/(p+'.png')).read_bytes()[:8]==b'\x89PNG\r\n\x1a\n'
+          print('STAGE173_AUTHENTIC_NATIVE_ART_IMAGES_RECORDED_FOR_REVIEW')
+          PY
       - name: Preserve isolated Blender evidence, even on failure
         if: always()
         uses: actions/upload-artifact@v4
@@ -187,3 +204,4 @@ jobs:
             _stage168/output/*.json
             _stage168/proven_source_files.txt
             _stage168/build_source_studio.py
+            research/asteria-stage173/stage173_split_yoke_workstation.py
