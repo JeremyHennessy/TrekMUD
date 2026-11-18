@@ -10,6 +10,7 @@ on:
 permissions:
   contents: read
   actions: read
+  issues: write  # isolate metadata receipt to draft PR #84; never content or Pages write
 
 concurrency:
   group: asteria-stage168-source-blender-studio
@@ -211,3 +212,18 @@ jobs:
             _stage168/proven_source_files.txt
             _stage168/build_source_studio.py
             research/asteria-stage172/stage172_native_monocoque.py
+      - name: Record authentic push-run ID and uploaded artifact on draft PR #84 (CI receipt, no deploy)
+        if: always()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ASTERIA_RUN_ID: ${{ github.run_id }}
+          ASTERIA_HEAD_SHA: ${{ github.sha }}
+          ASTERIA_JOB_STATUS: ${{ job.status }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = "JeremyHennessy/TrekMUD"
+          test "$GITHUB_REF" = "refs/heads/experiment/asteria-stage28-integrated-command-ceiling-sprint"
+          artifact="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$ASTERIA_RUN_ID/artifacts" --jq '[.artifacts[]? | select(.name == "stage168-original-command-source-blender-studio-NO-ART-PASS") | {id, name, size_in_bytes, expired}] | .[0] // {}' || printf 'artifact lookup unavailable')"
+          body="$(printf '%s\n' '### Asteria Stage172 isolated Blender run receipt — CI evidence ONLY, not ART PASS' "- Run: https://github.com/$GITHUB_REPOSITORY/actions/runs/$ASTERIA_RUN_ID" "- Head SHA: $ASTERIA_HEAD_SHA" "- Job status before receipt: $ASTERIA_JOB_STATUS" "- Uploaded artifact metadata: $artifact" '- Release: NONE. Desktop/mobile/side artwork review and source preservation gates remain required.')"
+          gh api --method POST "repos/$GITHUB_REPOSITORY/issues/84/comments" --field body="$body" >/dev/null
