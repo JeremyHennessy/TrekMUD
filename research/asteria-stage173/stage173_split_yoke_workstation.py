@@ -191,7 +191,7 @@ uv.name='UV0'
 uv1=SEED.data.uv_layers.new(name='UV1_STUDY_UNBAKED')
 for i in range(len(SEED.data.loops)):uv1.data[i].uv=uv.data[i].uv
 assert all(signature(o)==prior[o.name] for o in LOCKED), 'PROTECTED_ORIGINAL_89_CHANGED'
-ys=[G(SEED.matrix_world@v.co).y for v in SEED.data.vertices]
+ys=[G(SEED.matrix_world@v.co)[1] for v in SEED.data.vertices]
 assert max(ys)<1.081,('SEED EXTENDS INTO PROTECTED CONTROL',max(ys))
 SEED.name='STAGE173_SPLIT_YOKE_FLAGSHIP_ART_HOLD'
 SEED['SOURCE_SHA256']=SOURCE
