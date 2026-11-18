@@ -5,6 +5,7 @@ on:
       - experiment/asteria-stage28-integrated-command-ceiling-sprint
     paths:
       - .github/workflows/asteria-stage168-blender-artist-studio-no-deploy.yml
+      - research/asteria-stage172/**
 
 permissions:
   contents: read
