@@ -1,0 +1,112 @@
+name: "Asteria licensed CAD pedestal source intake - NO DEPLOY"
+on:
+  push:
+    branches:
+      - experiment/asteria-stage28-integrated-command-ceiling-sprint
+    paths:
+      - .github/workflows/asteria-cad-pedestal-intake-no-deploy.yml
+
+permissions:
+  contents: read
+
+jobs:
+  license-and-geometry-intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Install local-only geometry inspection dependencies
+        run: python -m pip install --disable-pip-version-check "trimesh==4.9.0" "matplotlib==3.10.7" "numpy==2.3.4"
+      - name: Fetch exact upstream source and preview geometry without modifying scene
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, io, json, os, pathlib, urllib.parse, urllib.request, zipfile
+          import numpy as np
+          import trimesh
+          import matplotlib
+          matplotlib.use("Agg")
+          import matplotlib.pyplot as plt
+          from matplotlib.collections import PolyCollection
+
+          OUT=pathlib.Path("cad-intake")
+          OUT.mkdir(exist_ok=True)
+          UPSTREAM="wwsimbot2025/WW-SIM-Pedestal-Frame-Files"
+          FILENAME="1. WINCTRL-Pedestal-Frame-3D Model.zip"
+          def get(url, max_bytes=90000000):
+              req=urllib.request.Request(url, headers={"User-Agent":"Asteria-CAD-intake-readonly","Accept":"application/vnd.github+json"})
+              with urllib.request.urlopen(req,timeout=40) as r:
+                  data=r.read(max_bytes+1)
+              if len(data)>max_bytes: raise ValueError("Upstream content exceeds intake cap")
+              return data
+          details=json.loads(get("https://api.github.com/repos/"+UPSTREAM+"/commits/main"))
+          sha=details["sha"]
+          url="https://raw.githubusercontent.com/"+UPSTREAM+"/"+sha+"/"+urllib.parse.quote(FILENAME)
+          archive=get(url)
+          license_raw=get("https://raw.githubusercontent.com/"+UPSTREAM+"/"+sha+"/LICENSE",200000)
+          if not archive.startswith(b"PK"): raise ValueError("Upstream archive is not ZIP")
+          if b"MIT License" not in license_raw and b"MIT LICEN" not in license_raw.upper():
+              raise ValueError("Unexpected upstream license, do not process as MIT")
+          (OUT/"LICENSE-upstream.txt").write_bytes(license_raw)
+          (OUT/"original-cad-source.zip").write_bytes(archive)
+          z=zipfile.ZipFile(io.BytesIO(archive))
+          bad=z.testzip()
+          if bad: raise ValueError("ZIP CRC failure: "+bad)
+          files=[i for i in z.infolist() if not i.is_dir()]
+          if sum(i.file_size for i in files)>250000000: raise ValueError("Uncompressed ZIP exceeds 250 MB")
+          report={"upstream_repository":UPSTREAM,"upstream_sha":sha,"upstream_commit_url":details["html_url"],
+                  "source_zip_sha256":hashlib.sha256(archive).hexdigest(),
+                  "license_sha256":hashlib.sha256(license_raw).hexdigest(),"license_claim":"MIT (checked upstream LICENSE)",
+                  "file_inventory":[{"path":i.filename,"size":i.file_size} for i in files],
+                  "meshes":[],"intake_only":True,"scene_modified":False,"production_deployed":False}
+          print("UPSTREAM:",UPSTREAM,sha,"ZIP",len(archive),"FILES",len(files))
+          mesh_exts={".stl",".obj",".ply",".glb",".gltf",".off",".3mf"}
+          for file in files:
+              ext=pathlib.Path(file.filename).suffix.lower()
+              if ext not in mesh_exts or file.file_size>50000000: continue
+              try:
+                  p=OUT/("source-"+str(len(report["meshes"]))+ext)
+                  p.write_bytes(z.read(file))
+                  o=trimesh.load(str(p),force="mesh",process=False)
+                  if not isinstance(o,trimesh.Trimesh): raise ValueError("No triangle mesh")
+                  dims=o.extents.tolist()
+                  report["meshes"].append({"filename":file.filename,"path":p.name,"sha256":hashlib.sha256(p.read_bytes()).hexdigest(),
+                    "triangles":len(o.faces),"watertight":bool(o.is_watertight),"bounds":o.bounds.tolist(),
+                    "dimensions_m_unverified":dims})
+              except Exception as exc:
+                  report["meshes"].append({"filename":file.filename,"load_error":str(exc)[:300]})
+          valid=[x for x in report["meshes"] if "triangles" in x]
+          if valid:
+              best=max(valid,key=lambda x:x["triangles"])
+              m=trimesh.load(str(OUT/best["path"]),force="mesh",process=False)
+              F=m.faces
+              if len(F)>8000: F=F[np.linspace(0,len(F)-1,8000).astype(int)]
+              V=m.vertices
+              normals=m.face_normals
+              fig,axs=plt.subplots(1,3,figsize=(15,5))
+              for ax, (a,b,d,caption) in zip(axs,[(0,2,1,"Front: X/Z"),(1,2,0,"Side: Y/Z"),(0,1,2,"Top: X/Y")]):
+                  tri=V[F]
+                  order=np.argsort(tri[:,:,d].mean(axis=1))
+                  polys=tri[order][:,:,[a,b]]
+                  face_normals=np.cross(tri[:,1,:]-tri[:,0,:],tri[:,2,:]-tri[:,0,:])
+                  denom=np.linalg.norm(face_normals,axis=1)+1.e-9
+                  lum=.20+.65*np.abs(face_normals[:,d])/denom
+                  greys=np.stack([lum,lum,lum,np.ones(len(lum))],axis=1)
+                  ax.add_collection(PolyCollection(polys,facecolors=greys[order],edgecolors=(.13,.13,.13,.09),linewidths=.12))
+                  ax.set_xlim(V[:,a].min(),V[:,a].max())
+                  ax.set_ylim(V[:,b].min(),V[:,b].max())
+                  ax.set_aspect("equal","box"); ax.set_title(caption);ax.grid(alpha=.15)
+              fig.suptitle("External CAD SOURCE preview only (not Asteria; no fit/art verdict)\n"+best["filename"],fontsize=11)
+              fig.tight_layout()
+              fig.savefig(OUT/"source-orthographic.png",dpi=155)
+              plt.close(fig)
+          report["mesh_preview_produced"]=bool(valid)
+          (OUT/"source-intake-report.json").write_text(json.dumps(report,indent=2)+"\n")
+          print(json.dumps({k:report[k] for k in ["upstream_sha","source_zip_sha256","mesh_preview_produced","meshes"]},indent=2))
+          PY
+      - name: Archive authenticated upstream evidence only
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-external-mit-cad-source-intake-not-scene-art
+          path: cad-intake/
+          retention-days: 30
+          if-no-files-found: error

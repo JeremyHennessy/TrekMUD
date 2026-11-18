@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage23 broad forward-command flank bay coverage versus frozen Stage12 cameras.
+"""Stage28 joined structural ceiling macro versus frozen Stage12 cameras.
 
 Original Stage04 source three-bay control (81,914 source triangles) against same
 exact model with 864 further original wall and roof faces removed, retaining
@@ -96,10 +96,10 @@ try:
         assert obs["threeBayFaces"]==13098 and obs["threeBayMeshes"]==105,obs
         assert obs["sourceExclusions"]==174,obs
         if route==candidate:
-          assert obs["originalFaces"]==81050,obs
+          assert obs["originalFaces"]==80846,obs
           assert obs["envelopeLoaded"]=="true",obs
           assert obs["envelopeFaces"]==expected_envelope_faces,obs
-          assert obs["envelopeMeshes"]==74 and obs["envelopeAOMaterials"]>=2,obs
+          assert obs["envelopeMeshes"]==135 and obs["envelopeAOMaterials"]>=2,obs
           assert obs["envelopeOriginalRemoved"]==864,obs
         else:
           assert obs["originalFaces"]==81914,obs
@@ -198,15 +198,17 @@ report={
  "review":"QA-only actual software-WebGL comparison, not production",
  "sourceV3":"74a154ae62bccb0c16d03c2ecf791a64ab19ce81",
  "commandAndChairUnchanged":True,"threeBayUnchanged":True,"campaignAndUiUnchanged":True,
- "originalSourceFaceSpansRemoved":864,"originalFacesBefore":81914,
- "originalFacesAfter":81050,"newArchitecturalEnvelopeTriangles":expected_envelope_faces,
+ "originalSourceFaceSpansRemoved":1068,"originalEnvelopeFacesRemoved":864,
+ "sourceMeasuredForwardScreenAndPostsRemoved":204,"originalFacesBefore":81914,
+ "originalFacesAfter":80846,"newArchitecturalEnvelopeTriangles":expected_envelope_faces,
  "realScreenshots":items,"matchedDeltas":comparisons,
  "stage12ReferenceCommit":"e5b5a58fbd284fac98e4f1e367a3b9cb0a86811b",
  "stage12ReferenceArtifact":13634679552,
- "onlyGeometryVariable":"six broad manufactured wall/ceiling/plinth bays relocated to forward-command flanks; same Stage20 geometry/material methods",
+ "onlyGeometryVariable":"forward-command original screen and 14 bars replaced by a single source-measured physically joined portal, sidewall and roof landing, in addition to existing Stage28 roof; starfield, player/UI unchanged",
  "stage12VsManufacturedZone20MatchedCameraDeltas":zone_deltas,
  "walkingAndCommandWaypointsPass":True,
  "artApproved":False,"photorealismProven":False,
+  "stage28RoofMeshesExpected":45,"originalStage23BayMeshesPreserved":44,
  "physicalIphoneGpuVerified":False
 }
 (out/"envelope-browser-report.json").write_text(json.dumps(report,indent=2)+"\n")

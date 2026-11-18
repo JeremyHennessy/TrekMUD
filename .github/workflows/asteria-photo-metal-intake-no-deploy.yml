@@ -1,0 +1,69 @@
+name: "Asteria photographed painted-metal PBR source intake - NO DEPLOY"
+on:
+  push:
+    branches:
+      - experiment/asteria-stage28-integrated-command-ceiling-sprint
+    paths:
+      - research/asteria-stage74/photo_metal_intake.py
+      - .github/workflows/asteria-photo-metal-intake-no-deploy.yml
+
+permissions:
+  contents: read
+
+jobs:
+  photo-metal-proof-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install isolated image dependencies
+        run: python -m pip install --disable-pip-version-check "numpy==1.26.4" "Pillow==11.1.0"
+      - name: Validate source script
+        run: python -m py_compile research/asteria-stage74/photo_metal_intake.py
+      - name: Acquire verified photographic material *for research only*
+        run: python research/asteria-stage74/photo_metal_intake.py --out _stage74_photo_material
+      - name: Independently verify receipt, maps, physically plausible channels and exclusion
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, hashlib, pathlib
+          import numpy as np
+          from PIL import Image
+          root=pathlib.Path('_stage74_photo_material')
+          j=json.loads((root/'photo_metal_receipt.json').read_text())
+          assert j['status']=='ART_HOLD_NOT_AN_ACCEPTED_MODEL'
+          assert j['sourceAsset']=='painted_metal_shutter' and j['license']=='CC0'
+          assert len(j['sourceMaps'])==3 and len(j['derivedMaterials'])==3
+          for tag,ref in j['sourceMaps'].items():
+              content=(root/ref['originalFilename']).read_bytes()
+              assert hashlib.md5(content).hexdigest()==ref['sourceMd5']
+              assert hashlib.sha256(content).hexdigest()==ref['sourceSha256']
+          for label,mat in j['derivedMaterials'].items():
+              for k in ('base','normal','orm'):
+                  entry=mat[k]
+                  content=(root/entry['name']).read_bytes()
+                  assert hashlib.sha256(content).hexdigest()==entry['sha256']
+                  img=np.asarray(Image.open(root/entry['name']).convert('RGB'))
+                  assert img.shape==(1024,1024,3)
+                  if k=='normal':
+                      assert img[:,:,2].min()>225, 'Derived tangent normals unexpectedly strong'
+                  if k=='orm':
+                      assert img[:,:,0].min()==255, 'AO cannot be invented from a source scan'
+                      expected=int(round(255*mat['design']['metallic']))
+                      assert abs(float(np.median(img[:,:,2]))-expected)<=1
+          assert j['microdetailStats']['lumaHighpassAbsMean']>0
+          assert j['microdetailStats']['roughHighpassStd']>=0
+          print('STAGE74_SRC_AND_PBR_DATA_PASS; ART_HOLD; NO_SCENE_MODIFICATIONS')
+          PY
+      - name: Upload authenticated CC0 material study only
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-stage74-photographed-painted-metal-source-not-approved-art
+          path: _stage74_photo_material/
+          if-no-files-found: error
+          retention-days: 30

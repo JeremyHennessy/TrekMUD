@@ -1,0 +1,88 @@
+name: Asteria read-only source-exact under-console provenance
+on:
+  push:
+    branches: [experiment/asteria-stage28-integrated-command-ceiling-sprint]
+    paths:
+      - scripts/asteria_source_underconsole_audit.py
+      - .github/workflows/validate-asteria-underconsole-source.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: asteria-underconsole-source-read-only
+  cancel-in-progress: false
+jobs:
+  exact-source-provenance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate immutable source and script parsing before Chromium
+        run: |
+          set -euo pipefail
+          python scripts/validate_asteria.py
+          python -m py_compile scripts/asteria_source_underconsole_audit.py
+          test "$(git hash-object ui/3d-preview-v3/index.html)" = 74a154ae62bccb0c16d03c2ecf791a64ab19ce81
+          test "$(git hash-object ui/3d-preview-v3/set-details.js)" = 3716accf4490bf28da56be0ae21081ab3a3a0f17
+      - name: Run original V3 geometry once in isolated genuine Chromium
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check playwright==1.56.0
+          command -v google-chrome || command -v chromium
+          python scripts/asteria_source_underconsole_audit.py --output _underconsole_proof/exact-v3-spans.json
+      - name: Capture independently measured original V3 arrays for exact reversible local face selection
+        env:
+          ASTERIA_V5_SOURCE_DIR: _underconsole_proof/original-v3
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check numpy==2.3.5
+          python scripts/extract_asteria_v3_for_v5.py
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          import numpy as np
+          root=Path('_underconsole_proof')
+          proof=json.loads((root/'exact-v3-spans.json').read_text())
+          src=root/'original-v3'
+          pos=np.load(src/'positions.npy',allow_pickle=False).reshape(-1,3,3)
+          mat=np.load(src/'materials.npy',allow_pickle=False).reshape(-1,3)
+          assert len(pos)==len(mat)==106988
+          assert np.isfinite(pos).all() and np.isfinite(mat).all()
+          assert np.all(mat==mat[:,0:1]), 'Original face material disagreement'
+          ranges=proof['ranges']
+          assert len(ranges)==8
+          deletable=[r for r in ranges if r['candidateRemovalOnly']]
+          protected=[r for r in ranges if not r['candidateRemovalOnly']]
+          assert sum(r['faces'] for r in deletable)==96
+          assert sum(r['faces'] for r in protected)==216
+          ids=np.concatenate([np.arange(r['start'],r['end']) for r in deletable])
+          assert len(ids)==96 and len(np.unique(ids))==96
+          assert np.all(mat[ids]==3), 'Proposed exclusion is not exclusively original cast material'
+          for entry in protected:
+              protected_ids=np.arange(entry['start'],entry['end'])
+              assert not np.isin(protected_ids,ids).any()
+          hashlist={p.name:hashlib.sha256(p.read_bytes()).hexdigest()
+                    for p in sorted(src.iterdir()) if p.is_file()}
+          report={'sourceV3Blob':proof['sourceIndexGitBlob'],
+                  'setDetailsBlob':proof['setDetailsGitBlob'],
+                  'originalFaces':len(pos),'candidateFaces':len(ids),
+                  'originalCaptureSHA256':hashlist,'materialOfCandidate':3,
+                  'protectedFaces':216,'sourceFilesModified':False,
+                  'candidateApplied':False,'artApproved':False,
+                  'productionChanged':False}
+          (root/'original-array-custody.json').write_text(json.dumps(report,indent=2)+chr(10))
+          print('EXACT_ORIGINAL_SOURCE_ARRAYS_CAPTURED',json.dumps(report),flush=True)
+          PY
+      - name: Preserve face-span proof even if a subsequent gate fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: asteria-exact-underconsole-face-provenance
+          path: _underconsole_proof/
+          if-no-files-found: ignore
+          retention-days: 30
