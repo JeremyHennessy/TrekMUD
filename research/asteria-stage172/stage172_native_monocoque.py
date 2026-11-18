@@ -62,9 +62,8 @@ def difference(o):
  bpy.context.view_layer.objects.active=seed
  bpy.ops.object.modifier_apply(modifier=mod.name)
  bpy.data.objects.remove(o,do_unlink=True)
-# True non-through cavities above the protected service-door envelope.
-difference(cutter('CAMERA_LEFT_OPEN_RECESS',(-1.735,.895,.625),(.195,.145,.285)))
-difference(cutter('CAMERA_FRONT_OPEN_RECESS',(-1.265,.883,1.055),(.305,.125,.180)))
+# Negative-space cuts are deferred until AFTER the welded structural unions.
+# Otherwise the cheeks physically refill the cavities and erase their visual depth.
 # Wide, solid, tapered, welded load cheeks; no unsupported rods, trim bands,
 # exposed equipment or office-style legs. Coordinates are measured in metres.
 def loft(name,rows,mode,idx):
@@ -106,6 +105,9 @@ for o in (side,front,cradle):
  bpy.context.view_layer.objects.active=seed
  bpy.ops.object.modifier_apply(modifier=mod.name)
  bpy.data.objects.remove(o,do_unlink=True)
+# Non-through camera-facing relief now cuts the complete welded casting.
+difference(cutter('CAMERA_LEFT_OPEN_RECESS',(-1.735,.895,.625),(.195,.145,.285)))
+difference(cutter('CAMERA_FRONT_OPEN_RECESS',(-1.265,.883,1.055),(.305,.125,.180)))
 bpy.ops.object.select_all(action='DESELECT')
 seed.hide_select=False;seed.select_set(True);bpy.context.view_layer.objects.active=seed
 bevel=seed.modifiers.new('CAST_EDGE_RADIUS_6MM','BEVEL')
