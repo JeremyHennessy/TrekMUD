@@ -5,6 +5,7 @@ on:
       - experiment/asteria-stage28-integrated-command-ceiling-sprint
     paths:
       - .github/workflows/asteria-stage168-blender-artist-studio-no-deploy.yml
+      - research/asteria-stage174/**
 
 permissions:
   contents: read
@@ -41,7 +42,7 @@ jobs:
         run: |
           set -euo pipefail
           sudo apt-get update -qq
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y blender python3-numpy
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends blender python3-numpy
           blender --version
           blender -b --factory-startup --python-exit-code 1 --python-expr 'import numpy; print("BLENDER_NUMPY_READY",numpy.__version__)'
       - name: Write native editable studio builder from audited source boundaries
@@ -174,6 +175,25 @@ jobs:
               assert png[:8]==b'\x89PNG\r\n\x1a\n'
           print('Authenticated Blender source reference studio generated; no artistic claim')
           PY
+      - name: Model and actually render bespoke Stage174 source-only pressure-saddle candidate - NO DEPLOY
+        shell: bash
+        run: |
+          set -euo pipefail
+          blender -b -t 2 --factory-startup --python-exit-code 1 --python research/asteria-stage174/stage174_carved_pressure_saddle.py
+          python - <<'PY'
+          import json,pathlib
+          out=pathlib.Path('_stage168/output')
+          r=json.loads((out/'stage174-report.json').read_text())
+          assert r['locked_original_meshes_identical']==89
+          assert r['connected_shells']==1 and r['nonmanifold_edges']==0
+          assert r['release'] is False and r['photographic_pbr_qualified'] is False
+          for name in ('STAGE174_DESKTOP_NATIVE_NOT_BROWSER',
+                       'STAGE174_MOBILE_NATIVE_NOT_BROWSER',
+                       'STAGE174_SIDE_NATIVE_NOT_BROWSER'):
+              assert (out/(name+'.png')).read_bytes()[:8]==b'\x89PNG\r\n\x1a\n'
+          assert (out/'STAGE174_EDITABLE_PRESSURE_SADDLE_UNAPPROVED.blend').stat().st_size>1_000_000
+          print('STAGE174_SOURCE_ONLY_RENDER_RECEIPT: technical preflight only; NO ART PASS')
+          PY
       - name: Preserve isolated Blender evidence, even on failure
         if: always()
         uses: actions/upload-artifact@v4
@@ -187,3 +207,4 @@ jobs:
             _stage168/output/*.json
             _stage168/proven_source_files.txt
             _stage168/build_source_studio.py
+            research/asteria-stage174/stage174_carved_pressure_saddle.py
